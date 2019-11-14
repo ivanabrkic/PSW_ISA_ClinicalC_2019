@@ -12,7 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
-import {SidebarComponent} from './modules/shared/sidebar/sidebar.component';
+import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.component';
 
 @NgModule({
   declarations: [
