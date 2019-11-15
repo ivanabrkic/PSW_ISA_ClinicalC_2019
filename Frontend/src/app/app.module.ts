@@ -25,6 +25,9 @@ import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.compon
 import {LekarComponent} from './modules/objects/lekar/lekar.component';
 import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';
 import {AdministratorKlinikePregledComponent} from './modules/objects/administratorklinike/administratorKlinikePregled.component';
+import {PacijentComponent} from './modules/objects/pacijent/pacijent.component';
+import {SidebarPacijentComponent} from './modules/objects/pacijent/sidebar.component';
+import {PacijentPregledComponent} from "./modules/objects/pacijent/PacijentPregled.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import {AdministratorKlinikePregledComponent} from './modules/objects/administra
     SidebarLekarComponent,
     LekarPregledComponent,
     AdministratorKlinikePregledComponent,
-    SidebarComponent
+    SidebarComponent,
+    PacijentComponent,
+    SidebarPacijentComponent,
+    PacijentPregledComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -64,6 +70,8 @@ import {AdministratorKlinikePregledComponent} from './modules/objects/administra
       { path: 'lekar', component: LekarComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
       { path: 'administratorPregled', component: AdministratorKlinikePregledComponent},
+      {path: 'pacijentPregled', component: PacijentPregledComponent},
+      {path: 'pacijent', component: PacijentComponent},
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'welcome', component: HomeComponent},
