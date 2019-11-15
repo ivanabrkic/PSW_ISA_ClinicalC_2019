@@ -1,0 +1,3 @@
+insert into lekar (id, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, br_slobodnih_dana) values (1, 'ivanabrkic192@gmail.com', 'Ivana', '0652754579', 'ika', '123', 'Brkic', 65);
+insert into lekar (id, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, br_slobodnih_dana) values (2, 'ivanabrkic192@gmail.com', 'Vladimir', '0652754579', 'vlada', '1234', 'Popovic', 23);
+insert into lekar (id, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, br_slobodnih_dana) values (3, 'ivanabrkic192@gmail.com', 'Tamara', '0652754579', 'tesla', '1235', 'Lazarevic', 11);
