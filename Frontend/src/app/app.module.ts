@@ -13,6 +13,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.component';
+import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.component';
+import {LekarComponent} from './modules/objects/lekar/lekar.component';
+import {LekarPregledComponent} from "./modules/objects/lekar/lekarPregled.component";
+import {AdministratorKlinikePregledComponent} from "./modules/objects/administratorklinike/administratorKlinikePregled.component";
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.c
     HomeComponent,
     NotFoundComponent,
     AdministratorKlinikeComponent,
-    SidebarComponent
+    SidebarComponent,
+    LekarComponent,
+    SidebarLekarComponent,
+    LekarPregledComponent,
+    AdministratorKlinikePregledComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +41,9 @@ import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.c
     MatSortModule,
     AngularFontAwesomeModule,
     RouterModule.forRoot([{ path: 'administratorklinike', component: AdministratorKlinikeComponent},
+      { path: 'lekar', component: LekarComponent},
+      { path: 'lekarPregled', component: LekarPregledComponent},
+      { path: 'administratorPregled', component: AdministratorKlinikePregledComponent},
       { path: 'welcome', component: HomeComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: '**', component: NotFoundComponent}])
