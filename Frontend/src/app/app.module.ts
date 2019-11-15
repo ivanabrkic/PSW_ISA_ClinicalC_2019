@@ -9,10 +9,14 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.component';
+import { RegistracijaKlinikeComponent } from './modules/general/register/registracija-klinike/registracija-klinike.component';
+import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
+import { AdminkcComponent } from './modules/objects/adminkc/adminkc.component';
+import { RegistracijaAdministratoraKlinikeComponent } from './modules/general/register/registracija-administratora-klinike/registracija-administratora-klinike.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.c
     HomeComponent,
     NotFoundComponent,
     AdministratorKlinikeComponent,
-    SidebarComponent
+    SidebarComponent,
+    RegistracijaKlinikeComponent,
+    SidebarAdminkcComponent,
+    AdminkcComponent,
+    RegistracijaAdministratoraKlinikeComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +41,9 @@ import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.c
     MatSortModule,
     AngularFontAwesomeModule,
     RouterModule.forRoot([{ path: 'administratorklinike', component: AdministratorKlinikeComponent},
+      { path: 'administratorKc', component: AdminkcComponent},
+      { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
+      { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
       { path: 'welcome', component: HomeComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: '**', component: NotFoundComponent}])
