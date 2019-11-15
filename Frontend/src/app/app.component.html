@@ -11,27 +11,24 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/">
-            <i class="fas fa-home mr-1"></i> Home
+          <a class="nav-link" [routerLink]="['/welcome']">
+            <i class="fas fa-home mr-1"></i> Početna stranica
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" routerLink="/about">
-            <i class="far fa-question-circle mr-1"></i> About
-          </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/contact">
-            <i class="fas fa-envelope mr-1"></i> Contact
+          <a class="nav-link" [routerLink]="['/administratorklinike']">
+            <i class="fas fa-user-graduate mr-1"></i> Admin Klinike
           </a>
         </li>
       </ul>
     </div>
   </nav>
 </header>
-
-<main>
-  <div class="container-fluid">
+<div>
     <router-outlet></router-outlet>
+<<<<<<< HEAD
   </div>
 </main>
+=======
+</div>
+>>>>>>> 990d238f00c1b135dcb6ae3a06146fac630e9934
