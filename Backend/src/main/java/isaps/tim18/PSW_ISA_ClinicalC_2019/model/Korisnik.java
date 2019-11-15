@@ -19,13 +19,13 @@ public abstract class Korisnik {
     @Column(name="email", unique = true)
     private String email;
 
-    @Column(name="kontaktTelefon", unique=true)
+    @Column(name="kontaktTelefon")
     private String kontaktTelefon;
 
     @Column(name="ime", nullable = false)
     private String ime;
 
-    @Column(name="ime", nullable = false)
+    @Column(name="prezime", nullable = false)
     private String prezime;
 
     public Korisnik() {
