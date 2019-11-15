@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
 
-
-.row {
-  margin-left: 3px;
-}
 
 .polja {
   margin-left: 3px;
@@ -15,17 +10,12 @@
   width: 48%;
 }
 
-.buttons{
-  margin-left: auto;
-  margin-right: auto;
+.buttons-div{
+  margin-left: 1px;
 }
 
 .btn-danger{
-  margin-right: 2px;
-}
-
-div {
-  font-family: 'Roboto';
+  margin-right: 8px;
 }
 
 .content-container {

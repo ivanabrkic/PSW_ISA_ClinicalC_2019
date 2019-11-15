@@ -25,9 +25,17 @@ import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.compon
 import {LekarComponent} from './modules/objects/lekar/lekar.component';
 import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';
 import {AdministratorKlinikePregledComponent} from './modules/objects/administratorklinike/administratorKlinikePregled.component';
+<<<<<<< HEAD
 import {PacijentComponent} from './modules/objects/pacijent/pacijent.component';
 import {SidebarPacijentComponent} from './modules/objects/pacijent/sidebar.component';
 import {PacijentPregledComponent} from "./modules/objects/pacijent/PacijentPregled.component";
+=======
+import { ProfilMedSestraComponent } from './modules/objects/medicinskas/profil-med-sestra.component';
+import { PrikazPacijenataTabelaComponent } from './modules/shared/prikaz-pacijenata-tabela/prikaz-pacijenata-tabela.component';
+import { SidebarMedSestraComponent } from './modules/objects/medicinskas/sidebar-med-sestra.component';
+import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.component';
+import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
+>>>>>>> d11cab09193c7184479fff7bd7a7265057c458b7
 
 @NgModule({
   declarations: [
@@ -49,7 +57,13 @@ import {PacijentPregledComponent} from "./modules/objects/pacijent/PacijentPregl
     SidebarComponent,
     PacijentComponent,
     SidebarPacijentComponent,
-    PacijentPregledComponent
+    PacijentPregledComponent,
+    ProfilMedSestraComponent,
+    PrikazPacijenataTabelaComponent,
+    SidebarMedSestraComponent,
+    OdmorComponent,
+    OdsustvoComponent,
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -67,7 +81,12 @@ import {PacijentPregledComponent} from "./modules/objects/pacijent/PacijentPregl
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
       { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
+      { path: 'medicinskaSestra', component: ProfilMedSestraComponent},
+      { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
       { path: 'lekar', component: LekarComponent},
+      { path: 'odmor', component: OdmorComponent},
+      { path: 'odsustvo', component: OdsustvoComponent},
+      { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
       { path: 'administratorPregled', component: AdministratorKlinikePregledComponent},
       {path: 'pacijentPregled', component: PacijentPregledComponent},

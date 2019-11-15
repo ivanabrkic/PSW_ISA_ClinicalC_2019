@@ -1,4 +1,4 @@
-<app-sidebar-adminkc></app-sidebar-adminkc>
+<app-sidebar-med-sestra></app-sidebar-med-sestra>
 <div class="main-content" style = "margin-left: 220px;margin-right: 320px">
   <div class="container-fluid">
     <div class="row">
@@ -10,14 +10,11 @@
           <div class="card-body">
             <form>
               <div class="row">
-                <input class = "polja" placeholder="Naziv klinike">
-              </div>
-              <div class = "row">
-                <input class = "polja" placeholder="Adresa klinike">
+                <input class = "polja" placeholder="Datum odsustva">
               </div>
               <div class="row">
                 <div class="buttons">
-                  <button mat-raised-button [routerLink]="['/administratorKc']" style = "margin-top: 10px;margin-right: 10px" class="btn btn-danger pull-right">Registruj</button>
+                  <button mat-raised-button [routerLink]="['/medicinskaSestra']" style = "margin-top: 10px;margin-right: 10px" class="btn btn-danger pull-right">Pošalji</button>
                 </div>
               </div>
               <div class="clearfix"></div>
