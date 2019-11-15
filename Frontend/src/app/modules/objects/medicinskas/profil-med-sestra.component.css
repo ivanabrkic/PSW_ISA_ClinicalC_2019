@@ -1,0 +1,23 @@
+
+
+.polja {
+  margin-left: 3px;
+  margin-top: 5px;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  width: 48%;
+}
+
+.buttons-div{
+  margin-left: 1px;
+}
+
+.btn-danger{
+  margin-right: 8px;
+}
+
+.content-container {
+  padding-left: 220px;
+}
