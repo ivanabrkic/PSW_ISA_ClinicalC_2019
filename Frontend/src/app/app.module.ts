@@ -25,6 +25,11 @@ import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.compon
 import {LekarComponent} from './modules/objects/lekar/lekar.component';
 import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';
 import {AdministratorKlinikePregledComponent} from './modules/objects/administratorklinike/administratorKlinikePregled.component';
+import { ProfilMedSestraComponent } from './modules/objects/medicinskas/profil-med-sestra.component';
+import { PrikazPacijenataTabelaComponent } from './modules/shared/prikaz-pacijenata-tabela/prikaz-pacijenata-tabela.component';
+import { SidebarMedSestraComponent } from './modules/objects/medicinskas/sidebar-med-sestra.component';
+import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.component';
+import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +48,12 @@ import {AdministratorKlinikePregledComponent} from './modules/objects/administra
     SidebarLekarComponent,
     LekarPregledComponent,
     AdministratorKlinikePregledComponent,
-    SidebarComponent
+    SidebarComponent,
+    ProfilMedSestraComponent,
+    PrikazPacijenataTabelaComponent,
+    SidebarMedSestraComponent,
+    OdmorComponent,
+    OdsustvoComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -61,7 +71,12 @@ import {AdministratorKlinikePregledComponent} from './modules/objects/administra
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
       { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
+      { path: 'medicinskaSestra', component: ProfilMedSestraComponent},
+      { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
       { path: 'lekar', component: LekarComponent},
+      { path: 'odmor', component: OdmorComponent},
+      { path: 'odsustvo', component: OdsustvoComponent},
+      { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
       { path: 'administratorPregled', component: AdministratorKlinikePregledComponent},
       { path: 'login', component: LoginComponent },
