@@ -1,4 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
-public class AdministratorKlinickogCentraRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdministratorKlinickogCentraRepository extends JpaRepository<Korisnik, Long> {
 }
