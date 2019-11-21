@@ -10,13 +10,22 @@ public abstract class Korisnik {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
 
+    @Column(name="grad",unique=false)
+    private String grad;
+
+    @Column(name="drzava",unique = false)
+    private String drzava;
+
+    @Column(name="adresa",unique = false)
+    private String adresa;
+
     @Column(name="korIme", unique=true, nullable = false)
     private String korIme;
 
     @Column(name="lozinka", nullable = false)
     private String lozinka;
 
-    @Column(name="email")
+    @Column(name="email",unique = true,nullable = false)
     private String email;
 
     @Column(name="kontaktTelefon")
@@ -27,6 +36,9 @@ public abstract class Korisnik {
 
     @Column(name="prezime", nullable = false)
     private String prezime;
+
+    @Column(name="jbo",nullable = false)
+    private String jbo;
 
     public Korisnik() {
     }
