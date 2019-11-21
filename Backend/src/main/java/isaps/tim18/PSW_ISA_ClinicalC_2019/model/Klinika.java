@@ -8,6 +8,7 @@ import java.util.List;
 //@Table(name="klinika")
 public class Klinika {
 
+    String naziv;
     List<AdministratorKlinike> listaAdministratora;
     List<MedicinskoOsoblje> listaOsoblja;
     List<Pacijent> listaPacijenata;
