@@ -13,4 +13,6 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
 
     List<Korisnik> findAllByKorisnickoIme(String kime);
 
+    List<Korisnik> findAllByEmail(String email);
+
 }

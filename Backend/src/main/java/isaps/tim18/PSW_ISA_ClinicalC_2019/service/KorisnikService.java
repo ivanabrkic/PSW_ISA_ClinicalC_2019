@@ -23,7 +23,11 @@ public class KorisnikService {
         return korisnikRepository.findAll(page);
     }
 
-    List<Korisnik> findAllByKorisnickoIme(String kime){
+    public List<Korisnik> findAllByKorisnickoIme(String kime){
         return korisnikRepository.findAllByKorisnickoIme(kime);
+    }
+
+    public List<Korisnik> findAllByEmail(String email){
+        return korisnikRepository.findAllByEmail(email);
     }
 }

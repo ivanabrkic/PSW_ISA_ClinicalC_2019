@@ -40,6 +40,9 @@ public abstract class Korisnik {
     @Column(name="jbo",nullable = false)
     private String jbo;
 
+    @Column(name="aktivnostNaloga",nullable = false)
+    private bool aktivnostNaloga;
+
     public Korisnik() {
     }
 
@@ -86,6 +89,40 @@ public abstract class Korisnik {
 
     public String getKontaktTelefon() {
         return kontaktTelefon;
+    }
+
+    public bool getaktivnostNaloga() {return aktivnostNaloga;}
+
+    public String getGrad() {
+        return grad;
+    }
+
+    public void setGrad(String grad) {
+        this.grad = grad;
+    }
+
+    public String getDrzava() {
+        return drzava;
+    }
+
+    public void setDrzava(String drzava) {
+        this.drzava = drzava;
+    }
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
+    }
+
+    public String getJbo() {
+        return jbo;
+    }
+
+    public void setJbo(String jbo) {
+        this.jbo = jbo;
     }
 
     public void setKontaktTelefon(String kontaktTelefon) {
