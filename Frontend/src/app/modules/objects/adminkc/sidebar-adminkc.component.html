@@ -1,0 +1,29 @@
+<div class="sidebar-container">
+  <div class="sidebar-logo">
+    Meni
+  </div>
+  <ul class="sidebar-navigation">
+    <li class="header">Profil</li>
+    <li>
+      <a [routerLink]="['/administratorKc']">
+        <i class="fa fa-user" aria-hidden="true"></i> Pregled profila
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-user-edit" aria-hidden="true"></i> Izmena podataka
+      </a>
+    </li>
+    <li class="header">Registracija</li>
+    <li>
+      <a [routerLink]="['/registracijaKlinike']">
+        <i class="fa fa-clinic-medical" aria-hidden="true"></i> Klinike
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/registracijaAdminKlinike']">
+        <i class="fa fa-clinic-medical" aria-hidden="true"></i> Administratora klinike
+      </a>
+    </li>
+  </ul>
+</div>
