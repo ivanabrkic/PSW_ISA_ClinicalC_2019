@@ -10,19 +10,35 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/adminkcIzmena']">
         <i class="fa fa-user-edit" aria-hidden="true"></i> Izmena podataka
       </a>
     </li>
     <li class="header">Registracija</li>
+    <li>
+      <a [routerLink]="['/registracijaAdminKlinike']">
+        <i class="fa fa-user-tie" aria-hidden="true"></i> Administratora klinike
+      </a>
+    </li>
     <li>
       <a [routerLink]="['/registracijaKlinike']">
         <i class="fa fa-clinic-medical" aria-hidden="true"></i> Klinike
       </a>
     </li>
     <li>
-      <a [routerLink]="['/registracijaAdminKlinike']">
-        <i class="fa fa-clinic-medical" aria-hidden="true"></i> Administratora klinike
+      <a [routerLink]="['/administratorKc']">
+        <i class="fa fa-user-injured" aria-hidden="true"></i> Pacijenta
+      </a>
+    </li>
+    <li class="header">Šifarnici</li>
+    <li>
+      <a [routerLink]="['/administratorKc']">
+        <i class="fa fa-diagnoses" aria-hidden="true"></i> Kreiraj šifarnik dijagnoza
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/administratorKc']">
+        <i class="fa fa-tablets" aria-hidden="true"></i> Kreiraj šifarnik lekova
       </a>
     </li>
   </ul>
