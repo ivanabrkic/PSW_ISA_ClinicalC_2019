@@ -1,4 +1,4 @@
-<app-sidebar-adminkc></app-sidebar-adminkc>
+<app-sidebar-med-sestra></app-sidebar-med-sestra>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -21,63 +21,30 @@
                   Prezime
                 </th>
                 <th>
-                  JMBG
+                  E-mail
                 </th>
                 <th>
-                  E-mail
+                  Kontakt telefon
                 </th>
                 </thead>
                 <tbody>
-                <tr>
+                <tr *ngFor='let lekar of lekari'>
                   <td>
                     1
                   </td>
                   <td>
-                    Ivana
+                    {{lekar.ime}}
                   </td>
                   <td>
-                    Brkic
+                    {{lekar.prezime}}
                   </td>
                   <td>
-                    1234567898122
+                    {{lekar.email}}
                   </td>
                   <td>
-                    ivn.bc@gmail.com
+                    {{lekar.kontaktTelefon}}
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    2
-                  </td>
-                  <td>
-                    Tamara
-                  </td>
-                  <td>
-                    Lazarevic
-                  </td>
-                  <td>
-                    5747049234323
-                  </td>
-                  <td>
-                    tlazarevic@gmail.com
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    3
-                  </td>
-                  <td>
-                    Nikola
-                  </td>
-                  <td>
-                    Milosevic
-                  </td>
-                  <td>
-                    0111997710262
-                  </td>
-                  <td>
-                    n.milosevic0111@gmail.com
-                  </td>
                 </tbody>
               </table>
             </div>

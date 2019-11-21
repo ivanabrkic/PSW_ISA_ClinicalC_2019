@@ -9,10 +9,5 @@ import java.util.List;
 //@Table(name="operacija")
 public class Operacija extends Poseta {
 
-    public Operacija() {
-    }
 
-    public Operacija(String tipPosete, String datum, String pocetak, String kraj, Sala sala, Izvestaj izvestaj, ArrayList<Lekar> lekari) {
-        super(tipPosete, datum, pocetak, kraj, sala, izvestaj, lekari);
-    }
 }

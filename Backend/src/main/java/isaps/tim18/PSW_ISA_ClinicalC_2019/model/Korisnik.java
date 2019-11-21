@@ -8,7 +8,7 @@ public abstract class Korisnik {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer id;
+    private Integer jedinistveniBrojOsiguranika;
 
     @Column(name="korIme", unique=true, nullable = false)
     private String korIme;
@@ -40,12 +40,12 @@ public abstract class Korisnik {
         this.prezime = prezime;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getJedinistveniBrojOsiguranika() {
+        return jedinistveniBrojOsiguranika;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setJedinistveniBrojOsiguranika(Integer jedinistveniBrojOsiguranika) {
+        this.jedinistveniBrojOsiguranika = jedinistveniBrojOsiguranika;
     }
 
     public String getKorIme() {

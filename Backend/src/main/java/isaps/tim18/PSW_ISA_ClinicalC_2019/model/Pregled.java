@@ -9,11 +9,4 @@ import java.util.List;
 //@Table(name="pregled")
 public class Pregled extends Poseta{
 
-    public Pregled() {
-    }
-
-    public Pregled(String tipPosete, String datum, String pocetak, String kraj, Sala sala, Izvestaj izvestaj, ArrayList<Lekar> lekari) {
-        super(tipPosete, datum, pocetak, kraj, sala, izvestaj, lekari);
-    }
-
 }
