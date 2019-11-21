@@ -8,8 +8,8 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
 
-@Entity
-@Table(name="pacijent")
+//@Entity
+//@Table(name="pacijent")
 public class Pacijent extends Korisnik{
 
     @Column(name="zdravstveniKarton",unique = true,nullable = false)

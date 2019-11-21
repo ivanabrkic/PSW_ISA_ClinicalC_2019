@@ -16,7 +16,7 @@ public abstract class Korisnik {
     @Column(name="lozinka", nullable = false)
     private String lozinka;
 
-    @Column(name="email", unique = true)
+    @Column(name="email")
     private String email;
 
     @Column(name="kontaktTelefon")

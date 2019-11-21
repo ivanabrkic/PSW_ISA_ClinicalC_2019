@@ -25,6 +25,11 @@ import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.compon
 import {LekarComponent} from './modules/objects/lekar/lekar.component';
 import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';
 import {AdministratorKlinikePregledComponent} from './modules/objects/administratorklinike/administratorKlinikePregled.component';
+
+import {PacijentComponent} from './modules/objects/pacijent/pacijent.component';
+import {SidebarPacijentComponent} from './modules/objects/pacijent/sidebar.component';
+import {PacijentPregledComponent} from './modules/objects/pacijent/PacijentPregled.component';
+
 import { ProfilMedSestraComponent } from './modules/objects/medicinskas/profil-med-sestra.component';
 import { PrikazPacijenataTabelaComponent } from './modules/shared/prikaz-pacijenata-tabela/prikaz-pacijenata-tabela.component';
 import { SidebarMedSestraComponent } from './modules/objects/medicinskas/sidebar-med-sestra.component';
@@ -32,6 +37,7 @@ import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.compon
 import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
+
 
 @NgModule({
   declarations: [
@@ -51,6 +57,9 @@ import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestr
     LekarPregledComponent,
     AdministratorKlinikePregledComponent,
     SidebarComponent,
+    PacijentComponent,
+    SidebarPacijentComponent,
+    PacijentPregledComponent,
     ProfilMedSestraComponent,
     PrikazPacijenataTabelaComponent,
     SidebarMedSestraComponent,
@@ -85,6 +94,8 @@ import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestr
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
       { path: 'administratorPregled', component: AdministratorKlinikePregledComponent},
+      {path: 'pacijentPregled', component: PacijentPregledComponent},
+      {path: 'pacijent', component: PacijentComponent},
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'welcome', component: HomeComponent},

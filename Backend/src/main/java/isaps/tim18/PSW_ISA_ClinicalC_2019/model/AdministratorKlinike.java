@@ -5,5 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="administrator_klinike")
-public class AdministratorKlinike {
+public class AdministratorKlinike extends Korisnik{
+
+
 }
