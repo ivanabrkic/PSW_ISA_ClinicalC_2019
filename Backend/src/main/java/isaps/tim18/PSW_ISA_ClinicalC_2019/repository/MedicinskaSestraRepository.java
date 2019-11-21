@@ -1,4 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
-public class MedicinskaSestraRepository {
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MedicinskaSestraRepository extends JpaRepository<MedicinskaSestra, Long> {
 }

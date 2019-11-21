@@ -5,13 +5,13 @@
   <ul class="sidebar-navigation">
     <li class="header">Profil</li>
     <li>
-      <a href="#">
-        <i class="fa fa-user" aria-hidden="true"></i> Izmena podataka
+      <a [routerLink]="['/medicinskaSestra']">
+        <i class="fa fa-user-edit" aria-hidden="true"></i> Pregled profila
       </a>
     </li>
     <li>
-      <a href="#">
-        <i class="fa fa-user-edit" aria-hidden="true"></i> Pregled profila
+      <a [routerLink]="['/medicinskaSestraIzmena']">
+        <i class="fa fa-user" aria-hidden="true"></i> Izmena podataka
       </a>
     </li>
     <li class="header">Klinika</li>
@@ -21,12 +21,12 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/medicinskaSestra']">
         <i class="fa fa-calendar" aria-hidden="true"></i> Radni kalendar
       </a>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/medicinskaSestra']">
         <i class="fa fa-stamp" aria-hidden="true"></i> Overa recepata
       </a>
     </li>
