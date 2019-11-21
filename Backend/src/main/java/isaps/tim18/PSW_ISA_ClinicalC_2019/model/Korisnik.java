@@ -10,13 +10,22 @@ public abstract class Korisnik {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
 
+    @Column(name="grad",unique=false)
+    private String grad;
+
+    @Column(name="drzava",unique = false)
+    private String drzava;
+
+    @Column(name="adresa",unique = false)
+    private String adresa;
+
     @Column(name="korIme", unique=true, nullable = false)
     private String korIme;
 
     @Column(name="lozinka", nullable = false)
     private String lozinka;
 
-    @Column(name="email")
+    @Column(name="email",unique = true,nullable = false)
     private String email;
 
     @Column(name="kontaktTelefon")
@@ -27,6 +36,12 @@ public abstract class Korisnik {
 
     @Column(name="prezime", nullable = false)
     private String prezime;
+
+    @Column(name="jbo",nullable = false)
+    private String jbo;
+
+    @Column(name="aktivnostNaloga",nullable = false)
+    private bool aktivnostNaloga;
 
     public Korisnik() {
     }
@@ -74,6 +89,40 @@ public abstract class Korisnik {
 
     public String getKontaktTelefon() {
         return kontaktTelefon;
+    }
+
+    public bool getaktivnostNaloga() {return aktivnostNaloga;}
+
+    public String getGrad() {
+        return grad;
+    }
+
+    public void setGrad(String grad) {
+        this.grad = grad;
+    }
+
+    public String getDrzava() {
+        return drzava;
+    }
+
+    public void setDrzava(String drzava) {
+        this.drzava = drzava;
+    }
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
+    }
+
+    public String getJbo() {
+        return jbo;
+    }
+
+    public void setJbo(String jbo) {
+        this.jbo = jbo;
     }
 
     public void setKontaktTelefon(String kontaktTelefon) {

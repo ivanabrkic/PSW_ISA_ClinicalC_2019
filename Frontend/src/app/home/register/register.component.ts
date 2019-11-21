@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { MustMatch } from 'src/app/_helpers/MustMatch';
 
-
 @Component({ templateUrl: 'register.component.html', styleUrls:[ 'register.component.css' ] })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -18,8 +17,11 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmpass: ['', Validators.required],
-      jbo: ['', Validators.required]
-    }, );
+      jbo: ['', Validators.required],
+      username: ['', Validators.required]
+    },  {
+      validator: MustMatch('password', 'confirmpass')
+    });
   }
 
   // convenience getter for easy access to form fields
