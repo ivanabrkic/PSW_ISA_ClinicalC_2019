@@ -1,9 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinickogCentra;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.AdministratorKlinickogCentraRepository;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
 import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +29,24 @@ public class AdministratorKlinickogCentraService {
 
     public List<AdministratorKlinickogCentra> findAllByPrezime(String prezime) {
         return administratorKlinickogCentraRepository.findAllByPrezime(prezime);
+    }
+
+    public AdministratorKlinickogCentra update(AdministratorKlinickogCentra administratorKlinickogCentra) {
+        AdministratorKlinickogCentra p = administratorKlinickogCentraRepository.findByJbo(administratorKlinickogCentra.getJbo());
+        if(p != null){
+            p.setAdresa(administratorKlinickogCentra.getAdresa());
+            p.setDrzava(administratorKlinickogCentra.getDrzava());
+            p.setEmail(administratorKlinickogCentra.getEmail());
+            p.setGrad(administratorKlinickogCentra.getGrad());
+            p.setIme(administratorKlinickogCentra.getIme());
+            p.setPrezime(administratorKlinickogCentra.getPrezime());
+            p.setKontaktTelefon(administratorKlinickogCentra.getKontaktTelefon());
+            p.setKorIme(administratorKlinickogCentra.getKorIme());
+            p.setLozinka(administratorKlinickogCentra.getLozinka());
+            administratorKlinickogCentraRepository.save(p);
+            return p;
+        }
+        return null;
     }
 
     public List<AdministratorKlinickogCentra> findByImeAndPrezime(String ime, String prezime) {

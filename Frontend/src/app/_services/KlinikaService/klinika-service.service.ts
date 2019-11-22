@@ -10,7 +10,7 @@ export class KlinikaServiceService {
   private klinikaUrl: string;
 
   constructor(private http: HttpClient) {
-    this.klinikaUrl = 'http://localhost:4200/registracijaKlinike';
+    this.klinikaUrl = '/server/klinika/registracijaKlinike';
   }
 
   public findByNaziv(): Observable<Klinika>{
@@ -18,6 +18,6 @@ export class KlinikaServiceService {
   }
 
   public save(klinika: Klinika) {
-    return this.http.post<Klinika>(this.klinikaUrl, klinika);
+    return this.http.post<Klinika>(this.klinikaUrl, JSON.stringify(klinika));
   }
 }

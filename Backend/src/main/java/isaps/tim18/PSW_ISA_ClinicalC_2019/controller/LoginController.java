@@ -3,28 +3,30 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("login")
 public class LoginController {
 
     @Autowired
     private KorisnikService korisnikService;
 
-    @RequestMapping(value = "/loginSubmit", method = RequestMethod.POST)
+    @PostMapping(value = "/loginSubmit", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Korisnik kor){
 
         //provera email-a i username-a:
 
-        Korisnik korisnikEmail = (Korisnik) korisnikService.findAllByEmail(kor.getEmail());
+        Korisnik korisnikEmail = (Korisnik) korisnikService.findByEmail(kor.getEmail());
         if(korisnikEmail==null){
             return "Uneti e-mail je nepostojeći";
         }
         else{
-            Korisnik korisnikPass = (Korisnik) korisnikService.findAllByPassword(kor.getEmail());
+            Korisnik korisnikPass = (Korisnik) korisnikService.findByLozinka(kor.getEmail());
             if(korisnikPass.getLozinka()!=kor.getLozinka()){
                 return "Uneta lozinka je neispravna";
             }

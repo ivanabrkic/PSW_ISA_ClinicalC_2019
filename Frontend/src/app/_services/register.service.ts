@@ -9,7 +9,8 @@ import {Korisnik} from 'src/app/models';
 export class RegisterService {
   constructor(private http: HttpClient) {}
 
-     register(user: Korisnik) {
-     return this.http.post(`/registrationSubmit`, user);
+  register(user: Korisnik) {
+     const user1 = JSON.stringify(user)
+     return this.http.post(`/server/register/registrationSubmit`, user1);
    }
 }

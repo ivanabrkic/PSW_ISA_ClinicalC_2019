@@ -34,4 +34,22 @@ public class LekarService {
     public List<Lekar> findByImeAndPrezime(String ime, String prezime) {
     return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
+
+    public Lekar update(Lekar lekar) {
+        Lekar p = lekarRepository.findByJbo(lekar.getJbo());
+        if(p != null){
+            p.setAdresa(lekar.getAdresa());
+            p.setDrzava(lekar.getDrzava());
+            p.setEmail(lekar.getEmail());
+            p.setGrad(lekar.getGrad());
+            p.setIme(lekar.getIme());
+            p.setPrezime(lekar.getPrezime());
+            p.setKontaktTelefon(lekar.getKontaktTelefon());
+            p.setKorIme(lekar.getKorIme());
+            p.setLozinka(lekar.getLozinka());
+            lekarRepository.save(p);
+            return p;
+        }
+        return null;
+    }
 }

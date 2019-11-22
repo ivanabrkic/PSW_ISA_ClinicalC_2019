@@ -7,5 +7,10 @@ import javax.persistence.Table;
 @Table(name="administrator_klinike")
 public class AdministratorKlinike extends Korisnik {
 
+    public AdministratorKlinike() {
+    }
 
+    public AdministratorKlinike(String grad, String drzava, String adresa, String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime, String jbo, Boolean aktivnostNaloga) {
+        super(grad, drzava, adresa, korIme, lozinka, email, kontaktTelefon, ime, prezime, jbo, aktivnostNaloga);
+    }
 }

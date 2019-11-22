@@ -1,7 +1,5 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinike;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +8,22 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/registracijaAdminKlinike")
+@RequestMapping(value = "administrator_k")
 public class AdministratorKlinikeController {
 
     @Autowired
     private AdministratorKlinikeService adminKlinikeService;
 
-    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AdministratorKlinike>> getAllAdmineKlinike() {
 
-        List<AdministratorKlinike> lekari = adminKlinikeService.findAll();
+        List<AdministratorKlinike> adminK = adminKlinikeService.findAll();
 
-        return new ResponseEntity<>(lekari, HttpStatus.OK);
+        return new ResponseEntity<>(adminK, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/registrationSubmitAdmin", method = RequestMethod.POST)
@@ -51,11 +50,21 @@ public class AdministratorKlinikeController {
         noviAdmin.setDrzava(admin.getDrzava());
         noviAdmin.setJbo(admin.getJbo());
         noviAdmin.setKontaktTelefon(admin.getKontaktTelefon());
+        noviAdmin.setAktivnostNaloga(true);
 
         adminKlinikeService.addAdminKlinike(noviAdmin);
 
         System.out.println(noviAdmin.getKorIme());
 
         return "Uspešno registrovan administrator!";
+    }
+
+    @Transactional
+    @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AdministratorKlinike> update(@RequestBody AdministratorKlinike administratorKlinike) throws Exception {
+
+        adminKlinikeService.update(administratorKlinike);
+
+        return new ResponseEntity<>(administratorKlinike, HttpStatus.OK);
     }
 }

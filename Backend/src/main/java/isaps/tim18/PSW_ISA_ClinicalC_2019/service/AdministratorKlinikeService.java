@@ -1,8 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinickogCentra;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinike;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.AdministratorKlinickogCentraRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.AdministratorKlinikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,7 +32,7 @@ public class AdministratorKlinikeService {
     }
 
     public AdministratorKlinike findByKorisnickoIme(String korIme){
-        return administratorKlinikeRepository.findAllByKorisnickoIme(korIme);
+        return administratorKlinikeRepository.findAllByKorIme(korIme);
     }
 
     public AdministratorKlinike findByEmail(String email) {
@@ -43,5 +41,23 @@ public class AdministratorKlinikeService {
 
     public AdministratorKlinike addAdminKlinike(AdministratorKlinike admin){
         return administratorKlinikeRepository.save(admin);
+    }
+
+    public AdministratorKlinike update(AdministratorKlinike administratorKlinike) {
+        AdministratorKlinike p = administratorKlinikeRepository.findByJbo(administratorKlinike.getJbo());
+        if(p != null){
+            p.setAdresa(administratorKlinike.getAdresa());
+            p.setDrzava(administratorKlinike.getDrzava());
+            p.setEmail(administratorKlinike.getEmail());
+            p.setGrad(administratorKlinike.getGrad());
+            p.setIme(administratorKlinike.getIme());
+            p.setPrezime(administratorKlinike.getPrezime());
+            p.setKontaktTelefon(administratorKlinike.getKontaktTelefon());
+            p.setKorIme(administratorKlinike.getKorIme());
+            p.setLozinka(administratorKlinike.getLozinka());
+            administratorKlinikeRepository.save(p);
+            return p;
+        }
+        return null;
     }
 }

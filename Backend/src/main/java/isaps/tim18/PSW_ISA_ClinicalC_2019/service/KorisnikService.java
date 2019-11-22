@@ -27,11 +27,11 @@ public class KorisnikService {
         return korisnikRepository.findAllByKorIme(kime);
     }
 
-    public List<Korisnik> findAllByEmail(String email){
-        return korisnikRepository.findAllByEmail(email);
+    public Korisnik findByEmail(String email){
+        return korisnikRepository.findByEmail(email);
     }
-    public List<Korisnik> findAllByPassword(String pass){
-        return korisnikRepository.findAllByPassword(pass);
+    public Korisnik findByLozinka(String pass){
+        return korisnikRepository.findByLozinka(pass);
     }
 
 
@@ -40,6 +40,6 @@ public class KorisnikService {
     }
 
     public Korisnik getKorisnik(String username){
-        return (Korisnik) korisnikRepository.findAllByKorisnickoIme(username);
+        return (Korisnik) korisnikRepository.findAllByKorIme(username);
     }
 }

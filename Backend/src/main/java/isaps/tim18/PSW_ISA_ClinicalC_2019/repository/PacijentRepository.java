@@ -1,14 +1,15 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
 
     Page<Pacijent> findAll(Pageable pageable);
@@ -24,4 +25,10 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
     List<Pacijent> findByImeAndPrezimeAllIgnoringCase(String ime, String prezime);
 
     Pacijent findByJbo(String jbo);
+
+    Pacijent findByKorIme(String username);
+
+    List<Pacijent> findAllByLozinka(String pass);
+
+    Pacijent findByEmail(String email);
 }
