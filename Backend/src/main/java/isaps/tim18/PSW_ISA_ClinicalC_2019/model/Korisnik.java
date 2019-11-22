@@ -41,7 +41,7 @@ public abstract class Korisnik {
     private String jbo;
 
     @Column(name="aktivnostNaloga",nullable = false)
-    private bool aktivnostNaloga;
+    private Boolean aktivnostNaloga;
 
     public Korisnik() {
     }
@@ -91,7 +91,7 @@ public abstract class Korisnik {
         return kontaktTelefon;
     }
 
-    public bool getaktivnostNaloga() {return aktivnostNaloga;}
+    public Boolean getaktivnostNaloga() {return aktivnostNaloga;}
 
     public String getGrad() {
         return grad;

@@ -23,15 +23,15 @@ public class RegisterController {
 
         //provera email-a i username-a:
 
-        Pacijent pacijentUsername = KorisnikService.findAllByKorisnickoIme(pac.getKorIme());
-        if(pacijentUsername!=null){
-            return "Korisničko ime je zauzeto"
-        }
-
-        Pacijent pacijentEmail = KorisnikService.findAllByEmail(pac.getEmail());
-        if(pacijentEmail!=null){
-            return "Uneti e-mail je već u upotrebi";
-        }
+//        Pacijent pacijentUsername = KorisnikService.findAllByKorisnickoIme(pac.getKorIme());
+//        if(pacijentUsername!=null){
+//            return "Korisničko ime je zauzeto";
+//        }
+//
+//        Pacijent pacijentEmail = KorisnikService.findAllByEmail(pac.getEmail());
+//        if(pacijentEmail!=null){
+//            return "Uneti e-mail je već u upotrebi";
+//        }
 
         //Kreiranje pacijenta
 
@@ -46,8 +46,7 @@ public class RegisterController {
         noviPacijent.setDrzava(pac.getDrzava());
         noviPacijent.setJbo(pac.getJbo());
         noviPacijent.setKontaktTelefon(pac.getKontaktTelefon());
-        noviPacijent.setStatus(StatusNaloga.NERESEN);
 
-        userService.addUser(rk);
+        return "sad";
     }
-    }
+}
