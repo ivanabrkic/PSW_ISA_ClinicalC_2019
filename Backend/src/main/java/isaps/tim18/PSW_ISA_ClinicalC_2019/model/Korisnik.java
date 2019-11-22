@@ -46,13 +46,18 @@ public abstract class Korisnik {
     public Korisnik() {
     }
 
-    public Korisnik(String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime) {
+    public Korisnik(String grad, String drzava, String adresa, String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime, String jbo, Boolean aktivnostNaloga) {
+        this.grad = grad;
+        this.drzava = drzava;
+        this.adresa = adresa;
         this.korIme = korIme;
         this.lozinka = lozinka;
         this.email = email;
         this.kontaktTelefon = kontaktTelefon;
         this.ime = ime;
         this.prezime = prezime;
+        this.jbo = jbo;
+        this.aktivnostNaloga = aktivnostNaloga;
     }
 
     public Integer getId() {

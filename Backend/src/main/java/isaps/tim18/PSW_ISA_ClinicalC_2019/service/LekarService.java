@@ -16,22 +16,22 @@ public class LekarService {
     private LekarRepository lekarRepository;
 
     public List<Lekar> findAll() {
-        return lekarRepository.findAll();
+    return lekarRepository.findAll();
     }
 
-   public Page<Lekar> findAll(Pageable page) {
-        return lekarRepository.findAll(page);
+    public Page<Lekar> findAll(Pageable page) {
+    return lekarRepository.findAll(page);
     }
 
     public List<Lekar> findAllByIme(String ime) {
-        return lekarRepository.findAllByIme(ime);
+    return lekarRepository.findAllByIme(ime);
     }
 
     public List<Lekar> findAllByPrezime(String prezime) {
-        return lekarRepository.findAllByPrezime(prezime);
+    return lekarRepository.findAllByPrezime(prezime);
     }
 
     public List<Lekar> findByImeAndPrezime(String ime, String prezime) {
-        return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
 }

@@ -4,7 +4,5 @@ import javax.persistence.Entity;
 
 //@Entity
 public class Izvestaj {
-    private String dijagnoza;
-    private String lekovi;
-    private Poseta sledecaPoseta;
+
 }
