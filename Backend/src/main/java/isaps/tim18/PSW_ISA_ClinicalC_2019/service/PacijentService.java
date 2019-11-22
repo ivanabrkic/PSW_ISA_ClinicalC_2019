@@ -1,6 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KorisnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,4 +31,5 @@ public class PacijentService {
     public List<Pacijent> findAllByEmail(String email){
         return pacijentRepository.findAllByEmail(email);
     }
+
 }

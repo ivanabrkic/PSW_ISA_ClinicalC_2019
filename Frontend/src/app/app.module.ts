@@ -63,7 +63,6 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
     SidebarMedSestraComponent,
     OdmorComponent,
     OdsustvoComponent,
-
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -77,6 +76,7 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
     MatPaginatorModule,
     MatSortModule,
     AngularFontAwesomeModule,
+    HttpClientModule,
     RouterModule.forRoot([{ path: 'administratorklinike', component: AdministratorKlinikeComponent},
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
@@ -97,7 +97,7 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: '**', component: NotFoundComponent}])
   ],
-  providers: [],
+  providers: [RegisterComponent,LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
