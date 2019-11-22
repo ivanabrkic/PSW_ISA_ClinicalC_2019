@@ -30,6 +30,10 @@ public class KorisnikService {
     public List<Korisnik> findAllByEmail(String email){
         return korisnikRepository.findAllByEmail(email);
     }
+    public List<Korisnik> findAllByPassword(String pass){
+        return korisnikRepository.findAllByPassword(pass);
+    }
+
 
     public void addKorisnik(Korisnik k){
         korisnikRepository.save(k);
