@@ -15,4 +15,6 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
 
     List<Korisnik> findAllByEmail(String email);
 
+    List<Korisnik> findAllByPassword(String password);
+
 }

@@ -17,13 +17,9 @@ public class AdministratorKlinikeService {
     @Autowired
     private AdministratorKlinikeRepository administratorKlinikeRepository;
 
-    public List<AdministratorKlinike> findAll() {
-        return administratorKlinikeRepository.findAll();
-    }
+    public List<AdministratorKlinike> findAll() { return administratorKlinikeRepository.findAll(); }
 
-    public Page<AdministratorKlinike> findAll(Pageable page) {
-        return administratorKlinikeRepository.findAll(page);
-    }
+    public Page<AdministratorKlinike> findAll(Pageable page) { return administratorKlinikeRepository.findAll(page); }
 
     public List<AdministratorKlinike> findAllByIme(String ime) {
         return administratorKlinikeRepository.findAllByIme(ime);
@@ -35,5 +31,17 @@ public class AdministratorKlinikeService {
 
     public List<AdministratorKlinike> findByImeAndPrezime(String ime, String prezime) {
         return administratorKlinikeRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    }
+
+    public AdministratorKlinike findByKorisnickoIme(String korIme){
+        return administratorKlinikeRepository.findAllByKorisnickoIme(korIme);
+    }
+
+    public AdministratorKlinike findByEmail(String email) {
+        return administratorKlinikeRepository.findByEmail(email);
+    }
+
+    public AdministratorKlinike addAdminKlinike(AdministratorKlinike admin){
+        return administratorKlinikeRepository.save(admin);
     }
 }

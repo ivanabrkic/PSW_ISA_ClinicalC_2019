@@ -65,8 +65,11 @@ import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestr
     SidebarMedSestraComponent,
     OdmorComponent,
     OdsustvoComponent,
+<<<<<<< HEAD
+=======
     AdminkcIzmenaComponent,
     MedsestraIzmenaComponent,
+>>>>>>> 9da9c4574bfcafa0bc3e0f2f599ff7172cc0cce0
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -80,6 +83,7 @@ import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestr
     MatPaginatorModule,
     MatSortModule,
     AngularFontAwesomeModule,
+    HttpClientModule,
     RouterModule.forRoot([{ path: 'administratorklinike', component: AdministratorKlinikeComponent},
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
@@ -102,7 +106,7 @@ import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestr
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: '**', component: NotFoundComponent}])
   ],
-  providers: [],
+  providers: [RegisterComponent,LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

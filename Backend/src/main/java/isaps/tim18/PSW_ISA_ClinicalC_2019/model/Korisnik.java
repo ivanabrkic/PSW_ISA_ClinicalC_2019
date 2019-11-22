@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Korisnik {
-
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
@@ -46,18 +45,18 @@ public abstract class Korisnik {
     public Korisnik() {
     }
 
-    public Korisnik(String grad, String drzava, String adresa, String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime, String jbo, Boolean aktivnostNaloga) {
-        this.grad = grad;
-        this.drzava = drzava;
-        this.adresa = adresa;
+    public Korisnik(String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime,String jbo, boolean aktivnostNaloga,String grad,String drzava,String adresa) {
         this.korIme = korIme;
         this.lozinka = lozinka;
         this.email = email;
         this.kontaktTelefon = kontaktTelefon;
         this.ime = ime;
         this.prezime = prezime;
-        this.jbo = jbo;
-        this.aktivnostNaloga = aktivnostNaloga;
+        this.jbo=jbo;
+        this.grad = grad;
+        this.adresa=adresa;
+        this.drzava=drzava;
+        this.aktivnostNaloga=aktivnostNaloga;
     }
 
     public Integer getId() {
@@ -95,8 +94,17 @@ public abstract class Korisnik {
     public String getKontaktTelefon() {
         return kontaktTelefon;
     }
+    
 
-    public Boolean getaktivnostNaloga() {return aktivnostNaloga;}
+    public Boolean getAktivnostNaloga() {
+        return aktivnostNaloga;
+    }
+
+    public void setAktivnostNaloga(Boolean aktivnostNaloga){
+        this.aktivnostNaloga=aktivnostNaloga;
+    }
+
+
 
     public String getGrad() {
         return grad;
