@@ -35,6 +35,8 @@ import { PrikazPacijenataTabelaComponent } from './modules/shared/prikaz-pacijen
 import { SidebarMedSestraComponent } from './modules/objects/medicinskas/sidebar-med-sestra.component';
 import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.component';
 import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
+import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
+import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
 
 
 @NgModule({
@@ -63,6 +65,11 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
     SidebarMedSestraComponent,
     OdmorComponent,
     OdsustvoComponent,
+<<<<<<< HEAD
+=======
+    AdminkcIzmenaComponent,
+    MedsestraIzmenaComponent,
+>>>>>>> 9da9c4574bfcafa0bc3e0f2f599ff7172cc0cce0
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -79,9 +86,11 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
     HttpClientModule,
     RouterModule.forRoot([{ path: 'administratorklinike', component: AdministratorKlinikeComponent},
       { path: 'administratorKc', component: AdminkcComponent},
+      { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
       { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
       { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
       { path: 'medicinskaSestra', component: ProfilMedSestraComponent},
+      { path: 'medicinskaSestraIzmena', component: MedsestraIzmenaComponent},
       { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
       { path: 'lekar', component: LekarComponent},
       { path: 'odmor', component: OdmorComponent},

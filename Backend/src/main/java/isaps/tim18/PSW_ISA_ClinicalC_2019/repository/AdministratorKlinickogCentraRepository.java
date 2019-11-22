@@ -1,4 +1,8 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
-public class AdministratorKlinickogCentraRepository {
+
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdministratorKlinickogCentraRepository<Korisnik> extends JpaRepository<Korisnik, Long> {
 }
