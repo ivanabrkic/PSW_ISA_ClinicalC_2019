@@ -9,9 +9,7 @@ import java.util.List;
 public interface AdministratorKlinikeRepository extends JpaRepository<AdministratorKlinike, Long> {
 
     Page<AdministratorKlinike> findAll(Pageable pageable);
-
-    Page<AdministratorKlinike> findAll(Pageable page);
-
+    
     AdministratorKlinike findAllByKorIme(String korisnickoIme);
 
     List<AdministratorKlinike> findAllByIme(String ime);
