@@ -97,7 +97,7 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: '**', component: NotFoundComponent}])
   ],
-  providers: [RegisterComponent],
+  providers: [RegisterComponent,LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
