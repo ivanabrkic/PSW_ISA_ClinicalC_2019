@@ -57,4 +57,6 @@ public class RegisterController {
         System.out.println("Account with username " + noviPacijent.getKorIme() + "has been created");
         return "";
     }
+
     }
+

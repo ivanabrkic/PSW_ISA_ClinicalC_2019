@@ -1,4 +1,23 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
-public class AdministratorKlinikeRepository {
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinike;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface AdministratorKlinikeRepository extends JpaRepository<AdministratorKlinike, Long> {
+
+    Page<AdministratorKlinike> findAll(Pageable page);
+
+    AdministratorKlinike findAllByKorisnickoIme(String korisnickoIme);
+
+    List<AdministratorKlinike> findAllByIme(String ime);
+
+    List<AdministratorKlinike> findAllByPrezime(String prezime);
+
+    AdministratorKlinike findByEmail(String email);
+
+    List<AdministratorKlinike> findByImeAndPrezimeAllIgnoringCase(String ime, String prezime);
 }

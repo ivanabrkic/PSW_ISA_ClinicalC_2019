@@ -93,7 +93,7 @@ public abstract class Korisnik {
     public String getKontaktTelefon() {
         return kontaktTelefon;
     }
-
+    
 
     public Boolean getAktivnostNaloga() {
         return aktivnostNaloga;
@@ -102,6 +102,7 @@ public abstract class Korisnik {
     public void setAktivnostNaloga(Boolean aktivnostNaloga){
         this.aktivnostNaloga=aktivnostNaloga;
     }
+
 
 
     public String getGrad() {
