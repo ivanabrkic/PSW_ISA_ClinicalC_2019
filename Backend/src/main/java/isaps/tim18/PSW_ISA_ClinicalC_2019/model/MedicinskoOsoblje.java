@@ -20,8 +20,8 @@ public abstract class MedicinskoOsoblje extends Korisnik{
     public MedicinskoOsoblje() {
     }
 
-    public MedicinskoOsoblje(String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime, int brSlobodnihDana) {
-        super(korIme, lozinka, email, kontaktTelefon, ime, prezime);
+    public MedicinskoOsoblje(String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime, int brSlobodnihDana,String jbo, boolean aktivnostNaloga,String grad,String drzava,String adresa) {
+        super( korIme,  lozinka, email, kontaktTelefon, ime,  prezime,jbo, aktivnostNaloga, grad,drzava,adresa);
         this.brSlobodnihDana = brSlobodnihDana;
 //        this.radniKalendar = radniKalendar;
     }
