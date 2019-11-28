@@ -37,7 +37,8 @@ import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.compon
 import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
-import {ListaKlinikaComponent} from "./modules/shared/lista-klinika/lista-klinikaComponent";
+import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
+import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {ListaKlinikaComponent} from "./modules/shared/lista-klinika/lista-klinik
     OdsustvoComponent,
     AdminkcIzmenaComponent,
     MedsestraIzmenaComponent,
-    ListaKlinikaComponent
+    ListaKlinikaComponent,
+    ZdravstveniKartonComponent
 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -105,7 +107,9 @@ import {ListaKlinikaComponent} from "./modules/shared/lista-klinika/lista-klinik
       { path: 'welcome', component: HomeComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: 'listaKlinika', component: ListaKlinikaComponent},
-      { path: '**', component: NotFoundComponent}])
+      {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
+      { path: '**', component: NotFoundComponent},
+      ])
   ],
   providers: [RegisterComponent, LoginComponent],
   bootstrap: [AppComponent]
