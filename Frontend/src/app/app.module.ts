@@ -37,6 +37,7 @@ import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.compon
 import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
+import {ListaKlinikaComponent} from "./modules/shared/lista-klinika/lista-klinikaComponent";
 
 
 @NgModule({
@@ -65,11 +66,10 @@ import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestr
     SidebarMedSestraComponent,
     OdmorComponent,
     OdsustvoComponent,
-<<<<<<< HEAD
-=======
     AdminkcIzmenaComponent,
     MedsestraIzmenaComponent,
->>>>>>> 9da9c4574bfcafa0bc3e0f2f599ff7172cc0cce0
+    ListaKlinikaComponent
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -104,9 +104,10 @@ import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestr
       { path: 'register', component: RegisterComponent },
       { path: 'welcome', component: HomeComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
+      { path: 'listaKlinika', component: ListaKlinikaComponent},
       { path: '**', component: NotFoundComponent}])
   ],
-  providers: [RegisterComponent,LoginComponent],
+  providers: [RegisterComponent, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
