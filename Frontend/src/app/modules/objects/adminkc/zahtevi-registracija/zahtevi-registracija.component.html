@@ -1,0 +1,56 @@
+<app-sidebar-adminkc></app-sidebar-adminkc>
+<div class="content-container">
+  <div class="container-fluid">
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">Zahtevi</h4>
+              </div>
+              <ng-template ngFor [ngForOf]="items" let-item>
+              <div class = "zahtev">
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <p>Korisničko ime: {{item['korIme']}}</p>
+                    </div>
+                    <div class="row">
+                      <p>E-mail adresa: {{item['email']}}</p>
+                    </div>
+                    <div class="row">
+                      <p>JBO: {{item['jbo']}} </p>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+                <div class="button-class">
+                  <button class = "btn btn-success buttons" (click)="onItemDeleted(item)" >Prihvati</button>
+                  <button class = "btn btn-danger buttons" (click)="onItemDeleted(item)" >Odbij</button>
+                </div>
+              </div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="javascript:void(0)">
+                  <img class="img-fluid" src="./assets/img/nikola.jpg" />
+                </a>
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray">Administrator kliničkog centra</h6>
+                <h4 class="card-title">Nikola Milošević</h4>
+                <p class="card-description">
+                  O meni
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

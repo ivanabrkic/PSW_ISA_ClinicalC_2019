@@ -37,14 +37,12 @@ import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.compon
 import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
-<<<<<<< HEAD
+import { ZahteviRegistracijaComponent } from './modules/objects/adminkc/zahtevi-registracija/zahtevi-registracija.component';
 import {AdminKlinikeServiceService} from './_services/AdministratorKlinikeService/admin-klinike-service.service';
 import {KlinikaServiceService} from './_services/KlinikaService/klinika-service.service';
 import {LoginService, RegisterService} from './_services';
-=======
 import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
->>>>>>> b828c1f87692579a75adc5b13ea6216189717ebd
 
 
 @NgModule({
@@ -75,12 +73,9 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
     OdsustvoComponent,
     AdminkcIzmenaComponent,
     MedsestraIzmenaComponent,
-<<<<<<< HEAD
-=======
+    ZahteviRegistracijaComponent,
     ListaKlinikaComponent,
     ZdravstveniKartonComponent
-
->>>>>>> b828c1f87692579a75adc5b13ea6216189717ebd
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -104,6 +99,7 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
       { path: 'medicinskaSestraIzmena', component: MedsestraIzmenaComponent},
       { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
       { path: 'lekar', component: LekarComponent},
+      { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
@@ -120,11 +116,9 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
       { path: '**', component: NotFoundComponent},
       ])
   ],
-<<<<<<< HEAD
-  providers: [AdminKlinikeServiceService, KlinikaServiceService, LoginService, RegisterService],
-=======
   providers: [RegisterComponent, LoginComponent],
->>>>>>> b828c1f87692579a75adc5b13ea6216189717ebd
+  providers: [AdminKlinikeServiceService, KlinikaServiceService, LoginService, RegisterService],
+  providers: [RegisterComponent, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
