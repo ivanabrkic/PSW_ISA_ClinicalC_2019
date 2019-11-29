@@ -106,7 +106,7 @@ import { ZahteviRegistracijaComponent } from './modules/objects/adminkc/zahtevi-
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: '**', component: NotFoundComponent}])
   ],
-  providers: [RegisterComponent,LoginComponent],
+  providers: [RegisterComponent, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
