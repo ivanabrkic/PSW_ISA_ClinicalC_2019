@@ -4,17 +4,18 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
 
     Page<Korisnik> findAll(Pageable pageable);
 
-    List<Korisnik> findAllByKorisnickoIme(String kime);
+    List<Korisnik> findAllByKorIme(String kime);
 
-    List<Korisnik> findAllByEmail(String email);
+    Korisnik findByEmail(String email);
 
-    List<Korisnik> findAllByPassword(String password);
-
+    Korisnik findByLozinka(String pass);
 }

@@ -1,0 +1,72 @@
+<app-patient-sidebar></app-patient-sidebar>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Lista klinika</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+    <th>Id</th>
+    <th>Naziv</th>
+                </thead>
+
+  <tbody>
+  <tr *ngFor="let klinika of klinike"
+      [class.selected]="klinika === selectedKlinika"
+      (click)="onSelect(klinika)">
+    <td> <span class="badge">{{klinika.id}}</span> </td><td>{{klinika.naziv}}</td>
+
+  </tr>
+  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div  *ngIf="selectedKlinika">
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4  class="card-title">Osnovne informacije</h4>
+                </div>
+                <div class="card-body">
+                  <form >
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> id : {{selectedKlinika.id}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> naziv : {{selectedKlinika.naziv}} </p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

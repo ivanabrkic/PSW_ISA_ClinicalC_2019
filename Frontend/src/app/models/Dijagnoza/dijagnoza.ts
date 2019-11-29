@@ -1,4 +1,4 @@
-export class Klinika {
+export class Dijagnoza {
   id: number;
   naziv: string;
 }

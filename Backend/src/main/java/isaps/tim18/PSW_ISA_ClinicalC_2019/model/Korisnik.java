@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Korisnik {
+public class Korisnik {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
@@ -42,10 +42,15 @@ public abstract class Korisnik {
     @Column(name="aktivnostNaloga",nullable = false)
     private Boolean aktivnostNaloga;
 
+    @Column(name="tipKorisnika",nullable = false)
+    private String tipKorisnika;
+
     public Korisnik() {
+        super();
     }
 
-    public Korisnik(String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime,String jbo, boolean aktivnostNaloga,String grad,String drzava,String adresa) {
+    public Korisnik(String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime,String jbo, boolean aktivnostNaloga,String grad,String drzava,String adresa, String tipKorisnika) {
+        super();
         this.korIme = korIme;
         this.lozinka = lozinka;
         this.email = email;
@@ -53,9 +58,20 @@ public abstract class Korisnik {
         this.ime = ime;
         this.prezime = prezime;
         this.jbo=jbo;
+        this.grad = grad;
         this.adresa=adresa;
         this.drzava=drzava;
         this.aktivnostNaloga=aktivnostNaloga;
+        this.grad=grad;
+        this.tipKorisnika = tipKorisnika;
+    }
+
+    public String getTipKorisnika() {
+        return tipKorisnika;
+    }
+
+    public void setTipKorisnika(String tipKorisnika) {
+        this.tipKorisnika = tipKorisnika;
     }
 
     public Integer getId() {
@@ -93,7 +109,7 @@ public abstract class Korisnik {
     public String getKontaktTelefon() {
         return kontaktTelefon;
     }
-    
+
 
     public Boolean getAktivnostNaloga() {
         return aktivnostNaloga;

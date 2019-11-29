@@ -15,10 +15,10 @@
       <div>
         <!-- Username -->
         <div class="form-group">
-          <input [ngClass]="{ 'is-invalid': submitted && f.username.errors }" class="form-control mb-4"
-                 formControlName="username" id="defaultRegisterFormUsername" placeholder="Korisničko ime" type="text">
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Unos korisničkog imena je obavezan</div>
+          <input [ngClass]="{ 'is-invalid': submitted && f.korIme.errors }" class="form-control mb-4"
+                 formControlName="korIme" id="defaultRegisterFormUsername" placeholder="Korisničko ime" type="text">
+          <div *ngIf="submitted && f.korIme.errors" class="invalid-feedback">
+            <div *ngIf="f.korIme.errors.required">Unos korisničkog imena je obavezan</div>
           </div>
         </div>
         <!-- E-mail -->
@@ -32,11 +32,11 @@
         <!-- Password -->
         <div class="form-group">
           <input aria-describedby="defaultRegisterFormPasswordHelpBlock" class="form-control"
-                 formControlName="password"
-                 id="defaultRegisterFormPassword" placeholder="Lozinka" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-          <div *ngIf="submitted && f.password?.errors" class="invalid-feedback">
-            <div *ngIf="f.password?.errors.required">Unos lozinke je obavezan</div>
-            <div *ngIf="f.password?.errors.minlength">Lozinka mora imati minimalno 8 karaktera</div>
+                 formControlName="lozinka"
+                 id="defaultRegisterFormPassword" placeholder="Lozinka" type="password" [ngClass]="{ 'is-invalid': submitted && f.lozinka.errors }">
+          <div *ngIf="submitted && f.lozinka?.errors" class="invalid-feedback">
+            <div *ngIf="f.lozinka?.errors.required">Unos lozinke je obavezan</div>
+            <div *ngIf="f.lozinka?.errors.minlength">Lozinka mora imati minimalno 8 karaktera</div>
           </div>
 
         </div>
@@ -49,13 +49,13 @@
 
         <!-- Password -->
         <div class="form-group">
-          <input [ngClass]="{ 'is-invalid': submitted && f.confirmpass.errors }"
+          <input [ngClass]="{ 'is-invalid': submitted && f.tipKorisnika.errors }"
                  aria-describedby="defaultRegisterFormPasswordHelpBlock" class="form-control"
-                 formControlName="confirmpass"
+                 formControlName="tipKorisnika"
                  id="defaultRegisterFormPassword2" placeholder="Lozinka" type="password">
-          <div *ngIf="submitted && f.confirmpass?.errors" class="invalid-feedback">
-            <div *ngIf="f.confirmpass?.errors.required">Ponovni unos lozinke je obavezan</div>
-            <div *ngIf="f.confirmpass.errors.mustMatch">Unete lozinke se moraju poklapati</div>
+          <div *ngIf="submitted && f.tipKorisnika?.errors" class="invalid-feedback">
+            <div *ngIf="f.tipKorisnika?.errors.required">Ponovni unos lozinke je obavezan</div>
+            <div *ngIf="f.tipKorisnika.errors.mustMatch">Unete lozinke se moraju poklapati</div>
           </div>
         </div>
         <small class="form-text text-muted mb-4" id="defaultRegisterFormPasswordHelpBlock2">
@@ -69,20 +69,20 @@
         <div class="col">
           <!-- First name -->
           <div class="form-group">
-            <input [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" class="form-control"
-                   formControlName="firstName" id="defaultRegisterFormFirstName" placeholder="Ime" type="text">
-            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-              <div *ngIf="f.firstName.errors.required">Unos imena je obavezan</div>
+            <input [ngClass]="{ 'is-invalid': submitted && f.ime.errors }" class="form-control"
+                   formControlName="ime" id="ime" placeholder="Ime" type="text">
+            <div *ngIf="submitted && f.ime.errors" class="invalid-feedback">
+              <div *ngIf="f.ime.errors.required">Unos imena je obavezan</div>
             </div>
           </div>
         </div>
         <div class="col">
           <!-- Last name -->
           <div class="form-group">
-            <input [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" class="form-control"
-                   formControlName="lastName" id="defaultRegisterFormLastName" placeholder="Prezime" type="text">
-            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-              <div *ngIf="f.lastName.errors.required">Unos prezimena je obavezan</div>
+            <input [ngClass]="{ 'is-invalid': submitted && f.prezime.errors }" class="form-control"
+                   formControlName="prezime" id="prezime" placeholder="Prezime" type="text">
+            <div *ngIf="submitted && f.prezime.errors" class="invalid-feedback">
+              <div *ngIf="f.prezime.errors.required">Unos prezimena je obavezan</div>
             </div>
           </div>
         </div>
@@ -90,24 +90,24 @@
 
       <div>
         <!-- Adress -->
-        <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="defaultRegisterAdress"
-               placeholder="Adresa"
+        <input [ngClass]="{ 'is-invalid': submitted && f.adresa.errors }" aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="adresa"
+               placeholder="Adresa" formControlName="adresa"
                type="text">
         <small class="form-text text-muted mb-4" id="defaultRegisterFormAdress">
         </small>
         <div class="form-row mb-4">
           <div class="col">
             <!-- City -->
-            <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="defaultRegisterCity"
-                   placeholder="Grad"
+            <input [ngClass]="{ 'is-invalid': submitted && f.grad.errors }" aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="grad"
+                   placeholder="Grad" formControlName="grad"
                    type="text">
             <small class="form-text text-muted mb-4" id="defaultRegisterFormCity">
             </small>
           </div>
           <div class="col">
             <!-- Drzava -->
-            <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="defaultRegisterState"
-                   placeholder="Država"
+            <input [ngClass]="{ 'is-invalid': submitted && f.drzava.errors }" aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="drzava"
+                   placeholder="Država" formControlName="drzava"
                    type="text">
             <small class="form-text text-muted mb-4" id="defaultFormState">
             </small>
@@ -117,8 +117,8 @@
 
 
         <!-- Phone number -->
-        <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control"
-               id="defaultRegisterPhonePassword" placeholder="Broj telefona"
+        <input [ngClass]="{ 'is-invalid': submitted && f.kontaktTelefon.errors }" aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control"
+               id="kontaktTelefon" placeholder="Broj telefona" formControlName="kontaktTelefon"
                type="text">
         <small class="form-text text-muted mb-4" id="defaultRegisterFormPhoneHelpBlock">
 
@@ -127,7 +127,7 @@
         <div class="form-group">
           <input [ngClass]="{ 'is-invalid': submitted && f.jbo.errors }"
                  aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" formControlName="jbo"
-                 id="defaultRegisterJBO" placeholder="Jedinstveni broj osiguranika" type="text">
+                 id="jbo" placeholder="Jedinstveni broj osiguranika" type="text">
           <div *ngIf="submitted && f.jbo.errors" class="invalid-feedback">
             <div *ngIf="f.jbo.errors.required">Unos jedinstvenog broja osiguranika je obavezan</div>
           </div>

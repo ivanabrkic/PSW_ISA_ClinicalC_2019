@@ -7,5 +7,8 @@ import javax.persistence.Table;
 @Table(name="lekar")
 public class Lekar extends MedicinskoOsoblje{
 
+    public Lekar() {
+    }
+
 
 }

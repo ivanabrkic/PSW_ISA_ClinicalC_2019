@@ -9,7 +9,7 @@ import {AdministratorKlinike} from '../../models/AdministratorKlinike/administra
 export class AdminKlinikeServiceService {
   private adminKlinikeUrl: string;
   constructor(private http: HttpClient) {
-    this.adminKlinikeUrl = 'http://localhost:4200/registracijaAdminKlinike';
+    this.adminKlinikeUrl = '/server/administrator_k/registrationSubmitAdmin';
   }
 
   public findAll(): Observable<AdministratorKlinike[]> {
@@ -17,6 +17,6 @@ export class AdminKlinikeServiceService {
   }
 
   public save(adminKlinike: AdministratorKlinike) {
-    return this.http.post<AdministratorKlinike>(this.adminKlinikeUrl , adminKlinike);
+    return this.http.post<AdministratorKlinike>(this.adminKlinikeUrl , JSON.stringify(adminKlinike));
   }
 }

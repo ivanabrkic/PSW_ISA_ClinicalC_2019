@@ -6,4 +6,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="medicinska_sestra")
 public class MedicinskaSestra extends MedicinskoOsoblje {
+
+    public MedicinskaSestra() {
+
+    }
 }

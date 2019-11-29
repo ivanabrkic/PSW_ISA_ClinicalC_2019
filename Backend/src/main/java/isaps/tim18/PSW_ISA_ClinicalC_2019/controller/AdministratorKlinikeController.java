@@ -8,29 +8,30 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/registracijaAdminKlinike")
+@RequestMapping(value = "administrator_k")
 public class AdministratorKlinikeController {
 
     @Autowired
     private AdministratorKlinikeService adminKlinikeService;
 
-    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AdministratorKlinike>> getAllAdmineKlinike() {
 
-        List<AdministratorKlinike> lekari = adminKlinikeService.findAll();
+        List<AdministratorKlinike> adminK = adminKlinikeService.findAll();
 
-        return new ResponseEntity<>(lekari, HttpStatus.OK);
+        return new ResponseEntity<>(adminK, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/registrationSubmitAdmin", method = RequestMethod.POST)
     public String Register(@RequestBody AdministratorKlinike admin){
 
-        AdministratorKlinike adminUsername = adminKlinikeService.findByKorisnickoIme(admin.getKorIme());
+        AdministratorKlinike adminUsername = adminKlinikeService.findByKorIme(admin.getKorIme());
         if(adminUsername != null){
-            return "Korisničko ime je zauzetoč";
+            return "Korisničko ime je zauzeto";
         }
 
         AdministratorKlinike adminEmail = adminKlinikeService.findByEmail(admin.getEmail());
@@ -49,6 +50,8 @@ public class AdministratorKlinikeController {
         noviAdmin.setDrzava(admin.getDrzava());
         noviAdmin.setJbo(admin.getJbo());
         noviAdmin.setKontaktTelefon(admin.getKontaktTelefon());
+        noviAdmin.setAktivnostNaloga(true);
+        noviAdmin.setTipKorisnika("Administrator klinike");
 
         adminKlinikeService.addAdminKlinike(noviAdmin);
 
@@ -57,4 +60,12 @@ public class AdministratorKlinikeController {
         return "Uspešno registrovan administrator!";
     }
 
+    @Transactional
+    @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AdministratorKlinike> update(@RequestBody AdministratorKlinike administratorKlinike) throws Exception {
+
+        adminKlinikeService.update(administratorKlinike);
+
+        return new ResponseEntity<>(administratorKlinike, HttpStatus.OK);
+    }
 }
