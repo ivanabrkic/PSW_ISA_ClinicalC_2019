@@ -16,22 +16,44 @@ public class LekarService {
     private LekarRepository lekarRepository;
 
     public List<Lekar> findAll() {
-        return lekarRepository.findAll();
+    return lekarRepository.findAll();
     }
 
-   public Page<Lekar> findAll(Pageable page) {
-        return lekarRepository.findAll(page);
+    public Page<Lekar> findAll(Pageable page) {
+    return lekarRepository.findAll(page);
     }
 
     public List<Lekar> findAllByIme(String ime) {
-        return lekarRepository.findAllByIme(ime);
+    return lekarRepository.findAllByIme(ime);
     }
 
     public List<Lekar> findAllByPrezime(String prezime) {
-        return lekarRepository.findAllByPrezime(prezime);
+    return lekarRepository.findAllByPrezime(prezime);
     }
 
     public List<Lekar> findByImeAndPrezime(String ime, String prezime) {
-        return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    }
+
+    public Lekar findByKorIme(String korIme) {
+        return lekarRepository.findByKorIme(korIme);
+    }
+
+    public Lekar update(Lekar lekar) {
+        Lekar p = lekarRepository.findByJbo(lekar.getJbo());
+        if(p != null){
+            p.setAdresa(lekar.getAdresa());
+            p.setDrzava(lekar.getDrzava());
+            p.setEmail(lekar.getEmail());
+            p.setGrad(lekar.getGrad());
+            p.setIme(lekar.getIme());
+            p.setPrezime(lekar.getPrezime());
+            p.setKontaktTelefon(lekar.getKontaktTelefon());
+            p.setKorIme(lekar.getKorIme());
+            p.setLozinka(lekar.getLozinka());
+            lekarRepository.save(p);
+            return p;
+        }
+        return null;
     }
 }
