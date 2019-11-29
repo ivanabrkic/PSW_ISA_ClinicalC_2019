@@ -16,8 +16,4 @@ public class MedicinskoOsoblje extends Korisnik{
         this.brSlobodnihDana = brSlobodnihDana;
     }
 
-    public MedicinskoOsoblje(String grad, String drzava, String adresa, String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime, String jbo, Boolean aktivnostNaloga, int brSlobodnihDana) {
-        super(grad, drzava, adresa, korIme, lozinka, email, kontaktTelefon, ime, prezime, jbo, aktivnostNaloga);
-        this.brSlobodnihDana = brSlobodnihDana;
-    }
 }
