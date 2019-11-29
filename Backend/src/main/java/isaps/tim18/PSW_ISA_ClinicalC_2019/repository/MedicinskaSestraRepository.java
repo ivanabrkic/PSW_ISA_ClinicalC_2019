@@ -19,6 +19,11 @@ public interface MedicinskaSestraRepository extends JpaRepository<MedicinskaSest
 
     List<MedicinskaSestra> findByImeAndPrezimeAllIgnoringCase(String ime, String prezime);
 
+    MedicinskaSestra findByKorIme(String korIme);
 
     MedicinskaSestra findByJbo(String jbo);
+
+    MedicinskaSestra findByEmail(String email);
+
+    MedicinskaSestra findByEmailAndLozinka(String email, String lozinka);
 }

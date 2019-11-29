@@ -29,7 +29,7 @@ public class AdministratorKlinikeController {
     @RequestMapping(value = "/registrationSubmitAdmin", method = RequestMethod.POST)
     public String Register(@RequestBody AdministratorKlinike admin){
 
-        AdministratorKlinike adminUsername = adminKlinikeService.findByKorisnickoIme(admin.getKorIme());
+        AdministratorKlinike adminUsername = adminKlinikeService.findByKorIme(admin.getKorIme());
         if(adminUsername != null){
             return "Korisničko ime je zauzeto";
         }
@@ -51,6 +51,7 @@ public class AdministratorKlinikeController {
         noviAdmin.setJbo(admin.getJbo());
         noviAdmin.setKontaktTelefon(admin.getKontaktTelefon());
         noviAdmin.setAktivnostNaloga(true);
+        noviAdmin.setTipKorisnika("Administrator klinike");
 
         adminKlinikeService.addAdminKlinike(noviAdmin);
 

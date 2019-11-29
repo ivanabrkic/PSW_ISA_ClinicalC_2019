@@ -16,8 +16,6 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
 
     List<Pacijent> findAllByKorIme(String kime);
 
-    List<Pacijent> findAllByEmail(String email);
-
     List<Pacijent> findAllByIme(String ime);
 
     List<Pacijent> findAllByPrezime(String prezime);
@@ -28,7 +26,7 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
 
     Pacijent findByKorIme(String username);
 
-    List<Pacijent> findAllByLozinka(String pass);
-
     Pacijent findByEmail(String email);
+
+    Pacijent findByEmailAndLozinka(String email, String lozinka);
 }

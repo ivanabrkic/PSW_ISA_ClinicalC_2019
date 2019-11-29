@@ -37,9 +37,14 @@ import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.compon
 import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
+<<<<<<< HEAD
 import {AdminKlinikeServiceService} from './_services/AdministratorKlinikeService/admin-klinike-service.service';
 import {KlinikaServiceService} from './_services/KlinikaService/klinika-service.service';
 import {LoginService, RegisterService} from './_services';
+=======
+import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
+import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
+>>>>>>> b828c1f87692579a75adc5b13ea6216189717ebd
 
 
 @NgModule({
@@ -70,6 +75,12 @@ import {LoginService, RegisterService} from './_services';
     OdsustvoComponent,
     AdminkcIzmenaComponent,
     MedsestraIzmenaComponent,
+<<<<<<< HEAD
+=======
+    ListaKlinikaComponent,
+    ZdravstveniKartonComponent
+
+>>>>>>> b828c1f87692579a75adc5b13ea6216189717ebd
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -104,9 +115,16 @@ import {LoginService, RegisterService} from './_services';
       { path: 'register', component: RegisterComponent },
       { path: 'welcome', component: HomeComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
-      { path: '**', component: NotFoundComponent}])
+      { path: 'listaKlinika', component: ListaKlinikaComponent},
+      {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
+      { path: '**', component: NotFoundComponent},
+      ])
   ],
+<<<<<<< HEAD
   providers: [AdminKlinikeServiceService, KlinikaServiceService, LoginService, RegisterService],
+=======
+  providers: [RegisterComponent, LoginComponent],
+>>>>>>> b828c1f87692579a75adc5b13ea6216189717ebd
   bootstrap: [AppComponent]
 })
 export class AppModule { }

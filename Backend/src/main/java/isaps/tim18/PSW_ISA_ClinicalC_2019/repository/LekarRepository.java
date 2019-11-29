@@ -20,4 +20,10 @@ public interface LekarRepository extends JpaRepository<Lekar, Long> {
     List<Lekar> findByImeAndPrezimeAllIgnoringCase(String ime, String prezime);
 
     Lekar findByJbo(String jbo);
+
+    Lekar findByKorIme(String korIme);
+
+    Lekar findByEmail(String email);
+
+    Lekar findByEmailAndLozinka(String email, String lozinka);
 }

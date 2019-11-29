@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("administrator_kc")
 public class AdministratorKlinickogCentraController {
 
-////    @Autowired
+
+//    @Autowired
 //    private AdministratorKlinickogCentraService administratorKlinickogCentraService;
 //
 //    @Transactional

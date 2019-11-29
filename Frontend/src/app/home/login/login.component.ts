@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {LoginService} from 'src/app/_services';
-import {first} from "rxjs/operators";
+import {first} from 'rxjs/operators';
 
 @Component({ templateUrl: 'login.component.html', styleUrls: ['login.component.css']})
 export class LoginComponent implements OnInit {
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      lozinka: ['', [Validators.required, Validators.minLength(8)]],
     }, );
   }
 
@@ -34,16 +34,27 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // this.alertService.success('Registration successful', true);
-          this.router.navigate(['/home']);
+          alert('Uspešno ste se ulogovali!! :-)\n\n');
+          if (data.tipKorisnika === 'Pacijent') {
+            this.router.navigate(['/pacijentPregled']);
+          } else if (data.tipKorisnika === 'Lekar') {
+            this.router.navigate(['/lekarPregled']);
+          } else if (data.tipKorisnika === 'Medicinska sestra') {
+            this.router.navigate(['/medicinskaSestra']);
+          } else if (data.tipKorisnika === 'Administrator klinike') {
+            this.router.navigate(['/administratorPregled']);
+          } else if (data.tipKorisnika === 'Administrator klinickog centra') {
+            this.router.navigate(['/administratorKc']);
+          } else {
+            this.router.navigate(['/welcome']);
+          }
+
         },
         error => {
-          // this.alertService.error(error);
+          alert('Pogrešan email ili lozinka!! :-)\n\n');
           this.loading = false;
         });
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value));
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value));
   }
 }

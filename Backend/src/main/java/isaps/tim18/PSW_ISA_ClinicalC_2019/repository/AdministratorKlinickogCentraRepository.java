@@ -12,6 +12,8 @@ public interface AdministratorKlinickogCentraRepository extends JpaRepository<Ad
 
     Page<AdministratorKlinickogCentra> findAll(Pageable pageable);
 
+    AdministratorKlinickogCentra findByKorIme(String korIme);
+
     List<AdministratorKlinickogCentra> findAllByIme(String ime);
 
     List<AdministratorKlinickogCentra> findAllByPrezime(String prezime);
@@ -19,4 +21,9 @@ public interface AdministratorKlinickogCentraRepository extends JpaRepository<Ad
     List<AdministratorKlinickogCentra> findByImeAndPrezimeAllIgnoringCase(String ime, String prezime);
 
     AdministratorKlinickogCentra findByJbo(String jbo);
+
+    AdministratorKlinickogCentra findByEmail(String email);
+
+    AdministratorKlinickogCentra findByEmailAndLozinka(String email, String lozinka);
+
 }

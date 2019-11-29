@@ -35,6 +35,10 @@ public class LekarService {
     return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
 
+    public Lekar findByKorIme(String korIme) {
+        return lekarRepository.findByKorIme(korIme);
+    }
+
     public Lekar update(Lekar lekar) {
         Lekar p = lekarRepository.findByJbo(lekar.getJbo());
         if(p != null){

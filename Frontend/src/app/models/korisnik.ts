@@ -8,5 +8,7 @@ export class Korisnik {
   jbo: number;
   adresa: string;
   drzava: string;
+  grad: string;
   aktivnostNaloga: boolean;
+  tipKorisnika: string;
 }

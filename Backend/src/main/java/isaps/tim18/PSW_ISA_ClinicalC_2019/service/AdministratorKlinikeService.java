@@ -31,8 +31,8 @@ public class AdministratorKlinikeService {
         return administratorKlinikeRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
 
-    public AdministratorKlinike findByKorisnickoIme(String korIme){
-        return administratorKlinikeRepository.findAllByKorIme(korIme);
+    public AdministratorKlinike findByKorIme(String korIme){
+        return administratorKlinikeRepository.findByKorIme(korIme);
     }
 
     public AdministratorKlinike findByEmail(String email) {

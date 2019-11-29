@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class MedicinskoOsoblje extends Korisnik{
+public class MedicinskoOsoblje extends Korisnik{
 
     @Column
     private int brSlobodnihDana;

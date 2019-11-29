@@ -61,15 +61,11 @@ public class PacijentService {
         return null;
     }
 
-    public List<Pacijent> findAllByLozinka(String pass){
-        return pacijentRepository.findAllByLozinka(pass);
-    }
-
     public void addPacijent(Pacijent p){
         pacijentRepository.save(p);
     }
 
-    public Pacijent getPacijent(String username){
-        return pacijentRepository.findByKorIme(username);
+    public Pacijent findByJbo(String jbo){
+        return pacijentRepository.findByJbo(jbo);
     }
 }
