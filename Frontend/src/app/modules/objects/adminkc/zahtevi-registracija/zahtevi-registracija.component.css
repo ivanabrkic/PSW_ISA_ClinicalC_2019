@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+
+
+.row {
+  margin-left: 3px;
+}
+
+.polja {
+  margin-left: 3px;
+  margin-top: 5px;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  width: 48%;
+}
+
+.buttons{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-danger{
+  margin-right: 2px;
+}
+
+div {
+  font-family: 'Roboto';
+}
+
+.content-container {
+  padding-left: 220px;
+}
+
+.zahtev{
+  border-bottom: 1px solid #DFDFDF;
+}
+
+.card-body{
+  width: 50%;
+  float:left;
+}
+
+.button-class{
+  float:right;
+  width: 50%;
+  height: 100%;
+  display:block;
+}
+
+.buttons{
+  height: 80px;
+  width: 100%;
+}
