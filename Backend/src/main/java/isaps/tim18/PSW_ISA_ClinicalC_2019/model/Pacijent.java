@@ -8,8 +8,4 @@ import javax.persistence.Table;
 public class Pacijent extends Korisnik{
     public Pacijent() {
     }
-
-    public Pacijent(String grad, String drzava, String adresa, String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime, String jbo, Boolean aktivnostNaloga) {
-        super(grad, drzava, adresa, korIme, lozinka, email, kontaktTelefon, ime, prezime, jbo, aktivnostNaloga);
-    }
 }
