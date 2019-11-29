@@ -37,6 +37,7 @@ import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.compon
 import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
+import { ZahteviRegistracijaComponent } from './modules/objects/adminkc/zahtevi-registracija/zahtevi-registracija.component';
 import {AdminKlinikeServiceService} from './_services/AdministratorKlinikeService/admin-klinike-service.service';
 import {KlinikaServiceService} from './_services/KlinikaService/klinika-service.service';
 import {LoginService, RegisterService} from './_services';
@@ -71,6 +72,7 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
     OdsustvoComponent,
     AdminkcIzmenaComponent,
     MedsestraIzmenaComponent,
+    ZahteviRegistracijaComponent,
     ListaKlinikaComponent,
     ZdravstveniKartonComponent
   ],
@@ -96,6 +98,7 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
       { path: 'medicinskaSestraIzmena', component: MedsestraIzmenaComponent},
       { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
       { path: 'lekar', component: LekarComponent},
+      { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
