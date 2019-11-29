@@ -1,7 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KorisnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +23,53 @@ public class PacijentService {
         return pacijentRepository.findAll(page);
     }
 
-    public List<Pacijent> findAllByKorisnickoIme(String kime){
-        return pacijentRepository.findAllByKorisnickoIme(kime);
+    public List<Pacijent> findAllByKorIme(String kime){
+        return pacijentRepository.findAllByKorIme(kime);
     }
 
-    public List<Pacijent> findAllByEmail(String email){
-        return pacijentRepository.findAllByEmail(email);
+    public Pacijent findByEmail(String email){
+        return pacijentRepository.findByEmail(email);
     }
 
+    public List<Pacijent> findAllByIme(String ime) {
+        return pacijentRepository.findAllByIme(ime);
+    }
+
+    public List<Pacijent> findAllByPrezime(String prezime) {
+        return pacijentRepository.findAllByPrezime(prezime);
+    }
+
+    public List<Pacijent> findByImeAndPrezime(String ime, String prezime) {
+        return pacijentRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    }
+
+    public Pacijent update(Pacijent pacijent) {
+        Pacijent p = pacijentRepository.findByJbo(pacijent.getJbo());
+        if(p != null){
+            p.setAdresa(pacijent.getAdresa());
+            p.setDrzava(pacijent.getDrzava());
+            p.setEmail(pacijent.getEmail());
+            p.setGrad(pacijent.getGrad());
+            p.setIme(pacijent.getIme());
+            p.setPrezime(pacijent.getPrezime());
+            p.setKontaktTelefon(pacijent.getKontaktTelefon());
+            p.setKorIme(pacijent.getKorIme());
+            p.setLozinka(pacijent.getLozinka());
+            pacijentRepository.save(p);
+            return p;
+        }
+        return null;
+    }
+
+    public void addPacijent(Pacijent p){
+        pacijentRepository.save(p);
+    }
+
+    public Pacijent getPacijent(String username){
+        return pacijentRepository.findByKorIme(username);
+    }
+
+    public Pacijent findByJbo(String jbo){
+        return pacijentRepository.findByJbo(jbo);
+    }
 }

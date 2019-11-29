@@ -3,21 +3,23 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.transaction.Transactional;
 
 @RestController
-@RequestMapping(value = "/api/registracijaKlinike")
+@RequestMapping(value = "klinika")
 public class KlinikaController {
 
     @Autowired
     private KlinikaService klinikaService;
 
-    @RequestMapping(value = "/registracijaKlinike", method = RequestMethod.POST)
+    @Transactional
+    @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
 
         Klinika novaKlinika = new Klinika();

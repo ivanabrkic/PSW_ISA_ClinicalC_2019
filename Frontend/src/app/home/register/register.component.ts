@@ -16,15 +16,20 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      korIme: ['', Validators.required],
+      lozinka: ['', [Validators.required, Validators.minLength(8)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmpass: ['', Validators.required],
+      kontaktTelefon: ['', Validators.required],
+      ime: ['', Validators.required],
+      prezime: ['', Validators.required],
       jbo: ['', Validators.required],
-      username: ['', Validators.required]
+      grad: ['', Validators.required],
+      drzava: ['', Validators.required],
+      adresa: ['', Validators.required],
+      tipKorisnika: ['', Validators.required],
+
     },  {
-      validator: MustMatch('password', 'confirmpass')
+      validator: MustMatch('lozinka', 'tipKorisnika')
     });
   }
 
@@ -45,14 +50,15 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-         // this.alertService.success('Registration successful', true);
+          alert('Uspešno ste se registrovali!! :-)');
           this.router.navigate(['/login']);
         },
         error => {
-         // this.alertService.error(error);
+          alert('Pokušajte ponovo!!')
           this.loading = false;
         });
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value));
+    alert(JSON.stringify(this.registerForm.value));
+
   }
 }
