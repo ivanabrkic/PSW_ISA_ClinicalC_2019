@@ -25,46 +25,52 @@ public class RegisterController {
     @Autowired
     private KorisnikService korisnikService;
 
-    @Transactional
     @PostMapping(value = "/registrationSubmit", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Korisnik> Register(@RequestBody Korisnik korisnik){
 
 
         Korisnik pacijentUsername = korisnikService.findByKorIme(korisnik.getKorIme());
         if(pacijentUsername!=null){
+            korisnik.setIme("Korisnicko ime vec postoji!");
             return new ResponseEntity<>(korisnik, HttpStatus.BAD_REQUEST);
         }
 
         Korisnik pacijentEmail = korisnikService.findByEmail(korisnik.getEmail());
         if(pacijentEmail!=null){
+            korisnik.setIme("Email vec postoji!");
             return new ResponseEntity<>(korisnik, HttpStatus.BAD_REQUEST);
         }
 
         Korisnik pacijentJbo = korisnikService.findByJbo(korisnik.getJbo());
         if(pacijentJbo!=null){
+            korisnik.setIme("Jbo vec postoji!");
             return new ResponseEntity<>(korisnik, HttpStatus.BAD_REQUEST);
         }
 
-        //Kreiranje pacijenta
-        Pacijent noviPacijent = new Pacijent();
-        noviPacijent.setKorIme(korisnik.getKorIme());
-        noviPacijent.setEmail(korisnik.getEmail());
-        noviPacijent.setLozinka(korisnik.getLozinka());
-        noviPacijent.setIme(korisnik.getIme());
-        noviPacijent.setPrezime(korisnik.getPrezime());
-        noviPacijent.setAdresa(korisnik.getAdresa());
-        noviPacijent.setGrad(korisnik.getGrad());
-        noviPacijent.setDrzava(korisnik.getDrzava());
-        noviPacijent.setJbo(korisnik.getJbo());
-        noviPacijent.setKontaktTelefon(korisnik.getKontaktTelefon());
-        noviPacijent.setAktivnostNaloga(Boolean.TRUE);
-        noviPacijent.setTipKorisnika("Pacijent");
+        //Builder pattern
 
-        pacijentService.addPacijent(noviPacijent);
+        Korisnik noviPacijent = Korisnik.builder()
+                .korIme(korisnik.getKorIme())
+                .lozinka(korisnik.getLozinka())
+                .email(korisnik.getEmail())
+                .ime(korisnik.getIme())
+                .prezime(korisnik.getPrezime())
+                .grad(korisnik.getGrad())
+                .drzava(korisnik.getDrzava())
+                .adresa(korisnik.getAdresa())
+                .aktivnostNaloga(true)
+                .jbo(korisnik.getJbo())
+                .kontaktTelefon(korisnik.getKontaktTelefon())
+                .tipKorisnika("Pacijent").build();
+
+        //Dodavanje novog pacijenta preko konstruktora koji prima Korisnika kao parametar
+        //Dodaje se u isto vreme u obe tabele, u tabelu Pacijent kao referenca na tabelu Korisnik
+        Pacijent p = new Pacijent(noviPacijent);
+        pacijentService.add(p);
 
         System.out.println("Account with username " + noviPacijent.getKorIme() + "has been created!");
 
-        return new ResponseEntity<>(noviPacijent, HttpStatus.OK);
+        return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
     }

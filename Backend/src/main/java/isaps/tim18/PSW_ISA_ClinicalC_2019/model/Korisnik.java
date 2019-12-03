@@ -3,11 +3,12 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Korisnik {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name="grad",unique=false)
     private String grad;
@@ -66,6 +67,23 @@ public class Korisnik {
         this.tipKorisnika = tipKorisnika;
     }
 
+    public Korisnik(Korisnik korisnik){
+        super();
+        this.korIme = korisnik.korIme;
+        this.lozinka = korisnik.lozinka;
+        this.email = korisnik.email;
+        this.kontaktTelefon = korisnik.kontaktTelefon;
+        this.ime = korisnik.ime;
+        this.prezime = korisnik.prezime;
+        this.jbo=korisnik.jbo;
+        this.grad = korisnik.grad;
+        this.adresa=korisnik.adresa;
+        this.drzava=korisnik.drzava;
+        this.aktivnostNaloga=korisnik.aktivnostNaloga;
+        this.grad=korisnik.grad;
+        this.tipKorisnika = korisnik.tipKorisnika;
+    }
+
     public String getTipKorisnika() {
         return tipKorisnika;
     }
@@ -74,11 +92,11 @@ public class Korisnik {
         this.tipKorisnika = tipKorisnika;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -110,7 +128,6 @@ public class Korisnik {
         return kontaktTelefon;
     }
 
-
     public Boolean getAktivnostNaloga() {
         return aktivnostNaloga;
     }
@@ -118,8 +135,6 @@ public class Korisnik {
     public void setAktivnostNaloga(Boolean aktivnostNaloga){
         this.aktivnostNaloga=aktivnostNaloga;
     }
-
-
 
     public String getGrad() {
         return grad;
@@ -171,5 +186,28 @@ public class Korisnik {
 
     public void setPrezime(String prezime) {
         this.prezime = prezime;
+    }
+
+    @Override
+    public String toString() {
+        return "Korisnik{" +
+                "id=" + id +
+                ", grad='" + grad + '\'' +
+                ", drzava='" + drzava + '\'' +
+                ", adresa='" + adresa + '\'' +
+                ", korIme='" + korIme + '\'' +
+                ", lozinka='" + lozinka + '\'' +
+                ", email='" + email + '\'' +
+                ", kontaktTelefon='" + kontaktTelefon + '\'' +
+                ", ime='" + ime + '\'' +
+                ", prezime='" + prezime + '\'' +
+                ", jbo='" + jbo + '\'' +
+                ", aktivnostNaloga=" + aktivnostNaloga +
+                ", tipKorisnika='" + tipKorisnika + '\'' +
+                '}';
+    }
+
+    public static KorisnikBuilder builder() {
+        return new KorisnikBuilder();
     }
 }

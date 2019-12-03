@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -43,6 +44,7 @@ public class PacijentService {
         return pacijentRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
 
+    @Transactional
     public Pacijent update(Pacijent pacijent) {
         Pacijent p = pacijentRepository.findByJbo(pacijent.getJbo());
         if(p != null){
@@ -61,8 +63,9 @@ public class PacijentService {
         return null;
     }
 
-    public void addPacijent(Pacijent p){
-        pacijentRepository.save(p);
+    @Transactional
+    public void add(Pacijent pacijent){
+        pacijentRepository.save(pacijent);
     }
 
     public Pacijent findByJbo(String jbo){

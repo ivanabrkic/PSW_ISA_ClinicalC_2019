@@ -6,16 +6,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
 
     Page<Korisnik> findAll(Pageable pageable);
 
-    List<Korisnik> findAllByKorIme(String kime);
+    Korisnik findByJbo(String jbo);
+
+    Korisnik findByKorIme(String korIme);
 
     Korisnik findByEmail(String email);
 
-    Korisnik findByLozinka(String pass);
+//    Korisnik findById(Long id);
+
+    Korisnik findByEmailAndLozinka(String email, String lozinka);
 }

@@ -1,13 +1,17 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="administrator_klinike")
-public class AdministratorKlinike extends Korisnik {
+@PrimaryKeyJoinColumn(name = "admink_id")
+public class AdministratorKlinike extends Korisnik{
 
     public AdministratorKlinike() {
+    }
+
+    public AdministratorKlinike(Korisnik korisnik) {
+        super(korisnik);
     }
 
 }

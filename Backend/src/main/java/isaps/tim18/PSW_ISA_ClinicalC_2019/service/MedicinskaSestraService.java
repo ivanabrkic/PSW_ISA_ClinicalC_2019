@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -34,6 +35,7 @@ public class MedicinskaSestraService {
         return medicinskaSestraRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
 
+    @Transactional
     public MedicinskaSestra update(MedicinskaSestra medicinskaSestra) {
         MedicinskaSestra p = medicinskaSestraRepository.findByJbo(medicinskaSestra.getJbo());
         if(p != null){

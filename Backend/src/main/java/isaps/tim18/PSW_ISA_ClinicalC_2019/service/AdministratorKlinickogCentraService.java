@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -31,22 +32,23 @@ public class AdministratorKlinickogCentraService {
         return administratorKlinickogCentraRepository.findAllByPrezime(prezime);
     }
 
+    @Transactional
     public AdministratorKlinickogCentra update(AdministratorKlinickogCentra administratorKlinickogCentra) {
         AdministratorKlinickogCentra p = administratorKlinickogCentraRepository.findByJbo(administratorKlinickogCentra.getJbo());
-        if(p != null){
-            p.setAdresa(administratorKlinickogCentra.getAdresa());
-            p.setDrzava(administratorKlinickogCentra.getDrzava());
-            p.setEmail(administratorKlinickogCentra.getEmail());
-            p.setGrad(administratorKlinickogCentra.getGrad());
-            p.setIme(administratorKlinickogCentra.getIme());
-            p.setPrezime(administratorKlinickogCentra.getPrezime());
-            p.setKontaktTelefon(administratorKlinickogCentra.getKontaktTelefon());
-            p.setKorIme(administratorKlinickogCentra.getKorIme());
-            p.setLozinka(administratorKlinickogCentra.getLozinka());
-            administratorKlinickogCentraRepository.save(p);
-            return p;
+        if (p == null) {
+            return null;
         }
-        return null;
+        p.setAdresa(administratorKlinickogCentra.getAdresa());
+        p.setDrzava(administratorKlinickogCentra.getDrzava());
+        p.setEmail(administratorKlinickogCentra.getEmail());
+        p.setGrad(administratorKlinickogCentra.getGrad());
+        p.setIme(administratorKlinickogCentra.getIme());
+        p.setPrezime(administratorKlinickogCentra.getPrezime());
+        p.setKontaktTelefon(administratorKlinickogCentra.getKontaktTelefon());
+        p.setKorIme(administratorKlinickogCentra.getKorIme());
+        p.setLozinka(administratorKlinickogCentra.getLozinka());
+        administratorKlinickogCentraRepository.save(p);
+        return p;
     }
 
     public List<AdministratorKlinickogCentra> findByImeAndPrezime(String ime, String prezime) {

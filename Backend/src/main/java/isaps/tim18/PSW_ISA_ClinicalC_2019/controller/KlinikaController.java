@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
-
 @RestController
 @RequestMapping(value = "klinika")
 public class KlinikaController {
@@ -18,7 +16,6 @@ public class KlinikaController {
     @Autowired
     private KlinikaService klinikaService;
 
-    @Transactional
     @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
 
@@ -26,7 +23,7 @@ public class KlinikaController {
 
         novaKlinika.setNaziv(klinika.getNaziv());
 
-        klinikaService.addKliniku(novaKlinika);
+        klinikaService.add(novaKlinika);
         return "Uspešno registrovana klinika!";
     }
 }

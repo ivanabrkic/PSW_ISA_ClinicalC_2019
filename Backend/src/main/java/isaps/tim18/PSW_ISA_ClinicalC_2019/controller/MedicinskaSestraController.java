@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -16,7 +15,6 @@ public class MedicinskaSestraController {
 
     private MedicinskaSestraService medicinskaSestraService;
 
-    @Transactional
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MedicinskaSestra> update(@RequestBody MedicinskaSestra medicinskaSestra) throws Exception {
 

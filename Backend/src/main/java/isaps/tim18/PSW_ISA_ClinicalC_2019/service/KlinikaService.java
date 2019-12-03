@@ -5,6 +5,8 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KlinikaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class KlinikaService {
 
@@ -15,7 +17,8 @@ public class KlinikaService {
 
     public Klinika findById(int id) { return klinikaRepo.findById(id); }
 
-    public Klinika addKliniku(Klinika klinika){
+    @Transactional
+    public Klinika add(Klinika klinika){
         return klinikaRepo.save(klinika);
     }
 }

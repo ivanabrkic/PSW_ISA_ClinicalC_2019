@@ -1,6 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinike;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -27,40 +27,38 @@ public class AdministratorKlinikeController {
     }
 
     @RequestMapping(value = "/registrationSubmitAdmin", method = RequestMethod.POST)
-    public String Register(@RequestBody AdministratorKlinike admin){
+    public String Register(@RequestBody Korisnik korisnik){
 
-        AdministratorKlinike adminUsername = adminKlinikeService.findByKorIme(admin.getKorIme());
+        AdministratorKlinike adminUsername = adminKlinikeService.findByKorIme(korisnik.getKorIme());
         if(adminUsername != null){
             return "Korisničko ime je zauzeto";
         }
 
-        AdministratorKlinike adminEmail = adminKlinikeService.findByEmail(admin.getEmail());
+        AdministratorKlinike adminEmail = adminKlinikeService.findByEmail(korisnik.getEmail());
         if(adminEmail != null){
             return "Email je već u upotrebi!";
         }
 
-        AdministratorKlinike noviAdmin = new AdministratorKlinike();
-        noviAdmin.setKorIme(admin.getKorIme());
-        noviAdmin.setEmail(admin.getEmail());
-        noviAdmin.setLozinka(admin.getLozinka());
-        noviAdmin.setIme(admin.getIme());
-        noviAdmin.setPrezime(admin.getPrezime());
-        noviAdmin.setAdresa(admin.getAdresa());
-        noviAdmin.setGrad(admin.getGrad());
-        noviAdmin.setDrzava(admin.getDrzava());
-        noviAdmin.setJbo(admin.getJbo());
-        noviAdmin.setKontaktTelefon(admin.getKontaktTelefon());
-        noviAdmin.setAktivnostNaloga(true);
-        noviAdmin.setTipKorisnika("Administrator klinike");
+        Korisnik noviAdmin = Korisnik.builder()
+                .korIme(korisnik.getKorIme())
+                .lozinka(korisnik.getLozinka())
+                .email(korisnik.getEmail())
+                .ime(korisnik.getIme())
+                .prezime(korisnik.getPrezime())
+                .grad(korisnik.getGrad())
+                .drzava(korisnik.getDrzava())
+                .adresa(korisnik.getAdresa())
+                .aktivnostNaloga(true)
+                .jbo(korisnik.getJbo())
+                .kontaktTelefon(korisnik.getKontaktTelefon())
+                .tipKorisnika("Administrator klinike").build();
 
-        adminKlinikeService.addAdminKlinike(noviAdmin);
-
-        System.out.println(noviAdmin.getKorIme());
+        AdministratorKlinike admin = new AdministratorKlinike(noviAdmin);
+        adminKlinikeService.add(admin);
 
         return "Uspešno registrovan administrator!";
     }
 
-    @Transactional
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AdministratorKlinike> update(@RequestBody AdministratorKlinike administratorKlinike) throws Exception {
 

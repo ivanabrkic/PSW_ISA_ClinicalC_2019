@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -39,21 +40,22 @@ public class LekarService {
         return lekarRepository.findByKorIme(korIme);
     }
 
+    @Transactional
     public Lekar update(Lekar lekar) {
         Lekar p = lekarRepository.findByJbo(lekar.getJbo());
-        if(p != null){
-            p.setAdresa(lekar.getAdresa());
-            p.setDrzava(lekar.getDrzava());
-            p.setEmail(lekar.getEmail());
-            p.setGrad(lekar.getGrad());
-            p.setIme(lekar.getIme());
-            p.setPrezime(lekar.getPrezime());
-            p.setKontaktTelefon(lekar.getKontaktTelefon());
-            p.setKorIme(lekar.getKorIme());
-            p.setLozinka(lekar.getLozinka());
-            lekarRepository.save(p);
-            return p;
+        if (p == null) {
+            return null;
         }
-        return null;
+        p.setAdresa(lekar.getAdresa());
+        p.setDrzava(lekar.getDrzava());
+        p.setEmail(lekar.getEmail());
+        p.setGrad(lekar.getGrad());
+        p.setIme(lekar.getIme());
+        p.setPrezime(lekar.getPrezime());
+        p.setKontaktTelefon(lekar.getKontaktTelefon());
+        p.setKorIme(lekar.getKorIme());
+        p.setLozinka(lekar.getLozinka());
+        lekarRepository.save(p);
+        return p;
     }
 }
