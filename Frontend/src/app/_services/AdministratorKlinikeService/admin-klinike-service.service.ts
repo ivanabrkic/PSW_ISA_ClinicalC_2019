@@ -23,7 +23,6 @@ export class AdminKlinikeServiceService {
   }
 
   public update(adminKlinike: AdministratorKlinike) {
-    alert("USAO SAM");
     const admin = JSON.stringify(adminKlinike);
     return this.http.post<AdministratorKlinike>('/server/administrator_k/update' , admin, httpOptions);
   }
