@@ -3,12 +3,15 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinike;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 import java.util.List;
 
 @RestController
@@ -17,6 +20,9 @@ public class AdministratorKlinikeController {
 
     @Autowired
     private AdministratorKlinikeService adminKlinikeService;
+
+    @Autowired
+    private KorisnikService korisnikService;
 
     @GetMapping(value = "/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AdministratorKlinike>> getAllAdmineKlinike() {
@@ -60,10 +66,15 @@ public class AdministratorKlinikeController {
     }
 
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AdministratorKlinike> update(@RequestBody AdministratorKlinike administratorKlinike) throws Exception {
+    public ResponseEntity<AdministratorKlinike> update(@RequestBody AdministratorKlinike administratorKlinike, @Context HttpServletRequest request) throws Exception {
 
-        adminKlinikeService.update(administratorKlinike);
+        AdministratorKlinike admin = adminKlinikeService.update(administratorKlinike);
 
-        return new ResponseEntity<>(administratorKlinike, HttpStatus.OK);
+        if (admin != null) {
+            return new ResponseEntity<>(administratorKlinike, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
     }
 }

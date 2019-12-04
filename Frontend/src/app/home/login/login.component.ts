@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {LoginService} from 'src/app/_services';
+import {LoginService} from 'src/app/_services/LoginAndRegister';
 import {first} from 'rxjs/operators';
 
 @Component({ templateUrl: 'login.component.html', styleUrls: ['login.component.css']})

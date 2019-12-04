@@ -1,6 +1,6 @@
 import {Klinike} from './tempLista';
 import {Component, OnInit} from '@angular/core';
-import {Klinika} from '../../../models/Klinika/klinika';
+import {Klinika} from '../../../models/klinika/klinika';
 
 @Component({
   selector: 'app-lista-klinika',

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Klinika} from '../../models/Klinika/klinika';
+import {Klinika} from '../../models/klinika/klinika';
+
+const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +15,12 @@ export class KlinikaServiceService {
     this.klinikaUrl = '/server/klinika/registracijaKlinike';
   }
 
-  public findByNaziv(): Observable<Klinika>{
+  public findByNaziv(): Observable<Klinika> {
     return this.http.get<Klinika>(this.klinikaUrl);
   }
 
   public save(klinika: Klinika) {
-    return this.http.post<Klinika>(this.klinikaUrl, JSON.stringify(klinika));
+    const k = JSON.stringify(klinika)
+    return this.http.post<Klinika>(this.klinikaUrl, k, httpOptions);
   }
 }

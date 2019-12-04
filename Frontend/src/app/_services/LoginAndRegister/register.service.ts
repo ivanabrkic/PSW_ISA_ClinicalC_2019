@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import {Korisnik} from 'src/app/models';
+import {Korisnik} from 'src/app/models/korisnik';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Klinika} from '../../../../models/Klinika/klinika';
+import {Klinika} from '../../../../models/klinika/klinika';
 import {ActivatedRoute, Router} from '@angular/router';
 import {KlinikaServiceService} from '../../../../_services/KlinikaService/klinika-service.service';
 
