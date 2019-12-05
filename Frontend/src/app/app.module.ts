@@ -43,6 +43,8 @@ import {KlinikaServiceService} from './_services/KlinikaService/klinika-service.
 import {LoginService, RegisterService} from './_services';
 import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
+import { OdbijanjeObrazlozenjeComponent } from './modules/objects/adminkc/odbijanje-obrazlozenje/odbijanje-obrazlozenje.component';
+import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje-dijagnoza/kreiranje-dijagnoza.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
     MedsestraIzmenaComponent,
     ZahteviRegistracijaComponent,
     ListaKlinikaComponent,
-    ZdravstveniKartonComponent
+    ZdravstveniKartonComponent,
+    OdbijanjeObrazlozenjeComponent,
+    KreiranjeDijagnozaComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -98,6 +102,7 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
       { path: 'medicinskaSestraIzmena', component: MedsestraIzmenaComponent},
       { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
       { path: 'lekar', component: LekarComponent},
+      { path: 'odbijanjeObrazlozenje', component: OdbijanjeObrazlozenjeComponent},
       { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
@@ -107,6 +112,7 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
       {path: 'pacijentPregled', component: PacijentPregledComponent},
       {path: 'pacijent', component: PacijentComponent},
       { path: 'login', component: LoginComponent },
+      { path: 'kreiranjeDijagnoza', component: KreiranjeDijagnozaComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'welcome', component: HomeComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},

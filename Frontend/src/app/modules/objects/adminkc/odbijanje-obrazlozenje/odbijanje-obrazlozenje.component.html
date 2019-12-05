@@ -7,30 +7,24 @@
           <div class="col-md-8">
             <div class="card">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Zahtevi</h4>
+                <h4 class="card-title">Obrazloženje</h4>
               </div>
-              <ng-template ngFor [ngForOf]="items" let-item>
               <div class = "zahtev">
-                <div class="card-body">
-                  <form>
-                    <div class="row">
-                      <p>Korisničko ime: {{item['korIme']}}</p>
-                    </div>
-                    <div class="row">
-                      <p>E-mail adresa: {{item['email']}}</p>
-                    </div>
-                    <div class="row">
-                      <p>JBO: {{item['jbo']}} </p>
-                    </div>
-                    <div class="clearfix"></div>
+               <div class="card-body">
+                 <form>
+                   <mat-form-field class="example-full-width">
+                     <p class = "title">Razlog odbijanja registracije:</p>
+                   </mat-form-field>
+
+                   <div class="col-md-5">
+                     <mat-form-field class="example-full-width">
+                       <textarea cols="92" rows="10"></textarea>
+                     </mat-form-field>
+                   </div>
+                   <input class = "btn btn-info" type = "submit"  value = "Pošalji" [routerLink]="['/zahteviRegistracija']" style ="margin-left: 15px"/>
                   </form>
-                </div>
-                <div class="button-class">
-                  <button class = "btn btn-success buttons" (click)="onItemDeletedAccepted(item)" >Prihvati</button>
-                  <button [routerLink]="['/odbijanjeObrazlozenje']" class = "btn btn-danger buttons" (click)="onItemDeletedRejected(item)" >Odbij</button>
-                </div>
+               </div>
               </div>
-              </ng-template>
             </div>
           </div>
           <div class="col-md-4">

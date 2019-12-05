@@ -16,7 +16,11 @@ export class ZahteviRegistracijaComponent implements OnInit {
   ngOnInit() {
   }
 
-  onItemDeleted(index: number) {
+  onItemDeletedAccepted(index: number) {
+    this.items.splice(index, 1);
+  }
+
+  onItemDeletedRejected(index: number) {
     this.items.splice(index, 1);
   }
 }

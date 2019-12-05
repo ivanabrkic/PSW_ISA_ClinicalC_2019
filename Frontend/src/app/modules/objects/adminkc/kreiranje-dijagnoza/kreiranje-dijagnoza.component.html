@@ -1,0 +1,68 @@
+<app-sidebar-adminkc></app-sidebar-adminkc>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Šifranik dijagnoza</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Šifra</th>
+                <th>Naziv</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let dijagnoza of dijagnoze">
+                  <td>{{dijagnoza.sifra}}</td>
+                  <td>{{dijagnoza.naziv}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4  class="card-title">Nova dijagnoza</h4>
+                </div>
+                <div class="card-body">
+                  <form style = "text-align: center">
+                    <div class="col-md-12">
+                      <mat-form-field class="example-full-width">
+                        <input #sifra class = "sifra" matInput placeholder="Šifra" ng-model = "sifra">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <mat-form-field class="example-full-width">
+                        <input #naziv class = "naziv" matInput placeholder="Naziv" ng-model = "naziv">
+                      </mat-form-field>
+                    </div>
+                    <button type = "submit" class = "btn-info" (click)="dodajDijagnozu(sifra.value, naziv.value)">Dodaj</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
