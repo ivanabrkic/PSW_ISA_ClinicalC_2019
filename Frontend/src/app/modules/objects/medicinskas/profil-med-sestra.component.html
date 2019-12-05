@@ -12,18 +12,42 @@
               <div class="card-body">
                 <form>
                   <div class="row">
-                    <p>Ime: Ana-Marija</p>
+                    <div class="col-md-12">
+                      <p> Ime : {{medSestra.ime}} </p>
+                    </div>
                   </div>
                   <div class="row">
-                    <p>Prezime: Buhmiler</p>
+                    <div class="col-md-12">
+                      <p> Prezime : {{medSestra.prezime}} </p>
+                    </div>
                   </div>
                   <div class="row">
-                    <p>Kontakt telefon: Nedostupan</p>
+                    <div class="col-md-12">
+                      <p> Korisnicko ime : {{medSestra.korIme}} </p>
+                    </div>
                   </div>
                   <div class="row">
-                    <p>E-mail adresa: anamarija.buhmiler@gmail.com</p>
+                    <div class="col-md-12">
+                      <p> Broj telefona : {{medSestra.kontaktTelefon}} </p>
+                    </div>
                   </div>
-                  <div class="clearfix"></div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Email : {{medSestra.email}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Adresa : {{medSestra.adresa}} </p>
+                      <p> Grad : {{medSestra.grad}} </p>
+                      <p> Drzava : {{medSestra.drzava}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Jedinstveni broj osiguranika : {{medSestra.jbo}} </p>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>
@@ -32,15 +56,12 @@
             <div class="card card-profile">
               <div class="card-avatar">
                 <a href="javascript:void(0)">
-                  <img class="img-fluid" src="./assets/img/nurse.jpg" />
+                  <img class="img-fluid" src="./assets/img/meds.png" />
                 </a>
               </div>
               <div class="card-body">
                 <h6 class="card-category text-gray">Medicinska sestra</h6>
-                <h4 class="card-title">Ana-Marija Buhmiler</h4>
-                <p class="card-description">
-                  O meni
-                </p>
+                <h4 class="card-title">{{medSestra.ime}} {{medSestra.prezime}}</h4>
               </div>
             </div>
           </div>

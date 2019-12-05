@@ -13,22 +13,39 @@
                 <form>
                   <div class="row">
                     <div class="col-md-12">
-                        <p> Ime : Vladimir </p>
+                      <p> Ime : {{lekar.ime}} </p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                        <p> Prezime : Popovic </p>
+                      <p> Prezime : {{lekar.prezime}} </p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                        <p> Broj telefona : 0652754578 </p>
+                      <p> Korisnicko ime : {{lekar.korIme}} </p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                        <p> Email : vladimirpopovic@live.com </p>
+                      <p> Broj telefona : {{lekar.kontaktTelefon}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Email : {{lekar.email}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Adresa : {{lekar.adresa}} </p>
+                      <p> Grad : {{lekar.grad}} </p>
+                      <p> Drzava : {{lekar.drzava}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Jedinstveni broj osiguranika : {{lekar.jbo}} </p>
                     </div>
                   </div>
                 </form>
@@ -39,15 +56,12 @@
             <div class="card card-profile">
               <div class="card-avatar">
                 <a href="javascript:void(0)">
-                  <img class="img-fluid" src="./assets/img/faces/marc.jpg" />
+                  <img class="img-fluid" src="./assets/img/lekar.png" />
                 </a>
               </div>
               <div class="card-body">
                 <h6 class="card-category text-gray">Lekar</h6>
-                <h4 class="card-title">Vladimir Popovic</h4>
-                <p class="card-description">
-                  O meni
-                </p>
+                <h4 class="card-title">{{lekar.ime}} {{lekar.prezime}}</h4>
               </div>
             </div>
           </div>
