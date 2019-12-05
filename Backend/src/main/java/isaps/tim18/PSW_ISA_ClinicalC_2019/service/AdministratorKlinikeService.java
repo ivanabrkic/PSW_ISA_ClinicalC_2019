@@ -48,10 +48,10 @@ public class AdministratorKlinikeService {
     @Transactional
     public AdministratorKlinike update(AdministratorKlinike administratorKlinike) {
         AdministratorKlinike p = administratorKlinikeRepository.findByJbo(administratorKlinike.getJbo());
+//        p = administratorKlinikeRepository.getOne(p.getId());
         if (p == null) {
             return null;
         }
-
         p.setAdresa(administratorKlinike.getAdresa());
         p.setDrzava(administratorKlinike.getDrzava());
         p.setEmail(administratorKlinike.getEmail());
@@ -63,6 +63,7 @@ public class AdministratorKlinikeService {
         p.setLozinka(administratorKlinike.getLozinka());
 
         administratorKlinikeRepository.save(p);
+
         return p;
     }
 }

@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MustMatch } from 'src/app/_helpers/MustMatch';
 import {Router} from '@angular/router';
 import { first } from 'rxjs/operators';
-import {RegisterService} from 'src/app/_services';
+import {RegisterService} from 'src/app/_services/LoginAndRegister';
 
 @Component({ templateUrl: 'register.component.html', styleUrls: [ 'register.component.css' ] })
 export class RegisterComponent implements OnInit {
@@ -17,15 +17,16 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       korIme: ['', Validators.required],
-      lozinka: ['', [Validators.required, Validators.minLength(8)]],
+      lozinka: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$'
+      )]],
       email: ['', [Validators.required, Validators.email]],
-      kontaktTelefon: ['', Validators.required],
+      kontaktTelefon: [''],
       ime: ['', Validators.required],
       prezime: ['', Validators.required],
-      jbo: ['', Validators.required],
-      grad: ['', Validators.required],
-      drzava: ['', Validators.required],
-      adresa: ['', Validators.required],
+      jbo: ['', [Validators.required, Validators.minLength(13), Validators.pattern('^[0-9]*$')]],
+      grad: [''],
+      drzava: [''],
+      adresa: [''],
       tipKorisnika: ['', Validators.required],
 
     },  {
@@ -54,11 +55,8 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         error => {
-          alert('Pokušajte ponovo!!')
+          alert('Pokušajte ponovo!!');
           this.loading = false;
         });
-
-    alert(JSON.stringify(this.registerForm.value));
-
   }
 }
