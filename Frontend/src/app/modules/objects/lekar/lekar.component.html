@@ -5,130 +5,120 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-8">
+            <form (ngSubmit)="onSubmit()" [formGroup]="lekarForm">
             <div class="card">
-              <div class="card-header card-header-danger">
-                <h4 class="card-title">Osnovne informacije</h4>
-              </div>
-              <div class="card-body">
-                <form (ngSubmit)="onSubmit()" [formGroup]="lekarForm">
-                  <div class="row">
-                    <div class="col-md-5">
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Ime" [ngClass]="{ 'is-invalid': submitted && f.ime.errors }"
-                               formControlName="ime">
-                        <div *ngIf="submitted && f.ime.errors" class="invalid-feedback">
-                          <div *ngIf="f.ime.errors.required">Unos imena je obavezan</div>
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Osnovne informacije</h4>
+                  </div>
+                  <div class="card-body">
+                          <div class="row">
+                              <div class="col-md-5" >
+                                  <mat-form-field class="example-full-width">
+                                    <input [(ngModel)]="lekar.ime" placeholder="Ime" #ime matInput [ngClass]="{ 'is-invalid': submitted && f.ime.errors }"
+                                           formControlName="ime" class="mat-form-control" >
+                                    <mat-error *ngIf="submitted && f.ime.errors" >
+                                        <div *ngIf="f.ime.errors.required">Unos imena je obavezan</div>
+                                    </mat-error>
+                                  </mat-form-field>
+                              </div>
+                            <div class="col-md-5">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Adresa" type="text"
+                                       id="adresa"
+                                       [(ngModel)]="lekar.adresa" formControlName="adresa" class="mat-form-control">
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-5">
+                              <mat-form-field class="example-full-width">
+                                <input placeholder="Prezime" #prezime matInput [(ngModel)]="lekar.prezime"  [ngClass]="{ 'is-invalid': submitted && f.prezime.errors }"
+                                       formControlName="prezime" class="mat-form-control">
+                                <mat-error *ngIf="submitted && f.prezime.errors" class="invalid-feedback">
+                                  <div *ngIf="f.prezime.errors.required">Unos prezimena je obavezan</div>
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-5">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Grad" type="text"
+                                       id="grad"
+                                       [(ngModel)]="lekar.grad" formControlName="grad" class="mat-form-control">
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        <div class="row">
+                          <div class="col-md-5">
+                            <mat-form-field class="example-full-width">
+                              <input placeholder="Kontakt telefon" #kontaktTelefon matInput [(ngModel)]="lekar.kontaktTelefon" type="text"
+                                     formControlName="kontaktTelefon" class="mat-form-control">
+                            </mat-form-field>
+                          </div>
+
+                            <div class="col-md-5">
+                              <mat-form-field class="example-full-width">
+                                <input placeholder="Drzava" matInput type="text"
+                                       id="drzava"
+                                       [(ngModel)]="lekar.drzava" formControlName="drzava" class="mat-form-control">
+                              </mat-form-field>
+                            </div>
                         </div>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Prezime"  [ngClass]="{ 'is-invalid': submitted && f.prezime.errors }"
-                               formControlName="prezime">
-                        <div *ngIf="submitted && f.prezime.errors" class="invalid-feedback">
-                          <div *ngIf="f.prezime.errors.required">Unos prezimena je obavezan</div>
-                        </div>
-                      </mat-form-field>
-                    </div>
+                        <div class = "row">
+                          <div class="col-md-5">
+                            <mat-form-field class="example-full-width">
+                              <input placeholder="Email" matInput [(ngModel)]="lekar.email" type="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                                     formControlName="email" class="mat-form-control">
+                              <mat-error *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                <div *ngIf="f.email.errors.required">Unos e-mail-a je obavezan</div>
+                                <div *ngIf="f.email.errors.email">E-mail je neispravan</div>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-10">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Jedinstveni broj osiguranika"
+                                       [(ngModel)]="lekar.jbo" [readonly]="true" type="text" formControlName="jbo" class="mat-form-control" >
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Izmeni</button>
+                          <div class="clearfix"></div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-5">
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Kontakt telefon" type="text" [ngClass]="{ 'is-invalid': submitted && f.kontaktTelefon.errors }"
-                               formControlName="kontaktTelefon">
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                    <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Email adresa" type="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                             formControlName="email">
-                      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                        <div *ngIf="f.email.errors.required">Unos e-mail-a je obavezan</div>
-                      </div>
-                    </mat-form-field>
-                  </div>
-                    <div class="col-md-5">
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Adresa" type="text"  [ngClass]="{ 'is-invalid': submitted && f.adresa.errors }"
-                               id="adresa"
-                               placeholder="Adresa" formControlName="adresa">
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field class="example-full-width">
-                        <input matInput  type="text" [ngClass]="{ 'is-invalid': submitted && f.drzava.errors }"
-                               id="drzava"
-                               placeholder="Država" formControlName="drzava">
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-5">
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Grad" type="text" [ngClass]="{ 'is-invalid': submitted && f.grad.errors }"
-                               id="grad"
-                               placeholder="Grad" formControlName="grad">
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field class="example-full-width">
-                        <input matInput disabled="disabled"
-                               id="jbo" placeholder="Jedinstveni broj osiguranika" type="text">
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <button mat-raised-button type="submit"  [disabled]="loading"   class="btn btn-danger pull-right">Izmeni</button>
-                  <div class="clearfix"></div>
-                </form >
               </div>
-            </div>
             <div class="card">
               <div class="card-header card-header-danger">
                 <h4 class="card-title">Korisničko ime i lozinka</h4>
               </div>
               <div class="card-body">
-                <form (ngSubmit)="onSubmit()" [formGroup]="lekarForm">
                   <div class="row">
                     <div class="col-md-5">
                       <mat-form-field class="example-full-width">
-                        <input [ngClass]="{ 'is-invalid': submitted && f.korIme.errors }"  formControlName="korIme"
-                               matInput placeholder="Korisničko ime">
-                        <div *ngIf="submitted && f.korIme.errors" class="invalid-feedback">
+                        <input placeholder="Korisnicko ime" [ngClass]="{ 'is-invalid': submitted && f.korIme.errors }"  formControlName="korIme"
+                               matInput  [(ngModel)]="lekar.korIme" class="mat-form-control">
+                        <mat-error *ngIf="submitted && f.korIme.errors" class="invalid-feedback">
                           <div *ngIf="f.korIme.errors.required">Unos korisničkog imena je obavezan</div>
-                        </div>
+                        </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Lozinka"
+                        <input placeholder="Sifra" matInput type="password" [(ngModel)]="lekar.lozinka" class="mat-form-control"
                                formControlName="lozinka" [ngClass]="{ 'is-invalid': submitted && f.lozinka.errors }">
-                        <div *ngIf="submitted && f.lozinka?.errors" class="invalid-feedback">
+                        <mat-error *ngIf="submitted && f.lozinka?.errors" class="invalid-feedback">
                           <div *ngIf="f.lozinka?.errors.required">Unos lozinke je obavezan</div>
                           <div *ngIf="f.lozinka?.errors.minlength">Lozinka mora imati minimalno 8 karaktera</div>
-                        </div>
-
+                          <div *ngIf="f.lozinka?.errors.pattern">Lozinka mora imati minimalno jedan broj i jedan karakter</div>
+                        </mat-error>
                       </mat-form-field>
                     </div>
                   </div>
-                  <button mat-raised-button type="submit"  [disabled]="loading"  class="btn btn-danger pull-right">Izmeni</button>
+                  <button mat-raised-button type="submit" class="btn btn-danger pull-right">Izmeni</button>
                   <div class="clearfix"></div>
-                </form>
               </div>
-            </div>
           </div>
-          <div class="col-md-4">
-            <div class="card card-profile">
-              <div class="card-avatar">
-                <a href="javascript:void(0)">
-                  <img class="img-fluid" src="./assets/img/faces/marc.jpg" />
-                </a>
-              </div>
-              <div class="card-body">
-                <h6 class="card-category text-gray">Lekar</h6>
-                <h4 class="card-title">Vladimir Popovic</h4>
-                <p class="card-description">
-                  O meni
-                </p>
-              </div>
-            </div>
+          </form>
           </div>
         </div>
       </div>

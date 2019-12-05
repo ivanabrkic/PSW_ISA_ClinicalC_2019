@@ -13,22 +13,39 @@
                 <form>
                   <div class="row">
                     <div class="col-md-12">
-                      <p> Ime : Ivana </p>
+                      <p> Ime : {{adminKlinike.ime}} </p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <p> Prezime : Brkic </p>
+                      <p> Prezime : {{adminKlinike.prezime}} </p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <p> Broj telefona : 0655754579 </p>
+                      <p> Korisnicko ime : {{adminKlinike.korIme}} </p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <p> Email : ivanabrkic@live.com </p>
+                      <p> Broj telefona : {{adminKlinike.kontaktTelefon}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Email : {{adminKlinike.email}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Adresa : {{adminKlinike.adresa}} </p>
+                      <p> Grad : {{adminKlinike.grad}} </p>
+                      <p> Drzava : {{adminKlinike.drzava}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Jedinstveni broj osiguranika : {{adminKlinike.jbo}} </p>
                     </div>
                   </div>
                 </form>
@@ -39,15 +56,12 @@
             <div class="card card-profile">
               <div class="card-avatar">
                 <a href="javascript:void(0)">
-                  <img class="img-fluid" src="./assets/img/ivana.jpg" />
+                  <img class="img-fluid" src="./assets/img/admink.png" />
                 </a>
               </div>
               <div class="card-body">
                 <h6 class="card-category text-gray">Administrator klinike</h6>
-                <h4 class="card-title">Ivana Brkic</h4>
-                <p class="card-description">
-                  O meni
-                </p>
+                <h4 class="card-title">{{adminKlinike.ime}} {{adminKlinike.prezime}}</h4>
               </div>
             </div>
           </div>

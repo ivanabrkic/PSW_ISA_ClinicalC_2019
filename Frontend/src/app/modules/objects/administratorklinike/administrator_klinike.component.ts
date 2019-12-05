@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NavigationStart, Router} from '@angular/router';
-import {AdministratorKlinike} from '../../../models/admink/administrator-klinike';
+import {AdministratorKlinike} from '../../../models/administrator-klinike';
 import {AdminKlinikeServiceService} from '../../../_services/AdministratorKlinikeService/admin-klinike-service.service';
 import {Observable, Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
