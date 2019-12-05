@@ -20,5 +20,7 @@ insert into administrator_klinickog_centra (adminkc_id) values (8);
 insert into medicinska_sestra (meds_id, br_slobodnih_dana) values (9, 89);
 insert into medicinska_sestra (meds_id, br_slobodnih_dana) values (10,56);
 
+insert into klinika (id,naziv_klinike) values (1,'Laza Lazarevic');
+
 
 
