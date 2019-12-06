@@ -1,0 +1,50 @@
+<app-sidebar-adminkc></app-sidebar-adminkc>
+<div class="content-container">
+  <div class="container-fluid">
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">Obrazloženje</h4>
+              </div>
+              <div class = "zahtev">
+               <div class="card-body">
+                 <form>
+                   <mat-form-field class="example-full-width">
+                     <p class = "title">Razlog odbijanja registracije:</p>
+                   </mat-form-field>
+
+                   <div class="col-md-5">
+                     <mat-form-field class="example-full-width">
+                       <textarea cols="92" rows="10"></textarea>
+                     </mat-form-field>
+                   </div>
+                   <input class = "btn btn-info" type = "submit"  value = "Pošalji" [routerLink]="['/zahteviRegistracija']" style ="margin-left: 15px"/>
+                  </form>
+               </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="javascript:void(0)">
+                  <img class="img-fluid" src="./assets/img/nikola.jpg" />
+                </a>
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray">Administrator kliničkog centra</h6>
+                <h4 class="card-title">Nikola Milošević</h4>
+                <p class="card-description">
+                  O meni
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,28 +9,28 @@
               <div class="card-header card-header-danger">
                 <h4 class="card-title">Zahtevi</h4>
               </div>
-              <ng-template ngFor [ngForOf]="items" let-item>
-              <div class = "zahtev">
-                <div class="card-body">
-                  <form>
-                    <div class="row">
-                      <p>Korisničko ime: {{item['korIme']}}</p>
+              <div *ngFor="let korisnik of korisnici">
+                <div *ngIf="korisnik.aktivnostNaloga == false">
+                  <div class = "zahtev">
+                    <div class="card-body">
+                        <div class="row">
+                          <p>Korisničko ime: {{korisnik.korIme}}</p>
+                        </div>
+                        <div class="row">
+                          <p>E-mail adresa: {{korisnik.email}}</p>
+                        </div>
+                        <div class="row">
+                          <p>JBO: {{korisnik.jbo}} </p>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="row">
-                      <p>E-mail adresa: {{item['email']}}</p>
+                    <div class="button-class">
+                      <button class = "btn btn-success buttons" (click)="onItemAccepted(korisnik)" >Prihvati</button>
+                      <button [routerLink]="['/odbijanjeObrazlozenje']" class = "btn btn-danger buttons" (click)="onItemRejected(korisnik)" >Odbij</button>
                     </div>
-                    <div class="row">
-                      <p>JBO: {{item['jbo']}} </p>
-                    </div>
-                    <div class="clearfix"></div>
-                  </form>
-                </div>
-                <div class="button-class">
-                  <button class = "btn btn-success buttons" (click)="onItemDeleted(item)" >Prihvati</button>
-                  <button class = "btn btn-danger buttons" (click)="onItemDeleted(item)" >Odbij</button>
+                  </div>
                 </div>
               </div>
-              </ng-template>
             </div>
           </div>
           <div class="col-md-4">
