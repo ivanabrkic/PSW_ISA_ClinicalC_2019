@@ -6,5 +6,4 @@ export class Dijagnoza {
     this.sifra = novaSifra;
     this.naziv = novNaziv;
   }
-
 }

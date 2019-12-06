@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"isaps.tim18.PSW_ISA_ClinicalC_2019.service"})
+//@ComponentScan({"isaps.tim18.PSW_ISA_ClinicalC_2019.service"})
 public class PswIsaClinicalC2019Application {
 
 	public static void main(String[] args) {

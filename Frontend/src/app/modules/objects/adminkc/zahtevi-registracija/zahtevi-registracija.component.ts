@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {KorisnikServiceService} from '../../../../_services/KorisnikService/korisnik-service.service';
+import {Korisnik} from "../../../../models";
 
 @Component({
   selector: 'app-zahtevi-registracija',
@@ -6,21 +8,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./zahtevi-registracija.component.css']
 })
 export class ZahteviRegistracijaComponent implements OnInit {
-  items = []
-  constructor() {
-    this.items = [{id: 1, korIme: 'Tamara', email: 't.lazarevic@gmail.com', jbo: '0122477125262'},
-      {id: 2, korIme: 'Ivana', email: 'ivn.bc@gmail.com', jbo: '0121991271262'},
-      {id: 3, korIme: 'Nikola', email: 'n.milosevic0111@gmail.com', jbo: '0111997710262'}];
+  public korisnici;
+  public izmenjeniKorisnik: Korisnik;
+  constructor(private korisnikService: KorisnikServiceService) {
+
   }
 
   ngOnInit() {
+    this.getKorisnike();
   }
 
-  onItemDeletedAccepted(index: number) {
-    this.items.splice(index, 1);
+  getKorisnike() {
+    this.korisnikService.getKorisnike().subscribe(
+      podaci => { this.korisnici = podaci; },
+      err => console.log('Nisu ucitani korisnici'),
+      () => console.log(this.korisnici)
+    );
   }
 
-  onItemDeletedRejected(index: number) {
-    this.items.splice(index, 1);
+  onItemAccepted(korisnik: Korisnik) {
+    const indexKorisnika = this.korisnici.findIndex(item => item.jbo === korisnik.jbo);
+    this.izmenjeniKorisnik = this.korisnici.find(item => item.jbo === korisnik.jbo);
+    this.izmenjeniKorisnik.aktivnostNaloga = true;
+    this.korisnici[indexKorisnika] = this.izmenjeniKorisnik;
+    this.korisnikService.updateAktivnost(this.izmenjeniKorisnik);
+  }
+
+  onItemRejected(index: number) {
+    this.korisnici.splice(index, 1);
   }
 }

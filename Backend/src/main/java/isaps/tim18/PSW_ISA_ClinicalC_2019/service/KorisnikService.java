@@ -15,7 +15,7 @@ public class KorisnikService {
     private KorisnikRepository korisnikRepository;
 
     public List<Korisnik> findAll() {
-        return null;
+        return korisnikRepository.findAll();
     }
 
     public Korisnik findByKorIme(String korIme){
@@ -41,5 +41,35 @@ public class KorisnikService {
     @Transactional
     public Korisnik add(Korisnik korisnik){
         return korisnikRepository.save(korisnik);
+    }
+
+    @Transactional
+    public Korisnik update(Korisnik korisnik) {
+        Korisnik k = korisnikRepository.findByJbo(korisnik.getJbo());
+        if(k != null){
+            k.setAdresa(korisnik.getAdresa());
+            k.setDrzava(korisnik.getDrzava());
+            k.setEmail(korisnik.getEmail());
+            k.setGrad(korisnik.getGrad());
+            k.setIme(korisnik.getIme());
+            k.setPrezime(korisnik.getPrezime());
+            k.setKontaktTelefon(korisnik.getKontaktTelefon());
+            k.setKorIme(korisnik.getKorIme());
+            k.setLozinka(korisnik.getLozinka());
+            korisnikRepository.save(k);
+            return k;
+        }
+        return null;
+    }
+
+    @Transactional
+    public Korisnik updateAktivnost(Korisnik korisnik){
+        Korisnik k = korisnikRepository.findByJbo(korisnik.getJbo());
+        if(k != null){
+            k.setAktivnostNaloga(korisnik.getAktivnostNaloga());
+            korisnikRepository.save(k);
+            return k;
+        }
+        return null;
     }
 }
