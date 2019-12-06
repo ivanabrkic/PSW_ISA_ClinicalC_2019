@@ -17,10 +17,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.component';
-import { RegistracijaKlinikeComponent } from './modules/general/register/registracija-klinike/registracija-klinike.component';
+import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
 import { AdminkcComponent } from './modules/objects/adminkc/adminkc.component';
-import { RegistracijaAdministratoraKlinikeComponent } from './modules/general/register/registracija-administratora-klinike/registracija-administratora-klinike.component';
+import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/administratorklinike/registracija-administratora-klinike/registracija-administratora-klinike.component';
 import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.component';
 import {LekarComponent} from './modules/objects/lekar/lekar.component';
 import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';
@@ -36,11 +36,11 @@ import { SidebarMedSestraComponent } from './modules/objects/medicinskas/sidebar
 import { OdmorComponent } from './modules/objects/medicinskas/odmor/odmor.component';
 import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsustvo.component';
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
-import { MedsestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
+import { MedSestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
 import { ZahteviRegistracijaComponent } from './modules/objects/adminkc/zahtevi-registracija/zahtevi-registracija.component';
 import {AdminKlinikeServiceService} from './_services/AdministratorKlinikeService/admin-klinike-service.service';
 import {KlinikaServiceService} from './_services/KlinikaService/klinika-service.service';
-import {LoginService, RegisterService} from './_services';
+import {LoginService, RegisterService} from './_services/LoginAndRegister';
 import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
 import { OdbijanjeObrazlozenjeComponent } from './modules/objects/adminkc/odbijanje-obrazlozenje/odbijanje-obrazlozenje.component';
@@ -73,7 +73,7 @@ import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje
     OdmorComponent,
     OdsustvoComponent,
     AdminkcIzmenaComponent,
-    MedsestraIzmenaComponent,
+    MedSestraIzmenaComponent,
     ZahteviRegistracijaComponent,
     ListaKlinikaComponent,
     ZdravstveniKartonComponent,
@@ -99,7 +99,7 @@ import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje
       { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
       { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
       { path: 'medicinskaSestra', component: ProfilMedSestraComponent},
-      { path: 'medicinskaSestraIzmena', component: MedsestraIzmenaComponent},
+      { path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent},
       { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
       { path: 'lekar', component: LekarComponent},
       { path: 'odbijanjeObrazlozenje', component: OdbijanjeObrazlozenjeComponent},

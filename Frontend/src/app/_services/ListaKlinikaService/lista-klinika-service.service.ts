@@ -8,19 +8,14 @@ const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/jso
 @Injectable({
   providedIn: 'root'
 })
-export class KlinikaServiceService {
-  private klinikaUrl: string;
 
+export class ListaKlinikaService {
   constructor(private http: HttpClient) {
-    this.klinikaUrl = '/server/klinika/registracijaKlinike';
   }
 
-  public findByNaziv(): Observable<Klinika> {
-    return this.http.get<Klinika>(this.klinikaUrl);
+  public findAll(): Observable<Klinika[]> {
+    return this.http.get<Klinika[]>('/server/klinika/all', httpOptions);
   }
 
-  public save(klinika: Klinika) {
-    const k = JSON.stringify(klinika)
-    return this.http.post<Klinika>(this.klinikaUrl, k, httpOptions);
-  }
+
 }

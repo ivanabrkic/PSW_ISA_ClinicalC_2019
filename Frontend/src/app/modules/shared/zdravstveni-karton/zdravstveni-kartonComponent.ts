@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ZdravstveniKarton} from '../../../models/ZdravstveniKarton/zdravstveniKarton';
+import {ZdravstveniKarton} from '../../../models/zdravstvenik/zdravstveniKarton';
 import {dijagnoze} from './tempLista';
 
 

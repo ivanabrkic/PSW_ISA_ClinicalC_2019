@@ -1,4 +1,4 @@
-import {Klinika} from '../../../models/Klinika/klinika';
+import {Klinika} from '../../../models/klinika/klinika';
 
 export const Klinike: Klinika[] = [
   {id: 11, naziv: 'Klinika1'},

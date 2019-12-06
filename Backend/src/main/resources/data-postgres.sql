@@ -1,3 +1,4 @@
+
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Backa Palanka', 'Srbija', 'Save Kovacevica 47', 123456789, True, 'ivanabrkic192@gmail.com', 'Ivana', '0652754579', 'ika', '12345678', 'Brkic', 'Lekar');
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Indjija', 'Srbija', 'Glavna 38', 987654321, True,'vladimirpopovic@gmail.com', 'Vladimir', '0652754579', 'vlada', '12345678', 'Popovic', 'Lekar');
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Sabac', 'Srbija', 'Mladena Djuricica 11', 123123123, FALSE , 'tamaralazarevic@gmail.com', 'Tamara', '0652754579', 'tesla', '12345678', 'Lazarevic', 'Lekar');
@@ -9,6 +10,7 @@ insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, k
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Backa Palanka', 'Srbija', 'Save Kovacevica 50', 645238967, True, 'ivanabrkic@gmail.com', 'Ivanica', '0652754579', 'maxiixa', '12345678', 'Maksimovica', 'Medicinska sestra');
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Indjija', 'Srbija', 'Glavna 38', 645987234, True,'vladimirpopovic2306@gmail.com', 'Vladimirko', '0652754579', 'popvlada', '12345678', 'Popov', 'Medicinska sestra');
 
+
 insert into lekar (lekar_id, br_slobodnih_dana) values (1, 33);
 insert into lekar (lekar_id, br_slobodnih_dana) values (2, 54);
 insert into lekar (lekar_id, br_slobodnih_dana) values (3, 12);
@@ -19,6 +21,8 @@ insert into pacijent (pacijent_id) values (7);
 insert into administrator_klinickog_centra (adminkc_id) values (8);
 insert into medicinska_sestra (meds_id, br_slobodnih_dana) values (9, 89);
 insert into medicinska_sestra (meds_id, br_slobodnih_dana) values (10,56);
+
+insert into klinika (id,naziv_klinike) values (1,'Laza Lazarevic');
 
 
 

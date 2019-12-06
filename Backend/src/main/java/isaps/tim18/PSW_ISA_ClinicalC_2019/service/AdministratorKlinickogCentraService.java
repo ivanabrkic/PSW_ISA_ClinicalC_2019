@@ -2,11 +2,10 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinickogCentra;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.AdministratorKlinickogCentraRepository;
-import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
+import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 

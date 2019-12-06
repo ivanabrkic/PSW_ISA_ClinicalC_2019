@@ -34,7 +34,7 @@ public class LoginController {
         System.out.println("Account with username " + korisnik.getKorIme() + "has been logged in");
 
         //Sacuvati korisnika u sesiji
-        request.getSession().setAttribute("ulogovanKorisnik", korisnik);
+        request.getSession().setAttribute("ulogovanKorisnik", korisnik.getJbo());
         return new ResponseEntity<>(korisnik, HttpStatus.OK);
 
     }

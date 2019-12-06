@@ -37,7 +37,7 @@ public class Korisnik {
     @Column(name="prezime", nullable = false)
     private String prezime;
 
-    @Column(name="jbo",nullable = false)
+    @Column(name="jbo",nullable = false, unique = true, length = 13)
     private String jbo;
 
     @Column(name="aktivnostNaloga",nullable = false)

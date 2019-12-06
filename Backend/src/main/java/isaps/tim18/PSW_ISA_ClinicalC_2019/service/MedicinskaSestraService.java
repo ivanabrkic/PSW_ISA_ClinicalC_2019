@@ -38,19 +38,19 @@ public class MedicinskaSestraService {
     @Transactional
     public MedicinskaSestra update(MedicinskaSestra medicinskaSestra) {
         MedicinskaSestra p = medicinskaSestraRepository.findByJbo(medicinskaSestra.getJbo());
-        if(p != null){
-            p.setAdresa(medicinskaSestra.getAdresa());
-            p.setDrzava(medicinskaSestra.getDrzava());
-            p.setEmail(medicinskaSestra.getEmail());
-            p.setGrad(medicinskaSestra.getGrad());
-            p.setIme(medicinskaSestra.getIme());
-            p.setPrezime(medicinskaSestra.getPrezime());
-            p.setKontaktTelefon(medicinskaSestra.getKontaktTelefon());
-            p.setKorIme(medicinskaSestra.getKorIme());
-            p.setLozinka(medicinskaSestra.getLozinka());
-            medicinskaSestraRepository.save(p);
-            return p;
+        if (p == null) {
+            return null;
         }
-        return null;
+        p.setAdresa(medicinskaSestra.getAdresa());
+        p.setDrzava(medicinskaSestra.getDrzava());
+        p.setEmail(medicinskaSestra.getEmail());
+        p.setGrad(medicinskaSestra.getGrad());
+        p.setIme(medicinskaSestra.getIme());
+        p.setPrezime(medicinskaSestra.getPrezime());
+        p.setKontaktTelefon(medicinskaSestra.getKontaktTelefon());
+        p.setKorIme(medicinskaSestra.getKorIme());
+        p.setLozinka(medicinskaSestra.getLozinka());
+        medicinskaSestraRepository.save(p);
+        return p;
     }
 }

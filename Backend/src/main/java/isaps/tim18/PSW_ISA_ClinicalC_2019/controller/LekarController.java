@@ -20,9 +20,12 @@ public class LekarController {
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Lekar> update(@RequestBody Lekar lekar) throws Exception {
 
-        lekarService.update(lekar);
+        Lekar l = lekarService.update(lekar);
 
-        return new ResponseEntity<>(lekar, HttpStatus.OK);
+        if (l != null){
+            return new ResponseEntity<>(lekar, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
