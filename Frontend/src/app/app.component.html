@@ -5,8 +5,10 @@
     </a>
     <a class="navbar-brand" routerLink="/">
     </a>
-    <a class="navbar-brand" [routerLink]="['/login']">Prijava</a>
-    <a class="navbar-brand" [routerLink]="['/register']">Registracija</a>
+
+    <a *ngIf="!IsAuthenticated()" class="navbar-brand" [routerLink]="['/login']">Prijava</a>
+    <a *ngIf="!IsAuthenticated()" class="navbar-brand" [routerLink]="['/register']">Registracija</a>
+    <a *ngIf="IsAuthenticated()" class="navbar-brand" (click) = "loginServiceApp.odjava()" [routerLink]="['/odjava']">Odjava</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
       aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,27 +16,27 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/administratorPregled']">
+          <a *ngIf="getRole()=='Administrator klinike'" class="nav-link" [routerLink]="['/administratorPregled']">
             <i class="fas fa-user-graduate mr-1"></i> Admin Klinike
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/lekarPregled']">
+          <a *ngIf="getRole()=='Lekar'" class="nav-link" [routerLink]="['/lekarPregled']">
             <i class="fas fa-user-md mr-1"></i> Lekar
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/administratorKc']">
+          <a *ngIf="getRole()=='Medicinska sestra'" class="nav-link" [routerLink]="['/administratorKc']">
             <i class="fas fa-user-shield"></i> Admin Klinickog Centra
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/pacijentPregled']">
+          <a *ngIf="getRole()=='Pacijent'" class="nav-link" [routerLink]="['/pacijentPregled']">
             <i class="fas fa-male mr-1"></i> Pacijent
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/medicinskaSestra']">
+          <a *ngIf="getRole()=='Medicinska sestra'" class="nav-link" [routerLink]="['/medicinskaSestra']">
             <i class="fas fa-user-nurse"></i> Medicinska sestra
           </a>
         </li>

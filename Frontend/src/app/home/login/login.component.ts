@@ -13,12 +13,12 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
+    this.loginService.odjava();
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       lozinka: ['', [Validators.required, Validators.minLength(8)]],
     }, );
   }
-
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+
     this.loading = true;
     this.loginService.login(this.loginForm.value)
       .pipe(first())
@@ -37,17 +38,23 @@ export class LoginComponent implements OnInit {
           alert('Uspešno ste se ulogovali!! :-)\n\n');
           if (data.tipKorisnika === 'Pacijent') {
             this.router.navigate(['/pacijentPregled']);
+            this.loginService.ulogovaniTip = 'Pacijent';
           } else if (data.tipKorisnika === 'Lekar') {
             this.router.navigate(['/lekarPregled']);
+            this.loginService.ulogovaniTip = 'Lekar';
           } else if (data.tipKorisnika === 'Medicinska sestra') {
             this.router.navigate(['/medicinskaSestra']);
+            this.loginService.ulogovaniTip = 'Medicinska sestra';
           } else if (data.tipKorisnika === 'Administrator klinike') {
             this.router.navigate(['/administratorPregled']);
+            this.loginService.ulogovaniTip = 'Administrator klinike';
           } else if (data.tipKorisnika === 'Administrator klinickog centra') {
             this.router.navigate(['/administratorKc']);
+            this.loginService.ulogovaniTip = 'Administrator klinickog centra';
           } else {
             this.router.navigate(['/welcome']);
           }
+          LoginService.authenticated = true;
 
         },
         error => {

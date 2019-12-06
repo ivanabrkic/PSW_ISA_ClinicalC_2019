@@ -38,4 +38,8 @@ public class LoginController {
         return new ResponseEntity<>(korisnik, HttpStatus.OK);
 
     }
+    @PostMapping(value="/logoutSubmit")
+    public void logout(@Context HttpServletRequest request){
+        request.getSession().invalidate();
+    }
 }
