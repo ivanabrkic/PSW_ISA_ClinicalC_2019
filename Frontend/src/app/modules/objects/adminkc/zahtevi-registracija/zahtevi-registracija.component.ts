@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {KorisnikServiceService} from '../../../../_services/KorisnikService/korisnik-service.service';
-import {Korisnik} from "../../../../models";
+import {Korisnik} from '../../../../models/korisnik';
 
 @Component({
   selector: 'app-zahtevi-registracija',
