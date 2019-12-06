@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
-    this.loginService.odjava();
+    // this.loginService.odjava();
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       lozinka: ['', [Validators.required, Validators.minLength(8)]],

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Korisnik} from 'src/app/models/korisnik';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -10,7 +10,7 @@ const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/jso
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private http: HttpClient,private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   static authenticated = false;
   ulogovaniTip = '';
@@ -28,7 +28,7 @@ export class LoginService {
   odjava() {
     LoginService.authenticated = false;
     this.ulogovaniTip = '';
-    return this.http.post(`/server/login/logoutSubmit`,   httpOptions);
     this.router.navigate(['/welcome']);
+    return this.http.post(`/server/login/logoutSubmit`,   httpOptions);
   }
 }
