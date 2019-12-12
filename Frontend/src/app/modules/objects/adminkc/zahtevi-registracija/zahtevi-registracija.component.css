@@ -41,6 +41,10 @@ div {
   float:left;
 }
 
+.informacije {
+  width: 70%;
+}
+
 .button-class{
   float:right;
   width: 50%;

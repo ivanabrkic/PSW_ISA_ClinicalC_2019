@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.HelperRejectedMail;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
@@ -32,14 +33,7 @@ public class KorisnikController {
     public ResponseEntity<List<Korisnik>> getAllKorisnik() {
 
         List<Korisnik> korisnik = korisnikService.findAll();
-        for(int i = 0;i < korisnik.size(); i++){
-            if(korisnik.get(i).getEmail().equals("n.milosevic0111@gmail.com")){
-                MailSenderController mailSender = new MailSenderController();
 
-                mailSender.sendSimpleMessage(korisnik.get(i).getEmail(), "Registracija na servis kliničkog centra",
-                        "Uspešno ste se registrovali na servis!");
-            }
-        }
         return new ResponseEntity<>(korisnik, HttpStatus.OK);
     }
 
@@ -58,6 +52,24 @@ public class KorisnikController {
 
         mailSender.sendSimpleMessage(korisnik.getEmail(), "Registracija na servis kliničkog centra",
                 "Uspešno ste se registrovali na servis!");
+
+        return new ResponseEntity<>(korisnik, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/rejected", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Korisnik> odbijanjeRegistracije(@RequestBody HelperRejectedMail helperRejectedMail) throws Exception {
+
+        HelperRejectedMail hrm = helperRejectedMail;
+
+        korisnikService.removeByJbo(helperRejectedMail.getJbo());
+
+        MailSenderController mailSender = new MailSenderController();
+
+        mailSender.sendSimpleMessage(helperRejectedMail.getKorisnikovEmail(), "Registracija na servis kliničkog centra",
+                "Zahtev za registraciju je odbijen.\n\nRazlog:\n" + helperRejectedMail.getPoruka());
+
+        String jboPretraga = helperRejectedMail.getJbo();
+        Korisnik korisnik = korisnikService.findByJbo(jboPretraga);
 
         return new ResponseEntity<>(korisnik, HttpStatus.OK);
     }
