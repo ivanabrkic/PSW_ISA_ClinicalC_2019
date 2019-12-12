@@ -14,7 +14,7 @@ export class AdminKlinikeServiceService {
   }
 
   public getUlogovanKorisnik(): Observable<AdministratorKlinike> {
-    return this.http.get<AdministratorKlinike>('/server/ulogovanKorisnik', httpOptions);
+    return this.http.get<AdministratorKlinike>('/server/korisnik/ulogovanKorisnik', httpOptions);
   }
 
   public save(adminKlinike: AdministratorKlinike) {

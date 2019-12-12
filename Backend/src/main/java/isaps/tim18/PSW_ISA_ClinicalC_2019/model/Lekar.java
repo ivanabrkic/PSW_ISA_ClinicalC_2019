@@ -1,5 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class Lekar extends Korisnik{
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="klinika_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Klinika klinika;
 
     public Klinika getKlinika() {
