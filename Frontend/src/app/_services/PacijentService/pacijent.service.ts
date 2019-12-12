@@ -14,11 +14,15 @@ export class PacijentService {
   }
 
   public getUlogovanKorisnik(): Observable<Pacijent> {
-    return this.http.get<Pacijent>('/server/ulogovanKorisnik', httpOptions);
+    return this.http.get<Pacijent>('/server/korisnik/ulogovanKorisnik', httpOptions);
   }
 
   public update(pac: Pacijent) {
     const pacijent = JSON.stringify(pac);
-    return this.http.post<Pacijent>('/server/pacijent_update/update' , pacijent, httpOptions);
+    return this.http.post<Pacijent>('/server/pacijent/update' , pacijent, httpOptions);
+  }
+
+  getPacijenti() {
+    return this.http.get('/server/pacijent/allZahtevi');
   }
 }

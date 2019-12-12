@@ -10,6 +10,18 @@ public class MedicinskaSestra extends Korisnik{
     @Column
     private int brSlobodnihDana;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="klinika_id")
+    private Klinika klinika;
+
+    public Klinika getKlinika() {
+        return klinika;
+    }
+
+    public void setKlinika(Klinika klinika) {
+        this.klinika = klinika;
+    }
+
     public int getBrSlobodnihDana() {
         return brSlobodnihDana;
     }

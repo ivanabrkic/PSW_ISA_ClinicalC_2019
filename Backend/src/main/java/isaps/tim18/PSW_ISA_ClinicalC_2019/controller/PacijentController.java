@@ -19,15 +19,27 @@ public class PacijentController {
     @PostMapping(value = "/update", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Pacijent> update(@RequestBody Pacijent pacijent) throws Exception {
 
-        pacijentService.update(pacijent);
+        Pacijent p = pacijentService.update(pacijent);
 
-        return new ResponseEntity<>(pacijent, HttpStatus.OK);
+        if(p != null){
+            return new ResponseEntity<>(pacijent, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Pacijent>> getAllPacijenti() {
 
         List<Pacijent> pacijenti = pacijentService.findAll();
+
+        return new ResponseEntity<>(pacijenti, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allZahtevi", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Pacijent>> getAllZahtevi() {
+
+        List<Pacijent> pacijenti = pacijentService.findByAktivnostNaloga(false);
 
         return new ResponseEntity<>(pacijenti, HttpStatus.OK);
     }

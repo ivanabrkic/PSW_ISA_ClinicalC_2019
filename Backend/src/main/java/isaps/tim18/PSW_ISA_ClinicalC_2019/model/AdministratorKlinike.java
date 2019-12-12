@@ -7,6 +7,10 @@ import javax.persistence.*;
 @PrimaryKeyJoinColumn(name = "admink_id")
 public class AdministratorKlinike extends Korisnik{
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="klinika_id")
+    private Klinika klinika;
+
     public AdministratorKlinike() {
     }
 
@@ -14,4 +18,11 @@ public class AdministratorKlinike extends Korisnik{
         super(korisnik);
     }
 
+    public Klinika getKlinika() {
+        return klinika;
+    }
+
+    public void setKlinika(Klinika klinika) {
+        this.klinika = klinika;
+    }
 }
