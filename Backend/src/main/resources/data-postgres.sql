@@ -15,6 +15,8 @@ insert into klinika (id,naziv_klinike) values (1,'Laza Lazarevic');
 insert into klinika (id,naziv_klinike) values (2,'Ivo Andric');
 insert into klinika (id,naziv_klinike) values (3,'Pera Peric');
 
+
+
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id) values (1, 33, 1);
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id) values (2, 54, 1);
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id) values (3, 12, 2);
@@ -22,6 +24,9 @@ insert into administrator_klinike (admink_id, klinika_id) values (4, 1);
 insert into administrator_klinike (admink_id, klinika_id) values (5, 2);
 insert into administrator_klinike (admink_id, klinika_id) values (8, 3);
 insert into pacijent (pacijent_id) values (6);
+
+insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (1, 6, '12/12/2019','10:10','11:00','pregled');
+
 insert into pacijent (pacijent_id) values (7);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (6, 1);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (6, 2);
