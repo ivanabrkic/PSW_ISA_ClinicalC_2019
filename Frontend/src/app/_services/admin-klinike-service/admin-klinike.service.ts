@@ -8,7 +8,7 @@ const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/jso
 @Injectable({
   providedIn: 'root'
 })
-export class AdminKlinikeServiceService {
+export class AdminKlinikeService {
 
   constructor(private http: HttpClient) {
   }

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/medicinskaSestra']);
             this.loginService.ulogovaniTip = 'Medicinska sestra';
           } else if (data.tipKorisnika === 'Administrator klinike') {
-            this.router.navigate(['/administratorPregled']);
+            this.router.navigate(['/administratorklinikepregled']);
             this.loginService.ulogovaniTip = 'Administrator klinike';
           } else if (data.tipKorisnika === 'Administrator klinickog centra') {
             this.router.navigate(['/administratorKc']);

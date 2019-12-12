@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AdministratorKlinike } from 'src/app/models/administrator-klinike';
-import { AdminKlinikeServiceService } from 'src/app/_services/AdministratorKlinikeService/admin-klinike-service.service';
+import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/admin-klinike.service';
 
 @Component({
-  templateUrl: './administratorKlinikePregled.component.html',
-  styleUrls: ['./administrator_klinike.component.css']
+  templateUrl: './admin-klinike-pregled.component.html',
+  styleUrls: ['./admin-klinike-pregled.component.css']
 })
-export class AdministratorKlinikePregledComponent implements OnInit {
+export class AdminKlinikePregledComponent implements OnInit {
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
-  constructor(private adminkService: AdminKlinikeServiceService) { 
+  constructor(private adminkService: AdminKlinikeService) { 
     this.adminkService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.adminKlinike = ulogovanKorisnik;
