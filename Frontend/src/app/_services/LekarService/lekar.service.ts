@@ -14,7 +14,7 @@ export class LekarService {
   }
 
   public getUlogovanKorisnik(): Observable<Lekar> {
-    return this.http.get<Lekar>('/server/ulogovanKorisnik', httpOptions);
+    return this.http.get<Lekar>('/server/korisnik/ulogovanKorisnik', httpOptions);
   }
 
   public update(lekar: Lekar) {

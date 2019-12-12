@@ -8,7 +8,7 @@ public class Klinika {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer id;
+    private Long id;
 
     @Column(name="nazivKlinike",unique=false)
     private String naziv;
@@ -21,11 +21,11 @@ public class Klinika {
         this.naziv = naziv;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

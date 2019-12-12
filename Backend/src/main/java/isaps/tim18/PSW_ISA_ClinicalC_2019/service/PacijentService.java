@@ -47,20 +47,20 @@ public class PacijentService {
     @Transactional
     public Pacijent update(Pacijent pacijent) {
         Pacijent p = pacijentRepository.findByJbo(pacijent.getJbo());
-        if(p != null){
-            p.setAdresa(pacijent.getAdresa());
-            p.setDrzava(pacijent.getDrzava());
-            p.setEmail(pacijent.getEmail());
-            p.setGrad(pacijent.getGrad());
-            p.setIme(pacijent.getIme());
-            p.setPrezime(pacijent.getPrezime());
-            p.setKontaktTelefon(pacijent.getKontaktTelefon());
-            p.setKorIme(pacijent.getKorIme());
-            p.setLozinka(pacijent.getLozinka());
-            pacijentRepository.save(p);
-            return p;
+        if (p == null) {
+            return null;
         }
-        return null;
+        p.setAdresa(pacijent.getAdresa());
+        p.setDrzava(pacijent.getDrzava());
+        p.setEmail(pacijent.getEmail());
+        p.setGrad(pacijent.getGrad());
+        p.setIme(pacijent.getIme());
+        p.setPrezime(pacijent.getPrezime());
+        p.setKontaktTelefon(pacijent.getKontaktTelefon());
+        p.setKorIme(pacijent.getKorIme());
+        p.setLozinka(pacijent.getLozinka());
+        pacijentRepository.save(p);
+        return p;
     }
 
     @Transactional
@@ -71,4 +71,9 @@ public class PacijentService {
     public Pacijent findByJbo(String jbo){
         return pacijentRepository.findByJbo(jbo);
     }
+
+    public List<Pacijent> findByAktivnostNaloga(boolean aktivnost){
+        return pacijentRepository.findByAktivnostNaloga(aktivnost);
+    }
+
 }

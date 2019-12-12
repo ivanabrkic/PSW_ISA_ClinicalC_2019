@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Pacijent } from 'src/app/models/pacijent/pacijent';
+import { PacijentService } from 'src/app/_services/PacijentService/pacijent.service';
 
 @Component({
   templateUrl: './pacijentPregled.component.html',
@@ -6,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PacijentPregledComponent implements OnInit {
 
-  constructor() { }
+ pacijent: Pacijent= new Pacijent();
+
+
+  constructor(private pacijentService : PacijentService) {
+    this.pacijentService.getUlogovanKorisnik()
+    .subscribe(ulogovanKorisnik => {
+      this.pacijent= ulogovanKorisnik;
+    });
+   }
 
   ngOnInit() {
+    this.pacijentService.getUlogovanKorisnik()
+    .subscribe(ulogovanKorisnik => {
+      this.pacijent= ulogovanKorisnik;
+    });
   }
 
 }

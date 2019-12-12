@@ -14,7 +14,7 @@ export class MedicinskaSestraService {
   }
 
   public getUlogovanKorisnik(): Observable<MedicinskaSestra> {
-    return this.http.get<MedicinskaSestra>('/server/ulogovanKorisnik', httpOptions);
+    return this.http.get<MedicinskaSestra>('/server/korisnik/ulogovanKorisnik', httpOptions);
   }
 
   public update(medSes: MedicinskaSestra) {

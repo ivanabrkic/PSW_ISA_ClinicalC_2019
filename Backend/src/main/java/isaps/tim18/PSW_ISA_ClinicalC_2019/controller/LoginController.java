@@ -41,5 +41,6 @@ public class LoginController {
     @PostMapping(value="/logoutSubmit")
     public void logout(@Context HttpServletRequest request){
         request.getSession().invalidate();
+        System.out.println("logged out");
     }
 }

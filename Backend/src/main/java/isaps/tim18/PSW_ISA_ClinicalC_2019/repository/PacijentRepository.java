@@ -29,4 +29,7 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
     Pacijent findByEmail(String email);
 
     Pacijent findByEmailAndLozinka(String email, String lozinka);
+
+    List<Pacijent> findByAktivnostNaloga(boolean aktivnost);
+
 }
