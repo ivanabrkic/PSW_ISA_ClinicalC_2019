@@ -40,6 +40,7 @@ import {LoginService, RegisterService} from './_services/LoginAndRegister';
 import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
 import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje-dijagnoza/kreiranje-dijagnoza.component';
+import { PoseteComponent } from './modules/shared/pregledi-operacije-lista/pregledi-operacije-lista';
 import { AdminKlinikeModule } from './modules/objects/admin-klinike/admin-klinike.module';
 import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dijalog-odbijanje-zahteva/dijalog-odbijanje-zahteva.component';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -71,6 +72,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     ZahteviRegistracijaComponent,
     ListaKlinikaComponent,
     ZdravstveniKartonComponent,
+    OdbijanjeObrazlozenjeComponent,
+    KreiranjeDijagnozaComponent,
+    PoseteComponent,
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent
   ],
@@ -112,6 +116,7 @@ import {MatDialogModule} from '@angular/material/dialog';
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
+       {path: 'listaPoseta',component: PoseteComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],

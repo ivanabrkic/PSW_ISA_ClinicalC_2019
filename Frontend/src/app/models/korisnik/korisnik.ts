@@ -11,4 +11,5 @@ export class Korisnik {
   grad: string;
   aktivnostNaloga: boolean;
   tipKorisnika: string;
+  id: number;
 }
