@@ -22,6 +22,10 @@ public class PosetaService {
         return posetaRepo.findAll();
     }
 
+    public List<Poseta> findByPacijent_id(int id){
+        return posetaRepo.findByPacijent_id(id);
+    }
+
     @Transactional
     public Poseta add(Poseta poseta){
         return posetaRepo.save(poseta);

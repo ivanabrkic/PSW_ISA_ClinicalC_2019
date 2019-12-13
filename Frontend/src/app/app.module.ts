@@ -45,6 +45,7 @@ import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinik
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
 import { OdbijanjeObrazlozenjeComponent } from './modules/objects/adminkc/odbijanje-obrazlozenje/odbijanje-obrazlozenje.component';
 import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje-dijagnoza/kreiranje-dijagnoza.component';
+import { PoseteComponent } from './modules/shared/pregledi-operacije-lista/pregledi-operacije-lista';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje
     ListaKlinikaComponent,
     ZdravstveniKartonComponent,
     OdbijanjeObrazlozenjeComponent,
-    KreiranjeDijagnozaComponent
+    KreiranjeDijagnozaComponent,
+    PoseteComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -118,6 +120,7 @@ import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
+       {path: 'listaPoseta',component: PoseteComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],

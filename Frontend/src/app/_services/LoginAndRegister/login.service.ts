@@ -25,6 +25,7 @@ export class LoginService {
     const user1 = JSON.stringify(user);
     return this.http.post<Korisnik>(`/server/login/loginSubmit`,  user1, httpOptions);
   }
+  
   odjava() {
     LoginService.authenticated = false;
     this.ulogovaniTip = '';
