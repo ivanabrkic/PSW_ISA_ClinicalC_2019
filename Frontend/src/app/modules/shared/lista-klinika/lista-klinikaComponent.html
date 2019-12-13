@@ -11,16 +11,18 @@
             <div class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
-    <th>Id</th>
     <th>Naziv</th>
+    <th>Email</th>
+    <th>Ocena</th>
                 </thead>
 
   <tbody>
   <tr *ngFor="let klinika of klinike"
       [class.selected]="klinika === selectedKlinika"
       (click)="onSelect(klinika)">
-    <td> <span class="badge">{{klinika.id}}</span> </td><td>{{klinika.naziv}}</td>
-
+    <td><b>{{klinika.naziv}}</b></td>
+    <td>{{klinika.email}}</td>
+    <td>{{klinika.ocena}}</td>
   </tr>
   </tbody>
               </table>
@@ -48,12 +50,17 @@
                   <form >
                     <div class="row">
                       <div class="col-md-12">
-                        <p> id : {{selectedKlinika.id}} </p>
+                        <p> Naziv : {{selectedKlinika.naziv}} </p>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> naziv : {{selectedKlinika.naziv}} </p>
+                        <p> Kontakt telefon : {{selectedKlinika.kontaktTelefon}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Adresa, grad i država : {{selectedKlinika.adresa}}, {{selectedKlinika.grad}}, {{selectedKlinika.drzava}}  </p>
                       </div>
                     </div>
                   </form>

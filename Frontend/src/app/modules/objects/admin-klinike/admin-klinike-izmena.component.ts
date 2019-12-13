@@ -1,17 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NavigationStart, Router} from '@angular/router';
-import {AdministratorKlinike} from '../../../models/administrator-klinike';
-import {AdminKlinikeServiceService} from '../../../_services/AdministratorKlinikeService/admin-klinike-service.service';
-import {Observable, Subscription} from 'rxjs';
+import {AdministratorKlinike} from '../../../models/admink/administrator-klinike';
 import {first} from 'rxjs/operators';
+import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/admin-klinike.service';
 
 @Component({
-  templateUrl: './administrator_klinike.component.html',
-  styleUrls: ['./administrator_klinike.component.css']
+  templateUrl: './admin-klinike-izmena.component.html',
+  styleUrls: ['./admin-klinike-pregled.component.css']
 })
 
-export class AdministratorKlinikeComponent implements OnInit {
+export class AdminKlinikeIzmenaComponent implements OnInit {
 
   loading = false;
   adminForm: FormGroup;
@@ -19,7 +17,7 @@ export class AdministratorKlinikeComponent implements OnInit {
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
-  constructor(private formBuilder: FormBuilder, private adminkService: AdminKlinikeServiceService) {
+  constructor(private formBuilder: FormBuilder, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.adminKlinike = ulogovanKorisnik;

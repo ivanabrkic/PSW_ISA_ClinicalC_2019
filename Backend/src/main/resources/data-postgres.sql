@@ -10,9 +10,9 @@ insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, k
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Indjija', 'Srbija', 'Glavna 38', 645987234, True,'vladimirpopovic2306@gmail.com', 'Vladimirko', '0652754579', 'popvlada', '12345678b', 'Popov', 'Medicinska sestra');
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Nova Pazova', 'Srbija', 'Glavna 38', 987987987, True,'n.milosevicNN@gmail.com', 'Vladimirko', '0652754579', 'Vaneleey', '12345678b', 'Popov', 'Administrator klinickog centra');
 
-insert into klinika (id,naziv_klinike) values (1,'Laza Lazarevic');
-insert into klinika (id,naziv_klinike) values (2,'Ivo Andric');
-insert into klinika (id,naziv_klinike) values (3,'Pera Peric');
+insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena) values (1,'Laza Lazarevic', 'Mise Dimitrijevica 21', 'Novi Sad', 'Srbija', 'laza@gmail.com', '021/456-435', 4.3);
+insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena) values (2,'Ivo Andric', 'St John 43a', 'London', 'United Kingdom', 'ivoandric@gmail.com', '021/111-435', 3.2);
+insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena) values (3,'Pera Peric', 'Sukablablu 76', 'Lenjingrad', 'Rusija', 'perapera@gmail.com', '021/456-999', 2.2);
 
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id) values (1, 33, 1);
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id) values (2, 54, 1);

@@ -1,7 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,5 +34,18 @@ public class KlinikaController {
         List<Klinika> listaKlinika =  klinikaService.findAll();
 
         return new ResponseEntity<>(listaKlinika, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Klinika> update(@RequestBody Klinika klinika) throws Exception {
+
+        System.out.println(klinika.getId());
+
+        Klinika l = klinikaService.update(klinika);
+
+        if (l != null){
+            return new ResponseEntity<>(klinika, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 }
