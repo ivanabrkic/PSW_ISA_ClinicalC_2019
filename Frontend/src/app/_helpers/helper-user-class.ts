@@ -1,4 +1,4 @@
-export class Korisnik {
+export class HelperUserClass {
   grad: string;
   drzava: string;
   adresa: string;
@@ -11,4 +11,5 @@ export class Korisnik {
   jbo: number;
   aktivnostNaloga: boolean;
   tipKorisnika: string;
+  klinika: string;
 }

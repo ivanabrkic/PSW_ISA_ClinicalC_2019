@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AdministratorKlinike} from '../../models/administrator-klinike';
+import {HelperUserClass} from "../../_helpers/helper-user-class";
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -17,7 +18,7 @@ export class AdminKlinikeServiceService {
     return this.http.get<AdministratorKlinike>('/server/korisnik/ulogovanKorisnik', httpOptions);
   }
 
-  public save(adminKlinike: AdministratorKlinike) {
+  public save(adminKlinike: HelperUserClass) {
     const admin = JSON.stringify(adminKlinike);
     return this.http.post<AdministratorKlinike>('/server/administrator_k/registrationSubmitAdmin' , admin, httpOptions);
   }
@@ -25,5 +26,9 @@ export class AdminKlinikeServiceService {
   public update(adminKlinike: AdministratorKlinike) {
     const admin = JSON.stringify(adminKlinike);
     return this.http.post<AdministratorKlinike>('/server/administrator_k/update' , admin, httpOptions);
+  }
+
+  public getAdmine() {
+    return this.http.get<AdministratorKlinike>('/server/administrator_k/all', httpOptions);
   }
 }

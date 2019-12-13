@@ -28,4 +28,11 @@ public class AdministratorKlinike extends Korisnik{
     public void setKlinika(Klinika klinika) {
         this.klinika = klinika;
     }
+
+    @Override
+    public String toString() {
+        return "AdministratorKlinike{" +
+                "klinika=" + klinika +
+                '}';
+    }
 }

@@ -20,7 +20,7 @@ import {SidebarComponent} from './modules/objects/administratorklinike/sidebar.c
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
 import { AdminkcComponent } from './modules/objects/adminkc/adminkc.component';
-import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/administratorklinike/registracija-administratora-klinike/registracija-administratora-klinike.component';
+import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/adminkc/registracija-administratora-klinike/registracija-administratora-klinike.component';
 import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.component';
 import {LekarComponent} from './modules/objects/lekar/lekar.component';
 import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';

@@ -23,4 +23,8 @@ export class KlinikaServiceService {
     const k = JSON.stringify(klinika)
     return this.http.post<Klinika>(this.klinikaUrl, k, httpOptions);
   }
+
+  public getKlinike() {
+    return this.http.get<Klinika>('/server/klinika/all', httpOptions);
+  }
 }
