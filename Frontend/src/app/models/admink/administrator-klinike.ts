@@ -1,5 +1,7 @@
 import { Korisnik } from '../korisnik';
+import { Klinika } from '../klinika/klinika';
 
+<<<<<<< HEAD
 export class AdministratorKlinike extends Korisnik {
   private klinika: string;
 
@@ -11,4 +13,8 @@ export class AdministratorKlinike extends Korisnik {
   set setKlinika(value: string) {
     this.klinika = value;
   }
+=======
+export class AdministratorKlinike extends Korisnik{
+    klinika:Klinika;
+>>>>>>> develop
 }

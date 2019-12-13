@@ -1,0 +1,25 @@
+div {
+  font-family: 'Roboto';
+}
+
+.content-container {
+  padding-left: 220px;
+}
+
+.polja {
+  margin-left: 170px;
+  margin-top: 5px;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  width: 300px;
+  text-align: center;
+  outline: none;
+}
+
+.btn-danger {
+  margin-left: 275px;
+}
+
+

@@ -1,0 +1,33 @@
+<app-patient-sidebar></app-patient-sidebar>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Lista poseta</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+    <th>Datum</th>
+    <th>Pocetak</th>
+    <th>Kraj</th>
+    <th>Tip posete</th>
+                </thead>
+
+  <tbody>
+    <tr *ngFor="let poseta of posete">
+        <td> <span class="badge">{{poseta.datum}}</span> </td><td>{{poseta.pocetak}}</td>
+        <td>{{poseta.kraj}}</td><td>{{poseta.tipposete}}</td>
+    </tr>
+  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

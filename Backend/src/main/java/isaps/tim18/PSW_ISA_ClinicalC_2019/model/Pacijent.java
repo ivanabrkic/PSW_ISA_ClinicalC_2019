@@ -1,5 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
