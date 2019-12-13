@@ -72,7 +72,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     ZahteviRegistracijaComponent,
     ListaKlinikaComponent,
     ZdravstveniKartonComponent,
-    OdbijanjeObrazlozenjeComponent,
     KreiranjeDijagnozaComponent,
     PoseteComponent,
     KreiranjeDijagnozaComponent,
