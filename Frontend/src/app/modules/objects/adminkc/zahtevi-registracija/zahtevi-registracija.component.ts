@@ -20,7 +20,7 @@ export class ZahteviRegistracijaComponent implements OnInit {
   public rezultatDijaloga: any;
   public izmenjeniKorisnik: Korisnik = new Korisnik();
   constructor(private pacijentService: PacijentService,
-              przivate korisnikService: KorisnikServiceService, public dialog: MatDialog) {
+              private korisnikService: KorisnikServiceService, public dialog: MatDialog) {
       this.getKorisnike();
   }
 
