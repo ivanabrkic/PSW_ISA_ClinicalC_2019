@@ -35,7 +35,7 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedSestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
 import { ZahteviRegistracijaComponent } from './modules/objects/adminkc/zahtevi-registracija/zahtevi-registracija.component';
-import {KlinikaServiceService} from './_services/KlinikaService/klinika-service.service';
+import {KlinikaService} from './_services/KlinikaService/klinika.service';
 import {LoginService, RegisterService} from './_services/LoginAndRegister';
 import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
@@ -71,8 +71,7 @@ import { AdminKlinikeModule } from './modules/objects/admin-klinike/admin-klinik
     ListaKlinikaComponent,
     ZdravstveniKartonComponent,
     OdbijanjeObrazlozenjeComponent,
-    KreiranjeDijagnozaComponent
-  ],
+    KreiranjeDijagnozaComponent  ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
     BrowserModule,
@@ -113,7 +112,7 @@ import { AdminKlinikeModule } from './modules/objects/admin-klinike/admin-klinik
       { path: '**', component: NotFoundComponent},
       ])
   ],
-  providers: [KlinikaServiceService, LoginService, RegisterService],
+  providers: [KlinikaService, LoginService, RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

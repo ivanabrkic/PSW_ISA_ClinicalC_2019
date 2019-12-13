@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AdministratorKlinike} from '../../../models/administrator-klinike';
+import {AdministratorKlinike} from '../../../models/admink/administrator-klinike';
 import {first} from 'rxjs/operators';
 import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/admin-klinike.service';
 

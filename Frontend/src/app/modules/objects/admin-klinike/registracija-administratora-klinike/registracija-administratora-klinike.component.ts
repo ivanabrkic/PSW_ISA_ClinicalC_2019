@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AdministratorKlinike} from '../../../../models/administrator-klinike';
+import {AdministratorKlinike} from '../../../../models/admink/administrator-klinike';
 import {ActivatedRoute, Router} from '@angular/router';
 import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/admin-klinike.service';
 

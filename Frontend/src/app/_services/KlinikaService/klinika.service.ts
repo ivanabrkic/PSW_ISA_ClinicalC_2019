@@ -8,7 +8,7 @@ const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/jso
 @Injectable({
   providedIn: 'root'
 })
-export class KlinikaServiceService {
+export class KlinikaService {
   private klinikaUrl: string;
 
   constructor(private http: HttpClient) {
@@ -22,5 +22,11 @@ export class KlinikaServiceService {
   public save(klinika: Klinika) {
     const k = JSON.stringify(klinika)
     return this.http.post<Klinika>(this.klinikaUrl, k, httpOptions);
+  }
+
+  public update(klinika: Klinika, id: number){
+    klinika.id = id;
+    const k = JSON.stringify(klinika)
+    return this.http.post<Klinika>('/server/klinika/update', k, httpOptions);
   }
 }

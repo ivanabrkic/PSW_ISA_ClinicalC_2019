@@ -10,9 +10,13 @@ import { SidebarAdminKlinikeComponent } from './sidebar-admin-klinike.component'
 import { AdminKlinikeIzmenaComponent } from './admin-klinike-izmena.component';
 import { AdminKlinikePregledComponent } from './admin-klinike-pregled.component';
 import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/admin-klinike.service';
+import { IzmenaProfilKlinikeComponent } from './izmena-profil-klinike/izmena-profil-klinike.component';
 
 @NgModule({
-  declarations: [SidebarAdminKlinikeComponent, AdminKlinikeIzmenaComponent, AdminKlinikePregledComponent],
+  declarations: [SidebarAdminKlinikeComponent, 
+                AdminKlinikeIzmenaComponent, 
+                AdminKlinikePregledComponent,
+                IzmenaProfilKlinikeComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -26,10 +30,17 @@ import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/adm
     ReactiveFormsModule,
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
                           { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
+                          { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent}
   ])
   ],
   providers: [AdminKlinikeService],
-  exports:   [SidebarAdminKlinikeComponent, AdminKlinikeIzmenaComponent, AdminKlinikePregledComponent],
-  bootstrap: [SidebarAdminKlinikeComponent, AdminKlinikeIzmenaComponent, AdminKlinikePregledComponent]
+  exports:   [SidebarAdminKlinikeComponent, 
+              AdminKlinikeIzmenaComponent, 
+              AdminKlinikePregledComponent, 
+              IzmenaProfilKlinikeComponent],
+  bootstrap: [SidebarAdminKlinikeComponent, 
+              AdminKlinikeIzmenaComponent, 
+              AdminKlinikePregledComponent, 
+              IzmenaProfilKlinikeComponent]
 })
 export class AdminKlinikeModule { }
