@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AdministratorKlinike} from '../../../../models/administrator-klinike';
+import {AdministratorKlinike} from '../../../../models/admink/administrator-klinike';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AdminKlinikeServiceService} from '../../../../_services/AdministratorKlinikeService/admin-klinike-service.service';
+import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   selector: 'app-registracija-administratora-klinike',
@@ -14,7 +14,7 @@ export class RegistracijaAdministratoraKlinikeComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private AdminService: AdminKlinikeServiceService
+              private AdminService: AdminKlinikeService
   ) {
     this.adminKlinike = new AdministratorKlinike();
   }

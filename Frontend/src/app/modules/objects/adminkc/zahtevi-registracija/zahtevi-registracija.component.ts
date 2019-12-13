@@ -16,13 +16,11 @@ import { PacijentService } from 'src/app/_services/PacijentService/pacijent.serv
 export class ZahteviRegistracijaComponent implements OnInit {
 
   public korisnici;
-  public izmenjeniKorisnik: Korisnik;
   public poruka: string;
   public rezultatDijaloga: any;
-  constructor(private korisnikService: KorisnikServiceService, public dialog: MatDialog) {
   public izmenjeniKorisnik: Korisnik = new Korisnik();
-
-  constructor(private pacijentService:PacijentService, private korisnikService: KorisnikServiceService) {
+  constructor(private pacijentService: PacijentService,
+              private korisnikService: KorisnikServiceService, public dialog: MatDialog) {
       this.getKorisnike();
   }
 
