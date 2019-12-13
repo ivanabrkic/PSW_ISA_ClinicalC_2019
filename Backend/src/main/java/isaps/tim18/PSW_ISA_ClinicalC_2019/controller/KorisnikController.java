@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.HelperRejectedMail;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,24 @@ public class KorisnikController {
 
         mailSender.sendSimpleMessage(korisnik.getEmail(), "Registracija na servis kliničkog centra",
                  korisnik.getIme() + ", uspešno ste se registrovali na servis!");
+
+        return new ResponseEntity<>(korisnik, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/rejected", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Korisnik> odbijanjeRegistracije(@RequestBody HelperRejectedMail helperRejectedMail) throws Exception {
+
+        HelperRejectedMail hrm = helperRejectedMail;
+
+        korisnikService.removeByJbo(helperRejectedMail.getJbo());
+
+        MailSenderController mailSender = new MailSenderController();
+
+        mailSender.sendSimpleMessage(helperRejectedMail.getKorisnikovEmail(), "Registracija na servis kliničkog centra",
+                "Zahtev za registraciju je odbijen.\n\nRazlog:\n" + helperRejectedMail.getPoruka());
+
+        String jboPretraga = helperRejectedMail.getJbo();
+        Korisnik korisnik = korisnikService.findByJbo(jboPretraga);
 
         return new ResponseEntity<>(korisnik, HttpStatus.OK);
     }
