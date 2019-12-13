@@ -38,5 +38,12 @@ insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (1,
 insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (2, 3, '13/12/2019','11:10','13:50','operacija');
 insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (3, 7, '14/12/2019','11:10','11:00','pregled');
 
+insert into dijagnoze (sifra, naziv) values (1,'depresija');
+insert into dijagnoze (sifra, naziv) values (2, 'anksioznost');
+
+insert into zkarton(id,pacijent_id) values (1,6);
+
+insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,1);
+
 
 
