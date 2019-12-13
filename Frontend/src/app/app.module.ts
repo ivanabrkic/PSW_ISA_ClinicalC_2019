@@ -43,8 +43,9 @@ import {KlinikaServiceService} from './_services/KlinikaService/klinika-service.
 import {LoginService, RegisterService} from './_services/LoginAndRegister';
 import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
-import { OdbijanjeObrazlozenjeComponent } from './modules/objects/adminkc/odbijanje-obrazlozenje/odbijanje-obrazlozenje.component';
 import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje-dijagnoza/kreiranje-dijagnoza.component';
+import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dijalog-odbijanje-zahteva/dijalog-odbijanje-zahteva.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -77,8 +78,8 @@ import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje
     ZahteviRegistracijaComponent,
     ListaKlinikaComponent,
     ZdravstveniKartonComponent,
-    OdbijanjeObrazlozenjeComponent,
-    KreiranjeDijagnozaComponent
+    KreiranjeDijagnozaComponent,
+    DijalogOdbijanjeZahtevaComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -93,6 +94,7 @@ import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje
     MatSortModule,
     AngularFontAwesomeModule,
     HttpClientModule,
+    MatDialogModule,
     RouterModule.forRoot([{ path: 'administratorklinike', component: AdministratorKlinikeComponent},
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
@@ -102,7 +104,7 @@ import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje
       { path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent},
       { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
       { path: 'lekar', component: LekarComponent},
-      { path: 'odbijanjeObrazlozenje', component: OdbijanjeObrazlozenjeComponent},
+      { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
       { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
