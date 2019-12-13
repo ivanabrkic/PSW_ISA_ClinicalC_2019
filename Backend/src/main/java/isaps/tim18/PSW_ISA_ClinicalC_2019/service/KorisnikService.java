@@ -39,6 +39,11 @@ public class KorisnikService {
 //    }
 
     @Transactional
+    public Integer removeByJbo(String jbo){
+        return korisnikRepository.removeKorisnikByJbo(jbo);
+    }
+
+    @Transactional
     public Korisnik add(Korisnik korisnik){
         return korisnikRepository.save(korisnik);
     }

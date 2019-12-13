@@ -1,4 +1,3 @@
-
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Backa Palanka', 'Srbija', 'Save Kovacevica 47', 123456789, True, 'ivanabrkic192@gmail.com', 'Ivana', '0652754579', 'ika', '12345678b', 'Brkic', 'Lekar');
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Indjija', 'Srbija', 'Glavna 38', 987654321, True,'vladimirpopovic@gmail.com', 'Vladimir', '0652754579', 'vlada', '12345678b', 'Popovic', 'Lekar');
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, kor_ime, lozinka, prezime, tip_korisnika) values ('Sabac', 'Srbija', 'Mladena Djuricica 11', 123123123, FALSE , 'tamaralazarevic@gmail.com', 'Tamara', '0652754579', 'tesla', '12345678b', 'Lazarevic', 'Pacijent');
