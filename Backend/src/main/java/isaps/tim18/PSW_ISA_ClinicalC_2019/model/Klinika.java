@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Klinika {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="naziv",unique=false, nullable = false)
@@ -61,8 +61,6 @@ public class Klinika {
         this.naziv = naziv;
     }
 
-<<<<<<< HEAD
-=======
     public String getAdresa() {
         return adresa;
     }
@@ -111,21 +109,17 @@ public class Klinika {
         this.ocena = ocena;
     }
 
->>>>>>> develop
     @Override
     public String toString() {
         return "Klinika{" +
                 "id=" + id +
                 ", naziv='" + naziv + '\'' +
-<<<<<<< HEAD
-=======
                 ", adresa='" + adresa + '\'' +
                 ", grad='" + grad + '\'' +
                 ", drzava='" + drzava + '\'' +
                 ", email='" + email + '\'' +
                 ", kontaktTelefon='" + kontaktTelefon + '\'' +
                 ", ocena=" + ocena +
->>>>>>> develop
                 '}';
     }
 }

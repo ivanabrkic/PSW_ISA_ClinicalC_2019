@@ -10,24 +10,22 @@
                 <h4 class="card-title">Zahtevi</h4>
               </div>
               <div *ngFor="let korisnik of korisnici">
-                <div *ngIf="korisnik.aktivnostNaloga == false">
-                  <div class = "zahtev">
-                    <div class="card-body">
-                        <div class="row">
-                          <p>Korisničko ime: {{korisnik.korIme}}</p>
-                        </div>
-                        <div class="row">
-                          <p>E-mail adresa: {{korisnik.email}}</p>
-                        </div>
-                        <div class="row">
-                          <p>JBO: {{korisnik.jbo}} </p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="button-class">
-                      <button class = "btn btn-success buttons" (click)="onItemAccepted(korisnik)" >Prihvati</button>
-                      <button class = "btn btn-danger buttons" (click)="onItemRejected(korisnik)" >Odbij</button>
-                    </div>
+                <div class = "zahtev">
+                  <div class="card-body">
+                      <div class="row">
+                        <p>Korisničko ime: {{korisnik.korIme}}</p>
+                      </div>
+                      <div class="row">
+                        <p>E-mail adresa: {{korisnik.email}}</p>
+                      </div>
+                      <div class="row">
+                        <p>JBO: {{korisnik.jbo}} </p>
+                      </div>
+                      <div class="clearfix"></div>
+                  </div>
+                  <div class="button-class">
+                    <button class = "btn btn-success buttons" (click)="onItemAccepted(korisnik)" >Prihvati</button>
+                    <button class = "btn btn-danger buttons" (click)="onItemRejected(korisnik)" >Odbij</button>
                   </div>
                 </div>
               </div>

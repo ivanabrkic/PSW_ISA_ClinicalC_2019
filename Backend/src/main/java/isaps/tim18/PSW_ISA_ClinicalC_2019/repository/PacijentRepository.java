@@ -32,4 +32,6 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
 
     List<Pacijent> findByAktivnostNaloga(boolean aktivnost);
 
+    Integer removePacijentByJbo(String jbo);
+
 }

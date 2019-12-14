@@ -9,12 +9,8 @@ import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/adm
   styleUrls: ['./admin-klinike-pregled.component.css']
 })
 
-<<<<<<< HEAD:Frontend/src/app/modules/objects/administratorklinike/administrator_klinike.component.ts
-export class AdministratorKlinikeComponent implements OnInit {
-=======
 export class AdminKlinikeIzmenaComponent implements OnInit {
 
->>>>>>> develop:Frontend/src/app/modules/objects/admin-klinike/admin-klinike-izmena.component.ts
   loading = false;
   adminForm: FormGroup;
   submitted = false;

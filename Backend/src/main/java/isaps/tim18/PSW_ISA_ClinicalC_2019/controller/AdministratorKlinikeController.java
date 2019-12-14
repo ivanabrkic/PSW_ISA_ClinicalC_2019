@@ -6,7 +6,6 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,9 +24,6 @@ public class AdministratorKlinikeController {
     private AdministratorKlinikeService adminKlinikeService;
 
     @Autowired
-    private KorisnikService korisnikService;
-
-    @Autowired
     private KlinikaService klinikaService;
 
     @GetMapping(value = "/all", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -40,7 +36,7 @@ public class AdministratorKlinikeController {
 
     @RequestMapping(value = "/registrationSubmitAdmin", method = RequestMethod.POST)
     public String Register(@RequestBody HelperUserClass korisnik){
-        System.out.println(korisnik);
+        System.out.println(korisnik.getJbo());
         AdministratorKlinike adminUsername = adminKlinikeService.findByKorIme(korisnik.getKorIme());
         if(adminUsername != null){
             return "Korisničko ime je zauzeto";

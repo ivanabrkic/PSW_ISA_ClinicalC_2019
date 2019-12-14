@@ -52,7 +52,6 @@ public class KorisnikController {
     public ResponseEntity<Korisnik> odbijanjeRegistracije(@RequestBody HelperRejectedMail helperRejectedMail) throws Exception {
 
         HelperRejectedMail hrm = helperRejectedMail;
-
         korisnikService.removeByJbo(helperRejectedMail.getJbo());
 
         MailSenderController mailSender = new MailSenderController();
@@ -73,5 +72,13 @@ public class KorisnikController {
         Korisnik korisnik = korisnikService.findByJbo(jbo);
 
         return new ResponseEntity<>(korisnik, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/neregistrovani", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Korisnik>> getNeregistrovane() {
+
+        List<Korisnik> korisnici = korisnikService.findNeregistrovane();
+
+        return new ResponseEntity<>(korisnici, HttpStatus.OK);
     }
 }

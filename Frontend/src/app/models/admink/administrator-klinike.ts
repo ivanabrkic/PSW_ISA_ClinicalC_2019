@@ -1,20 +1,15 @@
 import { Korisnik } from '../korisnik';
 import { Klinika } from '../klinika/klinika';
 
-<<<<<<< HEAD
 export class AdministratorKlinike extends Korisnik {
-  private klinika: string;
+  klinika: Klinika;
 
 
-  get getKlinika(): string {
+  get getKlinika(): Klinika {
     return this.klinika;
   }
 
-  set setKlinika(value: string) {
+  set setKlinika(value: Klinika) {
     this.klinika = value;
   }
-=======
-export class AdministratorKlinike extends Korisnik{
-    klinika:Klinika;
->>>>>>> develop
 }

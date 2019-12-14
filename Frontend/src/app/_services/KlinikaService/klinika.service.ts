@@ -24,14 +24,12 @@ export class KlinikaService {
     return this.http.post<Klinika>(this.klinikaUrl, k, httpOptions);
   }
 
-<<<<<<< HEAD:Frontend/src/app/_services/KlinikaService/klinika-service.service.ts
   public getKlinike() {
     return this.http.get<Klinika>('/server/klinika/all', httpOptions);
-=======
+  }
   public update(klinika: Klinika, id: number){
     klinika.id = id;
     const k = JSON.stringify(klinika)
     return this.http.post<Klinika>('/server/klinika/update', k, httpOptions);
->>>>>>> develop:Frontend/src/app/_services/KlinikaService/klinika.service.ts
   }
 }

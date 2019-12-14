@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Klinika} from '../../../../models/klinika/klinika';
 import {ActivatedRoute, Router} from '@angular/router';
 import {KlinikaService} from '../../../../_services/KlinikaService/klinika.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-registracija-klinike',
@@ -10,25 +12,51 @@ import {KlinikaService} from '../../../../_services/KlinikaService/klinika.servi
 })
 export class RegistracijaKlinikeComponent implements OnInit {
   klinika: Klinika;
+  adminForm: FormGroup;
+  submitted = false;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private klinikaService: KlinikaService
+    private klinikaService: KlinikaService,
+    private formBuilder: FormBuilder
   ) {
     this.klinika = new Klinika();
   }
 
   ngOnInit() {
+    this.adminForm = this.formBuilder.group({
+      naziv: ['', Validators.required],
+      email: ['', Validators.required],
+      grad: [''],
+      drzava: [''],
+      adresa: [''],
+      kontaktTelefon: ['']
+    },  {
+    });
   }
 
   onSubmit() {
-    this.klinikaService.save(this.klinika).subscribe(result => this.gotoUserList());
-    console.log(this.klinika.naziv);
-  }
+    console.log(this.klinika)
+    if (this.adminForm.invalid) {
+      return;
+    }
 
-  gotoUserList() {
-    this.router.navigate(['/registracijaKlinike']);
+    this.submitted = true;
+    // stop here if form is invalid
+
+    this.loading = true;
+    this.klinikaService.save(this.klinika).pipe(first()).subscribe(result => {
+        alert('Uspešno ste registrovali kliniku!\n\n');
+        this.router.navigate(['/administratorKc']);
+      },
+      error => {
+        this.loading = false;
+        this.router.navigate(['/administratorKc']);
+      });
   }
+  get f() { return this.adminForm.controls; }
+
 
 }

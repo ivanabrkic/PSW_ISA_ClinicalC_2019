@@ -13,6 +13,8 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
 
     List<Korisnik> findAll();
 
+    List<Korisnik> findAllByAktivnostNaloga(Boolean aktivnost);
+
     Page<Korisnik> findAll(Pageable pageable);
 
     Korisnik findByJbo(String jbo);
