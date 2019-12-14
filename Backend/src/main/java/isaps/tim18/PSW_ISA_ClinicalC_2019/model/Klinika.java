@@ -10,15 +10,39 @@ public class Klinika {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @Column(name="nazivKlinike",unique=false)
+    @Column(name="naziv",unique=false, nullable = false)
     private String naziv;
+
+    @Column(name="adresa",unique=false)
+    private String adresa;
+
+    @Column(name="grad",unique=false)
+    private String grad;
+
+    @Column(name="drzava",unique=false)
+    private String drzava;
+
+    @Column(name="email",unique=true)
+    private String email;
+
+    @Column(name="kontaktTelefon",unique=false)
+    private String kontaktTelefon;
+
+    @Column(name="ocena",unique=false)
+    private float ocena;
 
     public Klinika(){
 
     }
 
-    public Klinika(String naziv) {
+    public Klinika(String naziv, String adresa, String grad, String drzava, String email, String kontaktTelefon, float ocena) {
         this.naziv = naziv;
+        this.adresa = adresa;
+        this.grad = grad;
+        this.drzava = drzava;
+        this.email = email;
+        this.kontaktTelefon = kontaktTelefon;
+        this.ocena = ocena;
     }
 
     public Long getId() {
@@ -35,5 +59,67 @@ public class Klinika {
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
+    }
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
+    }
+
+    public String getGrad() {
+        return grad;
+    }
+
+    public void setGrad(String grad) {
+        this.grad = grad;
+    }
+
+    public String getDrzava() {
+        return drzava;
+    }
+
+    public void setDrzava(String drzava) {
+        this.drzava = drzava;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getKontaktTelefon() {
+        return kontaktTelefon;
+    }
+
+    public void setKontaktTelefon(String kontaktTelefon) {
+        this.kontaktTelefon = kontaktTelefon;
+    }
+
+    public float getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(float ocena) {
+        this.ocena = ocena;
+    }
+
+    @Override
+    public String toString() {
+        return "Klinika{" +
+                "id=" + id +
+                ", naziv='" + naziv + '\'' +
+                ", adresa='" + adresa + '\'' +
+                ", grad='" + grad + '\'' +
+                ", drzava='" + drzava + '\'' +
+                ", email='" + email + '\'' +
+                ", kontaktTelefon='" + kontaktTelefon + '\'' +
+                ", ocena=" + ocena +
+                '}';
     }
 }

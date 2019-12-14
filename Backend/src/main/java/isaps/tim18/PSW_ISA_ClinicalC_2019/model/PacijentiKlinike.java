@@ -1,5 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,11 +11,13 @@ public class PacijentiKlinike {
     @EmbeddedId
     PacijentiKlinikeKey id;
 
+    @JsonIgnore
     @ManyToOne
     @MapsId("pacijent_id")
     @JoinColumn(name = "pacijent_id")
     Pacijent pacijent;
 
+    @JsonIgnore
     @ManyToOne
     @MapsId("klinika_id")
     @JoinColumn(name = "klinika_id")

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Klinika} from '../../../../models/klinika/klinika';
 import {ActivatedRoute, Router} from '@angular/router';
-import {KlinikaServiceService} from '../../../../_services/KlinikaService/klinika-service.service';
+import {KlinikaService} from '../../../../_services/KlinikaService/klinika.service';
 
 @Component({
   selector: 'app-registracija-klinike',
@@ -14,7 +14,7 @@ export class RegistracijaKlinikeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private klinikaService: KlinikaServiceService
+    private klinikaService: KlinikaService
   ) {
     this.klinika = new Klinika();
   }

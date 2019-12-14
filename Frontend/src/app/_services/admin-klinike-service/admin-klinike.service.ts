@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AdministratorKlinike} from '../../models/administrator-klinike';
+import {AdministratorKlinike} from '../../models/admink/administrator-klinike';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminKlinikeServiceService {
+export class AdminKlinikeService {
 
   constructor(private http: HttpClient) {
   }

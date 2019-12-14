@@ -1,0 +1,12 @@
+<div style = "text-align: center">
+  <div>
+    <h4>Unesite razlog za odbijanje korisnika</h4>
+  </div>
+  <div>
+    <textarea [(ngModel)]="razlog" cols = "40" rows = "10"></textarea>
+  </div>
+  <div>
+    <button class = "btn btn-primary" (click)="obrisiKorisnika(razlog)">Predaj</button>
+    <button class = "btn btn-secondary" (click)="this.dialogRef.close(1)" style = "margin-left: 20px">Nazad</button>
+  </div>
+</div>
