@@ -41,10 +41,12 @@ import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinik
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
 import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje-dijagnoza/kreiranje-dijagnoza.component';
 import { PoseteComponent } from './modules/shared/pregledi-operacije-lista/pregledi-operacije-lista';
+import { ZdravstveniKartonService } from './_services/ZdravstveniKartonService/zdravstveni-karton-service.service';
+import { PacijentService } from './_services/PacijentService/pacijent.service';
+import { PoseteService } from './_services/PoseteService/posete.service';
 import { AdminKlinikeModule } from './modules/objects/admin-klinike/admin-klinike.module';
 import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dijalog-odbijanje-zahteva/dijalog-odbijanje-zahteva.component';
 import {MatDialogModule} from '@angular/material/dialog';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +76,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     PoseteComponent,
+    ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent
   ],
@@ -119,7 +122,8 @@ import {MatDialogModule} from '@angular/material/dialog';
       { path: '**', component: NotFoundComponent},
       ])
   ],
-  providers: [KlinikaService, LoginService, RegisterService],
+  providers: [AdminKlinikeServiceService, KlinikaServiceService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

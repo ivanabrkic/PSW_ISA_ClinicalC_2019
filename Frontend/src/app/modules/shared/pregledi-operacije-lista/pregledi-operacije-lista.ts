@@ -18,29 +18,33 @@ import { Korisnik } from 'src/app/models/korisnik';
   
     constructor(private poseteService: PoseteService,private pacijentService: PacijentService) {
       this.pacijentService.getUlogovanKorisnik()
-     .subscribe(ulogovanKorisnik => {
-      this.pacijent = ulogovanKorisnik;
-    });
+      .subscribe(
+        ulogovanKorisnik => {
+          this.pacijent = ulogovanKorisnik;
+          this.poseteService.findByPatientId(this.pacijent.id).subscribe(
+            podaci => {this.posete = podaci; },
+            err => console.log('Nisu ucitane posete'),
+            () => console.log('Uspesno ucitane posete')
+          );},
+          err => console.log('Greska pri ucitavanju korisnika'),
+       );
+
     }
   
-    getPosete() {
-     console.log(this.pacijent.id);
-     console.log(this.pacijent.kontaktTelefon);
-      this.poseteService.findByPatientId(this.pacijent.id).subscribe(
-        podaci => {this.posete = podaci; },
-        err => console.log('Nisu ucitane posete'),
-        () => console.log('Uspesno ucitane posete')
-      );
-    }
-   
+ 
     ngOnInit() {
       this.pacijentService.getUlogovanKorisnik()
       .subscribe(
         ulogovanKorisnik => {
-       this.pacijent = ulogovanKorisnik;},
-       err => console.log('Greska pri ucitavanju korisnika'),
+          this.pacijent = ulogovanKorisnik;
+          this.poseteService.findByPatientId(this.pacijent.id).subscribe(
+            podaci => {this.posete = podaci; },
+            err => console.log('Nisu ucitane posete'),
+            () => console.log('Uspesno ucitane posete')
+          );},
+          err => console.log('Greska pri ucitavanju korisnika'),
        );
-      this.getPosete();
+
     }
   }
   

@@ -22,7 +22,7 @@ public class PosetaService {
         return posetaRepo.findAll();
     }
 
-    public List<Poseta> findByPacijent_id(int id){
+    public List<Poseta> findByPacijent_id(Long id){
         return posetaRepo.findByPacijent_id(id);
     }
 

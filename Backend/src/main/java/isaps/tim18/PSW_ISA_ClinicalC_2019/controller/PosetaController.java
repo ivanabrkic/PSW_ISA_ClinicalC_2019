@@ -25,9 +25,9 @@ public class PosetaController {
     }
 
     @GetMapping(value = "/pacijent_id", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Poseta>> getByPatientId(@RequestBody int id){
+    public ResponseEntity<List<Poseta>> getByPatientId(@RequestParam String id){
 
-        List<Poseta> listaPoseta =  posetaService.findByPacijent_id(id);
+        List<Poseta> listaPoseta =  posetaService.findByPacijent_id(Long.parseLong(id));
 
         return new ResponseEntity<>(listaPoseta, HttpStatus.OK);
     }
