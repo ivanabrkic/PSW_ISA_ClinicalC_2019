@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {KorisnikServiceService} from '../../../../_services/KorisnikService/korisnik-service.service';
+import { KorisnikService } from 'src/app/services/korisnik-service/korisnik.service';
 
 @Component({
   selector: 'app-dijalog-odbijanje-zahteva',
@@ -10,7 +10,7 @@ import {KorisnikServiceService} from '../../../../_services/KorisnikService/kori
 export class DijalogOdbijanjeZahtevaComponent implements OnInit {
   razlog: string;
   constructor(public dialogRef: MatDialogRef<DijalogOdbijanjeZahtevaComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, private korisnikService: KorisnikServiceService) { }
+              @Inject(MAT_DIALOG_DATA) public data: any, private korisnikService: KorisnikService) { }
 
   ngOnInit() {
   }

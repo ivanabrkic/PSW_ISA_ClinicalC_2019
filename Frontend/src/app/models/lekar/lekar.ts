@@ -1,5 +1,5 @@
-import { Korisnik } from '../korisnik';
+import { MedicinskoOsoblje } from '../medicinsko-osoblje/medicinsko-osoblje';
 
-export class Lekar extends Korisnik{
-    
+export class Lekar extends MedicinskoOsoblje{
+
 }

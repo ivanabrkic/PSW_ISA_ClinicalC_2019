@@ -1,36 +1,36 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AdministratorKlinike} from '../../../../models/admink/administrator-klinike';
 import {first} from 'rxjs/operators';
-import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
-import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
-  templateUrl: './medsestra-izmena.component.html',
-  styleUrls: ['./medsestra-izmena.component.css']
+  templateUrl: './admin-klinike-izmena.component.html',
+  styleUrls: ['./admin-klinike-izmena.component.css']
 })
 
-export class MedSestraIzmenaComponent implements OnInit {
+export class AdminKlinikeIzmenaComponent implements OnInit {
 
   loading = false;
-  medsForm: FormGroup;
+  adminForm: FormGroup;
   submitted = false;
 
-  medSestra: MedicinskaSestra = new MedicinskaSestra();
+  adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
-  constructor(private formBuilder: FormBuilder, private medsService: MedicinskaSestraService) {
-    this.medsService.getUlogovanKorisnik()
+  constructor(private formBuilder: FormBuilder, private adminkService: AdminKlinikeService) {
+    this.adminkService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
-      this.medSestra = ulogovanKorisnik;
+      this.adminKlinike = ulogovanKorisnik;
     });
   }
 
   ngOnInit() {
-    this.medsService.getUlogovanKorisnik()
+    this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
-        this.medSestra = ulogovanKorisnik;
+        this.adminKlinike = ulogovanKorisnik;
       });
 
-    this.medsForm = this.formBuilder.group({
+    this.adminForm = this.formBuilder.group({
       adresa: [''],
       kontaktTelefon: [''],
       drzava: [''],
@@ -40,27 +40,29 @@ export class MedSestraIzmenaComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       lozinka: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$'
       )]],
+      // tipKorisnika: ['', Validators.required],
       jbo: [''],
       korIme: ['', Validators.required]
     },  {
     });
   }
 
-  get f() { return this.medsForm.controls; }
+  // convenience getter for easy access to form fields
+  get f() { return this.adminForm.controls; }
 
   onSubmit() {
 
     this.submitted = true;
     // stop here if form is invalid
-    if (this.medsForm.invalid) {
+    if (this.adminForm.invalid) {
       return;
     }
 
     this.loading = true;
 
-    this.medsService.update(this.medsForm.value).pipe(first()).subscribe(result => {
+    this.adminkService.update(this.adminForm.value).pipe(first()).subscribe(result => {
         alert('Uspešno ste izmenili svoj profil!\n\n');
-        this.medSestra = result;
+        this.adminKlinike = result;
       },
       error => {
         alert('Neuspešna izmena!\n\n');

@@ -12,10 +12,25 @@ public class MedicinskaSestra extends Korisnik{
     @Column
     private int brSlobodnihDana;
 
+    @Column (nullable = false)
+    private String radnoVreme;
+
+    @Column
+    private float ocena;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="klinika_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Klinika klinika;
+
+    public MedicinskaSestra() {
+
+    }
+
+    public MedicinskaSestra(Korisnik korisnik) {
+        super(korisnik);
+    }
+
 
     public Klinika getKlinika() {
         return klinika;
@@ -33,7 +48,29 @@ public class MedicinskaSestra extends Korisnik{
         this.brSlobodnihDana = brSlobodnihDana;
     }
 
-    public MedicinskaSestra() {
+    public String getRadnoVreme() {
+        return radnoVreme;
+    }
 
+    public void setRadnoVreme(String radnoVreme) {
+        this.radnoVreme = radnoVreme;
+    }
+
+    public float getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(float ocena) {
+        this.ocena = ocena;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicinskaSestra{" +
+                "brSlobodnihDana=" + brSlobodnihDana +
+                ", radnoVreme='" + radnoVreme + '\'' +
+                ", ocena=" + ocena +
+                ", klinika=" + klinika +
+                '}';
     }
 }

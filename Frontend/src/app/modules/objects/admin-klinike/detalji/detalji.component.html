@@ -1,0 +1,45 @@
+<h1 mat-dialog-title style="font-size: 27px">Detalji</h1>
+<mat-dialog-content class="text">
+  <div *ngIf="tip == 'Lekar'">
+    <div class="row">
+      <div class="col-md-6">
+        Broj slobodnih dana : {{lekar.brSlobodnihDana}}
+      </div>
+      <div class="col-md-6">
+        Adresa : {{lekar.adresa}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        Radno vreme : <p [innerHTML]="radnoVreme"> </p>
+      </div>
+      <div class="col-md-6">
+        Grad : {{lekar.grad}} <br/>
+        Drzava : {{lekar.drzava}}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tip == 'Medicinska sestra'">
+    <div class="row">
+      <div class="col-md-6">
+        Broj slobodnih dana : {{medSestra.brSlobodnihDana}}
+      </div>
+      <div class="col-md-6">
+        Adresa : {{medSestra.adresa}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        Radno vreme : <p [innerHTML]="radnoVreme"> </p>
+      </div>
+      <div class="col-md-6">
+        Grad : {{medSestra.grad}}<br/>
+        Drzava : {{medSestra.drzava}}
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger">Zatvori</button>
+</mat-dialog-actions>

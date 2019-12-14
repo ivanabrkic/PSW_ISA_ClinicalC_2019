@@ -2,12 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home';
-import { NotFoundComponent } from './modules/general/not-found/not-found.component';
+import { HomeComponent } from './home/home';
 import { LoginComponent } from './home/login';
 import { RegisterComponent } from './home/register';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MustMatch} from './_helpers/MustMatch';
+import {MustMatch} from './helpers/MustMatch';
 
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
@@ -18,7 +17,7 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
 import { AdminkcComponent } from './modules/objects/adminkc/adminkc.component';
-import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/admin-klinike/registracija-administratora-klinike/registracija-administratora-klinike.component';
+import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/adminkc/registracija-administratora-klinike/registracija-administratora-klinike.component';
 import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.component';
 import {LekarComponent} from './modules/objects/lekar/lekar.component';
 import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';
@@ -35,8 +34,6 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedSestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
 import { ZahteviRegistracijaComponent } from './modules/objects/adminkc/zahtevi-registracija/zahtevi-registracija.component';
-import {KlinikaService} from './_services/KlinikaService/klinika.service';
-import {LoginService, RegisterService} from './_services/LoginAndRegister';
 import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
 import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
 import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje-dijagnoza/kreiranje-dijagnoza.component';
@@ -44,6 +41,10 @@ import { PoseteComponent } from './modules/shared/pregledi-operacije-lista/pregl
 import { AdminKlinikeModule } from './modules/objects/admin-klinike/admin-klinike.module';
 import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dijalog-odbijanje-zahteva/dijalog-odbijanje-zahteva.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { NotFoundComponent } from './home/not-found/not-found.component';
+import { KlinikaService } from './services/klinika-service/klinika.service';
+import { LoginService } from './services/login-and-register-service/login.service';
+import { RegisterService } from './services/login-and-register-service/register.service';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     ZahteviRegistracijaComponent,
     ListaKlinikaComponent,
     ZdravstveniKartonComponent,
-    OdbijanjeObrazlozenjeComponent,
     KreiranjeDijagnozaComponent,
     PoseteComponent,
     KreiranjeDijagnozaComponent,

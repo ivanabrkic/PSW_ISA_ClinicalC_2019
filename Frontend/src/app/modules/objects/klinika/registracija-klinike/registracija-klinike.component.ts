@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Klinika} from '../../../../models/klinika/klinika';
 import {ActivatedRoute, Router} from '@angular/router';
-import {KlinikaService} from '../../../../_services/KlinikaService/klinika.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 
 @Component({
   selector: 'app-registracija-klinike',

@@ -1,0 +1,51 @@
+<sidebar-admin-klinike></sidebar-admin-klinike>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Medicinsko osoblje klinike "{{adminKlinike.klinika.naziv}}"</h4>
+                        <button mat-raised-button (click)="showDialogRegister()" class="btn btn-primary pull-right">Registruj novog lekara/medicinsku sestru</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th></th>
+                                    <th>Ocena</th>
+                                    <th>Ime i prezime</th>
+                                    <th>Email</th>
+                                    <th>Kontakt telefon</th>
+                                    <th>Jbo</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let med of lekari">
+                                        <td><b>{{med.tipKorisnika}}</b></td>
+                                        <td>{{med.ocena}}</td>
+                                        <td><a (click)="showDialogLekar(med)">{{med.ime}} {{med.prezime}}</a></td>
+                                        <td>{{med.email}}</td>
+                                        <td>{{med.kontaktTelefon}}</td>
+                                        <td>{{med.jbo}}</td>
+                                        <td><button mat-raised-button class="btn btn-danger">Otpusti</button></td>
+
+                                    </tr>
+                                    <tr *ngFor="let med of medicinskeSestre">
+                                        <td><b>{{med.tipKorisnika}}</b></td>
+                                        <td>{{med.ocena}}</td>
+                                        <td><a (click)="showDialogSestra(med)">{{med.ime}} {{med.prezime}}</a></td>
+                                        <td>{{med.email}}</td>
+                                        <td>{{med.kontaktTelefon}}</td>
+                                        <td>{{med.jbo}}</td>
+                                        <td><button mat-raised-button class="btn btn-danger">Otpusti</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

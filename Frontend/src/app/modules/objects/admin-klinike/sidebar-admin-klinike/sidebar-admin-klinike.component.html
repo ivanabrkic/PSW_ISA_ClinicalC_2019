@@ -1,0 +1,50 @@
+<div class="sidebar-container">
+  <div class="sidebar-logo">
+    Meni
+  </div>
+  <ul class="sidebar-navigation">
+    <li class="header">Profil</li>
+    <li>
+      <a [routerLink]="['/administratorklinikepregled']" >
+        <i class="fa fa-user" aria-hidden="true"></i> Pregled profila
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/administratorklinikeizmena']" >
+        <i class="fa fa-user-edit" aria-hidden="true"></i> Izmeni profil
+      </a>
+    </li>
+    <li class="header">Klinika</li>
+    <li>
+      <a [routerLink]="['/izmenaprofilklinike']">
+        <i class="fa fa-clinic-medical" aria-hidden="true"></i> Profil klinike
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-first-aid" aria-hidden="true"></i> Sale
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/medicinskoosoblje']">
+        <i class="fa fa-user-md" aria-hidden="true"></i> Medicinsko osoblje
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-stethoscope" aria-hidden="true"></i> Pregledi
+      </a>
+    </li>
+    <li class="header">Drugo</li>
+    <li>
+      <a href="#">
+        <i class="fa fa-book-medical" aria-hidden="true"></i> Definiši slobodne termine
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-file-medical-alt" aria-hidden="true"></i> Izveštaj o poslovanju
+      </a>
+    </li>
+  </ul>
+</div>
