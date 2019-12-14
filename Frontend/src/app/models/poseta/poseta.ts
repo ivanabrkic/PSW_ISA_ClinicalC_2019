@@ -4,6 +4,6 @@ export class Poseta {
     datum:String;
     pocetak:String;
     kraj:String;
-    tipposete:String;
+    tipPosete:String;
   }
   
