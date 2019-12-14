@@ -6,13 +6,11 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.ZdravstveniKarton;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.DijagnozeService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.ZdravstveniKartonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,9 +22,9 @@ public class DijagnozeController {
     private DijagnozeService dijagnozeService;
 
     @GetMapping(value = "/get", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Dijagnoze>> getDijagnozePacijenta(@RequestBody Pacijent pacijent){
+    public ResponseEntity<List<String>> getDijagnozePacijenta(@RequestParam String id){
 
-      List<Dijagnoze> dijagnoze =dijagnozeService.find(pacijent.getId());
+      List<String> dijagnoze =dijagnozeService.find(Long.parseLong(id));
 
       return new ResponseEntity<>(dijagnoze, HttpStatus.OK);
 

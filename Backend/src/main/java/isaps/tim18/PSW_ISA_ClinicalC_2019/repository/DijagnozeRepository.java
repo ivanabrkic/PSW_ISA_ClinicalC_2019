@@ -22,6 +22,6 @@ public interface DijagnozeRepository extends JpaRepository<Dijagnoze,Long> {
             "JOIN dijagnoze ON\n" +
             "zkarton_dijagnoze.dijagnoze_sifra=dijagnoze.sifra\n" +
             "WHERE pacijent_id=(:id) and zdravstveni_karton_id = id\n")
-    List<Dijagnoze> find(@Param("id") Long id);
+    List<String> find(@Param("id") Long id);
 
 }

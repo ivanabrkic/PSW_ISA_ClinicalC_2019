@@ -15,5 +15,5 @@ public class DijagnozeService {
 
     public List<Dijagnoze> findById(int id) { return dijagnozeRepo.findBySifra(id); }
 
-    public List<Dijagnoze> find(Long id){ return dijagnozeRepo.find(id); }
+    public List<String> find(Long id){ return dijagnozeRepo.find(id); }
 }

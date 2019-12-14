@@ -46,6 +46,9 @@ import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zd
 import { OdbijanjeObrazlozenjeComponent } from './modules/objects/adminkc/odbijanje-obrazlozenje/odbijanje-obrazlozenje.component';
 import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje-dijagnoza/kreiranje-dijagnoza.component';
 import { PoseteComponent } from './modules/shared/pregledi-operacije-lista/pregledi-operacije-lista';
+import { ZdravstveniKartonService } from './_services/ZdravstveniKartonService/zdravstveni-karton-service.service';
+import { PacijentService } from './_services/PacijentService/pacijent.service';
+import { PoseteService } from './_services/PoseteService/posete.service';
 
 @NgModule({
   declarations: [
@@ -81,6 +84,7 @@ import { PoseteComponent } from './modules/shared/pregledi-operacije-lista/pregl
     OdbijanjeObrazlozenjeComponent,
     KreiranjeDijagnozaComponent,
     PoseteComponent,
+    ZdravstveniKartonComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -124,7 +128,7 @@ import { PoseteComponent } from './modules/shared/pregledi-operacije-lista/pregl
       { path: '**', component: NotFoundComponent},
       ])
   ],
-  providers: [AdminKlinikeServiceService, KlinikaServiceService, LoginService, RegisterService],
+  providers: [AdminKlinikeServiceService, KlinikaServiceService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

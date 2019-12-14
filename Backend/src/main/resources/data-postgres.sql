@@ -41,7 +41,7 @@ insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (3,
 insert into dijagnoze (sifra, naziv) values (1,'depresija');
 insert into dijagnoze (sifra, naziv) values (2, 'anksioznost');
 
-insert into zkarton(id,pacijent_id) values (1,6);
+insert into zkarton(id,pacijent_id) values (1,3);
 
 insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,1);
 
