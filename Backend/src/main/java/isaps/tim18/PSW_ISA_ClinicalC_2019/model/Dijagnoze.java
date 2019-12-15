@@ -11,6 +11,9 @@ public class Dijagnoze {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sifra;
 
+    @Column(name="sifradijagnoze", nullable = false)
+    private String sifraDijagnoze;
+
     @Column(name="naziv", nullable = false)
     private String nazivDijagnoze;
 
@@ -18,8 +21,8 @@ public class Dijagnoze {
 
     }
 
-    public Dijagnoze(int sifra, String nazivDijagnoze) {
-        this.sifra = sifra;
+    public Dijagnoze(String sifraDijagnoze, String nazivDijagnoze) {
+        this.sifraDijagnoze = sifraDijagnoze;
         this.nazivDijagnoze = nazivDijagnoze;
     }
 
@@ -37,5 +40,13 @@ public class Dijagnoze {
 
     public void setNazivDijagnoze(String nazivDijagnoze) {
         this.nazivDijagnoze = nazivDijagnoze;
+    }
+
+    public String getSifraDijagnoze() {
+        return sifraDijagnoze;
+    }
+
+    public void setSifraDijagnoze(String sifraDijagnoze) {
+        this.sifraDijagnoze = sifraDijagnoze;
     }
 }

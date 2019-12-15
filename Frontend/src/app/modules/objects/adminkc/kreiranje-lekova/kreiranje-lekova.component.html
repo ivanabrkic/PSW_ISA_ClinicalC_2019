@@ -5,7 +5,7 @@
       <div class="col-md-7">
         <div class="card" >
           <div class="card-header card-header-danger">
-            <h4 class="card-title ">Šifranik dijagnoza</h4>
+            <h4 class="card-title ">Šifranik Lekova</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -15,9 +15,9 @@
                 <th>Naziv</th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let dijagnoza of dijagnoze">
-                  <td>{{dijagnoza.sifraDijagnoze}}</td>
-                  <td>{{dijagnoza.nazivDijagnoze}}</td>
+                <tr *ngFor="let lek of lekovi">
+                  <td>{{lek.sifra}}</td>
+                  <td>{{lek.naziv}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -28,7 +28,7 @@
       <div class="col-md-4">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4  class="card-title">Nova dijagnoza</h4>
+            <h4  class="card-title">Nov Lek</h4>
           </div>
           <div class="card-body">
             <form style = "text-align: center">
@@ -42,7 +42,7 @@
                   <input #naziv class = "naziv" matInput placeholder="Naziv" ng-model = "naziv">
                 </mat-form-field>
               </div>
-              <button type = "submit" class = "btn-info" (click)="dodajDijagnozu(sifra.value, naziv.value)">Dodaj</button>
+              <button type = "submit" class = "btn-info" (click)="dodajLek(sifra.value, naziv.value)">Dodaj</button>
             </form>
           </div>
         </div>

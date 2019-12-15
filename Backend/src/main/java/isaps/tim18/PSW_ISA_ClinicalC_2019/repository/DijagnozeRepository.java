@@ -14,7 +14,9 @@ import java.util.List;
 @Repository
 public interface DijagnozeRepository extends JpaRepository<Dijagnoze,Long> {
 
-    List<Dijagnoze> findBySifra(int Sifra);
+    Dijagnoze findBySifra(int sifra);
+
+    Dijagnoze findBySifraDijagnoze(String sifra);
 
     @Query(nativeQuery=true,value= "SELECT naziv\n" +
             "FROM zkarton_dijagnoze JOIN zkarton  ON\n" +
@@ -24,4 +26,7 @@ public interface DijagnozeRepository extends JpaRepository<Dijagnoze,Long> {
             "WHERE pacijent_id=(:id) and zdravstveni_karton_id = id\n")
     List<String> find(@Param("id") Long id);
 
+    Dijagnoze findByNazivDijagnoze(String nazivDijagnoze);
+
+    List<Dijagnoze> findAll();
 }

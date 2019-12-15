@@ -1,9 +1,10 @@
 export class Dijagnoza {
   sifra: string;
-  naziv: string;
+  sifraDijagnoze: string;
+  nazivDijagnoze: string;
 
   constructor(novaSifra, novNaziv) {
-    this.sifra = novaSifra;
-    this.naziv = novNaziv;
+    this.sifraDijagnoze = novaSifra;
+    this.nazivDijagnoze = novNaziv;
   }
 }
