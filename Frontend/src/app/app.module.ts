@@ -47,6 +47,8 @@ import { PoseteService } from './_services/PoseteService/posete.service';
 import { AdminKlinikeModule } from './modules/objects/admin-klinike/admin-klinike.module';
 import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dijalog-odbijanje-zahteva/dijalog-odbijanje-zahteva.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {AdminKlinikeService} from './_services/admin-klinike-service/admin-klinike.service';
+import { KreiranjeLekovaComponent } from './modules/objects/adminkc/kreiranje-lekova/kreiranje-lekova.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +80,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     PoseteComponent,
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
-    DijalogOdbijanjeZahtevaComponent
+    DijalogOdbijanjeZahtevaComponent,
+    KreiranjeLekovaComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -113,16 +116,17 @@ import {MatDialogModule} from '@angular/material/dialog';
       {path: 'pacijent', component: PacijentComponent},
       { path: 'login', component: LoginComponent },
       { path: 'kreiranjeDijagnoza', component: KreiranjeDijagnozaComponent },
+      { path: 'kreiranjeLekova', component: KreiranjeLekovaComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'welcome', component: HomeComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
-       {path: 'listaPoseta',component: PoseteComponent},
+       {path: 'listaPoseta', component: PoseteComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],
-  providers: [AdminKlinikeServiceService, KlinikaServiceService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService],
+  providers: [AdminKlinikeService, KlinikaService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService],
 
   bootstrap: [AppComponent]
 })

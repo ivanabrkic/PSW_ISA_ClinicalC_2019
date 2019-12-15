@@ -21,12 +21,32 @@ public class DijagnozeController {
     @Autowired
     private DijagnozeService dijagnozeService;
 
+    @GetMapping(value = "/getAll", produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Dijagnoze>> getAll(){
+
+        List<Dijagnoze> dijagnoze = dijagnozeService.findAll();
+
+        return new ResponseEntity<>(dijagnoze, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/get", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<String>> getDijagnozePacijenta(@RequestParam String id){
 
-      List<String> dijagnoze =dijagnozeService.find(Long.parseLong(id));
+      List<String> dijagnoze = dijagnozeService.find(Long.parseLong(id));
 
       return new ResponseEntity<>(dijagnoze, HttpStatus.OK);
+    }
 
+    @PostMapping(value = "/add", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addDijagnozu(@RequestBody Dijagnoze novaDijagnoza){
+        Dijagnoze d = dijagnozeService.findBySifraDijagnoze(novaDijagnoza.getSifraDijagnoze());
+        if(d != null){
+            System.out.println("Nije null");
+            return "Dijagnoza sa datom sifrom vec postoji";
+        }
+        System.out.println("Jeste null");
+        dijagnozeService.add(novaDijagnoza);
+
+        return "Uspesno dodata dijagnoza";
     }
 }
