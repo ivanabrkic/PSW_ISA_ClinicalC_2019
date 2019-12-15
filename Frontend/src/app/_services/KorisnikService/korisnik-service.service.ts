@@ -42,4 +42,8 @@ export class KorisnikServiceService {
     // post ne radi dobro
     return this.http.post('/server/korisnik/rejected', body, httpOptions);
   }
+
+  getNeregistrovaneKorisnike() {
+    return this.http.get('/server/korisnik/neregistrovani');
+  }
 }

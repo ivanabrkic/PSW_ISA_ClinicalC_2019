@@ -1,9 +1,11 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinike;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.HelperUserClass;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +24,7 @@ public class AdministratorKlinikeController {
     private AdministratorKlinikeService adminKlinikeService;
 
     @Autowired
-    private KorisnikService korisnikService;
+    private KlinikaService klinikaService;
 
     @GetMapping(value = "/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AdministratorKlinike>> getAllAdmineKlinike() {
@@ -33,8 +35,8 @@ public class AdministratorKlinikeController {
     }
 
     @RequestMapping(value = "/registrationSubmitAdmin", method = RequestMethod.POST)
-    public String Register(@RequestBody Korisnik korisnik){
-
+    public String Register(@RequestBody HelperUserClass korisnik){
+        System.out.println(korisnik.getJbo());
         AdministratorKlinike adminUsername = adminKlinikeService.findByKorIme(korisnik.getKorIme());
         if(adminUsername != null){
             return "Korisničko ime je zauzeto";
@@ -59,7 +61,9 @@ public class AdministratorKlinikeController {
                 .kontaktTelefon(korisnik.getKontaktTelefon())
                 .tipKorisnika("Administrator klinike").build();
 
+        Klinika k = klinikaService.findByNaziv(korisnik.getKlinika());
         AdministratorKlinike admin = new AdministratorKlinike(noviAdmin);
+        admin.setKlinika(k);
         adminKlinikeService.add(admin);
 
         return "Uspešno registrovan administrator!";

@@ -18,7 +18,9 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
 import { AdminkcComponent } from './modules/objects/adminkc/adminkc.component';
+
 import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/admin-klinike/registracija-administratora-klinike/registracija-administratora-klinike.component';
+
 import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.component';
 import {LekarComponent} from './modules/objects/lekar/lekar.component';
 import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';

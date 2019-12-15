@@ -1,8 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinike;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +9,7 @@ import java.util.List;
 @Repository
 public interface AdministratorKlinikeRepository extends JpaRepository<AdministratorKlinike, Long> {
 
-    Page<AdministratorKlinike> findAll(Pageable pageable);
+    List<AdministratorKlinike> findAll();
 
     AdministratorKlinike findByKorIme(String korisnickoIme);
 
@@ -26,6 +24,4 @@ public interface AdministratorKlinikeRepository extends JpaRepository<Administra
     AdministratorKlinike findByEmailAndLozinka(String email, String lozinka);
 
     AdministratorKlinike findByJbo(String jbo);
-
-
 }

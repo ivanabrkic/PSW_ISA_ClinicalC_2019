@@ -19,12 +19,15 @@ public class KlinikaController {
 
     @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
+        float ocena = (float)1.0;
+        Klinika novaKlinika = klinika;
+        klinika.setOcena(ocena);
 
-        Klinika novaKlinika = new Klinika();
-
-        novaKlinika.setNaziv(klinika.getNaziv());
-
-        klinikaService.add(novaKlinika);
+        try {
+            klinikaService.add(novaKlinika);
+        } catch(Exception e){
+            klinikaService.update(novaKlinika);
+        }
         return "Uspešno registrovana klinika!";
     }
 

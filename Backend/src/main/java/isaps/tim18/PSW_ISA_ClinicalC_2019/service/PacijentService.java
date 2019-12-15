@@ -76,4 +76,10 @@ public class PacijentService {
         return pacijentRepository.findByAktivnostNaloga(aktivnost);
     }
 
+    @Transactional
+    public Integer removeByJbo(String jbo){
+        return pacijentRepository.removePacijentByJbo(jbo);
+    }
+
+
 }

@@ -14,7 +14,6 @@ export class AdminKlinikeIzmenaComponent implements OnInit {
   loading = false;
   adminForm: FormGroup;
   submitted = false;
-
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
   constructor(private formBuilder: FormBuilder, private adminkService: AdminKlinikeService) {

@@ -18,6 +18,10 @@ public class KorisnikService {
         return korisnikRepository.findAll();
     }
 
+    public List<Korisnik> findNeregistrovane() {
+        return korisnikRepository.findAllByAktivnostNaloga(false);
+    }
+
     public Korisnik findByKorIme(String korIme){
         return korisnikRepository.findByKorIme(korIme);
     }

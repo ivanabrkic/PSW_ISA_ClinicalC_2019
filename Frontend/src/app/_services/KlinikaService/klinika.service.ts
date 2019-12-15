@@ -24,6 +24,9 @@ export class KlinikaService {
     return this.http.post<Klinika>(this.klinikaUrl, k, httpOptions);
   }
 
+  public getKlinike() {
+    return this.http.get<Klinika>('/server/klinika/all', httpOptions);
+  }
   public update(klinika: Klinika, id: number){
     klinika.id = id;
     const k = JSON.stringify(klinika)

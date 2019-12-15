@@ -21,9 +21,7 @@ public class KlinikaService {
     public List<Klinika> findAll() { return klinikaRepo.findAll(); }
 
     @Transactional
-    public Klinika add(Klinika klinika){
-        return klinikaRepo.save(klinika);
-    }
+    public Klinika add(Klinika klinika){ return klinikaRepo.save(klinika); }
 
     @Transactional
     public Klinika update(Klinika klinika) {

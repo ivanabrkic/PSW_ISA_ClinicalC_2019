@@ -19,17 +19,18 @@ export class ZahteviRegistracijaComponent implements OnInit {
   public poruka: string;
   public rezultatDijaloga: any;
   public izmenjeniKorisnik: Korisnik = new Korisnik();
-  constructor(private pacijentService: PacijentService,
-              private korisnikService: KorisnikServiceService, public dialog: MatDialog) {
+  constructor(private korisnikService: KorisnikServiceService,
+              public dialog: MatDialog) {
       this.getKorisnike();
   }
 
   ngOnInit() {
     this.getKorisnike();
+    console.log(this.korisnici);
   }
 
   getKorisnike() {
-    this.pacijentService.getPacijenti().subscribe(
+    this.korisnikService.getNeregistrovaneKorisnike().subscribe(
       podaci => { this.korisnici = podaci; },
       err => console.log('Nisu ucitani korisnici'),
       () => console.log(this.korisnici)
