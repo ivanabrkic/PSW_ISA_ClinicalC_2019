@@ -25,4 +25,9 @@ export class MedicinskaSestraService {
     const med = JSON.stringify(medSes);
     return this.http.post<MedicinskaSestra>('/server/medicinska_sestra/update' , med, httpOptions);
   }
+
+  public register(medSes: MedicinskaSestra) {
+    const med = JSON.stringify(medSes);
+    return this.http.post<MedicinskaSestra>('/server/medicinska_sestra/register' , med, httpOptions);
+  }
 }

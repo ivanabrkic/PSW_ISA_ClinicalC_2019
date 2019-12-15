@@ -88,7 +88,7 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '900px'; 
+    dialogConfig.width = '800px'; 
     dialogConfig.height = '600px';
 
     const dialogRef = this.dialog.open(RegistracijaMedicinskogOsobljaComponent, dialogConfig); 

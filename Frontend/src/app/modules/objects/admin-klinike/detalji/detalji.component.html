@@ -1,3 +1,6 @@
+<mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger">X</button>
+</mat-dialog-actions>
 <h1 mat-dialog-title style="font-size: 27px">Detalji</h1>
 <mat-dialog-content class="text">
   <div *ngIf="tip == 'Lekar'">
@@ -40,6 +43,3 @@
     </div>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger">Zatvori</button>
-</mat-dialog-actions>

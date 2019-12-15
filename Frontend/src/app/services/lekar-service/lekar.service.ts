@@ -25,4 +25,9 @@ export class LekarService {
     const lek = JSON.stringify(lekar);
     return this.http.post<Lekar>('/server/lekar/update' , lek, httpOptions);
   }
+
+  public register(lekar: Lekar) {
+    const lek = JSON.stringify(lekar);
+    return this.http.post<Lekar>('/server/lekar/register' , lek, httpOptions);
+  }
 }
