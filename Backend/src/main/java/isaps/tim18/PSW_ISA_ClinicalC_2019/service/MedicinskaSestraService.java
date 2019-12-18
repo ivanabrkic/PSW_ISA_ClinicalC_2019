@@ -53,4 +53,9 @@ public class MedicinskaSestraService {
         medicinskaSestraRepository.save(p);
         return p;
     }
+
+    @Transactional
+    public MedicinskaSestra add(MedicinskaSestra medicinskaSestra){
+        return medicinskaSestraRepository.save(medicinskaSestra);
+    }
 }

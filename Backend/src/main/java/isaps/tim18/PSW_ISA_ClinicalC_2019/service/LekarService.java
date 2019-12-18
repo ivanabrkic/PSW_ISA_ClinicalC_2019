@@ -58,4 +58,9 @@ public class LekarService {
         lekarRepository.save(p);
         return p;
     }
+
+    @Transactional
+    public Lekar add(Lekar lekar){
+        return lekarRepository.save(lekar);
+    }
 }

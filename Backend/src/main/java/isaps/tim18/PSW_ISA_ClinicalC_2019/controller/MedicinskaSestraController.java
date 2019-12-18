@@ -37,4 +37,17 @@ public class MedicinskaSestraController {
         return new ResponseEntity<>(medSestre, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/register", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MedicinskaSestra> register(@RequestBody MedicinskaSestra medSestra) throws Exception {
+        medSestra.setAktivnostNaloga(true);
+        medSestra.setLozinka("12345678b");
+        medSestra.setBrSlobodnihDana(60);
+        MedicinskaSestra l = medicinskaSestraService.add(medSestra);
+
+        if (l != null){
+            return new ResponseEntity<>(medSestra, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
 }

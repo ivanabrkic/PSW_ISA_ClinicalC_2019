@@ -4,6 +4,7 @@ export class Vreme{
     H2 : number;
     M1 : number;
     M2 : number;
+    slobodan : boolean;
     
     public Vreme(){
     }

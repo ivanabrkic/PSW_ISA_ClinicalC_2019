@@ -7,7 +7,9 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { LekarService } from 'src/app/services/lekar-service/lekar.service';
 import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
 import { first } from 'rxjs/operators';
-import { NullVisitor } from '@angular/compiler/src/render3/r3_ast';
+import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { TabelaMedicinskogOsobljaComponent } from '../tabela-medicinskog-osoblja/tabela-medicinskog-osoblja.component';
 
 
 @Component({
@@ -28,10 +30,15 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
 
   lekar: Lekar = new Lekar();
   medSestra: MedicinskaSestra = new MedicinskaSestra();
+  adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
   constructor(private dialogRef: MatDialogRef<RegistracijaMedicinskogOsobljaComponent>,
-    private formBuilder: FormBuilder, private lekarService: LekarService, private medSestraService: MedicinskaSestraService
+    private formBuilder: FormBuilder, private adminkService:AdminKlinikeService, private lekarService: LekarService, private medSestraService: MedicinskaSestraService
   ) {
+    this.adminkService.getUlogovanKorisnik()
+    .subscribe(ulogovanKorisnik => {
+      this.adminKlinike = ulogovanKorisnik;
+    });
   }
 
   public MakeVreme(dan: string): Vreme {
@@ -43,13 +50,19 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
     r.H2 = null
     r.M1 = null
     r.M2 = null
+    r.slobodan = true
 
     return r
   }
 
   ngOnInit() {
+    this.adminkService.getUlogovanKorisnik()
+    .subscribe(ulogovanKorisnik => {
+      this.adminKlinike = ulogovanKorisnik;
+    });
+
     this.radnoVreme = [this.MakeVreme("Ponedeljak"), this.MakeVreme("Utorak"), this.MakeVreme("Sreda"),
-    this.MakeVreme("Cetvrtak"), this.MakeVreme("Petak"), this.MakeVreme("Subota"),
+    this.MakeVreme("Četvrtak"), this.MakeVreme("Petak"), this.MakeVreme("Subota"),
     this.MakeVreme("Nedelja")]
 
     this.selectedValue = this.radnoVreme[0]
@@ -69,13 +82,14 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
       ime: ['', Validators.required],
       prezime: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      tipKorisnika: ['', Validators.required],
+      tipKorisnika: [''],
+      klinika: [''],
       jbo: ['', [Validators.required, Validators.min(100000000), Validators.pattern('^[0-9]*$')]],
       H1: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3]|[0-9])')]],
       H2: ['', [Validators.required, Validators.pattern('^(0[0-9]|1[0-9]|2[0-3]|[0-9])')]],
       M1: ['', [Validators.required, Validators.pattern('[0-5][0-9]$')]],
       M2: ['', [Validators.required, Validators.pattern('[0-5][0-9]$')]],
-      radnoVreme: ['', Validators.required]
+      radnoVreme: ['']
     }, {
     });
   }
@@ -109,10 +123,18 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
     this.submitted = true;
 
     this.radnoVreme.forEach(element => {
+
       if (!this.validateSeconds(element.H1, element.H2, element.M1, element.M2)) {
         this.registerForm.controls['radnoVreme'].setValidators([Validators.email]);
       }
       else {
+        this.registerForm.controls['radnoVreme'].setValidators(null);
+      }
+      if(element.slobodan == true){
+        this.registerForm.controls['H1'].setErrors(null);
+        this.registerForm.controls['H2'].setErrors(null);
+        this.registerForm.controls['M1'].setErrors(null);
+        this.registerForm.controls['M2'].setErrors(null);
         this.registerForm.controls['radnoVreme'].setValidators(null);
       }
     });
@@ -137,12 +159,18 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
     this.radnoVremeString = ""
 
     this.radnoVreme.forEach(element => {
-      this.radnoVremeString += element.dan + "-" + element.H1 + ":" + element.M1 + "-" + element.H2 + ":" + element.M2 + "/"
+      if(element.slobodan){
+        this.radnoVremeString += element.dan + " - " + "slobodan/"
+      }
+      else{
+        this.radnoVremeString += element.dan + " - " + element.H1 + ":" + element.M1 + " - " + element.H2 + ":" + element.M2 + "/"
+      }
     });
 
     this.registerForm.controls['radnoVreme'].setValue(this.radnoVremeString)
     this.registerForm.controls['tipKorisnika'].setValue(this.selectedTip)
-
+    this.registerForm.controls['klinika'].setValue(this.adminKlinike.klinika)
+    
     this.loading = true;
 
     if (this.selectedTip == "Lekar") {
@@ -158,7 +186,7 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
     }
     else {
       this.medSestraService.register(this.registerForm.value).pipe(first()).subscribe(result => {
-        alert('Uspešno ste registrovali lekara!\n\n');
+        alert('Uspešno ste registrovali medicinsku sestru!\n\n');
         this.medSestra = result;
       },
         error => {

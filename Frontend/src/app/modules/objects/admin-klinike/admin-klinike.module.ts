@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule } from '@angular/material';
+import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule } from '@angular/material';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SidebarAdminKlinikeComponent } from './sidebar-admin-klinike/sidebar-admin-klinike.component';
 import { AdminKlinikeIzmenaComponent } from './admin-klinike-izmena/admin-klinike-izmena.component';
@@ -36,6 +36,7 @@ import { DetaljiComponent } from './detalji/detalji.component';
     ReactiveFormsModule,
     MatDialogModule,
     MatSelectModule, 
+    MatCheckboxModule,
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
                           { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
                           { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
