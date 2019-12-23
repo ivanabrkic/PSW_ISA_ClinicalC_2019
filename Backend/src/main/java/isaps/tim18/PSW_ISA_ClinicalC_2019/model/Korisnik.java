@@ -19,9 +19,6 @@ public class Korisnik {
     @Column(name="adresa",unique = false)
     private String adresa;
 
-    @Column(name="korIme", unique=true, nullable = true)
-    private String korIme;
-
     @Column(name="lozinka", nullable = false)
     private String lozinka;
 
@@ -50,9 +47,8 @@ public class Korisnik {
         super();
     }
 
-    public Korisnik(String korIme, String lozinka, String email, String kontaktTelefon, String ime, String prezime,String jbo, boolean aktivnostNaloga,String grad,String drzava,String adresa, String tipKorisnika) {
+    public Korisnik(String lozinka, String email, String kontaktTelefon, String ime, String prezime,String jbo, boolean aktivnostNaloga,String grad,String drzava,String adresa, String tipKorisnika) {
         super();
-        this.korIme = korIme;
         this.lozinka = lozinka;
         this.email = email;
         this.kontaktTelefon = kontaktTelefon;
@@ -69,7 +65,6 @@ public class Korisnik {
 
     public Korisnik(Korisnik korisnik){
         super();
-        this.korIme = korisnik.korIme;
         this.lozinka = korisnik.lozinka;
         this.email = korisnik.email;
         this.kontaktTelefon = korisnik.kontaktTelefon;
@@ -98,14 +93,6 @@ public class Korisnik {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getKorIme() {
-        return korIme;
-    }
-
-    public void setKorIme(String korIme) {
-        this.korIme = korIme;
     }
 
     public String getLozinka() {
@@ -195,7 +182,6 @@ public class Korisnik {
                 ", grad='" + grad + '\'' +
                 ", drzava='" + drzava + '\'' +
                 ", adresa='" + adresa + '\'' +
-                ", korIme='" + korIme + '\'' +
                 ", lozinka='" + lozinka + '\'' +
                 ", email='" + email + '\'' +
                 ", kontaktTelefon='" + kontaktTelefon + '\'' +

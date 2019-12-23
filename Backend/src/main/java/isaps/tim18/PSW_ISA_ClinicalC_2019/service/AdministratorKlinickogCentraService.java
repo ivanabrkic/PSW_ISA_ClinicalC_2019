@@ -44,7 +44,6 @@ public class AdministratorKlinickogCentraService {
         p.setIme(administratorKlinickogCentra.getIme());
         p.setPrezime(administratorKlinickogCentra.getPrezime());
         p.setKontaktTelefon(administratorKlinickogCentra.getKontaktTelefon());
-        p.setKorIme(administratorKlinickogCentra.getKorIme());
         p.setLozinka(administratorKlinickogCentra.getLozinka());
         administratorKlinickogCentraRepository.save(p);
         return p;

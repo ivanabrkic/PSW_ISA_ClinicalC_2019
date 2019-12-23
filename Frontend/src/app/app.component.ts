@@ -13,14 +13,4 @@ export class AppComponent{
 
   constructor(public loginService: LoginService) { this.loginServiceApp = loginService;}
 
-  title = 'Klinicki centar';
-
-  IsAuthenticated(): boolean {
-    return this.loginServiceApp.isLoggedIn();
-  }
-
-  getRole(): string {
-    return this.loginServiceApp.getRole();
-  }
-
 }

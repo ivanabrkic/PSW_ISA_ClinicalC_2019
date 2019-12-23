@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login-and-register-service/login.service';
 
 @Component({
   selector: 'app-sidebarlekar',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarLekarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService : LoginService) { }
 
   ngOnInit() {
   }
 
+  odjava(){
+    this.loginService.odjava().subscribe(data => {
+      alert("Uspešno ste se odjavili!")
+    });
+}
 }

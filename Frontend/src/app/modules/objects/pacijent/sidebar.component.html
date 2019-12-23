@@ -1,4 +1,4 @@
-<div class="sidebar-container">
+<div class="sidebar-container bg-dark">
   <div class="sidebar-logo">
     Meni
   </div>
@@ -31,6 +31,11 @@
         <i class="fa fa-list" aria-hidden="true"></i> Lista klinika
       </a>
     </li>
-
+    <li class="header">Odjava</li>
+    <li>
+      <a [routerLink]="['/welcome']" (click)="odjava()">
+        <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Odjavi se
+      </a>
+    </li>
   </ul>
 </div>

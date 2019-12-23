@@ -48,7 +48,6 @@ export class RegistracijaAdministratoraKlinikeComponent implements OnInit {
       )]],
       // tipKorisnika: ['', Validators.required],
       jbo: ['', [Validators.required,  Validators.minLength(9), Validators.maxLength(9)]],
-      korIme: ['', [Validators.required, Validators.required]],
       klinika: ['']
     },  {
     });

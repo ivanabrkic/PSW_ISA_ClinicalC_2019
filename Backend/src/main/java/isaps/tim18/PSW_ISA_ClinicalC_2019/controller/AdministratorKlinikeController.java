@@ -36,19 +36,12 @@ public class AdministratorKlinikeController {
 
     @RequestMapping(value = "/registrationSubmitAdmin", method = RequestMethod.POST)
     public String Register(@RequestBody HelperUserClass korisnik){
-        System.out.println(korisnik.getJbo());
-        AdministratorKlinike adminUsername = adminKlinikeService.findByKorIme(korisnik.getKorIme());
-        if(adminUsername != null){
-            return "Korisničko ime je zauzeto";
-        }
-
         AdministratorKlinike adminEmail = adminKlinikeService.findByEmail(korisnik.getEmail());
         if(adminEmail != null){
-            return "Email je već u upotrebi!";
+            return "Email je već zauzet!";
         }
 
         Korisnik noviAdmin = Korisnik.builder()
-                .korIme(korisnik.getKorIme())
                 .lozinka(korisnik.getLozinka())
                 .email(korisnik.getEmail())
                 .ime(korisnik.getIme())

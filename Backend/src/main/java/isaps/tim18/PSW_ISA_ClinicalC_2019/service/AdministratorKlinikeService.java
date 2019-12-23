@@ -32,10 +32,6 @@ public class AdministratorKlinikeService {
         return administratorKlinikeRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
 
-    public AdministratorKlinike findByKorIme(String korIme){
-        return administratorKlinikeRepository.findByKorIme(korIme);
-    }
-
     public AdministratorKlinike findByEmail(String email) {
         return administratorKlinikeRepository.findByEmail(email);
     }
@@ -59,7 +55,6 @@ public class AdministratorKlinikeService {
         p.setIme(administratorKlinike.getIme());
         p.setPrezime(administratorKlinike.getPrezime());
         p.setKontaktTelefon(administratorKlinike.getKontaktTelefon());
-        p.setKorIme(administratorKlinike.getKorIme());
         p.setLozinka(administratorKlinike.getLozinka());
 
         administratorKlinikeRepository.save(p);

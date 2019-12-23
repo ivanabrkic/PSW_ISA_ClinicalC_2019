@@ -24,10 +24,6 @@ public class PacijentService {
         return pacijentRepository.findAll(page);
     }
 
-    public List<Pacijent> findAllByKorIme(String kime){
-        return pacijentRepository.findAllByKorIme(kime);
-    }
-
     public Pacijent findByEmail(String email){
         return pacijentRepository.findByEmail(email);
     }
@@ -57,7 +53,6 @@ public class PacijentService {
         p.setIme(pacijent.getIme());
         p.setPrezime(pacijent.getPrezime());
         p.setKontaktTelefon(pacijent.getKontaktTelefon());
-        p.setKorIme(pacijent.getKorIme());
         p.setLozinka(pacijent.getLozinka());
         pacijentRepository.save(p);
         return p;

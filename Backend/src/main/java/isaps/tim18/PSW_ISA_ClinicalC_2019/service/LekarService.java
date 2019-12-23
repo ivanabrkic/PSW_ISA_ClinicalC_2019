@@ -36,10 +36,6 @@ public class LekarService {
     return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
 
-    public Lekar findByKorIme(String korIme) {
-        return lekarRepository.findByKorIme(korIme);
-    }
-
     @Transactional
     public Lekar update(Lekar lekar) {
         Lekar p = lekarRepository.findByJbo(lekar.getJbo());
@@ -53,7 +49,6 @@ public class LekarService {
         p.setIme(lekar.getIme());
         p.setPrezime(lekar.getPrezime());
         p.setKontaktTelefon(lekar.getKontaktTelefon());
-        p.setKorIme(lekar.getKorIme());
         p.setLozinka(lekar.getLozinka());
         lekarRepository.save(p);
         return p;

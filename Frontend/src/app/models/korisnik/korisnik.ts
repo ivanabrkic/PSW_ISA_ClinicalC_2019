@@ -2,7 +2,6 @@ export class Korisnik {
   grad: string;
   drzava: string;
   adresa: string;
-  korIme: string;
   lozinka: string;
   email: string;
   kontaktTelefon: string;

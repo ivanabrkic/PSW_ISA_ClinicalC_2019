@@ -31,7 +31,7 @@ public class LoginController {
             return new ResponseEntity<>(kor, HttpStatus.BAD_REQUEST);
         }
 
-        System.out.println("Account with username " + korisnik.getKorIme() + "has been logged in");
+        System.out.println("Account with email " + korisnik.getEmail() + "has been logged in");
 
         //Sacuvati korisnika u sesiji
         request.getSession().setAttribute("ulogovanKorisnik", korisnik.getJbo());

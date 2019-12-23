@@ -48,7 +48,6 @@ public class MedicinskaSestraService {
         p.setIme(medicinskaSestra.getIme());
         p.setPrezime(medicinskaSestra.getPrezime());
         p.setKontaktTelefon(medicinskaSestra.getKontaktTelefon());
-        p.setKorIme(medicinskaSestra.getKorIme());
         p.setLozinka(medicinskaSestra.getLozinka());
         medicinskaSestraRepository.save(p);
         return p;

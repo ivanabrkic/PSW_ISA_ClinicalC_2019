@@ -1,157 +1,133 @@
-<head xmlns="http://www.w3.org/1999/html">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]="['/welcome']">
+    <i class="fas fa-home mr-1"></i>
+  </a>
+  <a class="navbar-brand" routerLink="/">
+  </a>
+  <a class="navbar-brand" [routerLink]="['/login']">Prijava</a>
+  <a class="navbar-brand" [routerLink]="['/register']">Registracija</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+<div style="padding-top: 50px;" class="kontejner">
+  <img class="img-fluid" style="opacity: 70%;" src="./assets/img/m1.jpg" />
+  <div style="padding-top: 150px;" class="centered">
+    <div class="wrapper fadeInDown">
+      <div style="width: 800px;" id="formContent">
+        <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="text-center border border-light p-5">
+          <p class="h4 mb-4 fadeIn first">Registracija</p>
+          <div class="row fadeIn second">
+            <div class="col-md-6" style="padding-right: 50px;" >
+              <div class="form-group">
+                <input [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control mb-4"
+                  formControlName="email" id="defaultRegisterFormEmail" placeholder="E-mail" type="email">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Unos e-mail-a je obavezan</div>
+                  <div *ngIf="f.email.errors.required">E-mail je neispravan</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input aria-describedby="defaultRegisterFormPasswordHelpBlock" class="form-control"
+                  formControlName="lozinka" id="defaultRegisterFormPassword" placeholder="Lozinka" type="password"
+                  [ngClass]="{ 'is-invalid': submitted && f.lozinka.errors }">
+                <div *ngIf="submitted && f.lozinka?.errors" class="invalid-feedback">
+                  <div *ngIf="f.lozinka?.errors.required">Unos lozinke je obavezan</div>
+                  <div *ngIf="f.lozinka?.errors.minlength">Lozinka mora imati minimalno 8 karaktera</div>
+                  <div *ngIf="f.lozinka?.errors.pattern">Lozinka mora imati bar jednu cifru i jedan karakter</div>
+                </div>
+              </div>
+              <small class="form-text text-muted mb-4" id="defaultRegisterFormPasswordHelpBlock">
+                Lozinka mora imati minimalno 8 karaktera.
+                Lozinka mora sadržati minimalno jednu cifru i jedan karakter.
+              </small>
+              <div class="form-group">
+                <input [ngClass]="{ 'is-invalid': submitted && f.tipKorisnika.errors }"
+                  aria-describedby="defaultRegisterFormPasswordHelpBlock" class="form-control"
+                  formControlName="tipKorisnika" id="defaultRegisterFormPassword2" placeholder="Lozinka"
+                  type="password">
+                <div *ngIf="submitted && f.tipKorisnika?.errors" class="invalid-feedback">
+                  <div *ngIf="f.tipKorisnika?.errors.required">Ponovni unos lozinke je obavezan</div>
+                  <div *ngIf="f.tipKorisnika.errors.mustMatch">Unete lozinke se moraju poklapati</div>
+                </div>
+              </div>
+              <small class="form-text text-muted mb-4" id="defaultRegisterFormPasswordHelpBlock2">
+                Ponovite unos lozinke
+              </small>
+            </div>
+            <div class="col-md-6" style="padding-left: 50px;">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input [ngClass]="{ 'is-invalid': submitted && f.ime.errors }" class="form-control"
+                      formControlName="ime" id="ime" placeholder="Ime" type="text">
+                    <div *ngIf="submitted && f.ime.errors" class="invalid-feedback">
+                      <div *ngIf="f.ime.errors.required">Unos imena je obavezan</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input [ngClass]="{ 'is-invalid': submitted && f.prezime.errors }" class="form-control"
+                      formControlName="prezime" id="prezime" placeholder="Prezime" type="text">
+                    <div *ngIf="submitted && f.prezime.errors" class="invalid-feedback">
+                      <div *ngIf="f.prezime.errors.required">Unos prezimena je obavezan</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="adresa"
+                placeholder="Adresa" formControlName="adresa" type="text">
+              <small class="form-text text-muted mb-4" id="defaultRegisterFormAdress">
+              </small>
+              <div class="row">
+                <div class="col-md-6">
+                  <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="grad"
+                    placeholder="Grad" formControlName="grad" type="text">
+                  <small class="form-text text-muted mb-4" id="defaultRegisterFormCity">
+                  </small>
+                </div>
+                <div class="col-md-6">
+                  <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="drzava"
+                    placeholder="Država" formControlName="drzava" type="text">
+                  <small class="form-text text-muted mb-4" id="defaultFormState">
+                  </small>
+                </div>
+              </div>
+              <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="kontaktTelefon"
+                placeholder="Broj telefona" formControlName="kontaktTelefon" type="text">
+              <small class="form-text text-muted mb-4" id="defaultRegisterFormPhoneHelpBlock">
 
-<!-- Default form register -->
-
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="text-center border border-light p-5">
-
-      <p class="h4 mb-4">Registracija</p>
-
-      <div>
-        <!-- Username -->
-        <div class="form-group">
-          <input [ngClass]="{ 'is-invalid': submitted && f.korIme.errors }" class="form-control mb-4"
-                 formControlName="korIme" id="defaultRegisterFormUsername" placeholder="Korisničko ime" type="text">
-          <div *ngIf="submitted && f.korIme.errors" class="invalid-feedback">
-            <div *ngIf="f.korIme.errors.required">Unos korisničkog imena je obavezan</div>
-          </div>
-        </div>
-        <!-- E-mail -->
-        <div class="form-group">
-          <input [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control mb-4"
-                 formControlName="email" id="defaultRegisterFormEmail" placeholder="E-mail" type="email">
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Unos e-mail-a je obavezan</div>
-            <div *ngIf="f.email.errors.required">E-mail je neispravan</div>
-          </div>
-        </div>
-        <!-- Password -->
-        <div class="form-group">
-          <input aria-describedby="defaultRegisterFormPasswordHelpBlock" class="form-control"
-                 formControlName="lozinka"
-                 id="defaultRegisterFormPassword" placeholder="Lozinka" type="password" [ngClass]="{ 'is-invalid': submitted && f.lozinka.errors }">
-          <div *ngIf="submitted && f.lozinka?.errors" class="invalid-feedback">
-            <div *ngIf="f.lozinka?.errors.required">Unos lozinke je obavezan</div>
-            <div *ngIf="f.lozinka?.errors.minlength">Lozinka mora imati minimalno 8 karaktera</div>
-            <div *ngIf="f.lozinka?.errors.pattern">Lozinka mora imati bar jednu cifru i jedan karakter</div>
-          </div>
-
-        </div>
-
-        <small class="form-text text-muted mb-4" id="defaultRegisterFormPasswordHelpBlock">
-          Lozinka mora imati minimalno 8 karaktera.
-
-          Lozinka mora sadržati minimalno jednu cifru i jedan karakter.
-        </small>
-
-        <!-- Password -->
-        <div class="form-group">
-          <input [ngClass]="{ 'is-invalid': submitted && f.tipKorisnika.errors }"
-                 aria-describedby="defaultRegisterFormPasswordHelpBlock" class="form-control"
-                 formControlName="tipKorisnika"
-                 id="defaultRegisterFormPassword2" placeholder="Lozinka" type="password">
-          <div *ngIf="submitted && f.tipKorisnika?.errors" class="invalid-feedback">
-            <div *ngIf="f.tipKorisnika?.errors.required">Ponovni unos lozinke je obavezan</div>
-            <div *ngIf="f.tipKorisnika.errors.mustMatch">Unete lozinke se moraju poklapati</div>
-          </div>
-        </div>
-        <small class="form-text text-muted mb-4" id="defaultRegisterFormPasswordHelpBlock2">
-          Ponovite unos lozinke
-        </small>
-
-
-      </div>
-
-      <div class="form-row mb-4">
-        <div class="col">
-          <!-- First name -->
-          <div class="form-group">
-            <input [ngClass]="{ 'is-invalid': submitted && f.ime.errors }" class="form-control"
-                   formControlName="ime" id="ime" placeholder="Ime" type="text">
-            <div *ngIf="submitted && f.ime.errors" class="invalid-feedback">
-              <div *ngIf="f.ime.errors.required">Unos imena je obavezan</div>
+              </small>
+              <div class="form-group">
+                <input maxlength=13 [ngClass]="{ 'is-invalid': submitted && f.jbo.errors }"
+                  aria-describedby="defaultRegisterFormJBO" class="form-control" formControlName="jbo" id="jbo"
+                  placeholder="Jedinstveni broj osiguranika" type="text">
+                <div *ngIf="submitted && f.jbo.errors" class="invalid-feedback">
+                  <div *ngIf="f.jbo?.errors.required">Unos jedinstvenog broja osiguranika je obavezan</div>
+                  <div *ngIf="f.jbo?.errors.minLength">Jedinstveni broj osiguranika mora imati 13 cifara</div>
+                  <div *ngIf="f.jbo?.errors.pattern">Jedinstveni broj osiguranika se mora sastojati samo od cifara
+                  </div>
+                </div>
+              </div>
+              <small class="form-text text-muted mb-4" id="defaultRegisterFormJBO">
+                Jedinstveni broj osiguranika mora sadržati tačno 13 cifara.
+              </small>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <!-- Last name -->
-          <div class="form-group">
-            <input [ngClass]="{ 'is-invalid': submitted && f.prezime.errors }" class="form-control"
-                   formControlName="prezime" id="prezime" placeholder="Prezime" type="text">
-            <div *ngIf="submitted && f.prezime.errors" class="invalid-feedback">
-              <div *ngIf="f.prezime.errors.required">Unos prezimena je obavezan</div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input class="fadeIn third" [disabled]="loading" type="submit" Value="Registracija">
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div>
-        <!-- Adress -->
-        <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="adresa"
-               placeholder="Adresa" formControlName="adresa"
-               type="text">
-        <small class="form-text text-muted mb-4" id="defaultRegisterFormAdress">
-        </small>
-        <div class="form-row mb-4">
-          <div class="col">
-            <!-- City -->
-            <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="grad"
-                   placeholder="Grad" formControlName="grad"
-                   type="text">
-            <small class="form-text text-muted mb-4" id="defaultRegisterFormCity">
-            </small>
+          <div class="fadeIn fourth" id="formFooter">
+            <em>Registracijom</em> postajete član kliničkog centra
           </div>
-          <div class="col">
-            <!-- Drzava -->
-            <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control" id="drzava"
-                   placeholder="Država" formControlName="drzava"
-                   type="text">
-            <small class="form-text text-muted mb-4" id="defaultFormState">
-            </small>
-          </div>
-        </div>
-
-
-
-        <!-- Phone number -->
-        <input aria-describedby="defaultRegisterFormPhoneHelpBlock" class="form-control"
-               id="kontaktTelefon" placeholder="Broj telefona" formControlName="kontaktTelefon"
-               type="text">
-        <small class="form-text text-muted mb-4" id="defaultRegisterFormPhoneHelpBlock">
-
-        </small>
-        <!-- Jedinstveni broj osiguranika -->
-        <div class="form-group">
-          <input maxlength=13 [ngClass]="{ 'is-invalid': submitted && f.jbo.errors }"
-                 aria-describedby="defaultRegisterFormJBO" class="form-control" formControlName="jbo"
-                 id="jbo" placeholder="Jedinstveni broj osiguranika" type="text">
-          <div *ngIf="submitted && f.jbo.errors" class="invalid-feedback">
-            <div *ngIf="f.jbo?.errors.required">Unos jedinstvenog broja osiguranika je obavezan</div>
-            <div *ngIf="f.jbo?.errors.minLength">Jedinstveni broj osiguranika mora imati 13 cifara</div>
-            <div *ngIf="f.jbo?.errors.pattern">Jedinstveni broj osiguranika se mora sastojati samo od cifara</div>
-          </div>
-        </div>
-        <small class="form-text text-muted mb-4" id="defaultRegisterFormJBO">
-            Jedinstveni broj osiguranika mora sadržati tačno 13 cifara.
-        </small>
+        </form>
       </div>
-      <div>
-        <div class="form-group">
-          <!-- Sign up button -->
-          <input class="fadeIn fourth" [disabled]="loading" type="submit" Value="Registracija">
-        </div>
-      </div>
-  <!-- Terms of service -->
-    <div id="formFooter">
-      <em>Registracijom</em> postajete član kliničkog centra
     </div>
-
-    </form>
-    <!-- Default form register -->
   </div>
 </div>

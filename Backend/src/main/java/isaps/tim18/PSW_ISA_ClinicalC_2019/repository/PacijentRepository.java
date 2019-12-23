@@ -14,8 +14,6 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
 
     Page<Pacijent> findAll(Pageable pageable);
 
-    List<Pacijent> findAllByKorIme(String kime);
-
     List<Pacijent> findAllByIme(String ime);
 
     List<Pacijent> findAllByPrezime(String prezime);
@@ -23,8 +21,6 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
     List<Pacijent> findByImeAndPrezimeAllIgnoringCase(String ime, String prezime);
 
     Pacijent findByJbo(String jbo);
-
-    Pacijent findByKorIme(String username);
 
     Pacijent findByEmail(String email);
 

@@ -40,9 +40,8 @@ export class LekarComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       lozinka: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$'
       )]],
-      jbo: [''],
-      korIme: ['', Validators.required]
-    },  {
+      jbo: ['']
+        },  {
     });
   }
 

@@ -12,8 +12,6 @@ public interface AdministratorKlinickogCentraRepository extends JpaRepository<Ad
 
     Page<AdministratorKlinickogCentra> findAll(Pageable pageable);
 
-    AdministratorKlinickogCentra findByKorIme(String korIme);
-
     List<AdministratorKlinickogCentra> findAllByIme(String ime);
 
     List<AdministratorKlinickogCentra> findAllByPrezime(String prezime);

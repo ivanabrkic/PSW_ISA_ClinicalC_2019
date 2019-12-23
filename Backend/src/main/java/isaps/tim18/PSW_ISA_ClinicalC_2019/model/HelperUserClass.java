@@ -4,7 +4,6 @@ public class HelperUserClass {
     private String grad;
     private String drzava;
     private String adresa;
-    private String korIme;
     private String lozinka;
     private String email;
     private String kontaktTelefon;
@@ -37,14 +36,6 @@ public class HelperUserClass {
 
     public void setAdresa(String adresa) {
         this.adresa = adresa;
-    }
-
-    public String getKorIme() {
-        return korIme;
-    }
-
-    public void setKorIme(String korIme) {
-        this.korIme = korIme;
     }
 
     public String getLozinka() {
@@ -125,7 +116,6 @@ public class HelperUserClass {
                 "grad='" + grad + '\'' +
                 ", drzava='" + drzava + '\'' +
                 ", adresa='" + adresa + '\'' +
-                ", korIme='" + korIme + '\'' +
                 ", lozinka='" + lozinka + '\'' +
                 ", email='" + email + '\'' +
                 ", kontaktTelefon='" + kontaktTelefon + '\'' +

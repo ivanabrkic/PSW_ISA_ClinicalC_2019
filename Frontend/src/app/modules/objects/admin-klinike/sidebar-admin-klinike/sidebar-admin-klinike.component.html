@@ -1,4 +1,4 @@
-<div class="sidebar-container">
+<div class="sidebar-container bg-dark">
   <div class="sidebar-logo">
     Meni
   </div>
@@ -44,6 +44,12 @@
     <li>
       <a href="#">
         <i class="fa fa-file-medical-alt" aria-hidden="true"></i> Izveštaj o poslovanju
+      </a>
+    </li>
+    <li class="header">Odjava</li>
+    <li>
+      <a [routerLink]="['/welcome']" (click)="odjava()">
+        <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Odjavi se
       </a>
     </li>
   </ul>

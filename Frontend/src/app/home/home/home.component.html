@@ -1,1 +1,23 @@
-<h1>Dobrodošli!</h1>
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand" [routerLink]="['/welcome']">
+        <i class="fas fa-home mr-1"></i>
+    </a>
+    <a class="navbar-brand" routerLink="/">
+    </a>
+    <a class="navbar-brand" [routerLink]="['/login']">Prijava</a>
+    <a class="navbar-brand" [routerLink]="['/register']">Registracija</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+<div style="padding-top: 50px;" class="kontejner">
+    <img class="img-fluid" style="opacity: 70%;" src="./assets/img/m1.jpg" />
+    <div class="centered fadeIn first">
+        <div style="font-weight: 400;" class="badge badge-dark">
+            <span>Dobrodošli na portal</span>
+            <br/>
+            <span>kliničkog centra "Higija"</span>
+        </div>
+    </div>
+</div>

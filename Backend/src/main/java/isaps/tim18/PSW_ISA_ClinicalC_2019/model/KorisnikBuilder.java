@@ -5,7 +5,6 @@ public class KorisnikBuilder {
     private String grad;
     private String drzava;
     private String adresa;
-    private String korIme;
     private String lozinka;
     private String email;
     private String kontaktTelefon;
@@ -23,7 +22,6 @@ public class KorisnikBuilder {
         this.grad = korisnik.getGrad();
         this.drzava = korisnik.getDrzava();
         this.adresa = korisnik.getAdresa();
-        this.korIme = korisnik.getKorIme();
         this.lozinka = korisnik.getLozinka();
         this.email = korisnik.getEmail();
         this.kontaktTelefon = korisnik.getKontaktTelefon();
@@ -47,11 +45,6 @@ public class KorisnikBuilder {
 
     public KorisnikBuilder adresa(String adresa) {
         this.adresa = adresa;
-        return this;
-    }
-
-    public KorisnikBuilder korIme(String korIme) {
-        this.korIme = korIme;
         return this;
     }
 
@@ -104,7 +97,6 @@ public class KorisnikBuilder {
         korisnik.setPrezime(prezime);
         korisnik.setKontaktTelefon(kontaktTelefon);
         korisnik.setEmail(email);
-        korisnik.setKorIme(korIme);
         korisnik.setLozinka(lozinka);
         korisnik.setJbo(jbo);
         korisnik.setTipKorisnika(tipKorisnika);

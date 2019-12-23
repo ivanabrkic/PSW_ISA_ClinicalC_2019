@@ -19,8 +19,6 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
 
     Korisnik findByJbo(String jbo);
 
-    Korisnik findByKorIme(String korIme);
-
     Korisnik findByEmail(String email);
 
 //    Korisnik findById(Long id);

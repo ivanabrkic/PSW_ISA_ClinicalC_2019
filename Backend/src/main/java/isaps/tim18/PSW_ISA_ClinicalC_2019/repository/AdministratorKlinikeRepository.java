@@ -11,8 +11,6 @@ public interface AdministratorKlinikeRepository extends JpaRepository<Administra
 
     List<AdministratorKlinike> findAll();
 
-    AdministratorKlinike findByKorIme(String korisnickoIme);
-
     List<AdministratorKlinike> findAllByIme(String ime);
 
     List<AdministratorKlinike> findAllByPrezime(String prezime);

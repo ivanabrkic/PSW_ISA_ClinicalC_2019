@@ -93,15 +93,6 @@
               </div>
               <div class="card-body">
                   <div class="row">
-                    <div class="col-md-5">
-                      <mat-form-field class="example-full-width">
-                        <input placeholder="Korisnicko ime" [ngClass]="{ 'is-invalid': submitted && f.korIme.errors }"  formControlName="korIme"
-                               matInput  [(ngModel)]="lekar.korIme" class="mat-form-control">
-                        <mat-error *ngIf="submitted && f.korIme.errors" class="invalid-feedback">
-                          <div *ngIf="f.korIme.errors.required">Unos korisničkog imena je obavezan</div>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width">
                         <input placeholder="Sifra" matInput type="password" [(ngModel)]="lekar.lozinka" class="mat-form-control"

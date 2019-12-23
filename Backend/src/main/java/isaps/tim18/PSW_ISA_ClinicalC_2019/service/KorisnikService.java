@@ -22,10 +22,6 @@ public class KorisnikService {
         return korisnikRepository.findAllByAktivnostNaloga(false);
     }
 
-    public Korisnik findByKorIme(String korIme){
-        return korisnikRepository.findByKorIme(korIme);
-    }
-
     public Korisnik findByEmail(String email){
         return korisnikRepository.findByEmail(email);
     }
@@ -63,7 +59,6 @@ public class KorisnikService {
             k.setIme(korisnik.getIme());
             k.setPrezime(korisnik.getPrezime());
             k.setKontaktTelefon(korisnik.getKontaktTelefon());
-            k.setKorIme(korisnik.getKorIme());
             k.setLozinka(korisnik.getLozinka());
             korisnikRepository.save(k);
             return k;

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
-
 @RestController
 @RequestMapping("register")
 public class RegisterController {
@@ -27,13 +25,6 @@ public class RegisterController {
 
     @PostMapping(value = "/registrationSubmit", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Korisnik> Register(@RequestBody Korisnik korisnik){
-
-
-        Korisnik pacijentUsername = korisnikService.findByKorIme(korisnik.getKorIme());
-        if(pacijentUsername!=null){
-            korisnik.setIme("Korisnicko ime vec postoji!");
-            return new ResponseEntity<>(korisnik, HttpStatus.BAD_REQUEST);
-        }
 
         Korisnik pacijentEmail = korisnikService.findByEmail(korisnik.getEmail());
         if(pacijentEmail!=null){
@@ -50,7 +41,6 @@ public class RegisterController {
         //Builder pattern
 
         Korisnik noviPacijent = Korisnik.builder()
-                .korIme(korisnik.getKorIme())
                 .lozinka(korisnik.getLozinka())
                 .email(korisnik.getEmail())
                 .ime(korisnik.getIme())
@@ -68,7 +58,7 @@ public class RegisterController {
         Pacijent p = new Pacijent(noviPacijent);
         pacijentService.add(p);
 
-        System.out.println("Account with username " + noviPacijent.getKorIme() + "has been created!");
+        System.out.println("Account with email " + noviPacijent.getEmail() + "has been created!");
 
         return new ResponseEntity<>(p, HttpStatus.OK);
     }

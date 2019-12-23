@@ -38,24 +38,17 @@ export class LoginComponent implements OnInit {
           alert('Uspešno ste se ulogovali!! :-)\n\n');
           if (data.tipKorisnika === 'Pacijent') {
             this.router.navigate(['/pacijentPregled']);
-            this.loginService.ulogovaniTip = 'Pacijent';
           } else if (data.tipKorisnika === 'Lekar') {
             this.router.navigate(['/lekarPregled']);
-            this.loginService.ulogovaniTip = 'Lekar';
           } else if (data.tipKorisnika === 'Medicinska sestra') {
             this.router.navigate(['/medicinskaSestra']);
-            this.loginService.ulogovaniTip = 'Medicinska sestra';
           } else if (data.tipKorisnika === 'Administrator klinike') {
             this.router.navigate(['/administratorklinikepregled']);
-            this.loginService.ulogovaniTip = 'Administrator klinike';
           } else if (data.tipKorisnika === 'Administrator klinickog centra') {
             this.router.navigate(['/administratorKc']);
-            this.loginService.ulogovaniTip = 'Administrator klinickog centra';
           } else {
             this.router.navigate(['/welcome']);
           }
-          LoginService.authenticated = true;
-
         },
         error => {
           alert('Pogrešan email ili lozinka!! :-)\n\n');
