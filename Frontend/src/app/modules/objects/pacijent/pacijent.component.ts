@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
-import { PacijentService } from 'src/app/_services/PacijentService/pacijent.service';
 import { Pacijent } from 'src/app/models/pacijent/pacijent';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
 
 @Component({
   templateUrl: './pacijent.component.html',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { AdminKlinikeService } from 'src/app/_services/admin-klinike-service/admin-klinike.service';
 import { first } from 'rxjs/operators';
-import { KlinikaService } from 'src/app/_services/KlinikaService/klinika.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   templateUrl: './izmena-profil-klinike.component.html',

@@ -19,7 +19,7 @@ public class Korisnik {
     @Column(name="adresa",unique = false)
     private String adresa;
 
-    @Column(name="korIme", unique=true, nullable = false)
+    @Column(name="korIme", unique=true, nullable = true)
     private String korIme;
 
     @Column(name="lozinka", nullable = false)

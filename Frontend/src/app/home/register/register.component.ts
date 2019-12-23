@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { MustMatch } from 'src/app/_helpers/MustMatch';
+import { MustMatch } from 'src/app/helpers/MustMatch';
 import {Router} from '@angular/router';
 import { first } from 'rxjs/operators';
-import {RegisterService} from 'src/app/_services/LoginAndRegister';
+import { RegisterService } from 'src/app/services/login-and-register-service/register.service';
 
 @Component({ templateUrl: 'register.component.html', styleUrls: [ 'register.component.css' ] })
 export class RegisterComponent implements OnInit {

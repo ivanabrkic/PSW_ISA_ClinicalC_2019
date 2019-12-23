@@ -1,4 +1,4 @@
 export class Korisnik {
-  password: string;
+  lozinka: string;
   email: string;
 }

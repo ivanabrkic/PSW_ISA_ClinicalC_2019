@@ -58,4 +58,19 @@ public class LekarService {
         lekarRepository.save(p);
         return p;
     }
+
+    @Transactional
+    public Lekar add(Lekar lekar){
+        return lekarRepository.save(lekar);
+    }
+
+    @Transactional
+    public Lekar remove(Long id){
+        lekarRepository.deleteById(id);
+
+        if(!lekarRepository.findById(id).isPresent()) {
+            return null;
+        }
+        return lekarRepository.findById(id).get();
+    }
 }

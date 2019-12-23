@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MedicinskaSestraService } from 'src/app/_services/MedicinskaSService/medicinskas.service';
 import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
+import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
 
 @Component({
   selector: 'app-profil-med-sestra',

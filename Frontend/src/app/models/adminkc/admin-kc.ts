@@ -1,4 +1,4 @@
-import {Korisnik} from '../korisnik';
+import { Korisnik } from '../korisnik/korisnik';
 
 export class AdminKc extends Korisnik{
 

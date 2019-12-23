@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { PacijentService } from 'src/app/_services/PacijentService/pacijent.service';
 import { Pacijent } from 'src/app/models/pacijent/pacijent';
-import { ZdravstveniKartonService } from 'src/app/_services/ZdravstveniKartonService/zdravstveni-karton-service.service';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
+import { ZdravstveniKartonService } from 'src/app/services/zdravstveni-karton-service/zdravstveni-karton.service';
 
 
 @Component({
