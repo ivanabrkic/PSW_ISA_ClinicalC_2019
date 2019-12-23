@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {KorisnikServiceService} from '../../../../_services/KorisnikService/korisnik-service.service';
-import {Korisnik} from '../../../../models/korisnik';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DijalogOdbijanjeZahtevaComponent} from '../dijalog-odbijanje-zahteva/dijalog-odbijanje-zahteva.component';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
+import { KorisnikService } from 'src/app/services/korisnik-service/korisnik.service';
+import { Korisnik } from 'src/app/models/korisnik/korisnik';
 
-import { PacijentService } from 'src/app/_services/PacijentService/pacijent.service';
 
 
 @Component({
@@ -19,8 +19,9 @@ export class ZahteviRegistracijaComponent implements OnInit {
   public poruka: string;
   public rezultatDijaloga: any;
   public izmenjeniKorisnik: Korisnik = new Korisnik();
-  constructor(private korisnikService: KorisnikServiceService,
-              public dialog: MatDialog) {
+
+  constructor(private pacijentService: PacijentService,
+              private korisnikService: KorisnikService, public dialog: MatDialog) {
       this.getKorisnike();
   }
 

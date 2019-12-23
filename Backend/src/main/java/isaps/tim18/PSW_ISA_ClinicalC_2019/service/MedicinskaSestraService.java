@@ -53,4 +53,19 @@ public class MedicinskaSestraService {
         medicinskaSestraRepository.save(p);
         return p;
     }
+
+    @Transactional
+    public MedicinskaSestra add(MedicinskaSestra medicinskaSestra){
+        return medicinskaSestraRepository.save(medicinskaSestra);
+    }
+
+    @Transactional
+    public MedicinskaSestra remove(Long id){
+        medicinskaSestraRepository.deleteById(id);
+
+        if(!medicinskaSestraRepository.findById(id).isPresent()) {
+            return null;
+        }
+        return medicinskaSestraRepository.findById(id).get();
+    }
 }

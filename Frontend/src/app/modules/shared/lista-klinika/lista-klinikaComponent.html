@@ -11,20 +11,19 @@
             <div class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
-    <th>Naziv</th>
-    <th>Email</th>
-    <th>Ocena</th>
+                  <th>Naziv</th>
+                  <th>Email</th>
+                  <th>Ocena</th>
                 </thead>
 
-  <tbody>
-  <tr *ngFor="let klinika of klinike"
-      [class.selected]="klinika === selectedKlinika"
-      (click)="onSelect(klinika)">
-    <td><b>{{klinika.naziv}}</b></td>
-    <td>{{klinika.email}}</td>
-    <td>{{klinika.ocena}}</td>
-  </tr>
-  </tbody>
+                <tbody>
+                  <tr *ngFor="let klinika of klinike" [class.selected]="klinika === selectedKlinika"
+                    (click)="onSelect(klinika)">
+                    <td><b>{{klinika.naziv}}</b></td>
+                    <td>{{klinika.email}}</td>
+                    <td>{{klinika.ocena}}</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
@@ -35,7 +34,7 @@
 </div>
 
 
-<div  *ngIf="selectedKlinika">
+<div *ngIf="selectedKlinika">
   <div class="content-container">
     <div class="container-fluid">
       <div class="main-content">
@@ -44,10 +43,10 @@
             <div class="col-md-8">
               <div class="card">
                 <div class="card-header card-header-danger">
-                  <h4  class="card-title">Osnovne informacije</h4>
+                  <h4 class="card-title">Osnovne informacije</h4>
                 </div>
                 <div class="card-body">
-                  <form >
+                  <form>
                     <div class="row">
                       <div class="col-md-12">
                         <p> Naziv : {{selectedKlinika.naziv}} </p>
@@ -60,7 +59,8 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> Adresa, grad i država : {{selectedKlinika.adresa}}, {{selectedKlinika.grad}}, {{selectedKlinika.drzava}}  </p>
+                        <p> Adresa, grad i država : {{selectedKlinika.adresa}}, {{selectedKlinika.grad}},
+                          {{selectedKlinika.drzava}} </p>
                       </div>
                     </div>
                   </form>
@@ -73,7 +73,3 @@
     </div>
   </div>
 </div>
-
-
-
-

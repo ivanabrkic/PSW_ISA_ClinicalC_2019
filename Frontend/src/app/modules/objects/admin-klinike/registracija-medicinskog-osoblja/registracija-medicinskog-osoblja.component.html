@@ -1,0 +1,194 @@
+<mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger pull-right">X</button>
+</mat-dialog-actions>
+<h1 mat-dialog-title>Registruj novog lekara/medicinsku sestru</h1>
+<mat-dialog-content class="text">
+    <div style="overflow-x: hidden" class="content-container">
+        <div class="container-fluid">
+            <div style="width: 1000px" class="main-content">
+                <div class="row">
+                    <form #registerForma style="width: 700px" (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h5 class="card-title">Osnovne informacije</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input placeholder="Ime" #ime matInput
+                                                [ngClass]="{ 'is-invalid': submitted && f.ime.errors }"
+                                                formControlName="ime" class="mat-form-control">
+                                            <mat-error *ngIf="submitted && f.ime.errors">
+                                                <div *ngIf="f.ime.errors.required">Unos imena je obavezan</div>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Adresa" type="text" id="adresa"
+                                                formControlName="adresa" class="mat-form-control">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input placeholder="Prezime" #prezime matInput
+                                                [ngClass]="{ 'is-invalid': submitted && f.prezime.errors }"
+                                                formControlName="prezime" class="mat-form-control">
+                                            <mat-error *ngIf="submitted && f.prezime.errors" class="invalid-feedback">
+                                                <div *ngIf="f.prezime.errors.required">Unos prezimena je
+                                                    obavezan</div>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput placeholder="Grad" type="text" id="grad"
+                                                formControlName="grad" class="mat-form-control">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input placeholder="Kontakt telefon" #kontaktTelefon matInput type="text"
+                                                formControlName="kontaktTelefon" class="mat-form-control">
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input placeholder="Drzava" matInput type="text" id="drzava"
+                                                formControlName="drzava" class="mat-form-control">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input placeholder="Email" matInput type="email"
+                                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                                                formControlName="email" class="mat-form-control">
+                                            <mat-error *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                                <div *ngIf="f.email.errors.required">Unos e-mail-a je obavezan
+                                                </div>
+                                                <div *ngIf="f.email.errors.email">E-mail je neispravan</div>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput maxlength=13
+                                                [ngClass]="{ 'is-invalid': submitted && f.jbo.errors }"
+                                                class="mat-form-control" formControlName="jbo" id="jbo"
+                                                placeholder="Jedinstveni broj osiguranika" type="text">
+                                            <mat-error *ngIf="submitted && f.jbo.errors" class="invalid-feedback">
+                                                <div *ngIf="f.jbo?.errors.required">Unos jedinstvenog broja osiguranika
+                                                    je obavezan</div>
+                                                <div *ngIf="f.jbo?.errors.min">Jedinstveni broj osiguranika mora
+                                                    imati 13 cifara</div>
+                                                <div *ngIf="f.jbo?.errors.pattern">Jedinstveni broj osiguranika se mora
+                                                    sastojati samo od cifara</div>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h5 class="card-title">Radno vreme</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Izaberite dan</mat-label>
+                                            <mat-select #s (selectionChange)="onChange(s.value)"
+                                                [(value)]="selectedValue">
+                                                <mat-option *ngFor="let r of radnoVreme" [value]="r">{{r.dan}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <mat-form-field style="width: 25px;">
+                                                    <input matInput
+                                                        [ngClass]="{ 'is-invalid': submitted && f.H1.errors}"
+                                                        formControlName="H1" class="mat-form-control" #H1
+                                                        placeholder="HH" [readonly]="selectedValue.slobodan" [(ngModel)]="selectedValue.H1" type="text">
+                                                </mat-form-field>
+                                                &nbsp;
+                                                :
+                                                &nbsp;
+                                                <mat-form-field style="width: 30px;">
+                                                    <input matInput
+                                                        [ngClass]="{ 'is-invalid': submitted && f.M1.errors}"
+                                                        formControlName="M1" class="mat-form-control" #M1
+                                                        placeholder="mm" [readonly]="selectedValue.slobodan" [(ngModel)]="selectedValue.M1" type="text">
+                                                </mat-form-field>
+                                                &nbsp;
+                                                -
+                                                &nbsp;
+                                                <mat-form-field style="width: 25px;">
+                                                    <input matInput
+                                                        [ngClass]="{ 'is-invalid': submitted && f.H2.errors}"
+                                                        formControlName="H2" class="mat-form-control" #H2
+                                                        placeholder="HH" [readonly]="selectedValue.slobodan" [(ngModel)]="selectedValue.H2" type="text">
+                                                </mat-form-field>
+                                                &nbsp;
+                                                :
+                                                &nbsp;
+                                                <mat-form-field style="width: 30px;">
+                                                    <input matInput
+                                                        [ngClass]="{ 'is-invalid': submitted && f.M2.errors}"
+                                                        formControlName="M2" class="mat-form-control" #M2
+                                                        placeholder="mm" [readonly]="selectedValue.slobodan" [(ngModel)]="selectedValue.M2" type="text">
+                                                </mat-form-field>
+                                                &nbsp;
+                                            </div>
+                                            <div style="margin-top: 20px;" class="col-md-4">
+                                                <mat-checkbox #slobodan [(ngModel)]="selectedValue.slobodan" [ngModelOptions]="{standalone: true}"
+                                                    type="checkbox">
+                                                    Slobodan
+                                                </mat-checkbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h5 class="card-title">Medicinsko osoblje</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Izaberite tip medicinskog osoblja</mat-label>
+                                            <mat-select #t (selectionChange)="onChangeTip(t.value)"
+                                                [(value)]="selectedTip">
+                                                <mat-option value="Lekar">Lekar</mat-option>
+                                                <mat-option value="Medicinska sestra">Medicinska sestra</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <br />
+                        <button mat-raised-button type="submit" class="btn btn-primary pull-right">Registruj</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

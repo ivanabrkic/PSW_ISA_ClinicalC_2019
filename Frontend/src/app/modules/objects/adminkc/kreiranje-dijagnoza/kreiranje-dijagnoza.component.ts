@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Dijagnoza} from '../../../../models/Dijagnoza/dijagnoza';
-import {DijagnozaService} from '../../../../_services/DijagnozaService/dijagnoza.service';
+import { DijagnozaService } from 'src/app/services/DijagnozaService/dijagnoza.service';
 
 @Component({
   selector: 'app-kreiranje-dijagnoza',

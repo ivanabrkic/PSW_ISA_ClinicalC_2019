@@ -19,13 +19,37 @@ public class LekarController {
 
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Lekar> update(@RequestBody Lekar lekar) throws Exception {
-
         Lekar l = lekarService.update(lekar);
 
         if (l != null){
             return new ResponseEntity<>(lekar, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/register", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Lekar> register(@RequestBody Lekar lekar) throws Exception {
+        lekar.setAktivnostNaloga(true);
+        lekar.setLozinka("12345678b");
+        lekar.setBrSlobodnihDana(60);
+
+        Lekar l = lekarService.add(lekar);
+
+        if (l != null){
+            return new ResponseEntity<>(lekar, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/remove", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Lekar> remove(@RequestBody Long id) throws Exception {
+
+        Lekar lekar = lekarService.remove(id);
+
+        if (lekar == null){
+            return new ResponseEntity<>(lekar, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(lekar, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)

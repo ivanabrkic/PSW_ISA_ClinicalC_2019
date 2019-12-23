@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Poseta } from 'src/app/models/poseta/poseta';
-import { PoseteService } from 'src/app/_services/PoseteService/posete.service';
-import { PacijentService } from 'src/app/_services/PacijentService/pacijent.service';
+import { PoseteService } from 'src/app/services/posete-service/posete.service';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
 import { Pacijent } from 'src/app/models/pacijent/pacijent';
-import { Korisnik } from 'src/app/models/korisnik';
 
 @Component({
     selector: 'app-lista-poseta',

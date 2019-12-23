@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import { Lekar } from 'src/app/models/lekar/lekar';
-import { LekarService } from 'src/app/_services/LekarService/lekar.service';
+import { LekarService } from 'src/app/services/lekar-service/lekar.service';
 
 @Component({
   templateUrl: './lekar.component.html',
