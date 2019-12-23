@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AdministratorKlinike} from '../../../../models/administrator-klinike';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
-import {Klinika} from '../../../../models/Klinika/klinika';
 import { HelperUserClass } from 'src/app/helpers/helper-user-class';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
