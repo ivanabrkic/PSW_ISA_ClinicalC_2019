@@ -24,30 +24,35 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
         this.adminKlinike = ulogovanKorisnik;
+
+        this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
+          .subscribe(data => {
+            this.lekari = data;
+          });
+        this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
+          .subscribe(data => {
+            this.medicinskeSestre = data;
+          });
+
       });
-    this.lekarService.getLekari()
-      .subscribe(data => {
-        this.lekari = data;
-      });
-    this.medSestraService.getMedicinskeSestre()
-      .subscribe(data => {
-        this.medicinskeSestre = data;
-      });
+
   }
 
   ngOnInit() {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
         this.adminKlinike = ulogovanKorisnik;
+
+        this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
+          .subscribe(data => {
+            this.lekari = data;
+          });
+        this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
+          .subscribe(data => {
+            this.medicinskeSestre = data;
+          });
       });
-    this.lekarService.getLekari()
-      .subscribe(data => {
-        this.lekari = data;
-      });
-    this.medSestraService.getMedicinskeSestre()
-      .subscribe(data => {
-        this.medicinskeSestre = data;
-      });
+
   }
 
   showDialogLekar(med: Lekar) {
@@ -94,14 +99,45 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
 
     this.registerDialog = this.dialog.open(RegistracijaMedicinskogOsobljaComponent, dialogConfig);
     this.registerDialog.afterClosed().subscribe(() => {
-      this.lekarService.getLekari()
-      .subscribe(data => {
-        this.lekari = data;
+      this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
+        .subscribe(data => {
+          this.lekari = data;
+        });
+      this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
+        .subscribe(data => {
+          this.medicinskeSestre = data;
+        });
+    });
+  }
+
+  removeLekar(event: any) {
+    this.lekarService.remove(event.target.id).subscribe(data => {
+      if (data == null) {
+        alert("Uspešno ste otpustili lekara!")
+        this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
+        .subscribe(data => {
+          this.lekari = data;
+        });
+      }
+    },
+      error => {
+        alert('Lekar ne može trenutno biti otpušten!\n\n');
       });
-    this.medSestraService.getMedicinskeSestre()
-      .subscribe(data => {
-        this.medicinskeSestre = data;
-      });  } );
+  }
+
+  removeMedSestra(event: any) {
+    this.medSestraService.remove(event.target.id).subscribe(data => {
+      if (data == null) {
+        alert("Uspešno ste otpustili medicinsku sestru!")
+        this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
+        .subscribe(data => {
+          this.medicinskeSestre = data;
+        });
+      }
+    },
+      error => {
+        alert('Medicinska sestra ne može trenutno biti otpuštena!\n\n');
+      });
   }
 
 }

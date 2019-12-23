@@ -41,6 +41,17 @@ public class LekarController {
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping(value = "/remove", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Lekar> remove(@RequestBody Long id) throws Exception {
+
+        Lekar lekar = lekarService.remove(id);
+
+        if (lekar == null){
+            return new ResponseEntity<>(lekar, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(lekar, HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Lekar>> getAllLekari() {
 

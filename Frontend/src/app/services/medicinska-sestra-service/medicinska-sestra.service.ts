@@ -21,6 +21,10 @@ export class MedicinskaSestraService {
     return this.http.get<MedicinskaSestra[]>('/server/medicinska_sestra/all', httpOptions);
   }
 
+  public getMedicinskeSestreKlinike(id : number): Observable<MedicinskaSestra[]> {
+    return this.http.post<MedicinskaSestra[]>('/server/klinika/getMedSestre', id, httpOptions);
+  }
+
   public update(medSes: MedicinskaSestra) {
     const med = JSON.stringify(medSes);
     return this.http.post<MedicinskaSestra>('/server/medicinska_sestra/update' , med, httpOptions);
@@ -29,5 +33,9 @@ export class MedicinskaSestraService {
   public register(medSes: MedicinskaSestra) {
     const med = JSON.stringify(medSes);
     return this.http.post<MedicinskaSestra>('/server/medicinska_sestra/register' , med, httpOptions);
+  }
+
+  public remove(id: number) {
+    return this.http.post<MedicinskaSestra>('/server/medicinska_sestra/remove' , id, httpOptions);
   }
 }

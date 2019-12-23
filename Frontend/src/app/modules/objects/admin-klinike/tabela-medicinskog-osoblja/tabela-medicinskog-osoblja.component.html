@@ -28,7 +28,7 @@
                                         <td>{{med.email}}</td>
                                         <td>{{med.kontaktTelefon}}</td>
                                         <td>{{med.jbo}}</td>
-                                        <td><button mat-raised-button class="btn btn-danger">Otpusti</button></td>
+                                        <td><button id={{med.id}} mat-raised-button (click)="removeLekar($event)" class="btn btn-danger">Otpusti</button></td>
 
                                     </tr>
                                     <tr *ngFor="let med of medicinskeSestre">
@@ -38,7 +38,7 @@
                                         <td>{{med.email}}</td>
                                         <td>{{med.kontaktTelefon}}</td>
                                         <td>{{med.jbo}}</td>
-                                        <td><button mat-raised-button class="btn btn-danger">Otpusti</button></td>
+                                        <td><button id={{med.id}} mat-raised-button (click)="removeMedSestra($event)" class="btn btn-danger">Otpusti</button></td>
                                     </tr>
                                 </tbody>
                             </table>

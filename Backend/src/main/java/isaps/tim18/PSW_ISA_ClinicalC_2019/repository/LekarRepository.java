@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,4 +27,7 @@ public interface LekarRepository extends JpaRepository<Lekar, Long> {
     Lekar findByEmail(String email);
 
     Lekar findByEmailAndLozinka(String email, String lozinka);
+
+    List<Lekar> findByKlinika(Klinika klinika);
+
 }

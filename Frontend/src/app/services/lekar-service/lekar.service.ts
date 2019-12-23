@@ -21,6 +21,10 @@ export class LekarService {
     return this.http.get<Lekar[]>('/server/lekar/all', httpOptions);
   }
 
+  public getLekariKlinike(id : number): Observable<Lekar[]> {
+    return this.http.post<Lekar[]>('/server/klinika/getLekari', id, httpOptions);
+  }
+
   public update(lekar: Lekar) {
     const lek = JSON.stringify(lekar);
     return this.http.post<Lekar>('/server/lekar/update' , lek, httpOptions);
@@ -29,5 +33,9 @@ export class LekarService {
   public register(lekar: Lekar) {
     const lek = JSON.stringify(lekar);
     return this.http.post<Lekar>('/server/lekar/register' , lek, httpOptions);
+  }
+
+  public remove(id: number) {
+    return this.http.post<Lekar>('/server/lekar/remove' , id, httpOptions);
   }
 }
