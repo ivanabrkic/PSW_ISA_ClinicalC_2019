@@ -3,9 +3,8 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KlinikaRepository;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.MedicinskaSestraRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,16 @@ import java.util.List;
 public class KlinikaService {
 
     @Autowired
+    private OperacijaRepository operacijaRepository;
+
+    @Autowired
+    private PregledRepository pregledRepository;
+
+    @Autowired
     private KlinikaRepository klinikaRepository;
+
+    @Autowired
+    private SalaRepository salaRepository;
 
     @Autowired
     private MedicinskaSestraRepository medicinskaSestraRepository;
@@ -72,5 +80,27 @@ public class KlinikaService {
             return null;
         }
         return lekarRepository.findByKlinika(k);
+    }
+
+    public List<Sala> findSale(Long id) {
+        Klinika k = klinikaRepository.findById(id).get();
+
+        if (k != null){
+            return salaRepository.findByKlinikaId(id);
+        }
+        return null;
+    }
+
+    @Transactional
+    public Sala remove(Long id){
+//        if (operacijaRepository.findBySalaId(id) != null)
+//            operacijaRepository.deleteBySalaId(id);
+//        if (pregledRepository.findBySalaId(id) != null)
+//            pregledRepository.deleteBySalaId(id);
+        if(salaRepository.findById(id).isPresent()) {
+            salaRepository.deleteById(id);
+            return null;
+        }
+        return null;
     }
 }

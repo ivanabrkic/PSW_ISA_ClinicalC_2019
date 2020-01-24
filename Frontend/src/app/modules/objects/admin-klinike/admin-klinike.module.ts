@@ -14,6 +14,9 @@ import { RegistracijaMedicinskogOsobljaComponent } from './registracija-medicins
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { TabelaMedicinskogOsobljaComponent } from './tabela-medicinskog-osoblja/tabela-medicinskog-osoblja.component';
 import { DetaljiComponent } from './detalji/detalji.component';
+import { MatIconModule} from '@angular/material/icon';
+import { PregledSalaComponent } from './pregled-sala/pregled-sala.component';
+import { RadniKalendarSaleModule } from '../../shared/radni-kalendar-sale/radni-kalendar-sale.module';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent, 
@@ -22,7 +25,8 @@ import { DetaljiComponent } from './detalji/detalji.component';
                 IzmenaProfilKlinikeComponent,
                 RegistracijaMedicinskogOsobljaComponent,
                 TabelaMedicinskogOsobljaComponent,
-                DetaljiComponent],
+                DetaljiComponent,
+                PregledSalaComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -37,10 +41,13 @@ import { DetaljiComponent } from './detalji/detalji.component';
     MatDialogModule,
     MatSelectModule, 
     MatCheckboxModule,
+    MatIconModule,
+    RadniKalendarSaleModule,
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
                           { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
                           { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
-                          { path: 'medicinskoosoblje', component: TabelaMedicinskogOsobljaComponent}
+                          { path: 'medicinskoosoblje', component: TabelaMedicinskogOsobljaComponent},
+                          { path: 'sale', component: PregledSalaComponent}
   ])
   ],
   entryComponents: [

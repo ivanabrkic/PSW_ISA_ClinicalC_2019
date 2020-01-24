@@ -3,6 +3,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,14 @@ public class KlinikaController {
         return new ResponseEntity<>(listaLekara, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/getSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Sala>> getSale(@RequestBody Long id){
+
+        List<Sala> listaSala =  klinikaService.findSale(id);
+
+        return new ResponseEntity<>(listaSala, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Klinika> update(@RequestBody Klinika klinika) throws Exception {
 
@@ -68,5 +77,16 @@ public class KlinikaController {
             return new ResponseEntity<>(klinika, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/remove", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Sala> remove(@RequestBody Long id) throws Exception {
+
+        Sala sala = klinikaService.remove(id);
+
+        if (sala == null){
+            return new ResponseEntity<>(sala, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(sala, HttpStatus.BAD_REQUEST);
     }
 }
