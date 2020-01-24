@@ -50,6 +50,7 @@ import { AdminKlinikeService } from './services/admin-klinike-service/admin-klin
 import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/zdravstveni-karton.service';
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
+import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
 
 @NgModule({
   declarations: [

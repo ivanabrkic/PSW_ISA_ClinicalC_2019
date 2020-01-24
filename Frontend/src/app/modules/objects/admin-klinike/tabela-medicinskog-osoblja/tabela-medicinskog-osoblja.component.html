@@ -6,7 +6,8 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">Medicinsko osoblje klinike "{{adminKlinike.klinika.naziv}}"</h4>
-                        <button mat-raised-button (click)="showDialogRegister()" class="btn btn-primary pull-right">Registruj novog lekara/medicinsku sestru</button>
+                        <button mat-raised-button (click)="showDialogRegister()"
+                            class="btn btn-primary pull-right">Registruj novog lekara/medicinsku sestru</button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -28,7 +29,8 @@
                                         <td>{{med.email}}</td>
                                         <td>{{med.kontaktTelefon}}</td>
                                         <td>{{med.jbo}}</td>
-                                        <td><button id={{med.id}} mat-raised-button (click)="removeLekar($event)" class="btn btn-danger">Otpusti</button></td>
+                                        <td><button id={{med.id}} mat-raised-button (click)="removeLekar($event)"
+                                                class="btn btn-danger">Otpusti</button></td>
 
                                     </tr>
                                     <tr *ngFor="let med of medicinskeSestre">
@@ -38,7 +40,8 @@
                                         <td>{{med.email}}</td>
                                         <td>{{med.kontaktTelefon}}</td>
                                         <td>{{med.jbo}}</td>
-                                        <td><button id={{med.id}} mat-raised-button (click)="removeMedSestra($event)" class="btn btn-danger">Otpusti</button></td>
+                                        <td><button id={{med.id}} mat-raised-button (click)="removeMedSestra($event)"
+                                                class="btn btn-danger">Otpusti</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -48,4 +51,4 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
