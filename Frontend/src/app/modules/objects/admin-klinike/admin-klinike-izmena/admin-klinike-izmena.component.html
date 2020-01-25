@@ -90,15 +90,16 @@
               </div>
               <div class="card">
                 <div class="card-header card-header-danger">
-                  <h4 class="card-title">Korisničko ime i lozinka</h4>
+                  <h4 class="card-title">Izmeni lozinku</h4>
                 </div>
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width">
-                        <input placeholder="Sifra" matInput type="password" [(ngModel)]="adminKlinike.lozinka"
+                        <input [type]="hide ? 'password' : 'text'" placeholder="Sifra" matInput [(ngModel)]="adminKlinike.lozinka"
                           class="mat-form-control" formControlName="lozinka"
                           [ngClass]="{ 'is-invalid': submitted && f.lozinka.errors }">
+                        <mat-icon style="cursor: default;" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         <mat-error *ngIf="submitted && f.lozinka?.errors" class="invalid-feedback">
                           <div *ngIf="f.lozinka?.errors.required">Unos lozinke je obavezan</div>
                           <div *ngIf="f.lozinka?.errors.minlength">Lozinka mora imati minimalno 8 karaktera</div>

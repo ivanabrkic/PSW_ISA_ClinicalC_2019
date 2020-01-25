@@ -3,7 +3,6 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.*;
 
 @Entity
 @Table(name="posete")
@@ -19,6 +18,11 @@ public class Poseta {
     @JoinColumn(name="pacijent_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Pacijent pacijent;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="lekar_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Lekar lekar;
 
     @Column(name="datum",unique=false)
     private String datum;
@@ -72,7 +76,6 @@ public class Poseta {
     public void setTipPosete(String tipPosete) {
         this.tipPosete = tipPosete;
     }
-
 
     public Long getPoseta_id() {
         return id;

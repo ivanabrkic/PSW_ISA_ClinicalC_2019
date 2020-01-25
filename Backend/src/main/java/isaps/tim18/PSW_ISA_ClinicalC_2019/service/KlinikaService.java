@@ -1,11 +1,10 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
-
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KlinikaRepository;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.MedicinskaSestraRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,16 @@ import java.util.List;
 public class KlinikaService {
 
     @Autowired
+    private OperacijaRepository operacijaRepository;
+
+    @Autowired
+    private PregledRepository pregledRepository;
+
+    @Autowired
     private KlinikaRepository klinikaRepository;
+
+    @Autowired
+    private SalaRepository salaRepository;
 
     @Autowired
     private MedicinskaSestraRepository medicinskaSestraRepository;
@@ -72,5 +80,65 @@ public class KlinikaService {
             return null;
         }
         return lekarRepository.findByKlinika(k);
+    }
+
+    public List<Sala> findSale(Long id) {
+        Klinika k = klinikaRepository.findById(id).get();
+
+        if (k != null){
+            return salaRepository.findByKlinikaId(id);
+        }
+        return null;
+    }
+
+    @Transactional
+    public Klinika remove(Long id){
+        Klinika klinika = new Klinika();
+        if(salaRepository.findById(id).isPresent()) {
+            if (operacijaRepository.findBySalaId(id).size() != 0 || pregledRepository.findBySalaId(id).size() != 0){
+                System.out.println(id);
+                System.out.println(operacijaRepository.findBySalaId(id).size());
+                System.out.println(pregledRepository.findBySalaId(id).size());
+                klinika.setNaziv("Ne možete obrisati salu koja ima zakazane preglede ili operacije.");
+            }
+            else {
+                salaRepository.deleteById(id);
+                klinika.setNaziv("Sala uspešno obrisana!");
+            }
+        }
+        else{
+            klinika.setNaziv("Tražena sala ne postoji!");
+        }
+        return klinika;
+    }
+
+    public Sala addNovaSala(String naziv, Long idKlinike) {
+        Sala poruka = new Sala();
+        Klinika k = klinikaRepository.findById(idKlinike).get();
+
+        if (salaRepository.findByNazivAndKlinika(naziv, k) == null) {
+
+            Sala s = new Sala();
+
+            s.setNaziv(naziv);
+            s.setKlinika(k);
+
+            salaRepository.saveAndFlush(s);
+
+            poruka.setNaziv("Uspešno dodata nova sala!");
+        }
+        else{
+            poruka.setNaziv("Sala sa željenim imenom već postoji!");
+        }
+
+        return poruka;
+    }
+
+    public List<Operacija> getOperacije(Sala sala) {
+        return operacijaRepository.findBySalaId(sala.getId());
+    }
+
+    public List<Pregled> getPregledi(Sala sala) {
+        return pregledRepository.findBySalaId(sala.getId());
     }
 }

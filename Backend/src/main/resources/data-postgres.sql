@@ -13,6 +13,12 @@ insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, oc
 insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena) values (2,'Ivo Andric', 'St John 43a', 'London', 'United Kingdom', 'ivoandric@gmail.com', '021/111-435', 3.2);
 insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena) values (3,'Pera Peric', 'Sukablablu 76', 'Lenjingrad', 'Rusija', 'perapera@gmail.com', '021/456-999', 2.2);
 
+insert into sala (naziv, klinika_id) values ('Sala 1', 1);
+insert into sala (naziv, klinika_id) values ('Sala 2',1);
+insert into sala (naziv, klinika_id) values ('Sala 1',2);
+insert into sala (naziv, klinika_id) values ('Sala 2',2);
+
+
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (1, 33, 1, 'Ponedeljak - 10:00 - 14:00/Utorak - 7:00:16:00/Sreda - 12:00 - 20:00/Četvrtak - 19:00 - 1:00/Petak - 13:00 - 21:00', 2.3);
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (2, 54, 1, 'Ponedeljak - 12:00 - 14:00/Utorak - 9:00:17:00/Sreda - 13:00 - 21:00/Četvrtak - 20:00 - 1:00/Petak - 8:00 - 12:00', 4.5);
 insert into administrator_klinike (admink_id, klinika_id) values (4, 1);
@@ -39,6 +45,18 @@ insert into dijagnoze (sifra, sifradijagnoze, naziv) values (200,'1sf124', 'anks
 insert into zkarton(id,pacijent_id) values (1,3);
 
 insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,100);
+
+insert into pregled (pocetak, kraj, datum, sat, minut, pacijent_id, lekar_id, sala_id, departman) values ('12:00', '12:45', '12.1.2020.', '12', '00', 6, 1, 1, 'Zubar');
+insert into pregled (datum, sat, minut, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '12', '15', 6, 1, 1, 'Zubar');
+insert into pregled (datum, sat, minut, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '12', '30', 6, 1, 1, 'Zubar');
+insert into pregled (datum, sat, minut, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '12', '45', 6, 1, 1, 'Zubar');
+insert into pregled (pocetak, kraj, datum, sat, minut, pacijent_id, lekar_id, sala_id, departman) values ('13:00', '13:30', '12.1.2020.', '13', '00', 7, 1, 2, 'Zubar');
+insert into pregled (datum, sat, minut, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '13', '15', 7, 1, 2, 'Zubar');
+insert into pregled (datum, sat, minut, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '13', '30', 7, 1, 2, 'Zubar');
+insert into operacija (pocetak, kraj, datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('13:00', '13:15', '12.1.2020.', '13', '00', 7, 1, 2, 'Zubar');
+insert into operacija (datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '13', '15', 7, 1, 2, 'Zubar');
+insert into operacija (pocetak, kraj, datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('13:00', '13:15', '12.1.2020.', '13', '00', 7, 2, 2, 'Ginekolog');
+insert into operacija (datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '13', '15', 7, 2, 2, 'Ginekolog');
 
 
 

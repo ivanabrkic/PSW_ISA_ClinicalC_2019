@@ -1,0 +1,35 @@
+<sidebar-admin-klinike></sidebar-admin-klinike>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Sale klinike "{{adminKlinike.klinika.naziv}}"</h4>
+                        <button mat-raised-button (click)="showDialogRegister()"
+                            class="btn btn-primary pull-right">Registruj novu salu</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>Naziv</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let sala of sale">
+                                        <td><b>{{sala.naziv}}</b></td>
+                                        <td><button id={{sala.id}} mat-raised-button (click)="removeSala($event)"
+                                                class="btn btn-danger">Ukloni</button></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-radni-kalendar-sale></app-radni-kalendar-sale>
+    </div>
+</div>
