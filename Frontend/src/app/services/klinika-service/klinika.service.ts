@@ -5,7 +5,6 @@ import {Klinika} from '../../models/klinika/klinika';
 import { Sala } from 'src/app/models/sala/sala';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
-const httpOptionsString = {headers: new HttpHeaders({'Content-Type' : 'application/json; charset=UTF-8'})};
 
 
 @Injectable({

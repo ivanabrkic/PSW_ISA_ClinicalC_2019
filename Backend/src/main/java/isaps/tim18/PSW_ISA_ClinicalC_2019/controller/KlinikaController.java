@@ -1,6 +1,10 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -101,7 +105,7 @@ public class KlinikaController {
     }
 
     @PostMapping(value = "/getPregledi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Pregled>> pregled(@RequestBody Sala sala){
+    public ResponseEntity<List<Pregled>> pregled(@RequestBody Sala sala) {
 
         List<Pregled> pregledi = klinikaService.getPregledi(sala);
 

@@ -51,7 +51,6 @@ export class PregledSalaComponent implements OnInit {
         });
     },
       error => {
-        alert(JSON.stringify(error))
         alert('Sala trenutno ne može biti uklonjena!\n\n');
       });
   }

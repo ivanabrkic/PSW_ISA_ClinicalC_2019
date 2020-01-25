@@ -1,6 +1,9 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
-
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
