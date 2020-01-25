@@ -1,9 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,15 +89,48 @@ public class KlinikaService {
     }
 
     @Transactional
-    public Sala remove(Long id){
-//        if (operacijaRepository.findBySalaId(id) != null)
-//            operacijaRepository.deleteBySalaId(id);
-//        if (pregledRepository.findBySalaId(id) != null)
-//            pregledRepository.deleteBySalaId(id);
+    public Klinika remove(Long id){
+        Klinika klinika = new Klinika();
         if(salaRepository.findById(id).isPresent()) {
-            salaRepository.deleteById(id);
-            return null;
+            if (operacijaRepository.findBySalaId(id).size() != 0 || pregledRepository.findBySalaId(id).size() != 0){
+                System.out.println(id);
+                System.out.println(operacijaRepository.findBySalaId(id).size());
+                System.out.println(pregledRepository.findBySalaId(id).size());
+                klinika.setNaziv("Ne možete obrisati salu koja ima zakazane preglede ili operacije.");
+            }
+            else {
+                salaRepository.deleteById(id);
+                klinika.setNaziv("Sala uspešno obrisana!");
+            }
         }
-        return null;
+        else{
+            klinika.setNaziv("Tražena sala ne postoji!");
+        }
+        return klinika;
+    }
+
+    public Sala addNovaSala(String naziv, Long idKlinike) {
+
+        Klinika k = klinikaRepository.findById(idKlinike).get();
+
+        Sala s = new Sala();
+
+        s.setNaziv(naziv);
+        s.setKlinika(k);
+
+        salaRepository.saveAndFlush(s);
+
+        Sala poruka = new Sala();
+        poruka.setNaziv("Uspešno dodata nova sala!");
+
+        return poruka;
+    }
+
+    public List<Operacija> getOperacije(Sala sala) {
+        return operacijaRepository.findBySalaId(sala.getId());
+    }
+
+    public List<Pregled> getPregledi(Sala sala) {
+        return pregledRepository.findBySalaId(sala.getId());
     }
 }

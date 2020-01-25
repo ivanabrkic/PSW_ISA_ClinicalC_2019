@@ -17,6 +17,7 @@ import { DetaljiComponent } from './detalji/detalji.component';
 import { MatIconModule} from '@angular/material/icon';
 import { PregledSalaComponent } from './pregled-sala/pregled-sala.component';
 import { RadniKalendarSaleModule } from '../../shared/radni-kalendar-sale/radni-kalendar-sale.module';
+import { RegistracijaSalaComponent } from './registracija-sala/registracija-sala.component';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent, 
@@ -26,7 +27,8 @@ import { RadniKalendarSaleModule } from '../../shared/radni-kalendar-sale/radni-
                 RegistracijaMedicinskogOsobljaComponent,
                 TabelaMedicinskogOsobljaComponent,
                 DetaljiComponent,
-                PregledSalaComponent],
+                PregledSalaComponent,
+                RegistracijaSalaComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -52,7 +54,8 @@ import { RadniKalendarSaleModule } from '../../shared/radni-kalendar-sale/radni-
   ],
   entryComponents: [
     DetaljiComponent,
-    RegistracijaMedicinskogOsobljaComponent
+    RegistracijaMedicinskogOsobljaComponent,
+    RegistracijaSalaComponent
   ],
   providers: [AdminKlinikeService],
   exports:   [SidebarAdminKlinikeComponent, 

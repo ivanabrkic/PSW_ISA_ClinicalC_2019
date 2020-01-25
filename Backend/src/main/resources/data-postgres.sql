@@ -13,10 +13,10 @@ insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, oc
 insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena) values (2,'Ivo Andric', 'St John 43a', 'London', 'United Kingdom', 'ivoandric@gmail.com', '021/111-435', 3.2);
 insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena) values (3,'Pera Peric', 'Sukablablu 76', 'Lenjingrad', 'Rusija', 'perapera@gmail.com', '021/456-999', 2.2);
 
-insert into sala (klinika_id) values (1);
-insert into sala (klinika_id) values (1);
-insert into sala (klinika_id) values (2);
-insert into sala (klinika_id) values (2);
+insert into sala (naziv, klinika_id) values ('Sala 1', 1);
+insert into sala (naziv, klinika_id) values ('Sala 2',1);
+insert into sala (naziv, klinika_id) values ('Sala 1',2);
+insert into sala (naziv, klinika_id) values ('Sala 2',2);
 
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (1, 33, 1, 'Ponedeljak - 10:00 - 14:00/Utorak - 7:00:16:00/Sreda - 12:00 - 20:00/Četvrtak - 19:00 - 1:00/Petak - 13:00 - 21:00', 2.3);
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (2, 54, 1, 'Ponedeljak - 12:00 - 14:00/Utorak - 9:00:17:00/Sreda - 13:00 - 21:00/Četvrtak - 20:00 - 1:00/Petak - 8:00 - 12:00', 4.5);

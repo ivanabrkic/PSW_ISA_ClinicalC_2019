@@ -18,7 +18,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let sala of sale">
-                                        <td><b>Sala {{sala.id}}</b></td>
+                                        <td><b>{{sala.naziv}}</b></td>
                                         <td><button id={{sala.id}} mat-raised-button (click)="removeSala($event)"
                                                 class="btn btn-danger">Ukloni</button></td>
 

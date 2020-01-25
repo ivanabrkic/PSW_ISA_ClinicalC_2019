@@ -5,6 +5,8 @@ import {Klinika} from '../../models/klinika/klinika';
 import { Sala } from 'src/app/models/sala/sala';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
+const httpOptionsString = {headers: new HttpHeaders({'Content-Type' : 'application/json; charset=UTF-8'})};
+
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +42,12 @@ export class KlinikaService {
     return this.http.post<Klinika>('/server/klinika/update', k, httpOptions);
   }
 
-  public remove(id: number) {
-    return this.http.post<Sala>('/server/klinika/remove' , id, httpOptions);
+  public removeSala(id: number) {
+    return this.http.post<Sala>('/server/klinika/removeSala' , id, httpOptions);
+  }
+
+  public registerSala(sala: Sala) {
+    const s = JSON.stringify(sala)
+    return this.http.post<Sala>('/server/klinika/registerSala' , s, httpOptions);
   }
 }

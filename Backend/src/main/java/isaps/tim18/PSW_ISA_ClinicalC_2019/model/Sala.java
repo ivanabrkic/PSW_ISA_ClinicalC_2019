@@ -10,12 +10,22 @@ public class Sala {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @MapsId("klinika_id")
-    @JoinColumn(name = "klinika_id")
+    @Column
+    private String naziv;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "klinika_id", referencedColumnName = "id")
     Klinika klinika;
 
     public Sala() {
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     public Klinika getKlinika() {

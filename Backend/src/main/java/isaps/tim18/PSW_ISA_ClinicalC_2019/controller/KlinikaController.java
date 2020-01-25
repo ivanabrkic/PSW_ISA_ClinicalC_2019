@@ -1,9 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -79,14 +76,35 @@ public class KlinikaController {
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping(value = "/remove", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Sala> remove(@RequestBody Long id) throws Exception {
+    @PostMapping(value = "/removeSala", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Klinika> remove(@RequestBody Long id) throws Exception {
 
-        Sala sala = klinikaService.remove(id);
+        Klinika poruka = klinikaService.remove(id);
 
-        if (sala == null){
-            return new ResponseEntity<>(sala, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(sala, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(poruka, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/registerSala", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Sala> Register(@RequestBody Sala sala){
+
+        Sala poruka = klinikaService.addNovaSala(sala.getNaziv(), sala.getId());
+
+        return new ResponseEntity<>(poruka, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getOperacije", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Operacija>> operacije(@RequestBody Sala sala){
+
+        List<Operacija> operacije = klinikaService.getOperacije(sala);
+
+        return new ResponseEntity<>(operacije, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getPregledi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Pregled>> pregled(@RequestBody Sala sala){
+
+        List<Pregled> pregledi = klinikaService.getPregledi(sala);
+
+        return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
 }

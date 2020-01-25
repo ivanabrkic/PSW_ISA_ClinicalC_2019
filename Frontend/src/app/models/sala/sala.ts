@@ -4,6 +4,7 @@ import { Pregled } from '../pregled/pregled';
 
 export class Sala{
     id:number;
+    naziv:string;
     operacije: Operacija[];
     pregledi: Pregled[];
     klinika: Klinika;
