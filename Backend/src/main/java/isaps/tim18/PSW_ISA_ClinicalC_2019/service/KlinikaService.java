@@ -113,18 +113,23 @@ public class KlinikaService {
     }
 
     public Sala addNovaSala(String naziv, Long idKlinike) {
-
+        Sala poruka = new Sala();
         Klinika k = klinikaRepository.findById(idKlinike).get();
 
-        Sala s = new Sala();
+        if (salaRepository.findByNazivAndKlinika(naziv, k) == null) {
 
-        s.setNaziv(naziv);
-        s.setKlinika(k);
+            Sala s = new Sala();
 
-        salaRepository.saveAndFlush(s);
+            s.setNaziv(naziv);
+            s.setKlinika(k);
 
-        Sala poruka = new Sala();
-        poruka.setNaziv("Uspešno dodata nova sala!");
+            salaRepository.saveAndFlush(s);
+
+            poruka.setNaziv("Uspešno dodata nova sala!");
+        }
+        else{
+            poruka.setNaziv("Sala sa željenim imenom već postoji!");
+        }
 
         return poruka;
     }
