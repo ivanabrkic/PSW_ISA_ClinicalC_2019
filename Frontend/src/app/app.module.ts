@@ -51,6 +51,8 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
+// search module
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,7 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
+    Ng2SearchPipeModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
