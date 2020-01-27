@@ -1,5 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 
@@ -15,6 +17,7 @@ public class Sala {
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "klinika_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     Klinika klinika;
 
     public Sala() {

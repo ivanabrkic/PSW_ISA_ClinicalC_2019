@@ -5,6 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ScheduleModule, RecurrenceEditorModule, DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService } from '@syncfusion/ej2-angular-schedule';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatCheckboxModule, MatIconModule } from '@angular/material';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +18,17 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
     ScheduleModule, 
     RecurrenceEditorModule,
     DropDownListModule, 
-    DateTimePickerModule
+    DateTimePickerModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    AngularFontAwesomeModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatSelectModule, 
+    MatCheckboxModule,
+    MatIconModule
   ],
   providers: [DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService],
   exports: [RadniKalendarSaleComponent],

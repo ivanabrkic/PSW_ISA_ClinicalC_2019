@@ -14,14 +14,20 @@
                             <table class="table">
                                 <thead class=" text-primary">
                                     <th>Naziv</th>
+                                    <th>Broj</th>
+                                    <th>Moguće zakazati</th>
+                                    <th></th>
                                     <th></th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let sala of sale">
                                         <td><b>{{sala.naziv}}</b></td>
+                                        <td><b>{{sala.broj}}</b></td>
+                                        <td><b>{{sala.datumSlobodna}}</b></td>
+                                        <td><button id={{sala.id}} mat-raised-button (click)="openCalendar(sala)"
+                                                class="btn btn-primary">Kalendar zauzeća</button></td>
                                         <td><button id={{sala.id}} mat-raised-button (click)="removeSala($event)"
                                                 class="btn btn-danger">Ukloni</button></td>
-
                                     </tr>
                                 </tbody>
                             </table>
@@ -30,6 +36,6 @@
                 </div>
             </div>
         </div>
-        <app-radni-kalendar-sale></app-radni-kalendar-sale>
+        <!-- <app-radni-kalendar-sale></app-radni-kalendar-sale> -->
     </div>
 </div>

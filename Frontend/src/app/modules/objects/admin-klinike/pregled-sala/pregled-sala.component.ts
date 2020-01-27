@@ -5,6 +5,9 @@ import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admi
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { Sala } from 'src/app/models/sala/sala';
 import { RegistracijaSalaComponent } from '../registracija-sala/registracija-sala.component';
+import { RadniKalendarSaleComponent } from 'src/app/modules/shared/radni-kalendar-sale/radni-kalendar-sale-component/radni-kalendar-sale.component';
+import { Operacija } from 'src/app/models/operacija/operacija';
+import { Pregled } from 'src/app/models/pregled/pregled';
 
 @Component({
   templateUrl: './pregled-sala.component.html',
@@ -15,6 +18,8 @@ export class PregledSalaComponent implements OnInit {
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
   sale: Sala[] = []
   registerDialog: any;
+  operacije: any;
+  pregledi: any;
 
   constructor(public dialog: MatDialog, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
     this.adminkService.getUlogovanKorisnik()
@@ -71,6 +76,35 @@ export class PregledSalaComponent implements OnInit {
           this.sale = data;
         });
     });
+  }
+
+  openCalendar(id : Sala) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '800px';
+    dialogConfig.height = '700px';
+
+    this.klinikaService.getOperacije(id)
+    .subscribe(data => {
+      this.operacije = data;
+      alert(JSON.stringify(this.operacije))
+    });
+
+    this.klinikaService.getPregledi(id)
+    .subscribe(data => {
+      this.pregledi = data;
+    });
+
+    dialogConfig.data = {
+      operacije: this.operacije,
+      pregledi: this.pregledi
+    };
+
+
+    this.registerDialog = this.dialog.open(RadniKalendarSaleComponent, dialogConfig);
   }
 
 }

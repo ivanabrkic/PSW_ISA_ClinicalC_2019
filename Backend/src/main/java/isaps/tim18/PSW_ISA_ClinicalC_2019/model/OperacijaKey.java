@@ -8,8 +8,8 @@ import java.util.Objects;
 @Embeddable
 public class OperacijaKey implements Serializable {
 
-    @Column(name="sala_id",nullable = false)
-    private Long salaId;
+//    @Column(name="sala_id",nullable = false)
+//    private Long salaId;
 
     @Column(name="datum_op",nullable = false, length = 11)
     private String datum;
@@ -25,14 +25,14 @@ public class OperacijaKey implements Serializable {
 
     public OperacijaKey() {
     }
-
-    public Long getSalaId() {
-        return salaId;
-    }
-
-    public void setSalaId(Long salaId) {
-        this.salaId = salaId;
-    }
+//
+//    public Long getSalaId() {
+//        return salaId;
+//    }
+//
+//    public void setSalaId(Long salaId) {
+//        this.salaId = salaId;
+//    }
 
     public String getDatum() {
         return datum;
@@ -71,7 +71,7 @@ public class OperacijaKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OperacijaKey that = (OperacijaKey) o;
-        return Objects.equals(salaId, that.salaId) &&
+        return
                 Objects.equals(datum, that.datum) &&
                 Objects.equals(sat, that.sat) &&
                 Objects.equals(minut, that.minut) &&
@@ -80,13 +80,13 @@ public class OperacijaKey implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(salaId, datum, sat, minut, lekarId);
+        return Objects.hash(datum, sat, minut, lekarId);
     }
 
     @Override
     public String toString() {
         return "OperacijaKey{" +
-                "salaId=" + salaId +
+
                 ", datum='" + datum + '\'' +
                 ", sat='" + sat + '\'' +
                 ", minut='" + minut + '\'' +

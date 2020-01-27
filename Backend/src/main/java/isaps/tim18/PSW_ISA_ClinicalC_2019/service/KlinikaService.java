@@ -134,11 +134,15 @@ public class KlinikaService {
         return poruka;
     }
 
-    public List<Operacija> getOperacije(Sala sala) {
-        return operacijaRepository.findBySalaId(sala.getId());
+    public List<String> getOperacije(Long id) {
+        return operacijaRepository.findBySalaId(id);
     }
 
-    public List<Pregled> getPregledi(Sala sala) {
-        return pregledRepository.findBySalaId(sala.getId());
+    public List<Pregled> getPregledi(Long id) {
+        return pregledRepository.findBySalaId(id);
+    }
+
+    public List<Lekar> findLekariOperacije(Operacija op){
+        return operacijaRepository.findLekareOperacije(op.getId().getDatum(), op.getPocetak(), op.getKraj(), op.getId().getSalaId());
     }
 }

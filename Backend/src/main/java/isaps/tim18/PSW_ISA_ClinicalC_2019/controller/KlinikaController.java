@@ -97,18 +97,26 @@ public class KlinikaController {
     }
 
     @PostMapping(value = "/getOperacije", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Operacija>> operacije(@RequestBody Sala sala){
+    public ResponseEntity<List<String>> operacije(@RequestBody Long id){
 
-        List<Operacija> operacije = klinikaService.getOperacije(sala);
+        List<String> operacije = klinikaService.getOperacije(id);
 
         return new ResponseEntity<>(operacije, HttpStatus.OK);
     }
 
     @PostMapping(value = "/getPregledi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Pregled>> pregled(@RequestBody Sala sala) {
+    public ResponseEntity<List<Pregled>> pregled(@RequestBody Long id) {
 
-        List<Pregled> pregledi = klinikaService.getPregledi(sala);
+        List<Pregled> pregledi = klinikaService.getPregledi(id);
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getLekariOperacije", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Lekar>> getLekariOperacije(@RequestBody Operacija op) {
+
+        List<Lekar> lekari = klinikaService.findLekariOperacije(op);
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
     }
 }

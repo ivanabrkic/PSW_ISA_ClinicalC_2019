@@ -57,6 +57,3 @@ insert into operacija (pocetak, kraj, datum_op, sat_op, minut_op, pacijent_id, l
 insert into operacija (datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '13', '15', 7, 1, 2, 'Zubar');
 insert into operacija (pocetak, kraj, datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('13:00', '13:15', '12.1.2020.', '13', '00', 7, 2, 2, 'Ginekolog');
 insert into operacija (datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('12.1.2020.', '13', '15', 7, 2, 2, 'Ginekolog');
-
-
-
