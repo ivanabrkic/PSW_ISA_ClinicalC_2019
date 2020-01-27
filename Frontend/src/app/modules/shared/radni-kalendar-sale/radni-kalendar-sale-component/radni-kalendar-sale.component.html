@@ -1,65 +1,39 @@
-<ejs-schedule #scheduleObj (eventClick)="onEventClick($event)" (popupOpen)='onPopupOpen($event)' height="600" [currentView]="setView" locale='sr-Latn'>
+<mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger">X</button>
+</mat-dialog-actions>
+<h1 mat-dialog-title style="font-size: 27px">Kalendar zauzeća sale</h1>
+<mat-dialog-content class="text">
+    <ejs-schedule #scheduleObj [eventSettings]="eventSettings" (eventClick)="onEventClick($event)"
+        (popupOpen)='onPopupOpen($event)' height="700" [currentView]="setView" locale='sr-Latn'>
         <e-views>
             <e-view option="Day"></e-view>
             <e-view option="Week"></e-view>
             <e-view option="Month"></e-view>
         </e-views>
-        <ng-template #editorTemplate let-data>
-            <table *ngIf="data != undefined" class="custom-event-editor" width="100%" cellpadding="5">
-                <tbody>
-                    <tr>
-                        <td class="e-textlabel">LBO pacijenta</td>
-                        <td colspan="4">
-                            <input id="lboPacijenta" class="e-field e-input" type="text" value="{{data.Subject}}"
-                                name="Subject" style="width: 100%" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="e-textlabel">Ime i prezime pacijenta</td>
-                        <td colspan="4">
-                            <input id="pacijent" class="e-field e-input" type="text" value="{{data.Description}}"
-                                name="Subject" style="width: 100%" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="e-textlabel">Ime i prezime doktora</td>
-                        <td colspan="4">
-                            <input id="doktor" class="e-field e-input" type="text" value="{{data.Location}}"
-                                name="Subject" style="width: 100%" />
-                        </td>
-                    </tr>
-                     <!-- <tr>
-                        <td class="e-textlabel">Status</td>
-                        <td colspan="4">
-                            <ejs-dropdownlist id='Status' class="e-field" data-name="Status" placeholder='Choose Status'
-                                [dataSource]='StatusData' [fields]='statusFields' value='{{data.Status}}'>
-                            </ejs-dropdownlist>
-                        </td>
-                    </tr>  -->
-                    <tr>
-                        <td class="e-textlabel">Od</td>
-                        <td colspan="4">
-                            <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime"
-                                format="M/dd/yy h:mm a" [value]="dateParser(data.startTime || data.StartTime)">
-                            </ejs-datetimepicker>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="e-textlabel">Do</td>
-                        <td colspan="4">
-                            <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
-                                [value]='dateParser(data.endTime || data.EndTime)'></ejs-datetimepicker>
-                        </td>
-                    </tr>
-                    <!-- <tr>
-                        <td class="e-textlabel">Reason</td>
-                        <td colspan="4">
-                            <textarea id="Description" class="e-field e-input" name="Description" rows="3" cols="50"
-                                value="{{data.Description}}"
-                                style="width: 100%; height: 60px !important; resize: vertical"></textarea>
-                        </td>
-                    </tr> -->
-                </tbody>
-            </table>
+        <!-- Header template -->
+        <ng-template #quickInfoTemplatesHeader let-data>
+            <div *ngIf="data.elementType == 'cell' || data.elementType == 'event'">
+                <div class="e-popup-header">
+                    <div class="e-header-icon-wrapper">
+                        <button class="e-close e-close-icon e-icons" title="Close"
+                            (click)="onCloseClick($event)"></button>
+                    </div>
+                </div>
+            </div>
         </ng-template>
-</ejs-schedule>
+        <!-- Content Template -->
+        <ng-template #quickInfoTemplatesContent let-data>
+            <div *ngIf="data.elementType == 'event'" class="e-event-content">
+                <div style="font-size: 25px;" class="subject">{{data.Subject}}</div>
+                <div style="font-size: 13px;" class="start-time">Od: {{data.StartTime.toLocaleString()}}</div>
+                <div style="font-size: 13px;" class="end-time">Do: {{data.EndTime.toLocaleString()}}</div>
+                <div style="font-size: 13px;" *ngIf="data.EventType != undefined && data.EventType != ''"
+                    class="location">JBO pacijenta:
+                    {{data.EventType}}</div>
+                <div style="font-size: 13px;" *ngIf="data.Description!= undefined && data.Description != ''"
+                    class="location">JBO lekara:
+                    {{data.Description}}</div>
+            </div>
+        </ng-template>
+    </ejs-schedule>
+</mat-dialog-content>

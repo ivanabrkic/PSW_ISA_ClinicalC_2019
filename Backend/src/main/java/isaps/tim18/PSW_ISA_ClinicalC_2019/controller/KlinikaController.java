@@ -1,6 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
@@ -91,23 +92,23 @@ public class KlinikaController {
     @PostMapping(value = "/registerSala", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Sala> Register(@RequestBody Sala sala){
 
-        Sala poruka = klinikaService.addNovaSala(sala.getNaziv(), sala.getId());
+        Sala poruka = klinikaService.addNovaSala(sala.getNaziv(), sala.getBroj(), sala.getId());
 
         return new ResponseEntity<>(poruka, HttpStatus.OK);
     }
 
     @PostMapping(value = "/getOperacije", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Operacija>> operacije(@RequestBody Sala sala){
+    public ResponseEntity<List<OperacijaDTO>> operacije(@RequestBody Long id){
 
-        List<Operacija> operacije = klinikaService.getOperacije(sala);
+        List<OperacijaDTO> operacije = klinikaService.getOperacije(id);
 
         return new ResponseEntity<>(operacije, HttpStatus.OK);
     }
 
     @PostMapping(value = "/getPregledi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Pregled>> pregled(@RequestBody Sala sala) {
+    public ResponseEntity<List<PregledDTO>> pregled(@RequestBody Long id) {
 
-        List<Pregled> pregledi = klinikaService.getPregledi(sala);
+        List<PregledDTO> pregledi = klinikaService.getPregledi(id);
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }

@@ -11,5 +11,5 @@ import java.util.List;
 public interface SalaRepository extends JpaRepository<Sala, Long> {
     List<Sala> findByKlinikaId(Long id);
 
-    Sala findByNazivAndKlinika(String naziv, Klinika klinika);
+    Sala findByNazivAndKlinikaAndBroj(String naziv, Klinika klinika, String broj);
 }

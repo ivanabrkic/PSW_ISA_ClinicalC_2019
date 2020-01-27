@@ -1,14 +1,14 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
+
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -112,15 +112,16 @@ public class KlinikaService {
         return klinika;
     }
 
-    public Sala addNovaSala(String naziv, Long idKlinike) {
+    public Sala addNovaSala(String naziv, String broj, Long idKlinike) {
         Sala poruka = new Sala();
         Klinika k = klinikaRepository.findById(idKlinike).get();
 
-        if (salaRepository.findByNazivAndKlinika(naziv, k) == null) {
+        if (salaRepository.findByNazivAndKlinikaAndBroj(naziv, k, broj) == null) {
 
             Sala s = new Sala();
 
             s.setNaziv(naziv);
+            s.setBroj(broj);
             s.setKlinika(k);
 
             salaRepository.saveAndFlush(s);
@@ -134,11 +135,28 @@ public class KlinikaService {
         return poruka;
     }
 
-    public List<Operacija> getOperacije(Sala sala) {
-        return operacijaRepository.findBySalaId(sala.getId());
+    public List<OperacijaDTO> getOperacije(Long id) {
+        List<OperacijaDTO> operacijeDTO = operacijaRepository.findBySalaId(id);
+
+        for (OperacijaDTO opDTO:operacijeDTO
+             ) {
+            List<Lekar> lekari = findLekariOperacije(opDTO.getDatum(), opDTO.getPocetak(), opDTO.getKraj(), id);
+            List<String> jboLekara = new ArrayList<String>();
+            for (Lekar lekar: lekari
+                 ) {
+                jboLekara.add(lekar.getJbo());
+            }
+            opDTO.setJboLekara(jboLekara);
+        }
+
+        return operacijeDTO;
     }
 
-    public List<Pregled> getPregledi(Sala sala) {
-        return pregledRepository.findBySalaId(sala.getId());
+    public List<PregledDTO> getPregledi(Long id) {
+        return pregledRepository.findBySalaId(id);
+    }
+
+    public List<Lekar> findLekariOperacije(String datum, String pocetak, String kraj, Long id){
+        return operacijaRepository.findLekareOperacije(datum, pocetak, kraj, id);
     }
 }

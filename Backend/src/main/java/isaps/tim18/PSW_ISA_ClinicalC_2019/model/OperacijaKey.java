@@ -71,7 +71,7 @@ public class OperacijaKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OperacijaKey that = (OperacijaKey) o;
-        return Objects.equals(salaId, that.salaId) &&
+        return
                 Objects.equals(datum, that.datum) &&
                 Objects.equals(sat, that.sat) &&
                 Objects.equals(minut, that.minut) &&
@@ -80,13 +80,13 @@ public class OperacijaKey implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(salaId, datum, sat, minut, lekarId);
+        return Objects.hash(datum, sat, minut, lekarId);
     }
 
     @Override
     public String toString() {
         return "OperacijaKey{" +
-                "salaId=" + salaId +
+
                 ", datum='" + datum + '\'' +
                 ", sat='" + sat + '\'' +
                 ", minut='" + minut + '\'' +

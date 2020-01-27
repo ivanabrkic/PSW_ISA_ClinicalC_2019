@@ -37,7 +37,8 @@ export class RegistracijaSalaComponent implements OnInit {
 
 
     this.registerForm = this.formBuilder.group({
-      naziv: ['', Validators.required]
+      naziv: ['', Validators.required],
+      broj: ['', Validators.required]
     }, {
     });
   }
