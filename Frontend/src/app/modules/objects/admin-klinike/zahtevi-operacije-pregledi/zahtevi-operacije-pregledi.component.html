@@ -1,0 +1,34 @@
+<sidebar-admin-klinike></sidebar-admin-klinike>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Sale klinike "{{adminKlinike.klinika.naziv}}"</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>Termin traži</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let zahtev of zahtevi">
+                                        <td><b>{{zahtev.posiljalac}}</b></td>
+                                        <td><button disabled='true' id={{zahtev.id}} mat-raised-button (click)="prihvatiZahtev(zahtev)"
+                                                class="btn btn-primary">Prihvati</button></td>
+                                        <td><button id={{zahtev.id}} mat-raised-button (click)="noviTermin(zahtev)"
+                                                class="btn btn-danger">Novi termin</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <app-radni-kalendar-sale></app-radni-kalendar-sale> -->
+    </div>
+</div>
