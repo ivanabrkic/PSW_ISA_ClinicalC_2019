@@ -21,36 +21,35 @@ export class PregledSalaComponent implements OnInit {
   operacije: any;
   pregledi: any;
 
-  constructor(public dialog: MatDialog, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
+  constructor(public dialog: MatDialog, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
-    .subscribe(ulogovanKorisnik => {
-      this.adminKlinike = ulogovanKorisnik;
+      .subscribe(ulogovanKorisnik => {
+        this.adminKlinike = ulogovanKorisnik;
 
-      this.klinikaService.getSale(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.sale = data;
-        });
-
-    });
+        this.klinikaService.getSale(this.adminKlinike.klinika.id)
+          .subscribe(data => {
+            this.sale = data;
+          });
+      });
   }
 
   ngOnInit() {
     this.adminkService.getUlogovanKorisnik()
-    .subscribe(ulogovanKorisnik => {
-      this.adminKlinike = ulogovanKorisnik;
+      .subscribe(ulogovanKorisnik => {
+        this.adminKlinike = ulogovanKorisnik;
 
-      this.klinikaService.getSale(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.sale = data;
-        });
+        this.klinikaService.getSale(this.adminKlinike.klinika.id)
+          .subscribe(data => {
+            this.sale = data;
+          });
 
-    });
+      });
   }
 
   removeSala(event: any) {
     this.klinikaService.removeSala(event.target.id).subscribe(data => {
-        alert(data.naziv)
-        this.klinikaService.getSale(this.adminKlinike.klinika.id)
+      alert(data.naziv)
+      this.klinikaService.getSale(this.adminKlinike.klinika.id)
         .subscribe(data => {
           this.sale = data;
         });
@@ -66,8 +65,8 @@ export class PregledSalaComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '400px';
+    dialogConfig.width = '500px';
+    dialogConfig.height = '500px';
 
     this.registerDialog = this.dialog.open(RegistracijaSalaComponent, dialogConfig);
     this.registerDialog.afterClosed().subscribe(() => {
@@ -78,33 +77,29 @@ export class PregledSalaComponent implements OnInit {
     });
   }
 
-  openCalendar(id : Sala) {
-
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '800px';
-    dialogConfig.height = '700px';
+  openCalendar(id: Sala) {
 
     this.klinikaService.getOperacije(id)
-    .subscribe(data => {
-      this.operacije = data;
-      alert(JSON.stringify(this.operacije))
-    });
+      .subscribe(data => {
+        this.operacije = data;
+        this.klinikaService.getPregledi(id)
+          .subscribe(data => {
+            this.pregledi = data;
+            const dialogConfig = new MatDialogConfig();
 
-    this.klinikaService.getPregledi(id)
-    .subscribe(data => {
-      this.pregledi = data;
-    });
+            dialogConfig.disableClose = true;
+            dialogConfig.autoFocus = true;
+            dialogConfig.width = '800px';
+            dialogConfig.height = '600px';
 
-    dialogConfig.data = {
-      operacije: this.operacije,
-      pregledi: this.pregledi
-    };
+            dialogConfig.data = {
+              operacije: this.operacije,
+              pregledi: this.pregledi
+            };
 
-
-    this.registerDialog = this.dialog.open(RadniKalendarSaleComponent, dialogConfig);
+            this.registerDialog = this.dialog.open(RadniKalendarSaleComponent, dialogConfig);
+          });
+      });
   }
 
 }

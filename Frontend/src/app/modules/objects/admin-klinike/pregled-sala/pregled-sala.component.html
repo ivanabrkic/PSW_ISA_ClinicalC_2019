@@ -15,7 +15,6 @@
                                 <thead class=" text-primary">
                                     <th>Naziv</th>
                                     <th>Broj</th>
-                                    <th>Moguće zakazati</th>
                                     <th></th>
                                     <th></th>
                                 </thead>
@@ -23,7 +22,6 @@
                                     <tr *ngFor="let sala of sale">
                                         <td><b>{{sala.naziv}}</b></td>
                                         <td><b>{{sala.broj}}</b></td>
-                                        <td><b>{{sala.datumSlobodna}}</b></td>
                                         <td><button id={{sala.id}} mat-raised-button (click)="openCalendar(sala)"
                                                 class="btn btn-primary">Kalendar zauzeća</button></td>
                                         <td><button id={{sala.id}} mat-raised-button (click)="removeSala($event)"

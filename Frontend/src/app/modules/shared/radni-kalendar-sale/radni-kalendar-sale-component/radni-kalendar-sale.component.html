@@ -4,7 +4,7 @@
 <h1 mat-dialog-title style="font-size: 27px">Kalendar zauzeća sale</h1>
 <mat-dialog-content class="text">
     <ejs-schedule #scheduleObj [eventSettings]="eventSettings" (eventClick)="onEventClick($event)"
-        (popupOpen)='onPopupOpen($event)' height="600" [currentView]="setView" locale='sr-Latn'>
+        (popupOpen)='onPopupOpen($event)' height="700" [currentView]="setView" locale='sr-Latn'>
         <e-views>
             <e-view option="Day"></e-view>
             <e-view option="Week"></e-view>

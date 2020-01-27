@@ -7,9 +7,8 @@ import { identifierModuleUrl } from '@angular/compiler';
 
 export class Operacija{
     id:number;
-    pacijent:number;
-    lekari:number[];
-    sala:Sala;
+    jboPacijenta:String;
+    jboLekara:String[];
     pocetak:String;
     kraj:String;
     datum:String;

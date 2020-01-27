@@ -8,8 +8,8 @@ import java.util.Objects;
 @Embeddable
 public class OperacijaKey implements Serializable {
 
-//    @Column(name="sala_id",nullable = false)
-//    private Long salaId;
+    @Column(name="sala_id",nullable = false)
+    private Long salaId;
 
     @Column(name="datum_op",nullable = false, length = 11)
     private String datum;
@@ -25,14 +25,14 @@ public class OperacijaKey implements Serializable {
 
     public OperacijaKey() {
     }
-//
-//    public Long getSalaId() {
-//        return salaId;
-//    }
-//
-//    public void setSalaId(Long salaId) {
-//        this.salaId = salaId;
-//    }
+
+    public Long getSalaId() {
+        return salaId;
+    }
+
+    public void setSalaId(Long salaId) {
+        this.salaId = salaId;
+    }
 
     public String getDatum() {
         return datum;

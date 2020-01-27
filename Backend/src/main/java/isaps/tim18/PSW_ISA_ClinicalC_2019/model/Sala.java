@@ -15,12 +15,23 @@ public class Sala {
     @Column
     private String naziv;
 
+    @Column
+    private String broj;
+
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "klinika_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     Klinika klinika;
 
     public Sala() {
+    }
+
+    public String getBroj() {
+        return broj;
+    }
+
+    public void setBroj(String broj) {
+        this.broj = broj;
     }
 
     public String getNaziv() {
