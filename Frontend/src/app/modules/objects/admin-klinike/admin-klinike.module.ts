@@ -19,6 +19,7 @@ import { PregledSalaComponent } from './pregled-sala/pregled-sala.component';
 import { RadniKalendarSaleModule } from '../../shared/radni-kalendar-sale/radni-kalendar-sale.module';
 import { RegistracijaSalaComponent } from './registracija-sala/registracija-sala.component';
 import { ZahteviOperacijePreglediComponent } from './zahtevi-operacije-pregledi/zahtevi-operacije-pregledi.component';
+import { IzborSaleComponent } from './izbor-sale/izbor-sale.component';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent, 
@@ -30,7 +31,8 @@ import { ZahteviOperacijePreglediComponent } from './zahtevi-operacije-pregledi/
                 DetaljiComponent,
                 PregledSalaComponent,
                 RegistracijaSalaComponent,
-                ZahteviOperacijePreglediComponent],
+                ZahteviOperacijePreglediComponent,
+                IzborSaleComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -51,7 +53,8 @@ import { ZahteviOperacijePreglediComponent } from './zahtevi-operacije-pregledi/
                           { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
                           { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
                           { path: 'medicinskoosoblje', component: TabelaMedicinskogOsobljaComponent},
-                          { path: 'sale', component: PregledSalaComponent}
+                          { path: 'sale', component: PregledSalaComponent},
+                          {path: 'zahtevi', component: ZahteviOperacijePreglediComponent}
   ])
   ],
   entryComponents: [

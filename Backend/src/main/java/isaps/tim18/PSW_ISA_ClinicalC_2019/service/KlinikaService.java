@@ -15,6 +15,9 @@ import java.util.List;
 public class KlinikaService {
 
     @Autowired
+    private ZahtevRepository zahtevRepository;
+
+    @Autowired
     private OperacijaRepository operacijaRepository;
 
     @Autowired
@@ -158,5 +161,9 @@ public class KlinikaService {
 
     public List<Lekar> findLekariOperacije(String datum, String pocetak, String kraj, Long id){
         return operacijaRepository.findLekareOperacije(datum, pocetak, kraj, id);
+    }
+
+    public List<Zahtev> getZahtevi(Long idKlinike) {
+        return zahtevRepository.findByIdKlinike(idKlinike);
     }
 }

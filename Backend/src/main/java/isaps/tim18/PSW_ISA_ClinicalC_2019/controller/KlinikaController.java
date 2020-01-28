@@ -2,10 +2,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -111,5 +108,13 @@ public class KlinikaController {
         List<PregledDTO> pregledi = klinikaService.getPregledi(id);
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getZahtevi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Zahtev>> getZahtevi(@RequestBody Long idKlinike) {
+
+        List<Zahtev> zahtevi = klinikaService.getZahtevi(idKlinike);
+
+        return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
 }

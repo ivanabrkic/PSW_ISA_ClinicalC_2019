@@ -6,6 +6,7 @@ import { Sala } from 'src/app/models/sala/sala';
 import { Pregled } from 'src/app/models/pregled/pregled';
 import { Operacija } from 'src/app/models/operacija/operacija';
 import { Lekar } from 'src/app/models/lekar/lekar';
+import { Zahtev } from 'src/app/models/zahtev/zahtev';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -64,5 +65,9 @@ export class KlinikaService {
 
   getLekariOperacije(op : Operacija) {
     return this.http.post<Lekar[]>('/server/klinika/getLekariOperacije', JSON.stringify(op), httpOptions);
+  }
+
+  getZahtevi(id : number) {
+    return this.http.post<Zahtev[]>('/server/klinika/getZahtevi', id, httpOptions);
   }
 }

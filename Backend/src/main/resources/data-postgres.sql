@@ -57,3 +57,10 @@ insert into operacija (pocetak, kraj, datum_op, sat_op, minut_op, pacijent_id, l
 insert into operacija (datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('1.2.2020.', '13', '15', 7, 1, 2, 'Zubar');
 insert into operacija (pocetak, kraj, datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('13:00', '13:15', '1.2.2020.', '13', '00', 7, 2, 2, 'Ginekolog');
 insert into operacija (datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('1.2.2020.', '13', '15', 7, 2, 2, 'Ginekolog');
+
+insert into zahtev (tip_posete, tip_posiljaoca, posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, jbo_lekara, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
+('Pregled', 'Lekar', '1234567891111', 'Ivana Brkic', '1231231231111', '1234567891111', '30.1.2020.', '12:15', '12:45', 'Nema dodatnih informacija.', 1);
+insert into zahtev (tip_posete, tip_posiljaoca, posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, jbo_lekara, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
+('Pregled', 'Pacijent', '1231231231111', 'Tamara Lazarevic', '1231231231111', '9876543211111', '30.1.2020.', '12:15', '12:45', 'Nema dodatnih informacija.', 1);
+insert into zahtev (tip_posete, tip_posiljaoca, posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, jbo_lekara, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
+('Operacija', 'Lekar', '1234567891111', 'Ivana Brkic', '1231231231111', '1234567891111', '30.1.2020.', '12:15', '12:45', 'U pitanju je operacija na srcu. Potreban mi je još jedan kolega kardiolog da izvršim operaciju.', 1);

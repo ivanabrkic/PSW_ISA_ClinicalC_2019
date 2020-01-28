@@ -1,15 +1,18 @@
 export class Zahtev{
     id:number;
-    
+
+    tipPosete:String;
+
     tipPosiljaoca:String;
     posiljalacJbo:String;
-    posiljalacIme:String;
-    posiljalacPrezime:String;
+    posiljalacImePrezime:String;
 
     jboPacijenta:String[];
     jboLekara:String[];
 
     dodatneInformacije:String;
+
+    idKlinike:number;
 
     pocetak:String;
     kraj:String;

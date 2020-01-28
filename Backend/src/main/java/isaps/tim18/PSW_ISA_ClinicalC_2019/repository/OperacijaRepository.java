@@ -12,8 +12,6 @@ import java.util.List;
 @Repository
 public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
 
-    void deleteBySalaId(Long id);
-
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO(o.pacijent.jbo, o.id.datum, o.pocetak, o.kraj) FROM Operacija o " +
             "WHERE o.pocetak is not NULL AND o.kraj is not NULL AND o.sala.id = ?1" +
             " GROUP BY o.id.datum, o.pocetak, o.kraj, o.pacijent.jbo")

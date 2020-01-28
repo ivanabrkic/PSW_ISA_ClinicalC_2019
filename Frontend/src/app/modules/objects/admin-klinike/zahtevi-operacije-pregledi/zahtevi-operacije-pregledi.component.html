@@ -12,15 +12,15 @@
                             <table class="table">
                                 <thead class=" text-primary">
                                     <th>Termin traži</th>
+                                    <th>Dodatne informacije</th>
                                     <th></th>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let zahtev of zahtevi">
-                                        <td><b>{{zahtev.posiljalac}}</b></td>
-                                        <td><button disabled='true' id={{zahtev.id}} mat-raised-button (click)="prihvatiZahtev(zahtev)"
-                                                class="btn btn-primary">Prihvati</button></td>
-                                        <td><button id={{zahtev.id}} mat-raised-button (click)="noviTermin(zahtev)"
-                                                class="btn btn-danger">Novi termin</button></td>
+                                        <td><b>{{zahtev.tipPosiljaoca}} {{zahtev.posiljalacImePrezime}}</b></td>
+                                        <td>JBO Pacijenta : {{zahtev.jboPacijenta}} JBO Lekara : {{zahtev.jboLekara}} {{zahtev.dodatneInformacije}}</td>
+                                        <td><button id={{zahtev.id}} mat-raised-button (click)="izborSale(zahtev)"
+                                                class="btn btn-danger">Izaberi salu</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -29,6 +29,5 @@
                 </div>
             </div>
         </div>
-        <!-- <app-radni-kalendar-sale></app-radni-kalendar-sale> -->
     </div>
 </div>
