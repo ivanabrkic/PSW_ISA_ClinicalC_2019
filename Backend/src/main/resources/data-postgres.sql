@@ -31,7 +31,7 @@ insert into pacijenti_klinike (pacijent_id, klinika_id) values (7, 1);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (7, 2);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (7, 3);
 insert into medicinska_sestra (meds_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (9, 89, 1, 'Ponedeljak - 10:00 - 14:00/Utorak - 7:00:16:00/Sreda - 12:00 - 20:00/Četvrtak - 19:00 - 1:00/Petak - 13:00 - 21:00', 1.3);
-insert into medicinska_sestra (meds_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (10, 56, 3, 'Ponedeljak - 10:00 - 14:00/Utorak - 7:00:16:00/Sreda - 12:00 - 20:00/Četvrtak - 19:00 - 1:00/Petak - 13:00 - 21:00', 5.0);
+insert into medicinska_sestra (meds_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (8, 56, 3, 'Ponedeljak - 10:00 - 14:00/Utorak - 7:00:16:00/Sreda - 12:00 - 20:00/Četvrtak - 19:00 - 1:00/Petak - 13:00 - 21:00', 5.0);
 insert into administrator_klinickog_centra (adminkc_id) values (10);
 
 insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (1, 3, '12/12/2019','10:10','11:00','pregled');
@@ -61,9 +61,9 @@ insert into lekovi(sifra, naziv) values ('ry71h', 'bromazemam');
 insert into lekovi(sifra, naziv) values ('r451h', 'sinacilin');
 insert into lekovi(sifra, naziv) values ('r211h', 'gentamicin');
 
-insert into recept(broj, overen, pacijent_id) values (23, false, 3);
-insert into recept(broj, overen, pacijent_id) values (29, false, 6);
-insert into recept(broj, overen, pacijent_id) values (28, false, 6);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (23, false, 3, null);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (29, false, 6, null);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (28, false, 6, null);
 
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 1);
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 2);

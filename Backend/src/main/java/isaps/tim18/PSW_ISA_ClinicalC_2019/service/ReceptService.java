@@ -32,6 +32,7 @@ public class ReceptService {
         Recept r = receptRepository.findByBrojAndPacijent(recept.getBroj(), recept.getPacijent());
         if(r != null){
             r.setOveren(recept.isOveren());
+            r.setMedicinskaSestra(recept.getMedicinskaSestra());
             receptRepository.save(r);
             return r;
         }
