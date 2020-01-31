@@ -6,4 +6,6 @@ export class Sala{
     broj:String;
     klinika:Klinika;
     datumSlobodna:String;
+    pocetakSlobodna:String;
+    krajSlobodna:String;
 }

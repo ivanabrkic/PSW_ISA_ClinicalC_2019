@@ -68,8 +68,6 @@ public class KlinikaController {
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Klinika> update(@RequestBody Klinika klinika) throws Exception {
 
-        System.out.println(klinika.getId());
-
         Klinika l = klinikaService.update(klinika);
 
         if (l != null){
@@ -116,5 +114,13 @@ public class KlinikaController {
         List<Zahtev> zahtevi = klinikaService.getZahtevi(idKlinike);
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getSaleSlobodneOd", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Sala>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
+
+        List<Sala> listaSala =  klinikaService.findSaleSlobodneOd(zahtev);
+
+        return new ResponseEntity<>(listaSala, HttpStatus.OK);
     }
 }

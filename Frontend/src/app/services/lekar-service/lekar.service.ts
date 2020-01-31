@@ -2,6 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Lekar } from 'src/app/models/lekar/lekar';
+import { Zahtev } from 'src/app/models/zahtev/zahtev';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -23,6 +24,10 @@ export class LekarService {
 
   public getLekariKlinike(id : number): Observable<Lekar[]> {
     return this.http.post<Lekar[]>('/server/klinika/getLekari', id, httpOptions);
+  }
+
+  public getSlobodniLekari(zahtev : Zahtev): Observable<Lekar[]> {
+    return this.http.post<Lekar[]>('/server/lekar/getSlobodniLekari', JSON.stringify(zahtev), httpOptions);
   }
 
   public update(lekar: Lekar) {

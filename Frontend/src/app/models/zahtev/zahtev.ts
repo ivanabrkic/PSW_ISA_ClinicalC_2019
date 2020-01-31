@@ -1,14 +1,16 @@
 export class Zahtev{
     id:number;
 
+    idStavke:number
+    stavkaCenovnika:String
+
     tipPosete:String;
 
     tipPosiljaoca:String;
     posiljalacJbo:String;
     posiljalacImePrezime:String;
 
-    jboPacijenta:String[];
-    jboLekara:String[];
+    jboPacijenta:String;
 
     dodatneInformacije:String;
 
@@ -17,7 +19,7 @@ export class Zahtev{
     pocetak:String;
     kraj:String;
     datum:String;
-    departman:String;
+
     dan:number;
     mesec:number;
     godina:number;

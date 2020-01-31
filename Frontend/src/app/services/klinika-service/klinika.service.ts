@@ -40,6 +40,10 @@ export class KlinikaService {
     return this.http.post<Sala[]>('/server/klinika/getSale', id, httpOptions);
   }
 
+  public getSaleSlobodneOd(zahtev : Zahtev): Observable<Sala[]> {
+    return this.http.post<Sala[]>('/server/klinika/getSaleSlobodneOd', JSON.stringify(zahtev), httpOptions);
+  }
+
   public update(klinika: Klinika, id: number){
     klinika.id = id;
     const k = JSON.stringify(klinika)

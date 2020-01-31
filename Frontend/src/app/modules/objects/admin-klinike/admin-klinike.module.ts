@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule } from '@angular/material';
+import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule } from '@angular/material';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SidebarAdminKlinikeComponent } from './sidebar-admin-klinike/sidebar-admin-klinike.component';
 import { AdminKlinikeIzmenaComponent } from './admin-klinike-izmena/admin-klinike-izmena.component';
@@ -20,6 +20,8 @@ import { RadniKalendarSaleModule } from '../../shared/radni-kalendar-sale/radni-
 import { RegistracijaSalaComponent } from './registracija-sala/registracija-sala.component';
 import { ZahteviOperacijePreglediComponent } from './zahtevi-operacije-pregledi/zahtevi-operacije-pregledi.component';
 import { IzborSaleComponent } from './izbor-sale/izbor-sale.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ZakaziTerminComponent } from './zakazi-termin/zakazi-termin.component';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent, 
@@ -32,7 +34,8 @@ import { IzborSaleComponent } from './izbor-sale/izbor-sale.component';
                 PregledSalaComponent,
                 RegistracijaSalaComponent,
                 ZahteviOperacijePreglediComponent,
-                IzborSaleComponent],
+                IzborSaleComponent,
+                ZakaziTerminComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -49,6 +52,12 @@ import { IzborSaleComponent } from './izbor-sale/izbor-sale.component';
     MatCheckboxModule,
     MatIconModule,
     RadniKalendarSaleModule,
+    MatDatepickerModule,
+    NgbModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatCardModule,
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
                           { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
                           { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
@@ -60,7 +69,8 @@ import { IzborSaleComponent } from './izbor-sale/izbor-sale.component';
   entryComponents: [
     DetaljiComponent,
     RegistracijaMedicinskogOsobljaComponent,
-    RegistracijaSalaComponent
+    RegistracijaSalaComponent,
+    ZakaziTerminComponent
   ],
   providers: [AdminKlinikeService],
   exports:   [SidebarAdminKlinikeComponent, 

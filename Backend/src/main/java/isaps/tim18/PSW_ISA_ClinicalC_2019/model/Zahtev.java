@@ -12,8 +12,11 @@ public class Zahtev {
     @Column(name="tipPosete",nullable = false)
     private String tipPosete;
 
-    @Column(name="tipPosiljaoca",nullable = false)
-    private String tipPosiljaoca;
+    @Column(name="id_stavke",nullable = false)
+    private String idStavke;
+
+    @Column(name="stavka",nullable = false)
+    private String stavkaCenovnika;
 
     @Column(name="posiljalacJbo",nullable = false)
     private String posiljalacJbo;
@@ -23,9 +26,6 @@ public class Zahtev {
 
     @Column(name="jboPacijenta",nullable = false)
     private String jboPacijenta;
-
-    @Column(name="jboLekara",nullable = false)
-    private String jboLekara;
 
     @Column(name="datum",nullable = false)
     private String datum;
@@ -43,6 +43,22 @@ public class Zahtev {
     private Long idKlinike;
 
     public Zahtev() {
+    }
+
+    public String getIdStavke() {
+        return idStavke;
+    }
+
+    public void setIdStavke(String idStavke) {
+        this.idStavke = idStavke;
+    }
+
+    public String getStavkaCenovnika() {
+        return stavkaCenovnika;
+    }
+
+    public void setStavkaCenovnika(String stavkaCenovnika) {
+        this.stavkaCenovnika = stavkaCenovnika;
     }
 
     public Long getId() {
@@ -101,14 +117,6 @@ public class Zahtev {
         this.tipPosete = tipPosete;
     }
 
-    public String getTipPosiljaoca() {
-        return tipPosiljaoca;
-    }
-
-    public void setTipPosiljaoca(String tipPosiljaoca) {
-        this.tipPosiljaoca = tipPosiljaoca;
-    }
-
     public String getPosiljalacJbo() {
         return posiljalacJbo;
     }
@@ -123,14 +131,6 @@ public class Zahtev {
 
     public void setJboPacijenta(String jboPacijenta) {
         this.jboPacijenta = jboPacijenta;
-    }
-
-    public String getJboLekara() {
-        return jboLekara;
-    }
-
-    public void setJboLekara(String jboLekara) {
-        this.jboLekara = jboLekara;
     }
 
     public String getDodatneInformacije() {

@@ -8,8 +8,9 @@ import javax.persistence.*;
 @Entity
 public class Operacija {
 
-    @EmbeddedId
-    OperacijaKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @MapsId("pacijent_id")
@@ -27,16 +28,44 @@ public class Operacija {
     @JoinColumn(name = "sala_id")
     Sala sala;
 
+    @Column(name="datum",unique=false)
+    private String datum;
+
     @Column(name="pocetak",unique=false)
     private String pocetak;
 
     @Column(name="kraj",unique=false)
     private String kraj;
 
-    @Column(name="departman",unique=false)
-    private String departman;
+    @OneToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "id_stavke", referencedColumnName = "id")
+    private Cenovnik cenovnik;
 
     public Operacija() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
+    }
+
+    public Cenovnik getCenovnik() {
+        return cenovnik;
+    }
+
+    public void setCenovnik(Cenovnik cenovnik) {
+        this.cenovnik = cenovnik;
     }
 
     public String getPocetak() {
@@ -53,22 +82,6 @@ public class Operacija {
 
     public void setKraj(String kraj) {
         this.kraj = kraj;
-    }
-
-    public String getDepartman() {
-        return departman;
-    }
-
-    public void setDepartman(String departman) {
-        this.departman = departman;
-    }
-
-    public OperacijaKey getId() {
-        return id;
-    }
-
-    public void setId(OperacijaKey id) {
-        this.id = id;
     }
 
     public Pacijent getPacijent() {

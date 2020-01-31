@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { MatDialog } from '@angular/material';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 
@@ -14,6 +13,8 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
   zahtevi: Zahtev[] = []
+  izbor: boolean = false
+  selectedZahtev:Zahtev;
 
   constructor(private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
     this.adminkService.getUlogovanKorisnik()
@@ -41,7 +42,8 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
   }
 
   izborSale(zahtev:Zahtev){
-    
+    this.izbor = true
+    this.selectedZahtev = zahtev
   }
 
 }

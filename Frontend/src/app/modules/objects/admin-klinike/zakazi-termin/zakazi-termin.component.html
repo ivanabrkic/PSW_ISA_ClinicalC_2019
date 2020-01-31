@@ -1,0 +1,42 @@
+<mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger pull-right">X</button>
+</mat-dialog-actions>
+<h1 mat-dialog-title>Zakaži termin</h1>
+<mat-dialog-content class="text">
+    <div style="overflow-x: hidden" class="content-container">
+        <div class="container-fluid">
+            <div style="width: 400px" class="main-content">
+                <div class="row">
+                    <form style="width: 300px" (ngSubmit)="onSubmit()">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h5 class="card-title">Lista lekara slobodnih od {{sala.pocetakSlobodna}} -
+                                    {{sala.krajSlobodna}} / {{sala.datumSlobodna}}
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <mat-select *ngIf="tip == 'Pregled'" #s
+                                                (selectionChange)="onChange(s.value)" [(value)]="selectedLekar">
+                                                <mat-option *ngFor="let l of slobodniLekari" [value]="l">{{l.jbo}} -
+                                                    {{l.ime}} {{l.prezime}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-selection-list *ngIf="tip == 'Operacija'" #lekari>
+                                                <mat-list-option [selected]="l.jbo == operator" [disabled]="l.jbo == operator" *ngFor="let l of slobodniLekari">
+                                                    {{l.jbo}} - {{l.ime}} {{l.prezime}} </mat-list-option>
+                                            </mat-selection-list>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <button mat-raised-button type="submit" class="btn btn-primary pull-right">Zakaži
+                            termin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
