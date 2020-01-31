@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
 import { first } from 'rxjs/operators';
-import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   templateUrl: './izmena-profil-klinike.component.html',
@@ -17,7 +17,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
-  constructor(private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
+  constructor(private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.adminKlinike = ulogovanKorisnik;
@@ -37,7 +37,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
       grad: [''],
       naziv: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      ocena: ['']    
+      ocena: ['']
     },  {
     });
   }
@@ -47,7 +47,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
-    
+
     // stop here if form is invalid
     if (this.klinikaForm.invalid) {
       return;

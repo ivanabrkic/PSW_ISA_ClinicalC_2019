@@ -43,6 +43,9 @@ public class Korisnik {
     @Column(name="tipKorisnika",nullable = false)
     private String tipKorisnika;
 
+    @Column(name = "prvoLogovanje", nullable = false)
+    private Boolean prvoLogovanje;
+
     public Korisnik() {
         super();
     }
@@ -61,6 +64,7 @@ public class Korisnik {
         this.aktivnostNaloga=aktivnostNaloga;
         this.grad=grad;
         this.tipKorisnika = tipKorisnika;
+        this.prvoLogovanje = true;
     }
 
     public Korisnik(Korisnik korisnik){
@@ -77,6 +81,7 @@ public class Korisnik {
         this.aktivnostNaloga=korisnik.aktivnostNaloga;
         this.grad=korisnik.grad;
         this.tipKorisnika = korisnik.tipKorisnika;
+        this.prvoLogovanje = korisnik.prvoLogovanje;
     }
 
     public String getTipKorisnika() {
@@ -173,6 +178,14 @@ public class Korisnik {
 
     public void setPrezime(String prezime) {
         this.prezime = prezime;
+    }
+
+    public Boolean isPrvoLogovanje() {
+        return prvoLogovanje;
+    }
+
+    public void setPrvoLogovanje(Boolean prvoLogovanje) {
+        this.prvoLogovanje = prvoLogovanje;
     }
 
     @Override

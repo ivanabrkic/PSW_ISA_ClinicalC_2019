@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {AdminKc} from '../../../../models/adminkc/admin-kc';
-import { AdminKcService } from 'src/app/services/admin-kc-service/admin-kc.service';
+import { AdminKcService } from 'src/app/modules/shared/services/admin-kc-service/admin-kc.service';
 
 @Component({
   selector: 'app-adminkc-izmena',

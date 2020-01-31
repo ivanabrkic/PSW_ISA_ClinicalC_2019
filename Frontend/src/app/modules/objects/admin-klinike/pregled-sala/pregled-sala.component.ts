@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
-import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
 import { Sala } from 'src/app/models/sala/sala';
 import { RegistracijaSalaComponent } from '../registracija-sala/registracija-sala.component';
 import { RadniKalendarSaleComponent } from 'src/app/modules/shared/radni-kalendar-sale/radni-kalendar-sale-component/radni-kalendar-sale.component';

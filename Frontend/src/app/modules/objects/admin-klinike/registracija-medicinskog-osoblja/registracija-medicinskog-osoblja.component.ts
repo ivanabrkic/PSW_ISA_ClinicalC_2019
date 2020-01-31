@@ -4,11 +4,11 @@ import { Vreme } from 'src/app/models/vreme/vreme';
 import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { LekarService } from 'src/app/services/lekar-service/lekar.service';
-import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
+import { LekarService } from 'src/app/modules/shared/services/lekar-service/lekar.service';
+import { MedicinskaSestraService } from 'src/app/modules/shared/services/medicinska-sestra-service/medicinska-sestra.service';
 import { first } from 'rxjs/operators';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
 import { TabelaMedicinskogOsobljaComponent } from '../tabela-medicinskog-osoblja/tabela-medicinskog-osoblja.component';
 
 
@@ -170,7 +170,7 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
     this.registerForm.controls['radnoVreme'].setValue(this.radnoVremeString)
     this.registerForm.controls['tipKorisnika'].setValue(this.selectedTip)
     this.registerForm.controls['klinika'].setValue(this.adminKlinike.klinika)
-    
+
     this.loading = true;
 
     if (this.selectedTip == "Lekar") {

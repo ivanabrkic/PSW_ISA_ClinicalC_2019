@@ -42,15 +42,16 @@ import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dija
 import {MatDialogModule} from '@angular/material/dialog';
 import { KreiranjeLekovaComponent } from './modules/objects/adminkc/kreiranje-lekova/kreiranje-lekova.component';
 import { NotFoundComponent } from './home/not-found/not-found.component';
-import { KlinikaService } from './services/klinika-service/klinika.service';
-import { LoginService } from './services/login-and-register-service/login.service';
-import { RegisterService } from './services/login-and-register-service/register.service';
+import { KlinikaService } from './modules/shared/services/klinika-service/klinika.service';
+import { LoginService } from './modules/shared/services/login-and-register-service/login.service';
+import { RegisterService } from './modules/shared/services/login-and-register-service/register.service';
 import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/adminkc/registracija-administratora-klinike/registracija-administratora-klinike.component';
-import { AdminKlinikeService } from './services/admin-klinike-service/admin-klinike.service';
-import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/zdravstveni-karton.service';
-import { PacijentService } from './services/pacijent-service/pacijent.service';
-import { PoseteService } from './services/posete-service/posete.service';
+import { AdminKlinikeService } from './modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { ZdravstveniKartonService } from './modules/shared/services/zdravstveni-karton-service/zdravstveni-karton.service';
+import { PacijentService } from './modules/shared/services/pacijent-service/pacijent.service';
+import { PoseteService } from './modules/shared/services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
+import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-sifre.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
-    KreiranjeLekovaComponent
+    KreiranjeLekovaComponent,
+    PromenaSifreComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -112,6 +114,7 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
       { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
       { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
+      { path: 'promenaLozinke', component: PromenaSifreComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},

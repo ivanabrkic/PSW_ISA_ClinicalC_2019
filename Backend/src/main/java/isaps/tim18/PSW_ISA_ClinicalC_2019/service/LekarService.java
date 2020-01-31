@@ -50,6 +50,7 @@ public class LekarService {
         p.setPrezime(lekar.getPrezime());
         p.setKontaktTelefon(lekar.getKontaktTelefon());
         p.setLozinka(lekar.getLozinka());
+        p.setPrvoLogovanje(lekar.isPrvoLogovanje());
         lekarRepository.save(p);
         return p;
     }

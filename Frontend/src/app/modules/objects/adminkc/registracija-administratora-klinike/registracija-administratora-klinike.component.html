@@ -73,6 +73,17 @@
                         </mat-error>
                       </mat-form-field>
                     </div>
+                    <div class="col-md-5">
+                      <mat-form-field class="example-full-width">
+                        <input placeholder="Sifra" matInput type="password" [(ngModel)]="helperClass.lozinka" class="mat-form-control"
+                               formControlName="lozinka" [ngClass]="{ 'is-invalid': submitted && f.lozinka.errors }">
+                        <mat-error *ngIf="submitted && f.lozinka?.errors" class="invalid-feedback">
+                          <div *ngIf="f.lozinka?.errors.required">Unos lozinke je obavezan</div>
+                          <div *ngIf="f.lozinka?.errors.minlength">Lozinka mora imati minimalno 8 karaktera</div>
+                          <div *ngIf="f.lozinka?.errors.pattern">Lozinka mora imati minimalno jedan broj i jedan karakter</div>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
                     </div>
                     <div class="row">
                       <div class="col-md-5">
@@ -84,18 +95,8 @@
                           </mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-5">
-                        <mat-form-field class="example-full-width">
-                          <input placeholder="Sifra" matInput type="password" [(ngModel)]="helperClass.lozinka" class="mat-form-control"
-                                 formControlName="lozinka" [ngClass]="{ 'is-invalid': submitted && f.lozinka.errors }">
-                          <mat-error *ngIf="submitted && f.lozinka?.errors" class="invalid-feedback">
-                            <div *ngIf="f.lozinka?.errors.required">Unos lozinke je obavezan</div>
-                            <div *ngIf="f.lozinka?.errors.minlength">Lozinka mora imati minimalno 8 karaktera</div>
-                            <div *ngIf="f.lozinka?.errors.pattern">Lozinka mora imati minimalno jedan broj i jedan karakter</div>
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class = "row"></div>
+                    </div>
+                    <div class = "row">
                       <div class="col-md-5" >
                         <select [(ngModel)]="helperClass.klinika" formControlName="klinika">
                           <option>Odaberite kliniku</option>

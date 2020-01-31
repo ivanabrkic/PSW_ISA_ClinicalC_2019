@@ -1,7 +1,9 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.VerificationToken;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KorisnikRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +11,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class KorisnikService {
+public class KorisnikService implements IUserService{
 
     @Autowired
     private KorisnikRepository korisnikRepository;
+
+    @Autowired
+    private VerificationTokenRepository tokenRepository;
 
     public List<Korisnik> findAll() {
         return korisnikRepository.findAll();
@@ -60,6 +65,7 @@ public class KorisnikService {
             k.setPrezime(korisnik.getPrezime());
             k.setKontaktTelefon(korisnik.getKontaktTelefon());
             k.setLozinka(korisnik.getLozinka());
+            k.setPrvoLogovanje(korisnik.isPrvoLogovanje());
             korisnikRepository.save(k);
             return k;
         }
@@ -75,5 +81,21 @@ public class KorisnikService {
             return k;
         }
         return null;
+    }
+
+    @Override
+    public Korisnik getKorisnik(String verificationToken) {
+        return tokenRepository.findByToken(verificationToken).getKorisnik();
+    }
+
+    @Override
+    public void createVerificationToken(Korisnik korisnik, String token) {
+        VerificationToken myToken = new VerificationToken(token, korisnik);
+        tokenRepository.save(myToken);
+    }
+
+    @Override
+    public VerificationToken getVerificationToken(String VerificationToken) {
+        return tokenRepository.findByToken(VerificationToken);
     }
 }

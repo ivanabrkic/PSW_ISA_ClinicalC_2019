@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AdministratorKlinike} from '../../../../models/admink/administrator-klinike';
 import {first} from 'rxjs/operators';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   templateUrl: './admin-klinike-izmena.component.html',

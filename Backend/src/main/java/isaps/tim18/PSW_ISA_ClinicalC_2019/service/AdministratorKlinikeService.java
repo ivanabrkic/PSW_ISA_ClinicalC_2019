@@ -56,6 +56,7 @@ public class AdministratorKlinikeService {
         p.setPrezime(administratorKlinike.getPrezime());
         p.setKontaktTelefon(administratorKlinike.getKontaktTelefon());
         p.setLozinka(administratorKlinike.getLozinka());
+        p.setPrvoLogovanje(administratorKlinike.isPrvoLogovanje());
 
         administratorKlinikeRepository.save(p);
 

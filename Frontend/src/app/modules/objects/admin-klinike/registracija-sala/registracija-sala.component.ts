@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
 import { first } from 'rxjs/operators';
 import { Sala } from 'src/app/models/sala/sala';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   templateUrl: './registracija-sala.component.html',

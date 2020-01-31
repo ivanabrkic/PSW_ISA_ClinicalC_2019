@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Klinika} from '../../models/klinika/klinika';
+import {Klinika} from '../../../../models/Klinika/klinika';
 import { Sala } from 'src/app/models/sala/sala';
 import { Pregled } from 'src/app/models/pregled/pregled';
 import { Operacija } from 'src/app/models/operacija/operacija';

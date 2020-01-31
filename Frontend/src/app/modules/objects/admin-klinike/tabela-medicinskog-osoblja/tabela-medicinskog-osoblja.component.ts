@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
-import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
-import { LekarService } from 'src/app/services/lekar-service/lekar.service';
+import { MedicinskaSestraService } from 'src/app/modules/shared/services/medicinska-sestra-service/medicinska-sestra.service';
+import { LekarService } from 'src/app/modules/shared/services/lekar-service/lekar.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DetaljiComponent } from '../detalji/detalji.component';
 import { RegistracijaMedicinskogOsobljaComponent } from '../registracija-medicinskog-osoblja/registracija-medicinskog-osoblja.component';

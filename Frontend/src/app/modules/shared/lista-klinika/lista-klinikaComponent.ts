@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Klinika} from '../../../models/klinika/klinika';
 import {Observable, Subscription} from 'rxjs';
-import { ListaKlinikaService } from 'src/app/services/lista-klinika-service/lista-klinika.service';
+import { ListaKlinikaService } from 'src/app/modules/shared/services/lista-klinika-service/lista-klinika.service';
 
 @Component({
   selector: 'app-lista-klinika',

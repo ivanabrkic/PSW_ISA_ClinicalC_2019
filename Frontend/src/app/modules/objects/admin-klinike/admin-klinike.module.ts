@@ -11,7 +11,7 @@ import { AdminKlinikeIzmenaComponent } from './admin-klinike-izmena/admin-klinik
 import { AdminKlinikePregledComponent } from './admin-klinike-pregled/admin-klinike-pregled.component';
 import { IzmenaProfilKlinikeComponent } from './izmena-profil-klinike/izmena-profil-klinike.component';
 import { RegistracijaMedicinskogOsobljaComponent } from './registracija-medicinskog-osoblja/registracija-medicinskog-osoblja.component';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
 import { TabelaMedicinskogOsobljaComponent } from './tabela-medicinskog-osoblja/tabela-medicinskog-osoblja.component';
 import { DetaljiComponent } from './detalji/detalji.component';
 import { MatIconModule} from '@angular/material/icon';
@@ -20,8 +20,8 @@ import { RadniKalendarSaleModule } from '../../shared/radni-kalendar-sale/radni-
 import { RegistracijaSalaComponent } from './registracija-sala/registracija-sala.component';
 
 @NgModule({
-  declarations: [SidebarAdminKlinikeComponent, 
-                AdminKlinikeIzmenaComponent, 
+  declarations: [SidebarAdminKlinikeComponent,
+                AdminKlinikeIzmenaComponent,
                 AdminKlinikePregledComponent,
                 IzmenaProfilKlinikeComponent,
                 RegistracijaMedicinskogOsobljaComponent,
@@ -41,7 +41,7 @@ import { RegistracijaSalaComponent } from './registracija-sala/registracija-sala
     AngularFontAwesomeModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatSelectModule, 
+    MatSelectModule,
     MatCheckboxModule,
     MatIconModule,
     RadniKalendarSaleModule,
@@ -58,14 +58,14 @@ import { RegistracijaSalaComponent } from './registracija-sala/registracija-sala
     RegistracijaSalaComponent
   ],
   providers: [AdminKlinikeService],
-  exports:   [SidebarAdminKlinikeComponent, 
-              AdminKlinikeIzmenaComponent, 
-              AdminKlinikePregledComponent, 
+  exports:   [SidebarAdminKlinikeComponent,
+              AdminKlinikeIzmenaComponent,
+              AdminKlinikePregledComponent,
               IzmenaProfilKlinikeComponent,
               TabelaMedicinskogOsobljaComponent],
-  bootstrap: [SidebarAdminKlinikeComponent, 
-              AdminKlinikeIzmenaComponent, 
-              AdminKlinikePregledComponent, 
+  bootstrap: [SidebarAdminKlinikeComponent,
+              AdminKlinikeIzmenaComponent,
+              AdminKlinikePregledComponent,
               IzmenaProfilKlinikeComponent,
               TabelaMedicinskogOsobljaComponent]
 })

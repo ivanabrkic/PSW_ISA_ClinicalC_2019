@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {HelperRejectedMail} from '../../models/HelperRejectedMail/helper-rejected-mail';
+import {HelperRejectedMail} from '../../../../models/HelperRejectedMail/helper-rejected-mail';
 import { Korisnik } from 'src/app/models/korisnik/korisnik';
+import {Observable} from "rxjs";
+import {AdminKc} from "../../../../models/adminkc/admin-kc";
 
 
 
@@ -45,5 +47,9 @@ export class KorisnikService {
 
   getNeregistrovaneKorisnike() {
     return this.http.get('/server/korisnik/neregistrovani');
+  }
+
+  public getUlogovanKorisnik(): Observable<Korisnik> {
+    return this.http.get<Korisnik>('/server/korisnik/ulogovanKorisnik', httpOptions);
   }
 }

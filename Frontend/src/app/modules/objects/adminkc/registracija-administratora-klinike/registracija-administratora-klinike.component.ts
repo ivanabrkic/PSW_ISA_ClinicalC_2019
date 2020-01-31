@@ -3,8 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import { HelperUserClass } from 'src/app/helpers/helper-user-class';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
-import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
 
 @Component({
   selector: 'app-registracija-administratora-klinike',
@@ -65,6 +65,7 @@ export class RegistracijaAdministratoraKlinikeComponent implements OnInit {
     this.loading = true;
     this.AdminService.save(this.helperClass).pipe(first()).subscribe(result => {
         alert('Prosledjivanje zahteva');
+        result.prvoLogovanje = true;
       },
       error => {
         this.router.navigate(['administratorKc'])

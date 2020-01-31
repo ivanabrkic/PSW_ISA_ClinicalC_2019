@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Poseta } from 'src/app/models/poseta/poseta';
-import { PoseteService } from 'src/app/services/posete-service/posete.service';
-import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
+import { PoseteService } from 'src/app/modules/shared/services/posete-service/posete.service';
+import { PacijentService } from 'src/app/modules/shared/services/pacijent-service/pacijent.service';
 import { Pacijent } from 'src/app/models/pacijent/pacijent';
 
 @Component({
@@ -14,7 +14,7 @@ import { Pacijent } from 'src/app/models/pacijent/pacijent';
     private posete: Poseta[];
 
     private pacijent: Pacijent=new Pacijent();
-  
+
     constructor(private poseteService: PoseteService,private pacijentService: PacijentService) {
       this.pacijentService.getUlogovanKorisnik()
       .subscribe(
@@ -29,8 +29,8 @@ import { Pacijent } from 'src/app/models/pacijent/pacijent';
        );
 
     }
-  
- 
+
+
     ngOnInit() {
       this.pacijentService.getUlogovanKorisnik()
       .subscribe(
@@ -46,4 +46,3 @@ import { Pacijent } from 'src/app/models/pacijent/pacijent';
 
     }
   }
-  
