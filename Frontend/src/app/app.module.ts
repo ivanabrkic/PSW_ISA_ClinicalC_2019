@@ -51,7 +51,14 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
+
 import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
+
+// search module
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { PretragafilterFilter } from './helpers/filter';
+import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
+
 
 @NgModule({
   declarations: [
@@ -86,10 +93,14 @@ import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-rece
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
     KreiranjeLekovaComponent,
-    OveraRecepataComponent
+    OveraRecepataComponent,
+    ListaLekaraComponent,
+    PretragafilterFilter
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
+    Ng2SearchPipeModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -129,6 +140,7 @@ import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-rece
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
        {path: 'listaPoseta', component: PoseteComponent},
+       {path:'listaLekara',component:ListaLekaraComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],
