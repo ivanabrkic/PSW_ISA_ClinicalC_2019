@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -10,7 +10,7 @@ const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/jso
 
 export class ZdravstveniKartonService {
   constructor(private http: HttpClient) {
-    
+
   }
 
   public get(id:number): Observable<String[]> {

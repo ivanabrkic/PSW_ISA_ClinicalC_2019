@@ -51,6 +51,7 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
+import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
-    KreiranjeLekovaComponent
+    KreiranjeLekovaComponent,
+    OveraRecepataComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -112,6 +114,7 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
       { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
       { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
+      { path: 'overaRecepta', component: OveraRecepataComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
