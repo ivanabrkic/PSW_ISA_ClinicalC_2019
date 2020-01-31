@@ -62,6 +62,7 @@ public class KlinikaController {
     @PostMapping(value = "/getSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Sala>> getSale(@RequestBody Long id){
 
+        System.out.println(id);
         List<Sala> listaSala =  klinikaService.findSale(id);
 
         return new ResponseEntity<>(listaSala, HttpStatus.OK);

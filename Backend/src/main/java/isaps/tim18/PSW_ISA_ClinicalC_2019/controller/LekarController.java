@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,14 @@ public class LekarController {
     public ResponseEntity<List<Lekar>> getAllLekari() {
 
         List<Lekar> lekari = lekarService.findAll();
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/klinika", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Lekar>> getAllLekariKlinike(@RequestBody Klinika k) {
+
+        List<Lekar> lekari = lekarService.findAllByKlinika(k);
 
         return new ResponseEntity<>(lekari, HttpStatus.OK);
     }
