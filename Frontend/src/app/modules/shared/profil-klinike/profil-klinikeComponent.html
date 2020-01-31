@@ -1,0 +1,84 @@
+<app-patient-sidebar></app-patient-sidebar>
+<div class="content-container">
+  <div class="container-fluid">
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">Klinika</h4>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Naziv : {{klinika.naziv}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Opis : TODO </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Cena pregleda : TODO </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Cena operacije : TODO </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Email : {{klinika.email}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Telefon : {{klinika.kontaktTelefon}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Adresa : {{klinika.adresa}} </p>
+                      <p> Grad : {{klinika.grad}} </p>
+                      <p> Drzava : {{klinika.drzava}} </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p> Ocena : {{klinika.ocena}} </p>
+                    </div>
+                  </div>
+    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p> <button class="form-control" (click)="terminiNavigate($event)">Prikazi slobodne termine (TODO)</button></p>
+                            <p> <button class="form-control" (click)="lekariNavigate($event)">Prikazi lekare</button></p>
+                            <p> <button class="form-control" (click)="saleNavigate($event)">Prikazi sale (TODO)</button></p>
+                        </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="javascript:void(0)">
+                  <img class="img-fluid" src="./assets/img/ambulance.png"/>
+                </a>
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray">Klinika</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

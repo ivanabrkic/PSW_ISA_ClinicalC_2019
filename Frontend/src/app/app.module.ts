@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home';
@@ -55,6 +56,7 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { PretragafilterFilter } from './helpers/filter';
 import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
+import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,8 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
     DijalogOdbijanjeZahtevaComponent,
     KreiranjeLekovaComponent,
     ListaLekaraComponent,
-    PretragafilterFilter
+    PretragafilterFilter,
+    ProfilKlinikeComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -107,6 +110,7 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
     HttpClientModule,
     AdminKlinikeModule,
     MatDialogModule,
+    CommonModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
@@ -134,6 +138,7 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
        {path: 'listaPoseta', component: PoseteComponent},
        {path:'listaLekara',component:ListaLekaraComponent},
+       {path:'profilKlinike',component:ProfilKlinikeComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],

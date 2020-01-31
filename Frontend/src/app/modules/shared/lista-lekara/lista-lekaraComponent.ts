@@ -16,6 +16,7 @@ import { LekarService } from 'src/app/services/lekar-service/lekar.service';
 export class ListaLekaraComponent implements OnInit {
   private klinika: Klinika;
   private lekari: Lekar[];  
+  private terminiSakriveni:boolean=false;
 
   constructor(private listaLekaraService: LekarService) {
   }
@@ -29,7 +30,12 @@ export class ListaLekaraComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.klinika=history.state.data;
+    console.log(history.state.testdatum);
+    this.klinika=history.state.klinika;
+    if(history.state.testdatum==0)
+      this.terminiSakriveni=true;
+    else
+      this.terminiSakriveni=false;
     console.log(this.klinika);
     this.getLekari();
     console.log(this.lekari);
