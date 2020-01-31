@@ -51,6 +51,10 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
+// search module
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { PretragafilterFilter } from './helpers/filter';
+import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
 
 @NgModule({
   declarations: [
@@ -84,10 +88,13 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
-    KreiranjeLekovaComponent
+    KreiranjeLekovaComponent,
+    ListaLekaraComponent,
+    PretragafilterFilter
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
+    Ng2SearchPipeModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -126,6 +133,7 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
        {path: 'listaPoseta', component: PoseteComponent},
+       {path:'listaLekara',component:ListaLekaraComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],
