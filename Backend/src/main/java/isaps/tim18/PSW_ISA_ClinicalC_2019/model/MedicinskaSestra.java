@@ -18,6 +18,9 @@ public class MedicinskaSestra extends Korisnik{
     @Column
     private float ocena;
 
+    @Column
+    private String specijalizacija;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="klinika_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -31,6 +34,13 @@ public class MedicinskaSestra extends Korisnik{
         super(korisnik);
     }
 
+    public String getSpecijalizacija() {
+        return specijalizacija;
+    }
+
+    public void setSpecijalizacija(String specijalizacija) {
+        this.specijalizacija = specijalizacija;
+    }
 
     public Klinika getKlinika() {
         return klinika;

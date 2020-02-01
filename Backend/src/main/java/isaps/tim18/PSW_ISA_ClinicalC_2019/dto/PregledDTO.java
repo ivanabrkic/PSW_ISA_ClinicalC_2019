@@ -11,6 +11,12 @@ public class PregledDTO {
 
     private String jboLekara;
 
+    private String tipPregleda;
+
+    private Long tipId;
+
+    private Long salaId;
+
     public PregledDTO() {
     }
 
@@ -20,6 +26,30 @@ public class PregledDTO {
         this.pocetak = pocetak;
         this.kraj = kraj;
         this.jboLekara = jboLekara;
+    }
+
+    public Long getSalaId() {
+        return salaId;
+    }
+
+    public void setSalaId(Long salaId) {
+        this.salaId = salaId;
+    }
+
+    public String getTipPregleda() {
+        return tipPregleda;
+    }
+
+    public void setTipPregleda(String tipPregleda) {
+        this.tipPregleda = tipPregleda;
+    }
+
+    public Long getTipId() {
+        return tipId;
+    }
+
+    public void setTipId(Long tipId) {
+        this.tipId = tipId;
     }
 
     public String getJboPacijenta() {
