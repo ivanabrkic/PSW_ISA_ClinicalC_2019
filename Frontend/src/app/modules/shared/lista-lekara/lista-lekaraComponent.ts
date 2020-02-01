@@ -30,9 +30,10 @@ export class ListaLekaraComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(history.state.testdatum);
+    console.log(history.state)
+    console.log(history.state.datum);
     this.klinika=history.state.klinika;
-    if(history.state.testdatum==0)
+    if(history.state.datum==0)
       this.terminiSakriveni=true;
     else
       this.terminiSakriveni=false;

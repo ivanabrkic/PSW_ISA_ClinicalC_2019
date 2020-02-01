@@ -1,3 +1,38 @@
+<div class="topnav">
+  <div class="search-container">
+    <form action="/action_page.php">
+      <table class="table">
+        <tr>
+          <td><input class="form-control" type="text" placeholder="Ime" name="searchIme"  [(ngModel)]="searchIme"></td>
+          <td><input class="form-control" type="text" placeholder="Prezime" name="searchText"  [(ngModel)]="searchPrezime"></td>
+          <td><select class="form-control"  name="searchOcena" [(ngModel)]="searchOcena" ng-init="searchOcena = searchOcena || ocene[0].value" >
+            <option  value="0">Ocena </option>
+            <option value="5">5</option>
+            <option value="4">4+</option>
+            <option value="3">3+</option>
+            <option value="2">2+</option>
+            <option value="1">1+</option>
+        </select>
+      </td>
+      <td><select *ngIf="terminiSakriveni" class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  >
+        <option value="">Tip pregleda</option>
+        <option value="one">Zubar</option>
+        <option value="two">Psiholog</option>
+      </select>
+  </td>
+  <td><mat-form-field *ngIf="terminiSakriveni">
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+    </td>
+        </tr>
+        <!--button type="submit"><i class="fa fa-search"></i></!--button-->
+      </table>
+    </form>
+  </div>
+</div>
+
 <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -6,41 +41,24 @@
             <h4 class="card-title ">Lista lekara klinike {{klinika.naziv}}</h4>
           </div>
           <div class="card-body">
-            <div *ngIf="!terminiSakriveni" class="table-responsive">
+
+            <div  class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
                   <th>Ime</th>
                   <th>Prezime</th>
                   <th>Ocena</th>
-              
+                  <th *ngIf="!terminiSakriveni">Slobodni termini za datum</th>
                 </thead>
 
                 <tbody>
-                  <tr *ngFor="let lekar of lekari ">
+                  <tr *ngFor="let lekar of lekari | pretragafilterLekari:searchIme:searchPrezime:searchOcena:searchPregled" >
                     <td>{{lekar.ime}}</td>
                     <td>{{lekar.prezime}} </td>
                     <td>{{lekar.ocena}} </td>
-                   
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div *ngIf="terminiSakriveni" class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-                  <th>Ime</th>
-                  <th>Prezime</th>
-                  <th>Ocena</th>
-                  
-                </thead>
-
-                <tbody>
-                  <tr *ngFor="let lekar of lekari ">
-                    <td>{{lekar.ime}}</td>
-                    <td>{{lekar.prezime}} </td>
-                    <td>{{lekar.ocena}} </td>
-                   
+                    <td *ngIf="!terminiSakriveni"><select>
+                      <option>TODO</option>
+                    </select></td>
                   </tr>
                 </tbody>
               </table>

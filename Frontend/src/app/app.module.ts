@@ -57,6 +57,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { PretragafilterFilter } from './helpers/filter';
 import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
 import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
+import { PretragafilterLekari } from './helpers/filterLekari';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,8 @@ import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-k
     KreiranjeLekovaComponent,
     ListaLekaraComponent,
     PretragafilterFilter,
-    ProfilKlinikeComponent
+    ProfilKlinikeComponent,
+    PretragafilterLekari
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -111,6 +114,8 @@ import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-k
     AdminKlinikeModule,
     MatDialogModule,
     CommonModule,
+    MatDatepickerModule,        // <----- import(must)
+    MatNativeDateModule,        // <----- import for date formating(optional)
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},

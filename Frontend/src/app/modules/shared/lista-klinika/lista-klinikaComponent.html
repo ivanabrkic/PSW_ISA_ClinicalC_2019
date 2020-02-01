@@ -11,7 +11,11 @@
       <form action="/action_page.php">
         <table class="table">
           <tr>
-            <td><input class="form-control" type="text" placeholder="Datum" name="searchDatum"  [(ngModel)]="searchDatum"></td>
+            <td><mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field></td>
             <td><input class="form-control" type="text" placeholder="Naziv" name="searchText"  [(ngModel)]="searchText"></td>
             <td><input class="form-control" type="text" placeholder="Grad" name="searchGrad"  [(ngModel)]="searchGrad"></td>
           </tr>
