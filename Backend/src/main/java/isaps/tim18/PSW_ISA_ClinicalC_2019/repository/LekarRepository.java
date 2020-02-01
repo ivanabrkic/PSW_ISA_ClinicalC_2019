@@ -26,6 +26,6 @@ public interface LekarRepository extends JpaRepository<Lekar, Long> {
 
     Lekar findByEmailAndLozinka(String email, String lozinka);
 
-    List<Lekar> findByKlinika(Klinika klinika);
+    List<Lekar> findByKlinika(Klinika k);
 
 }
