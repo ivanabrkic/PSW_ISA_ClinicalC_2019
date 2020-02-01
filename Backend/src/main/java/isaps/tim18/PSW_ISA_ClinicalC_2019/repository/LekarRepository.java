@@ -27,7 +27,7 @@ public interface LekarRepository extends JpaRepository<Lekar, Long> {
 
     Lekar findByEmailAndLozinka(String email, String lozinka);
 
-    List<Lekar> findByKlinika(Klinika klinika);
+    List<Lekar> findByKlinika(Klinika k);
 
     @Query(value = "SELECT lekar_id FROM Lekar AS l WHERE  " +
             " l.radno_vreme = ?2  AND klinika_id = ?1 AND ( specijalizacija = ?3 OR specijalizacija = 'Anesteziolog')", nativeQuery = true)

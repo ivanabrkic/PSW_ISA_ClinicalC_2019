@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home';
@@ -52,6 +53,17 @@ import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
 
+import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
+
+// search module
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { PretragafilterFilter } from './helpers/filter';
+import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
+import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
+import { PretragafilterLekari } from './helpers/filterLekari';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,10 +96,16 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
-    KreiranjeLekovaComponent
+    KreiranjeLekovaComponent,
+    OveraRecepataComponent,
+    ListaLekaraComponent,
+    PretragafilterFilter,
+    ProfilKlinikeComponent,
+    PretragafilterLekari
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
+    Ng2SearchPipeModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -101,6 +119,9 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
     AdminKlinikeModule,
     MatDialogModule,
     MatDatepickerModule,
+    CommonModule,
+    MatDatepickerModule,        
+    MatNativeDateModule,       
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
@@ -113,6 +134,7 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
       { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
       { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
+      { path: 'overaRecepta', component: OveraRecepataComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
@@ -127,6 +149,8 @@ import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/ra
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
        {path: 'listaPoseta', component: PoseteComponent},
+       {path:'listaLekara',component:ListaLekaraComponent},
+       {path:'profilKlinike',component:ProfilKlinikeComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],

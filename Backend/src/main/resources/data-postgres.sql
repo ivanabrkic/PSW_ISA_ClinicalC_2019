@@ -21,6 +21,7 @@ insert into sala (naziv, broj, klinika_id) values ('Mala sala', '2A', 2);
 
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena, specijalizacija) values (1, 33, 1, 'Prva smena od 8:00 do 16:00', 2.3, 'Kardiolog');
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena, specijalizacija) values (2, 54, 1, 'Prva smena od 8:00 do 16:00' , 4.5, 'Zubar');
+
 insert into administrator_klinike (admink_id, klinika_id) values (4, 1);
 insert into administrator_klinike (admink_id, klinika_id) values (5, 2);
 insert into pacijent (pacijent_id) values (6);
@@ -68,3 +69,18 @@ insert into zahtev (id_stavke, stavka, tip_posete, posiljalac_jbo, posiljalac_im
 (6, 'Ultrazvuk srca', 'Pregled', '1234567891111', 'Ivana Brkic', '8766566541111', '30.1.2020.', '13:00', '13:15', 'Nema dodatnih informacija.', 1);
 insert into zahtev (id_stavke, stavka, tip_posete, posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
 (2, 'Ugradnja stenta', 'Operacija', '1234567891111', 'Ivana Brkic', '1231231231111', '3.2.2020.', '12:15', '16:00', 'U pitanju je operacija na srcu. Potreban mi je anesteziolog da izvršim operaciju.', 1);
+
+insert into lekovi(sifra, naziv) values ('ry71h', 'bromazemam');
+insert into lekovi(sifra, naziv) values ('r451h', 'sinacilin');
+insert into lekovi(sifra, naziv) values ('r211h', 'gentamicin');
+
+insert into recept(broj, overen, pacijent_id) values (23, false, 3);
+insert into recept(broj, overen, pacijent_id) values (29, false, 6);
+insert into recept(broj, overen, pacijent_id) values (28, false, 6);
+
+insert into recept_lekovi(recept_id, lekovi_id) values (1, 1);
+insert into recept_lekovi(recept_id, lekovi_id) values (1, 2);
+insert into recept_lekovi(recept_id, lekovi_id) values (1, 3);
+insert into recept_lekovi(recept_id, lekovi_id) values (2, 2);
+insert into recept_lekovi(recept_id, lekovi_id) values (3, 3);
+insert into recept_lekovi(recept_id, lekovi_id) values (3, 1);

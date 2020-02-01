@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
@@ -61,6 +62,7 @@ public class LekarController {
         return new ResponseEntity<>(lekari, HttpStatus.OK);
     }
 
+
     @PostMapping(value = "/getSlobodniLekari", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Lekar>> getSlobodniLekari(@RequestBody Zahtev zahtev) throws Exception {
 
@@ -76,4 +78,13 @@ public class LekarController {
 
         return new ResponseEntity<>(lekarSlobodan, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/klinika", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Lekar>> getAllLekariKlinike(@RequestBody Klinika k) {
+
+        List<Lekar> lekari = lekarService.findAllByKlinika(k);
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    }
+
 }
