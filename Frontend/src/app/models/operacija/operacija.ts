@@ -7,19 +7,12 @@ import { identifierModuleUrl } from '@angular/compiler';
 
 export class Operacija{
     id:number;
-    jboPacijenta:String;
-    jboLekara:String[];
+    pacijent:String;
+    lekari:Lekar[];
     pocetak:String;
     kraj:String;
     datum:String;
     departman:String;
-    dan:number;
-    mesec:number;
-    godina:number;
-    minut1:number;
-    sat1:number;
-    sat2:number;
-    minut2:number;
 
     public Operacija(){
     }

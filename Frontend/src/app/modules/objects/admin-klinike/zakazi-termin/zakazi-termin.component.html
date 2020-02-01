@@ -7,34 +7,49 @@
         <div class="container-fluid">
             <div style="width: 400px" class="main-content">
                 <div class="row">
-                    <form style="width: 300px" (ngSubmit)="onSubmit()">
-                        <div class="card">
-                            <div class="card-header card-header-danger">
-                                <h5 class="card-title">Lista lekara slobodnih od {{sala.pocetakSlobodna}} -
-                                    {{sala.krajSlobodna}} / {{sala.datumSlobodna}}
-                                </h5>
+                    <div class="card">
+                        <div class="card-header card-header-danger">
+                            <h5 class="card-title">Lista lekara slobodnih od {{sala.pocetakSlobodna}} -
+                                {{sala.krajSlobodna}} / {{sala.datumSlobodna}}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-select *ngIf="tip == 'Pregled'" #s (selectionChange)="onChange(s.value)"
+                                        [(value)]="selectedLekar">
+                                        <mat-option *ngFor="let l of slobodniLekari" [value]="l">{{l.jbo}} -
+                                            {{l.ime}} {{l.prezime}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-list *ngIf="tip == 'Operacija'">
+
+                                        <mat-list-item>
+                                            <mat-checkbox [(ngModel)]="master_checked"
+                                                [(indeterminate)]="master_indeterminate" (change)="master_change()">
+                                                <b>Obeleži sve</b></mat-checkbox>
+                                        </mat-list-item>
+
+                                        <mat-list-item *ngFor="let lekar of checkbox_list">
+                                            <mat-checkbox [(ngModel)]="lekar.checked" [disabled]="lekar.disabled"
+                                                [labelPosition]="lekar.labelPosition" (change)="list_change()">
+                                                {{ lekar.jbo }} - {{lekar.ime}} {{lekar.prezime}}</mat-checkbox>
+                                        </mat-list-item>
+                                    </mat-list>
+                                </div>
+
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                            <mat-select *ngIf="tip == 'Pregled'" #s
-                                                (selectionChange)="onChange(s.value)" [(value)]="selectedLekar">
-                                                <mat-option *ngFor="let l of slobodniLekari" [value]="l">{{l.jbo}} -
-                                                    {{l.ime}} {{l.prezime}}
-                                                </mat-option>
-                                            </mat-select>
-                                            <mat-selection-list *ngIf="tip == 'Operacija'" #lekari>
-                                                <mat-list-option [selected]="l.jbo == operator" [disabled]="l.jbo == operator" *ngFor="let l of slobodniLekari">
-                                                    {{l.jbo}} - {{l.ime}} {{l.prezime}} </mat-list-option>
-                                            </mat-selection-list>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                    <button mat-raised-button type="submit" (click)="onSubmit()"
+                                        class="btn btn-primary pull-right">Zakaži
+                                        termin</button>
                                 </div>
                             </div>
                         </div>
-                        <br />
-                        <button mat-raised-button type="submit" class="btn btn-primary pull-right">Zakaži
-                            termin</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
