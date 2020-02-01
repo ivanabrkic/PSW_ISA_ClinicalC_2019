@@ -18,7 +18,6 @@ insert into sala (naziv, broj, klinika_id) values ('Mala sala', '2A', 1);
 insert into sala (naziv, broj, klinika_id) values ('Velika sala', '1A', 2);
 insert into sala (naziv, broj, klinika_id) values ('Mala sala', '2A', 2);
 
-
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (1, 33, 1, 'Ponedeljak - 10:00 - 14:00/Utorak - 7:00:16:00/Sreda - 12:00 - 20:00/Četvrtak - 19:00 - 1:00/Petak - 13:00 - 21:00', 2.3);
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena) values (2, 54, 1, 'Ponedeljak - 12:00 - 14:00/Utorak - 9:00:17:00/Sreda - 13:00 - 21:00/Četvrtak - 20:00 - 1:00/Petak - 8:00 - 12:00', 4.5);
 insert into administrator_klinike (admink_id, klinika_id) values (4, 1);
@@ -57,3 +56,18 @@ insert into operacija (pocetak, kraj, datum_op, sat_op, minut_op, pacijent_id, l
 insert into operacija (datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('1.2.2020.', '13', '15', 7, 1, 2, 'Zubar');
 insert into operacija (pocetak, kraj, datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('13:00', '13:15', '1.2.2020.', '13', '00', 7, 2, 2, 'Ginekolog');
 insert into operacija (datum_op, sat_op, minut_op, pacijent_id, lekar_id, sala_id, departman) values ('1.2.2020.', '13', '15', 7, 2, 2, 'Ginekolog');
+
+insert into lekovi(sifra, naziv) values ('ry71h', 'bromazemam');
+insert into lekovi(sifra, naziv) values ('r451h', 'sinacilin');
+insert into lekovi(sifra, naziv) values ('r211h', 'gentamicin');
+
+insert into recept(broj, overen, pacijent_id) values (23, false, 3);
+insert into recept(broj, overen, pacijent_id) values (29, false, 6);
+insert into recept(broj, overen, pacijent_id) values (28, false, 6);
+
+insert into recept_lekovi(recept_id, lekovi_id) values (1, 1);
+insert into recept_lekovi(recept_id, lekovi_id) values (1, 2);
+insert into recept_lekovi(recept_id, lekovi_id) values (1, 3);
+insert into recept_lekovi(recept_id, lekovi_id) values (2, 2);
+insert into recept_lekovi(recept_id, lekovi_id) values (3, 3);
+insert into recept_lekovi(recept_id, lekovi_id) values (3, 1);

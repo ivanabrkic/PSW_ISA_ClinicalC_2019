@@ -1,0 +1,42 @@
+<app-sidebar-med-sestra></app-sidebar-med-sestra>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Neovereni recepti</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Broj</th>
+                <th>Pacijent</th>
+                <th>Lekovi</th>
+                <th></th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let recept of this.recepti" >
+                  <td><b>{{recept.broj}}</b></td>
+                  <td><b>{{recept.pacijent.jbo}}</b></td>
+                  <td><b *ngFor = "let lek of recept.lekovi">
+                    <span *ngIf="lek === recept.lekovi[recept.lekovi.length - 1]">{{lek.naziv}}</span>
+                    <span *ngIf="lek !== recept.lekovi[recept.lekovi.length - 1]">{{lek.naziv + ", "}}</span>
+                  </b></td>
+                  <td><button mat-raised-button (click)="Overi(recept)"
+                              class="btn btn-success">Overi</button></td>
+                  <td><button mat-raised-button (click)="Ponisti(recept)"
+                              class="btn btn-danger">Obriši</button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <app-radni-kalendar-sale></app-radni-kalendar-sale> -->
+  </div>
+</div>
