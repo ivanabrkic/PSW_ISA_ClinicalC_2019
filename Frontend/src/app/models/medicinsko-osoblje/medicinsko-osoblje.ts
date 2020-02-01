@@ -6,4 +6,5 @@ export class MedicinskoOsoblje extends Korisnik{
     ocena : number;
     radnoVreme : string;
     klinika: Klinika;
+    specijalizacija:String;
 }
