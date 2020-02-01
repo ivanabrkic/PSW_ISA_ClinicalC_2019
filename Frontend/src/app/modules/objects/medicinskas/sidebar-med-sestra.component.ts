@@ -15,7 +15,7 @@ export class SidebarMedSestraComponent implements OnInit {
 
   odjava(){
       this.loginService.odjava().subscribe(data => {
-        alert("Uspešno ste se odjavili!")
+        alert('Uspešno ste se odjavili!')
       });
   }
 

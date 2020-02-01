@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
@@ -38,6 +39,8 @@ public class LekarService {
     public List<Lekar> findAllByPrezime(String prezime) {
     return lekarRepository.findAllByPrezime(prezime);
     }
+
+    public List<Lekar> findAllByKlinika(Klinika k){return lekarRepository.findByKlinika(k);}
 
     public List<Lekar> findByImeAndPrezime(String ime, String prezime) {
     return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
