@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Klinika} from '../../../models/klinika/klinika';
 import {Observable, Subscription} from 'rxjs';
-import { ListaKlinikaService } from 'src/app/services/lista-klinika-service/lista-klinika.service';
+import { ListaKlinikaService } from 'src/app/modules/shared/services/lista-klinika-service/lista-klinika.service';
 import { Lekar } from 'src/app/models/lekar/lekar';
-import { LekarService } from 'src/app/services/lekar-service/lekar.service';
+import { LekarService } from 'src/app/modules/shared/services/lekar-service/lekar.service';
 
 @Component({
   selector: 'app-lista-lekara',
@@ -15,7 +15,7 @@ import { LekarService } from 'src/app/services/lekar-service/lekar.service';
 
 export class ListaLekaraComponent implements OnInit {
   private klinika: Klinika;
-  private lekari: Lekar[];  
+  private lekari: Lekar[];
   private terminiSakriveni:boolean=false;
 
   constructor(private listaLekaraService: LekarService) {
@@ -42,5 +42,5 @@ export class ListaLekaraComponent implements OnInit {
     console.log(this.lekari);
   }
 
- 
+
 }

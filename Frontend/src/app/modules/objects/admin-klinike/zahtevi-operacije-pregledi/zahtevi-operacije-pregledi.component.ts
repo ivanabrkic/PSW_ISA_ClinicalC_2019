@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
-import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   selector: 'app-zahtevi-operacije-pregledi',
@@ -16,14 +16,14 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
   izbor: boolean = false
   selectedZahtev:Zahtev;
 
-  constructor(private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
+  constructor(private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
         this.adminKlinike = ulogovanKorisnik;
         this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
         .subscribe(data => {
           this.zahtevi = data;
-        }); 
+        });
       });
 
 
@@ -36,7 +36,7 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
       this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
       .subscribe(data => {
         this.zahtevi = data;
-      }); 
+      });
     });
 
   }
@@ -51,7 +51,7 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
     this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
     .subscribe(data => {
         this.zahtevi = data;
-  });     
+  });
   }
 
 }
