@@ -2,6 +2,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,9 @@ public class LekarService {
 
     @Autowired
     private LekarRepository lekarRepository;
+
+    @Autowired
+    private CenovnikRepository cenovnikRepository;
 
     public List<Lekar> findAll() {
     return lekarRepository.findAll();
@@ -105,11 +109,9 @@ public class LekarService {
             vremeZakazivanja = "Druga smena od 16:00 do 00:00";
         }
 
-        System.out.println(vremeZakazivanja);
+        String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
 
-        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVreme(zahtev.getIdKlinike(), vremeZakazivanja);
-
-        System.out.println(radeUToVreme.size());
+        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVreme(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
 
         HashMap<Long, Long> slobodni = new HashMap<Long, Long>();
         for (Long id : radeUToVreme){
@@ -128,6 +130,15 @@ public class LekarService {
         }
 
         return odredjeni;
+    }
+
+    public boolean lekarSlobodan(Zahtev zahtev){
+        Lekar lekar = lekarRepository.findByJbo(zahtev.getPosiljalacJbo());
+        if (lekarRepository.imaOperacije(lekar.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()
+                && lekarRepository.imaPreglede(lekar.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()){
+            return true;
+        }
+        return false;
     }
 
 }

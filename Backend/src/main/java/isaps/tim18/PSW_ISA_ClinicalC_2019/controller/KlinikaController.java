@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
@@ -122,5 +123,31 @@ public class KlinikaController {
         List<Sala> listaSala =  klinikaService.findSaleSlobodneOd(zahtev);
 
         return new ResponseEntity<>(listaSala, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/zakaziPregled", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> zakaziPregled(@RequestBody PregledDTO pregled){
+
+        String zakazi =  klinikaService.zakaziPregled(pregled);
+        Message m = new Message(zakazi);
+
+        return new ResponseEntity<>(m, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/zakaziOperaciju", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> zakaziOperaciju(@RequestBody OperacijaDTO operacija){
+
+        String zakazi =  klinikaService.zakaziOperaciju(operacija);
+        Message m = new Message(zakazi);
+
+        return new ResponseEntity<>(m, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/removeZahtev", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> removeZahtev(@RequestBody Long idZahteva){
+
+        Boolean zahtevi =  klinikaService.removeZahtev(idZahteva);
+
+        return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
 }

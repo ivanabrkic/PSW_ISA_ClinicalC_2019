@@ -46,4 +46,12 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
     this.selectedZahtev = zahtev
   }
 
+  zahtevObradjenHandler(obradjen : boolean){
+    this.izbor = obradjen
+    this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
+    .subscribe(data => {
+        this.zahtevi = data;
+  });     
+  }
+
 }

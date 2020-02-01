@@ -12,6 +12,9 @@ public class Cenovnik {
     @Column(name="naziv",nullable = false)
     private String naziv;
 
+    @Column(name="specijalizacija",nullable = false)
+    private String specijalizacija;
+
     @Column(name="cena",nullable = false)
     private float cena;
 
@@ -26,6 +29,14 @@ public class Cenovnik {
         this.naziv = naziv;
         this.cena = cena;
         this.klinika = klinika;
+    }
+
+    public String getSpecijalizacija() {
+        return specijalizacija;
+    }
+
+    public void setSpecijalizacija(String specijalizacija) {
+        this.specijalizacija = specijalizacija;
     }
 
     public Long getId() {

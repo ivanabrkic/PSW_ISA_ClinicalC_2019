@@ -30,8 +30,8 @@ public interface LekarRepository extends JpaRepository<Lekar, Long> {
     List<Lekar> findByKlinika(Klinika klinika);
 
     @Query(value = "SELECT lekar_id FROM Lekar AS l WHERE  " +
-            " l.radno_vreme = ?2  AND klinika_id = ?1", nativeQuery = true)
-    List<Long> daLiJeRadnoVreme(Long idKlinike, String vremeZakazivanja);
+            " l.radno_vreme = ?2  AND klinika_id = ?1 AND ( specijalizacija = ?3 OR specijalizacija = 'Anesteziolog')", nativeQuery = true)
+    List<Long> daLiJeRadnoVreme(Long idKlinike, String vremeZakazivanja, String specijalizacija);
 
     @Query(value = "SELECT id FROM Operacija AS o WHERE o.lekar_id = ?1 " +
             " AND ( ( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) ) OR " +

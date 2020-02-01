@@ -13,7 +13,7 @@ public class Zahtev {
     private String tipPosete;
 
     @Column(name="id_stavke",nullable = false)
-    private String idStavke;
+    private Long idStavke;
 
     @Column(name="stavka",nullable = false)
     private String stavkaCenovnika;
@@ -45,11 +45,11 @@ public class Zahtev {
     public Zahtev() {
     }
 
-    public String getIdStavke() {
+    public Long getIdStavke() {
         return idStavke;
     }
 
-    public void setIdStavke(String idStavke) {
+    public void setIdStavke(Long idStavke) {
         this.idStavke = idStavke;
     }
 

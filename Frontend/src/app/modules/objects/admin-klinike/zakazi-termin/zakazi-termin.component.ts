@@ -1,14 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Lekar } from 'src/app/models/lekar/lekar';
-import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { MatDialogRef, MAT_DIALOG_DATA, MatListOption, MatTableDataSource } from '@angular/material';
-import { DetaljiComponent } from '../detalji/detalji.component';
 import { Sala } from 'src/app/models/sala/sala';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
-import { $ } from 'protractor';
-import { SelectionModel } from '@angular/cdk/collections';
 import { LekarCheckBox } from 'src/app/models/lekar/lekarCheckBox';
 import { Operacija } from 'src/app/models/operacija/operacija';
+import { Pregled } from 'src/app/models/pregled/pregled';
 
 @Component({
   selector: 'app-zakazi-termin',
@@ -22,6 +19,10 @@ export class ZakaziTerminComponent implements OnInit {
   selectedLekar: Lekar
   tip: String
   operator: String
+  pacijent: String
+  tipId: number
+  tipPregleda: String
+  idZahteva: number
 
   master_checked: boolean = false;
   master_indeterminate: boolean = false;
@@ -50,6 +51,10 @@ export class ZakaziTerminComponent implements OnInit {
     this.selectedLekar = this.slobodniLekari[0]
     this.tip = data.tip
     this.operator = data.jboLekara
+    this.pacijent = data.jboPacijenta
+    this.tipPregleda = data.tipPregleda
+    this.tipId = data.tipId
+    this.idZahteva = data.idZahteva
   }
 
   ngOnInit() {
@@ -93,7 +98,9 @@ export class ZakaziTerminComponent implements OnInit {
     }
   }
 
-  izabraniLekari : Lekar []
+  izabraniLekari: String[]
+
+  obradjen: boolean = true
 
   onSubmit(selected: any) {
 
@@ -101,32 +108,57 @@ export class ZakaziTerminComponent implements OnInit {
 
     if (this.tip == 'Operacija') {
       this.checkbox_list.forEach(element => {
-        var lekar : Lekar 
-        lekar.id = element.id
-        this.izabraniLekari.push(lekar)
+        var lekarJbo: string
+        lekarJbo = element.jbo
+        this.izabraniLekari.push(lekarJbo)
       });
 
-      var operacija : Operacija
-      operacija.
+      var operacija: Operacija = new Operacija()
+      operacija.datum = this.sala.datumSlobodna
+      operacija.pocetak = this.sala.pocetakSlobodna
+      operacija.kraj = this.sala.krajSlobodna
+      operacija.jboLekara = this.izabraniLekari
+      operacija.tipPregleda = this.tipPregleda
+      operacija.tipId = this.tipId
+      operacija.jboPacijenta = this.pacijent
+      operacija.salaId = this.sala.id
     }
     else {
-      
+      var pregled: Pregled = new Pregled()
+      pregled.datum = this.sala.datumSlobodna
+      pregled.pocetak = this.sala.pocetakSlobodna
+      pregled.kraj = this.sala.krajSlobodna
+      pregled.jboLekara = this.selectedLekar.jbo
+      pregled.tipPregleda = this.tipPregleda
+      pregled.tipId = this.tipId
+      pregled.jboPacijenta = this.pacijent
+      pregled.salaId = this.sala.id
     }
 
-    var zahtev = new Zahtev()
-    zahtev.datum = this.sala.datumSlobodna
-    zahtev.pocetak = this.sala.pocetakSlobodna
-    zahtev.kraj = this.sala.krajSlobodna
     if (this.tip == 'Operacija') {
+      this.klinikaService.zakaziOperaciju(operacija)
+        .subscribe(data => {
+          alert(data.text)
+          this.klinikaService.removeZahtev(this.idZahteva)
+            .subscribe(data => {
+
+            });
+        });
     }
     else {
+      this.klinikaService.zakaziPregled(pregled)
+        .subscribe(data => {
+          alert(data.text)
+          this.klinikaService.removeZahtev(this.idZahteva)
+            .subscribe(data => {
 
+            });
+        });
     }
-    // zahtev.posiljalacJbo = this.operator
-    // this.klinikaService.zakaziTermin(zahtev)
-    // .subscribe(data => {
-    //   this.sale = data;
-    // });
+    this.obradjen = false
+
+
+    this.dialogRef.close(this.obradjen);
   }
 
 }

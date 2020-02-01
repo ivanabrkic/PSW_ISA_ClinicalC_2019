@@ -68,4 +68,12 @@ public class LekarController {
 
         return new ResponseEntity<>(lekari, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/lekarSlobodan", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> lekarSlobodan(@RequestBody Zahtev zahtev){
+
+        Boolean lekarSlobodan =  lekarService.lekarSlobodan(zahtev);
+
+        return new ResponseEntity<>(lekarSlobodan, HttpStatus.OK);
+    }
 }

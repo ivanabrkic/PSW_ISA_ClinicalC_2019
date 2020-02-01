@@ -1,18 +1,12 @@
-import { Pacijent } from '../pacijent/pacijent';
-
-import { Lekar } from '../lekar/lekar';
-
-import { Sala } from '../sala/sala';
-import { identifierModuleUrl } from '@angular/compiler';
-
 export class Operacija{
-    id:number;
-    pacijent:String;
-    lekari:Lekar[];
+    jboPacijenta:String;
+    jboLekara:String[];
     pocetak:String;
     kraj:String;
     datum:String;
-    departman:String;
+    tipPregleda:String;
+    tipId:number;
+    salaId:number;
 
     public Operacija(){
     }

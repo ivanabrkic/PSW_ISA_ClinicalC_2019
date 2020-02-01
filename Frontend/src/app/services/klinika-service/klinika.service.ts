@@ -7,6 +7,7 @@ import { Pregled } from 'src/app/models/pregled/pregled';
 import { Operacija } from 'src/app/models/operacija/operacija';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
+import { Message } from 'src/app/models/message/message';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -16,20 +17,16 @@ const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/jso
 })
 export class KlinikaService {
 
-  
-  private klinikaUrl: string;
-
   constructor(private http: HttpClient) {
-    this.klinikaUrl = '/server/klinika/registracijaKlinike';
   }
 
   public findByNaziv(): Observable<Klinika> {
-    return this.http.get<Klinika>(this.klinikaUrl);
+    return this.http.get<Klinika>('/server/klinika/registracijaKlinike');
   }
 
   public save(klinika: Klinika) {
     const k = JSON.stringify(klinika)
-    return this.http.post<Klinika>(this.klinikaUrl, k, httpOptions);
+    return this.http.post<Klinika>('/server/klinika/registracijaKlinike', k, httpOptions);
   }
 
   public getKlinike() {
@@ -67,11 +64,24 @@ export class KlinikaService {
     return this.http.post<Sala>('/server/klinika/registerSala' , s, httpOptions);
   }
 
-  getLekariOperacije(op : Operacija) {
+  public getLekariOperacije(op : Operacija) {
     return this.http.post<Lekar[]>('/server/klinika/getLekariOperacije', JSON.stringify(op), httpOptions);
   }
 
-  getZahtevi(id : number) {
+  public getZahtevi(id : number) {
     return this.http.post<Zahtev[]>('/server/klinika/getZahtevi', id, httpOptions);
   }
+
+  public zakaziOperaciju(operacija : Operacija) {
+    return this.http.post<Message>('/server/klinika/zakaziOperaciju', JSON.stringify(operacija), httpOptions);
+  }
+
+  public zakaziPregled(pregled : Pregled) {
+    return this.http.post<Message>('/server/klinika/zakaziPregled', JSON.stringify(pregled), httpOptions);
+  }
+
+  public removeZahtev(id : number) {
+    return this.http.post<Boolean>('/server/klinika/removeZahtev', id, httpOptions);
+  }
+
 }

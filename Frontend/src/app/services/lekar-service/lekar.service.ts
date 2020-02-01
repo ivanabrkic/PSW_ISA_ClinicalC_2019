@@ -26,7 +26,7 @@ export class LekarService {
     return this.http.post<Lekar[]>('/server/klinika/getLekari', id, httpOptions);
   }
 
-  public getSlobodniLekari(zahtev : Zahtev): Observable<Lekar[]> {
+  public getSlobodni(zahtev : Zahtev): Observable<Lekar[]> {
     return this.http.post<Lekar[]>('/server/lekar/getSlobodniLekari', JSON.stringify(zahtev), httpOptions);
   }
 
@@ -42,5 +42,9 @@ export class LekarService {
 
   public remove(id: number) {
     return this.http.post<Lekar>('/server/lekar/remove' , id, httpOptions);
+  }
+
+  public lekarSlobodan(zahtev : Zahtev) {
+    return this.http.post<boolean>('/server/lekar/lekarSlobodan', JSON.stringify(zahtev), httpOptions);
   }
 }

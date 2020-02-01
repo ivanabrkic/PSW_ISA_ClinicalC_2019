@@ -117,8 +117,8 @@ export class RadniKalendarSaleComponent implements OnInit {
         this.data.push({
           Id: i,
           Subject: 'Operacija',
-          EventType: this.operacije[i].pacijent.jbo,
-          Description: this.operacije[i].lekar.jbo,
+          EventType: this.operacije[i].jboPacijenta,
+          Description: this.operacije[i].jboLekara,
           StartTime: new Date(godina, mesec, dan, sat1, minut1),
           EndTime: new Date(godina, mesec, dan, sat2, minut2),
           IsAllDay: false
@@ -144,8 +144,8 @@ export class RadniKalendarSaleComponent implements OnInit {
         this.data.push({
           Id: i,
           Subject: 'Pregled',
-          EventType: this.pregledi[i].pacijent.jbo,
-          Description: this.pregledi[i].lekar.jbo,
+          EventType: this.pregledi[i].jboPacijenta,
+          Description: this.pregledi[i].jboLekara,
           StartTime: new Date(godina, mesec, dan, sat1, minut1),
           EndTime: new Date(godina, mesec, dan, sat2, minut2),
           IsAllDay: false

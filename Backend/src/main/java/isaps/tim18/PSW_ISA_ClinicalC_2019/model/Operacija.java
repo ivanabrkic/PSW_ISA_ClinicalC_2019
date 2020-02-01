@@ -13,19 +13,16 @@ public class Operacija {
     private Long id;
 
     @ManyToOne
-    @MapsId("pacijent_id")
-    @JoinColumn(name = "pacijent_id")
+    @JoinColumn(name = "pacijent_id", referencedColumnName = "pacijent_id")
     Pacijent pacijent;
 
     @ManyToOne
-    @MapsId("lekar_id")
-    @JoinColumn(name = "lekar_id")
+    @JoinColumn(name = "lekar_id", referencedColumnName = "lekar_id")
     Lekar lekari;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @MapsId("sala_id")
-    @JoinColumn(name = "sala_id")
+    @JoinColumn(name = "sala_id", referencedColumnName = "id")
     Sala sala;
 
     @Column(name="datum",unique=false)

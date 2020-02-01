@@ -12,20 +12,17 @@ public class Pregled {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @MapsId("pacijent_id")
-    @JoinColumn(name = "pacijent_id")
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "pacijent_id", referencedColumnName = "pacijent_id")
     Pacijent pacijent;
 
     @ManyToOne
-    @MapsId("lekar_id")
-    @JoinColumn(name = "lekar_id")
+    @JoinColumn(name = "lekar_id", referencedColumnName = "lekar_id")
     Lekar lekar;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @MapsId("sala_id")
-    @JoinColumn(name = "sala_id")
+    @JoinColumn(name = "sala_id", referencedColumnName = "id")
     Sala sala;
 
     @Column(name="datum",unique=false)
@@ -41,7 +38,29 @@ public class Pregled {
     @JoinColumn(name = "id_stavke", referencedColumnName = "id")
     private Cenovnik cenovnik;
 
+    @Column
+    private Integer popust;
+
+    @Column
+    private String status;
+
     public Pregled() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getPopust() {
+        return popust;
+    }
+
+    public void setPopust(Integer popust) {
+        this.popust = popust;
     }
 
     public Long getId() {

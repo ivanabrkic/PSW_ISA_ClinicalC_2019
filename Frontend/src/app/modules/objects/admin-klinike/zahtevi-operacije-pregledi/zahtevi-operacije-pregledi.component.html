@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Sale klinike "{{adminKlinike?.klinika.naziv}}"</h4>
+                        <h4 class="card-title ">Zahtevi za operacije/preglede</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -36,6 +36,6 @@
                 </div>
             </div>
         </div>
-        <app-izbor-sale [passZahtev]="selectedZahtev" *ngIf="izbor == true"></app-izbor-sale>
+        <app-izbor-sale [passZahtev]="selectedZahtev" *ngIf="izbor == true" (zahtevObradjen)="zahtevObradjenHandler($event)"></app-izbor-sale>
     </div>
 </div>

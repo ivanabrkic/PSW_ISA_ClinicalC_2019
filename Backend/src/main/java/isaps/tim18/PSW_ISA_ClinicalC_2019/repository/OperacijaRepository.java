@@ -28,5 +28,4 @@ public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
             " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
             " AND o.datum = ?2 ", nativeQuery = true)
     List<Long> findByKlinikaIdAndVreme(Long idKlinike, String datum, String pocetak, String kraj);
-
 }
