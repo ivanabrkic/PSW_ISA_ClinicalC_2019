@@ -110,8 +110,13 @@ public class LekarService {
         }
 
         String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
+        List<Long> radeUToVreme = new ArrayList<>();
 
-        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVreme(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+        if (zahtev.getTipPosete() == "Operacija") {
+            radeUToVreme = lekarRepository.daLiJeRadnoVremeOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+        }else {
+            radeUToVreme = lekarRepository.daLiJeRadnoVremePregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+        }
 
         HashMap<Long, Long> slobodni = new HashMap<Long, Long>();
         for (Long id : radeUToVreme){
