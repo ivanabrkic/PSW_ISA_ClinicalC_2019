@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home';
@@ -58,6 +59,9 @@ import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-rece
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { PretragafilterFilter } from './helpers/filter';
 import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
+import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
+import { PretragafilterLekari } from './helpers/filterLekari';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 
 @NgModule({
@@ -95,8 +99,9 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
     KreiranjeLekovaComponent,
     OveraRecepataComponent,
     ListaLekaraComponent,
-    PretragafilterFilter
-
+    PretragafilterFilter,
+    ProfilKlinikeComponent,
+    PretragafilterLekari
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -113,6 +118,9 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
     HttpClientModule,
     AdminKlinikeModule,
     MatDialogModule,
+    CommonModule,
+    MatDatepickerModule,        // <----- import(must)
+    MatNativeDateModule,        // <----- import for date formating(optional)
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
@@ -141,6 +149,7 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
        {path: 'listaPoseta', component: PoseteComponent},
        {path:'listaLekara',component:ListaLekaraComponent},
+       {path:'profilKlinike',component:ProfilKlinikeComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],

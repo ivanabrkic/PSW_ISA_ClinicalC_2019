@@ -49,8 +49,8 @@ export class ListaKlinikaComponent implements OnInit {
   getKlinike() {
     this.listaKlinikaService.findAll().subscribe(
       podaci => {this.klinike = podaci; },
-      err => console.log('Nisu ucitani korisnici'),
-      () => console.log('Uspesno ucitani korisnici')
+      err => console.log('Nisu ucitane klinike'),
+      () => console.log('Uspesno ucitane klinike')
     );
   }
 
@@ -62,9 +62,16 @@ export class ListaKlinikaComponent implements OnInit {
   }
 
   lekariNavigate(event){
+    var testdatum=5; //bice pokupljen iz dejtpikera 
     let klinika=this.selectedKlinika;{
-      this.router.navigate(['/listaLekara'],{state:{data:klinika}});
+      this.router.navigate(['/listaLekara'],{state:{klinika:klinika,datum:testdatum}});
     }
+  }
+
+  profilNavigate(event){
+    
+    let klinika=this.selectedKlinika;
+      this.router.navigate(['/profilKlinike'],{state:{data:klinika}});
   }
 
 }
