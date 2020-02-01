@@ -51,10 +51,14 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
+
+import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
+
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { PretragafilterFilter } from './helpers/filter';
 import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
+
 
 @NgModule({
   declarations: [
@@ -89,8 +93,10 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
     KreiranjeLekovaComponent,
+    OveraRecepataComponent,
     ListaLekaraComponent,
     PretragafilterFilter
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -119,6 +125,7 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
       { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
       { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
+      { path: 'overaRecepta', component: OveraRecepataComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
