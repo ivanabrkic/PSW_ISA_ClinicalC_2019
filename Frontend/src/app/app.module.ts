@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home';
@@ -12,7 +13,7 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDatepickerModule } from '@angular/material';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
@@ -53,6 +54,17 @@ import { PoseteService } from './modules/shared/services/posete-service/posete.s
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
 import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-sifre.component';
 
+import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
+
+// search module
+import { Ng2SearchPipeModule } from 'ng2-search-filter'
+import { PretragafilterFilter } from './helpers/filter';
+import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
+import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
+import { PretragafilterLekari } from './helpers/filterLekari';
+import { MatNativeDateModule } from '@angular/material';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,10 +98,16 @@ import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-si
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
     KreiranjeLekovaComponent,
-    PromenaSifreComponent
+    PromenaSifreComponent,
+    OveraRecepataComponent,
+    ListaLekaraComponent,
+    PretragafilterFilter,
+    ProfilKlinikeComponent,
+    PretragafilterLekari
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
+    Ng2SearchPipeModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -102,6 +120,9 @@ import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-si
     HttpClientModule,
     AdminKlinikeModule,
     MatDialogModule,
+    MatDatepickerModule,
+    CommonModule,
+    MatDatepickerModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
@@ -115,6 +136,7 @@ import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-si
       { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
       { path: 'promenaLozinke', component: PromenaSifreComponent},
+      { path: 'overaRecepta', component: OveraRecepataComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
@@ -129,6 +151,8 @@ import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-si
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
        {path: 'listaPoseta', component: PoseteComponent},
+       {path: 'listaLekara', component: ListaLekaraComponent},
+       {path: 'profilKlinike', component: ProfilKlinikeComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],

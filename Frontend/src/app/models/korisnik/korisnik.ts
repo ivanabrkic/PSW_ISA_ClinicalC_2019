@@ -7,7 +7,7 @@ export class Korisnik {
   kontaktTelefon: string;
   ime: string;
   prezime: string;
-  jbo: number;
+  jbo: string;
   aktivnostNaloga: boolean;
   tipKorisnika: string;
   prvoLogovanje: boolean;

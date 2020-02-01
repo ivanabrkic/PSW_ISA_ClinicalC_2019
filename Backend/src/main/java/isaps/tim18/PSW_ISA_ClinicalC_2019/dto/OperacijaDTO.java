@@ -15,6 +15,12 @@ public class OperacijaDTO {
 
     private List<String> jboLekara;
 
+    private String tipPregleda;
+
+    private Long tipId;
+
+    private Long salaId;
+
     public OperacijaDTO() {
     }
 
@@ -24,6 +30,30 @@ public class OperacijaDTO {
         this.pocetak = pocetak;
         this.kraj = kraj;
         this.jboLekara = new ArrayList<String>();
+    }
+
+    public Long getSalaId() {
+        return salaId;
+    }
+
+    public void setSalaId(Long salaId) {
+        this.salaId = salaId;
+    }
+
+    public Long getTipId() {
+        return tipId;
+    }
+
+    public void setTipId(Long tipId) {
+        this.tipId = tipId;
+    }
+
+    public String getTipPregleda() {
+        return tipPregleda;
+    }
+
+    public void setTipPregleda(String tipPregleda) {
+        this.tipPregleda = tipPregleda;
     }
 
     public String getJboPacijenta() {

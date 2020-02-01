@@ -5,6 +5,7 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,4 +31,17 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
 
     Integer removePacijentByJbo(String jbo);
 
+    @Query(value = "SELECT pacijent_id FROM Operacija AS o WHERE pacijent_id = ?1 " +
+            " AND (( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) ) OR " +
+            " ( CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time)  )" +
+            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
+            " AND o.datum = ?2 ", nativeQuery = true)
+    List<Long> ifPacijentSlobodanOperacije(Long id, String datum, String pocetak, String kraj);
+
+    @Query(value = "SELECT pacijent_id FROM Pregled AS o WHERE pacijent_id = ?1 " +
+            " AND (( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) ) OR " +
+            " ( CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time)  )" +
+            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
+            " AND o.datum = ?2 ", nativeQuery = true)
+    List<Long> ifPacijentSlobodanPregledi(Long id, String datum, String pocetak, String kraj);
 }

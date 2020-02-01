@@ -1,0 +1,41 @@
+<sidebar-admin-klinike></sidebar-admin-klinike>
+<div class="main-content">
+    <div class="container-fluid">
+        <div *ngIf="izbor == false" class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Zahtevi za operacije/preglede</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>Termin traži</th>
+                                    <th>Za datum</th>
+                                    <th>Tip</th>
+                                    <th>Kod lekara/za pacijenta(JBO lekara/pacijenta)</th>
+                                    <th>Dodatne informacije</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let zahtev of zahtevi">
+                                        <td><b>{{zahtev.tipPosiljaoca}} {{zahtev.posiljalacImePrezime}}, <br> JBO: {{zahtev.posiljalacJbo}} </b></td>
+                                        <td><b>{{zahtev.datum}} - {{zahtev.pocetak}} - {{zahtev.kraj}}</b></td>
+                                        <td><b>{{zahtev.tipPosete}} - {{zahtev.stavkaCenovnika}}</b></td>
+                                        <td *ngIf="zahtev.tipPosiljaoca == 'Pacijent'"><b>{{zahtev.jboLekara}}</b></td>
+                                        <td *ngIf="zahtev.tipPosiljaoca == 'Lekar'"><b>{{zahtev.jboPacijenta}}</b></td>
+                                        <td>{{zahtev.dodatneInformacije}}</td>
+                                        <td><button id={{zahtev.id}} mat-raised-button (click)="izborSale(zahtev)"
+                                                class="btn btn-danger">Izaberi salu</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-izbor-sale [passZahtev]="selectedZahtev" *ngIf="izbor == true" (zahtevObradjen)="zahtevObradjenHandler($event)"></app-izbor-sale>
+    </div>
+</div>

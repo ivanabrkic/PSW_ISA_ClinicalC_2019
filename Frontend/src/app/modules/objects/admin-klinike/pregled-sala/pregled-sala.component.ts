@@ -6,8 +6,6 @@ import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/
 import { Sala } from 'src/app/models/sala/sala';
 import { RegistracijaSalaComponent } from '../registracija-sala/registracija-sala.component';
 import { RadniKalendarSaleComponent } from 'src/app/modules/shared/radni-kalendar-sale/radni-kalendar-sale-component/radni-kalendar-sale.component';
-import { Operacija } from 'src/app/models/operacija/operacija';
-import { Pregled } from 'src/app/models/pregled/pregled';
 
 @Component({
   templateUrl: './pregled-sala.component.html',

@@ -77,5 +77,4 @@ public class PacijentService {
         return pacijentRepository.removePacijentByJbo(jbo);
     }
 
-
 }

@@ -1,7 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Klinika} from '../../../models/klinika/klinika';
 import {Observable, Subscription} from 'rxjs';
+<<<<<<< HEAD
 import { ListaKlinikaService } from 'src/app/modules/shared/services/lista-klinika-service/lista-klinika.service';
+=======
+import { ListaKlinikaService } from 'src/app/services/lista-klinika-service/lista-klinika.service';
+import { Router } from '@angular/router';
+>>>>>>> 2035ee1413879c92bf7b02b84919c7c4fb04f410
 
 @Component({
   selector: 'app-lista-klinika',
@@ -9,18 +14,47 @@ import { ListaKlinikaService } from 'src/app/modules/shared/services/lista-klini
   styleUrls: ['/lista-klinikaComponent.css']
 })
 
+
+
 export class ListaKlinikaComponent implements OnInit {
   private klinike: Klinika[];
-  selectedKlinika: Klinika;
+  selectedKlinika: Klinika;  
 
-  constructor(private listaKlinikaService: ListaKlinikaService) {
+  ocene = [{
+    name: '5',
+    value: '5'
+ }, {
+  name: '4+',
+  value: '4'
+},
+{
+  name: '3+',
+  value: '3'
+},
+{
+  name: '2+',
+  value: '2'
+},
+{
+  name: '1+',
+  value: '1'
+},
+{
+  name: 'Ocena',
+  value: '0'
+}
+];
+
+  constructor(private listaKlinikaService: ListaKlinikaService,private router:Router) {
   }
+
+
 
   getKlinike() {
     this.listaKlinikaService.findAll().subscribe(
       podaci => {this.klinike = podaci; },
-      err => console.log('Nisu ucitani korisnici'),
-      () => console.log('Uspesno ucitani korisnici')
+      err => console.log('Nisu ucitane klinike'),
+      () => console.log('Uspesno ucitane klinike')
     );
   }
 
@@ -30,4 +64,18 @@ export class ListaKlinikaComponent implements OnInit {
   ngOnInit() {
     this.getKlinike();
   }
+
+  lekariNavigate(event){
+    var testdatum=5; //bice pokupljen iz dejtpikera 
+    let klinika=this.selectedKlinika;{
+      this.router.navigate(['/listaLekara'],{state:{klinika:klinika,datum:testdatum}});
+    }
+  }
+
+  profilNavigate(event){
+    
+    let klinika=this.selectedKlinika;
+      this.router.navigate(['/profilKlinike'],{state:{data:klinika}});
+  }
+
 }
