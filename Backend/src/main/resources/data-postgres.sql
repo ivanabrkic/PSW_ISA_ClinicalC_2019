@@ -43,10 +43,10 @@ insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (3,
 insert into dijagnoze (sifra, sifradijagnoze, naziv) values (100,'1sf3','depresija');
 insert into dijagnoze (sifra, sifradijagnoze, naziv) values (200,'1sf124', 'anksioznost');
 
-insert into zkarton(id,pacijent_id) values (1,3);
+/*insert into zkarton(id,pacijent_id) values (1,3);
 
 insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,100);
-
+*/
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Popravka zuba', 3000, 1, 'Zubar');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ugradnja stenta', 10000, 1, 'Kardiolog');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Vađenje krajnika', 1500, 1, 'Opšta praksa');
@@ -84,3 +84,16 @@ insert into recept_lekovi(recept_id, lekovi_id) values (1, 3);
 insert into recept_lekovi(recept_id, lekovi_id) values (2, 2);
 insert into recept_lekovi(recept_id, lekovi_id) values (3, 3);
 insert into recept_lekovi(recept_id, lekovi_id) values (3, 1);
+
+insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, visina) values (1, 'bromazepam', '+2', 'B+', '78', '185');
+insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, visina) values (2, '', '0.3', '0+', '69', '178');
+insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, visina) values (3, '', '0', 'A-', '65', '161');
+
+insert into zkarton(id, pacijent_id) values (1,7);
+insert into zkarton(id, pacijent_id) values (2,6);
+
+insert into zkartoni_opsti_izvestaji(opsti_izvestaj_id, zkarton) values (2,1);
+insert into zkartoni_opsti_izvestaji(opsti_izvestaj_id, zkarton) values (1,2);
+
+
+insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,100);

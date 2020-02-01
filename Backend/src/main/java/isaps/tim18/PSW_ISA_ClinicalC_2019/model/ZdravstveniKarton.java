@@ -24,6 +24,22 @@ public class ZdravstveniKarton {
     @ElementCollection
     private List<Dijagnoze> dijagnoze=new ArrayList<Dijagnoze>();
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(name = "zkartoni_opsti_izvestaji", joinColumns = @JoinColumn(name = "zkarton"),
+            inverseJoinColumns = @JoinColumn(name = "opsti_izvestaj_id"))
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private OpstiIzvestaj opstiIzvestaj;
+
+    public ZdravstveniKarton(){
+
+    }
+
+    public ZdravstveniKarton(Pacijent pacijent, List<Dijagnoze> dijagnoze, OpstiIzvestaj opstiIzvestaj) {
+        this.pacijent = pacijent;
+        this.dijagnoze = dijagnoze;
+        this.opstiIzvestaj = opstiIzvestaj;
+    }
+
     public Long getId() {
         return id;
     }
@@ -35,8 +51,6 @@ public class ZdravstveniKarton {
     public void setPacijent(Pacijent pacijent) {
         this.pacijent = pacijent;
     }
-
-
 
     public void setId(Long id) {
         this.id = id;
@@ -50,6 +64,11 @@ public class ZdravstveniKarton {
         this.dijagnoze = dijagnoze;
     }
 
+    public OpstiIzvestaj getOpstiIzvestaj() {
+        return opstiIzvestaj;
+    }
 
-
+    public void setOpstiIzvestaj(OpstiIzvestaj opstiIzvestaj) {
+        this.opstiIzvestaj = opstiIzvestaj;
+    }
 }
