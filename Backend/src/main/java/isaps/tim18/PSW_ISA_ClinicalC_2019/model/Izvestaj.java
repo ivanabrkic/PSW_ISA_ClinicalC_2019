@@ -29,15 +29,19 @@ public class Izvestaj {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Lekar lekar;
 
+    @Column(name = "datum_pregleda")
+    private String datum;
+
     public Izvestaj(){
 
     }
 
-    public Izvestaj(String izvestaj, ZdravstveniKarton zdravstveniKarton, Recept recept, Lekar lekar) {
+    public Izvestaj(String izvestaj, ZdravstveniKarton zdravstveniKarton, Recept recept, Lekar lekar, String datum) {
         this.izvestaj = izvestaj;
         this.zdravstveniKarton = zdravstveniKarton;
         this.recept = recept;
         this.lekar = lekar;
+        this.datum = datum;
     }
 
     public String getIzvestaj() {
@@ -70,5 +74,13 @@ public class Izvestaj {
 
     public void setLekar(Lekar lekar) {
         this.lekar = lekar;
+    }
+
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
     }
 }

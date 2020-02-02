@@ -14,5 +14,4 @@ public interface ReceptRepository extends JpaRepository<Recept, Long> {
     List<Recept> findByPacijent(Pacijent p);
     List<Recept> findByOveren(Boolean overen);
     Recept findByBrojAndPacijent(int broj, Pacijent p);
-    Recept removeByBrojAndPacijent(int broj, Pacijent p);
 }

@@ -60,7 +60,7 @@ public class ReceptController {
 
     @PostMapping(value = "/neoveren", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Recept> ukloniOdbijen(@RequestBody Recept recept) throws Exception {
-        System.out.println(recept.getBroj());
+
 
         receptService.removeByBrojAndPacijent(recept);
 

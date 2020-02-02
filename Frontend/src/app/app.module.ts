@@ -62,9 +62,12 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
 import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
 import { PretragafilterLekari } from './helpers/filterLekari';
 import { PretragaFilterPacijent } from './helpers/filterPacijent';
+import { PretragaFilterLek } from './helpers/filterLek';
 import { MatNativeDateModule } from '@angular/material';
 import { PretragaPacijenataComponent } from './modules/shared/pretraga-pacijenata/pretraga-pacijenata.component';
 import { FormaIzvestajComponent } from './modules/shared/forma-izvestaj/forma-izvestaj.component';
+import { DijalogKreiranjeReceptaComponent } from './modules/shared/dijalog-kreiranje-recepta/dijalog-kreiranje-recepta.component';
+import { DijalogUnosDijagnozaComponent } from './modules/shared/dijalog-unos-dijagnoza/dijalog-unos-dijagnoza.component';
 
 
 
@@ -108,8 +111,11 @@ import { FormaIzvestajComponent } from './modules/shared/forma-izvestaj/forma-iz
     ProfilKlinikeComponent,
     PretragafilterLekari,
     PretragaFilterPacijent,
+    PretragaFilterLek,
     PretragaPacijenataComponent,
-    FormaIzvestajComponent
+    FormaIzvestajComponent,
+    DijalogKreiranjeReceptaComponent,
+    DijalogUnosDijagnozaComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -131,6 +137,8 @@ import { FormaIzvestajComponent } from './modules/shared/forma-izvestaj/forma-iz
     MatDatepickerModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
+      { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
+      { path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent},
       { path: 'formaIzvestaj', component: FormaIzvestajComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
       { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},

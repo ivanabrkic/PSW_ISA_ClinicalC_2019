@@ -1,0 +1,18 @@
+<div style = "text-align: center">
+  <div>
+    <h4>Odaberite lekove</h4>
+  </div>
+  <div>
+    <input class="form-control" type="text" placeholder="Naziv dijagnoze" name="nazivDijagnoze"  [(ngModel)]="searchNaziv">
+  </div>
+  <div  style = "width: 100%;margin-top: 20px;display: inline;text-align: left;"
+        *ngFor="let podatak of this.noviPodaci | filter:searchNaziv">
+    <label style = "margin-left: 3px;margin-top: 7px">
+      <input type="checkbox" id="checkbox_category"  (change)="change(podatak, $event)">{{podatak.dijagnoze.nazivDijagnoze}}</label>
+    <!--    <button class = "btn btn-secondary" (click)="this.dialogRef.close(1)" style = "margin-left: 20px">Nazad</button>-->
+  </div>
+  <div style = "margin-top: 20px;">
+    <button class = "btn btn-primary" (click)="unesiDijagnoze()">Predaj</button>
+    <button class = "btn btn-secondary" (click)="this.dialogRef.close(this.zdravstveniKarton)" style = "margin-left: 20px">Oktaži</button>
+  </div>
+</div>

@@ -6,5 +6,5 @@ export class Recept {
   broj: number;
   overen: boolean;
   pacijent: Pacijent;
-  lekovi: Array<Lekovi>;
+  lekovi: Lekovi[];
 }

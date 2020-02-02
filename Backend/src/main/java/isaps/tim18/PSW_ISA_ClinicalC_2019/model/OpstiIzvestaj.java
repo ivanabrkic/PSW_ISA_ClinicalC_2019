@@ -27,9 +27,6 @@ public class OpstiIzvestaj {
     @Column(name = "alergije_lek")
     private String alergijeNaLek;
 
-    @ElementCollection
-    private List<Dijagnoze> nasledne_bolesti;
-
     public OpstiIzvestaj(String dioptrija, String visina, String tezina, String krvnaGrupa, String alergijeNaLek,
                          List<Dijagnoze> nasledne_bolesti, ZdravstveniKarton zdravstveniKarton) {
         this.dioptrija = dioptrija;
@@ -37,7 +34,6 @@ public class OpstiIzvestaj {
         this.tezina = tezina;
         this.krvnaGrupa = krvnaGrupa;
         this.alergijeNaLek = alergijeNaLek;
-        this.nasledne_bolesti = nasledne_bolesti;
     }
 
     public OpstiIzvestaj(){
@@ -82,13 +78,5 @@ public class OpstiIzvestaj {
 
     public void setAlergijeNaLek(String alergijeNaLek) {
         this.alergijeNaLek = alergijeNaLek;
-    }
-
-    public List<Dijagnoze> getNasledne_bolesti() {
-        return nasledne_bolesti;
-    }
-
-    public void setNasledne_bolesti(List<Dijagnoze> nasledne_bolesti) {
-        this.nasledne_bolesti = nasledne_bolesti;
     }
 }
