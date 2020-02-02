@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface PregledRepository  extends JpaRepository<Pregled, Long> {
 
+    @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO(p.pacijent.jbo, p.lekar.jbo, p.datum, p.pocetak, p.kraj) FROM Pregled p")
+    List<PregledDTO> findAll(String s);
+
     void deleteBySalaId(Long id);
 
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO(p.pacijent.jbo, p.lekar.jbo, p.datum, p.pocetak, p.kraj) FROM Pregled p " +

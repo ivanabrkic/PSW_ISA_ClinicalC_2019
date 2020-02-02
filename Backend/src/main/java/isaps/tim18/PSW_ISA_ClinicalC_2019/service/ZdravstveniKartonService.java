@@ -6,6 +6,8 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.ZdravstveniKartonRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ZdravstveniKartonService {
 
@@ -13,4 +15,6 @@ public class ZdravstveniKartonService {
     private ZdravstveniKartonRepository zdravstveniKartonRepo;
 
     public ZdravstveniKarton findById(int id) { return zdravstveniKartonRepo.findById(id); }
+
+    public List<ZdravstveniKarton> findAll() { return zdravstveniKartonRepo.findAll(); }
 }

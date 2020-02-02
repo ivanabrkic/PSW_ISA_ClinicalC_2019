@@ -50,6 +50,7 @@ public class KorisnikService implements IUserService{
 
     @Transactional
     public Korisnik add(Korisnik korisnik){
+
         return korisnikRepository.save(korisnik);
     }
 

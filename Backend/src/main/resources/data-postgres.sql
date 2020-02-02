@@ -3,7 +3,7 @@ insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, k
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika, prvo_logovanje) values ('Sabac', 'Srbija', 'Mladena Djuricica 11', 1231231231111, FALSE , 'tamaralazarevic@gmail.com', 'Tamara', '0652754579', '12345678b', 'Lazarevic', 'Pacijent', false);
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika, prvo_logovanje) values ('Novi Sad', 'Srbija', 'Mise Dimitrijevica 51', 1233211231111, True, 'anamarija@gmail.com', 'Ana-Marija', '0652754579', '12345678b', 'Buhmiler', 'Administrator klinike', false);
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika, prvo_logovanje) values ('Nova Pazova', 'Srbija', 'Vojvode Misica 30', 6541236541111, True,'nikola.milosevic0111@gmail.com', 'Nikola', '0652754579', '12345678b', 'Milosevic', 'Administrator klinike', false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika, prvo_logovanje) values ('Beocin', 'Srbija', 'Zlatiborska 40', 8766566541111, True ,'milanlux@gmail.com', 'Milan', '0652754579', '12345678b', 'Lukovic', 'Pacijent', false);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika, prvo_logovanje) values ('Beocin', 'Srbija', 'Zlatiborska 40', 8766566541111, false ,'milanlux@gmail.com', 'Milan', '0652754579', '12345678b', 'Lukovic', 'Pacijent', false);
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika, prvo_logovanje) values ('Brazilija', 'Srbija', 'Tarska 40', 3423784911111, FALSE, 'n.milosevic@gmail.com', 'Nikola', '0652754579', '12345678b', 'Milo', 'Pacijent', false);
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika, prvo_logovanje) values ('Backa Palanka', 'Srbija', 'Save Kovacevica 50', 6452389671111, True, 'ivan@gmail.com', 'Ivan', '0652754579', '12345678b', 'Maksimovic', 'Medicinska sestra', false);
 insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika, prvo_logovanje) values ('Indjija', 'Srbija', 'Glavna 38', 6459872341111, True,'vladimirpopovic2306@gmail.com', 'Vladimir', '0652754579', '12345678b', 'Popov', 'Medicinska sestra', false);
@@ -22,11 +22,15 @@ insert into sala (naziv, broj, klinika_id) values ('Mala sala', '2A', 2);
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena, specijalizacija) values (1, 33, 1, 'Prva smena od 8:00 do 16:00', 2.3, 'Kardiolog');
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena, specijalizacija) values (2, 54, 1, 'Prva smena od 8:00 do 16:00' , 4.5, 'Zubar');
 
+insert into zkarton(broj_zk) values (1);
+insert into zkarton(broj_zk) values (2);
+insert into zkarton(broj_zk) values (3);
+
 insert into administrator_klinike (admink_id, klinika_id) values (4, 1);
 insert into administrator_klinike (admink_id, klinika_id) values (5, 2);
-insert into pacijent (pacijent_id) values (6);
-insert into pacijent (pacijent_id) values (7);
-insert into pacijent (pacijent_id) values (3);
+insert into pacijent (pacijent_id, zkarton_id) values (6, 1);
+insert into pacijent (pacijent_id, zkarton_id) values (7, 2);
+insert into pacijent (pacijent_id, zkarton_id) values (3, 3);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (6, 1);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (6, 2);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (7, 1);
@@ -43,10 +47,6 @@ insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (3,
 insert into dijagnoze (sifra, sifradijagnoze, naziv) values (100,'1sf3','depresija');
 insert into dijagnoze (sifra, sifradijagnoze, naziv) values (200,'1sf124', 'anksioznost');
 
-/*insert into zkarton(id,pacijent_id) values (1,3);
-
-insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,100);
-*/
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Popravka zuba', 3000, 1, 'Zubar');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ugradnja stenta', 10000, 1, 'Kardiolog');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Vađenje krajnika', 1500, 1, 'Opšta praksa');
@@ -89,11 +89,7 @@ insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, vis
 insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, visina) values (2, '', '0.3', '0+', '69', '178');
 insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, visina) values (3, '', '0', 'A-', '65', '161');
 
-insert into zkarton(id, pacijent_id) values (1,7);
-insert into zkarton(id, pacijent_id) values (2,6);
-
 insert into zkartoni_opsti_izvestaji(opsti_izvestaj_id, zkarton) values (2,1);
 insert into zkartoni_opsti_izvestaji(opsti_izvestaj_id, zkarton) values (1,2);
-
 
 insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,100);

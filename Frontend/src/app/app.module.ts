@@ -53,16 +53,19 @@ import { PacijentService } from './modules/shared/services/pacijent-service/paci
 import { PoseteService } from './modules/shared/services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
 import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-sifre.component';
-
 import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
-
+import { SessionService } from './modules/shared/services/SessionService/session.service';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { PretragafilterFilter } from './helpers/filter';
 import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
 import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
 import { PretragafilterLekari } from './helpers/filterLekari';
+import { PretragaFilterPacijent } from './helpers/filterPacijent';
 import { MatNativeDateModule } from '@angular/material';
+import { PretragaPacijenataComponent } from './modules/shared/pretraga-pacijenata/pretraga-pacijenata.component';
+import { FormaIzvestajComponent } from './modules/shared/forma-izvestaj/forma-izvestaj.component';
+
 
 
 @NgModule({
@@ -103,7 +106,10 @@ import { MatNativeDateModule } from '@angular/material';
     ListaLekaraComponent,
     PretragafilterFilter,
     ProfilKlinikeComponent,
-    PretragafilterLekari
+    PretragafilterLekari,
+    PretragaFilterPacijent,
+    PretragaPacijenataComponent,
+    FormaIzvestajComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -125,6 +131,7 @@ import { MatNativeDateModule } from '@angular/material';
     MatDatepickerModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
+      { path: 'formaIzvestaj', component: FormaIzvestajComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
       { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
       { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
@@ -147,6 +154,7 @@ import { MatNativeDateModule } from '@angular/material';
       { path: 'kreiranjeLekova', component: KreiranjeLekovaComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'welcome', component: HomeComponent},
+      { path: 'pretragaPacijenata', component: PretragaPacijenataComponent},
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
@@ -156,7 +164,15 @@ import { MatNativeDateModule } from '@angular/material';
       { path: '**', component: NotFoundComponent},
       ])
   ],
-  providers: [AdminKlinikeService, KlinikaService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService],
+  providers: [
+    AdminKlinikeService,
+    KlinikaService,
+    LoginService,
+    RegisterService,
+    ZdravstveniKartonService,
+    PacijentService,
+    PoseteService,
+    SessionService],
 
   bootstrap: [AppComponent]
 })

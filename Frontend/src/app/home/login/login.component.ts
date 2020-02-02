@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
             return;
           }
           alert('Uspešno ste se ulogovali!! :-)\n\n');
-          console.log(data.prvoLogovanje);
+          console.log(data);
 
           if (data.prvoLogovanje === true && data.tipKorisnika !== 'Pacijent') {
             this.router.navigate(['/promenaLozinke']);

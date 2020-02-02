@@ -1,11 +1,9 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +19,12 @@ public class Pacijent extends Korisnik{
         return pacijentiKlinike;
     }
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="zkarton_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private ZdravstveniKarton zdravstveniKarton;
+
+
     public void setPacijentiKlinike(List<PacijentiKlinike> pacijentiKlinike) {
         this.pacijentiKlinike = pacijentiKlinike;
     }
@@ -28,9 +32,16 @@ public class Pacijent extends Korisnik{
     public Pacijent() {
     }
 
-    public Pacijent(Korisnik korisnik) {
+    public Pacijent(Korisnik korisnik, ZdravstveniKarton zdravstveniKarton) {
         super(korisnik);
+        this.zdravstveniKarton = zdravstveniKarton;
     }
 
+    public ZdravstveniKarton getZdravstveniKarton() {
+        return zdravstveniKarton;
+    }
 
+    public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
+        this.zdravstveniKarton = zdravstveniKarton;
+    }
 }

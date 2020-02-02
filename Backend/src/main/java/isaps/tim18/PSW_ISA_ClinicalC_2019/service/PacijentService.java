@@ -55,6 +55,7 @@ public class PacijentService {
         p.setKontaktTelefon(pacijent.getKontaktTelefon());
         p.setLozinka(pacijent.getLozinka());
         p.setPrvoLogovanje(pacijent.isPrvoLogovanje());
+        p.setZdravstveniKarton(pacijent.getZdravstveniKarton());
         pacijentRepository.save(p);
         return p;
     }

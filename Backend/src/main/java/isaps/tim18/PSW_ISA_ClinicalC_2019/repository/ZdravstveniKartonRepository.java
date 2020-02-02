@@ -13,5 +13,6 @@ public interface ZdravstveniKartonRepository extends JpaRepository<ZdravstveniKa
 
    ZdravstveniKarton findById(int id);
 
+   List<ZdravstveniKarton> findAll();
 
 }

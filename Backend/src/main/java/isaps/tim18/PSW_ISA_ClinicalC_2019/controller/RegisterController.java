@@ -3,6 +3,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.VerificationToken;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.ZdravstveniKarton;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.IUserService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PacijentService;
@@ -57,10 +58,10 @@ public class RegisterController {
                 .tipKorisnika("Pacijent")
                 .prvoLogovanje(true)
                 .build();
-
+        ZdravstveniKarton zdravstveniKarton = new ZdravstveniKarton();
         //Dodavanje novog pacijenta preko konstruktora koji prima Korisnika kao parametar
         //Dodaje se u isto vreme u obe tabele, u tabelu Pacijent kao referenca na tabelu Korisnik
-        Pacijent p = new Pacijent(noviPacijent);
+        Pacijent p = new Pacijent(noviPacijent, zdravstveniKarton);
         pacijentService.add(p);
 
         System.out.println("Account with email " + noviPacijent.getEmail() + "has been created!");

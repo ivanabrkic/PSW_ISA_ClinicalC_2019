@@ -16,11 +16,6 @@ public class ZdravstveniKarton {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="pacijent_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Pacijent pacijent;
-
     @ElementCollection
     private List<Dijagnoze> dijagnoze=new ArrayList<Dijagnoze>();
 
@@ -30,26 +25,20 @@ public class ZdravstveniKarton {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private OpstiIzvestaj opstiIzvestaj;
 
+    @Column(name = "broj_zk")
+    private int broj_zk;
+
     public ZdravstveniKarton(){
 
     }
 
     public ZdravstveniKarton(Pacijent pacijent, List<Dijagnoze> dijagnoze, OpstiIzvestaj opstiIzvestaj) {
-        this.pacijent = pacijent;
         this.dijagnoze = dijagnoze;
         this.opstiIzvestaj = opstiIzvestaj;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Pacijent getPacijent() {
-        return pacijent;
-    }
-
-    public void setPacijent(Pacijent pacijent) {
-        this.pacijent = pacijent;
     }
 
     public void setId(Long id) {

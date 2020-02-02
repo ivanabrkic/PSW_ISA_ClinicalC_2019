@@ -1,0 +1,43 @@
+<app-sidebarlekar></app-sidebarlekar>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+
+          <div class="card-header card-header-danger">
+            <table>
+              <h4 class="card-title ">Zakazani pregledi</h4>
+              <td><input class="form-control" type="text" placeholder="Ime" name="searchIme"  [(ngModel)]="searchIme"></td>
+              <td><input class="form-control" type="text" placeholder="Prezime" name="searchText"  [(ngModel)]="searchPrezime"></td>
+              <td><input class="form-control" type="text" placeholder="Jbo" name="searchJbo" [(ngModel)]="searchJbo"></td>
+            </table>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Jbo</th>
+                <th></th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let pacijent of this.pacijentiNovi | pretragafilterPacijent:searchIme:searchPrezime:searchJbo" >
+                  <td><b>{{pacijent.ime}}</b></td>
+                  <td><b>{{pacijent.prezime}}</b></td>
+                  <td><b>{{pacijent.jbo}}</b></td>
+                  <td><b>{{this.datumi[this.pacijentiNovi.indexOf(pacijent)]}}</b></td>
+                  <td><button mat-raised-button (click)="ZapocniPregled(pacijent)"
+                              class="btn btn-success">Zapocni Pregled</button></td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
