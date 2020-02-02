@@ -37,7 +37,9 @@ export class ListaKlinikaComponent implements OnInit {
 
   addEvent(type:string,event:MatDatepickerInputEvent<Date>){
     this.zahtev.idKlinike=null;
-    this.zahtev.datum='${type}:${event.value}';
+    var selectedDate=this.date.value;
+    selectedDate=moment(selectedDate).format('D.M.YYYY.');
+    this.zahtev.datum=selectedDate
     this.zahtev.start='00:00';
     this.zahtev.finis='23:59';
     //this.zahtev.specijalizacija='Kardiolog';

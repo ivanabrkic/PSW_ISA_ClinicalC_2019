@@ -1,0 +1,39 @@
+<app-patient-sidebar></app-patient-sidebar>
+<div class="content-container">
+  <div class="container-fluid">
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">Predefinisani termini klinike {{nazivKlinike}}</h4>
+              </div>
+              <div class="card-body">
+               
+<mat-grid-list cols="3"  rowHeight="300px" gutterSize="5px">
+    <mat-grid-tile  *ngFor="let termin of termini" [colspan]=1
+    [rowspan]=1
+    >
+
+  <div >
+
+    <div> datum: {{termin.datum}}</div>
+        <div> pocetak: {{termin.pocetak}}</div>
+            <div> kraj: {{termin.kraj}}</div>
+                <div> sala:{{termin.nazivSale}}{{termin.brojSale}}</div>
+                    <div>lekar: {{termin.lekarIme}}{{termin.lekarPrezime}}</div>
+                        <div>tip pregleda: {{termin.tipPregleda}}</div>
+                            <div> cena: {{termin.cena}}</div>
+                                <div>popust: {{termin.popust}}</div>
+    </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+            
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
