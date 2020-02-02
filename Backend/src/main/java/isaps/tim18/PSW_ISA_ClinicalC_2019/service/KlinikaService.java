@@ -162,7 +162,12 @@ public class KlinikaService {
     }
 
     public List<PregledDTO> getPregledi(Long id) {
-        return pregledRepository.findBySalaId(id);
+        List<PregledDTO> predef = pregledRepository.findBySalaIdPredef(id);
+        List<PregledDTO> obicni = pregledRepository.findBySalaId(id);
+
+        predef.addAll(obicni);
+
+        return predef;
     }
 
     public List<Lekar> findLekariOperacije(String datum, String pocetak, String kraj, Long id){
@@ -297,7 +302,7 @@ public class KlinikaService {
 
                 String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
 
-                List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVreme(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+                List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVremeOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
 
                 List<Long> slobodni = new ArrayList<>();
                 for (Long id : radeUToVreme) {
@@ -341,7 +346,7 @@ public class KlinikaService {
 
         String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
 
-        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVreme(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVremePregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
 
         List<Long> slobodni = new ArrayList<>();
         for (Long id : radeUToVreme) {

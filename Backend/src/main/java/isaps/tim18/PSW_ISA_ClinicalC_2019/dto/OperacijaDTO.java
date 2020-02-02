@@ -24,7 +24,8 @@ public class OperacijaDTO {
     public OperacijaDTO() {
     }
 
-    public OperacijaDTO(String jboPacijenta, String datum, String pocetak, String kraj) {
+    public OperacijaDTO(String tipPregleda, String jboPacijenta, String datum, String pocetak, String kraj) {
+        this.tipPregleda = tipPregleda;
         this.jboPacijenta = jboPacijenta;
         this.datum = datum;
         this.pocetak = pocetak;

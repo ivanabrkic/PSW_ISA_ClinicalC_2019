@@ -20,8 +20,17 @@ public class PregledDTO {
     public PregledDTO() {
     }
 
-    public PregledDTO(String jboPacijenta, String jboLekara, String datum, String pocetak, String kraj) {
+    public PregledDTO(String tipPregleda, String jboPacijenta, String jboLekara, String datum, String pocetak, String kraj) {
+        this.tipPregleda = tipPregleda;
         this.jboPacijenta = jboPacijenta;
+        this.datum = datum;
+        this.pocetak = pocetak;
+        this.kraj = kraj;
+        this.jboLekara = jboLekara;
+    }
+
+    public PregledDTO(String tipPregleda, String jboLekara, String datum, String pocetak, String kraj) {
+        this.tipPregleda = tipPregleda;
         this.datum = datum;
         this.pocetak = pocetak;
         this.kraj = kraj;
