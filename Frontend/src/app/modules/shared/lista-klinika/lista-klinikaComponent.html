@@ -12,9 +12,9 @@
         <table class="table">
           <tr>
             <td><mat-form-field>
-              <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+              <input matInput [matDatepicker]="picker" placeholder="Izaberite datum"[formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker #picker ></mat-datepicker>
             </mat-form-field></td>
             <td><input class="form-control" type="text" placeholder="Naziv" name="searchText"  [(ngModel)]="searchText"></td>
             <td><input class="form-control" type="text" placeholder="Grad" name="searchGrad"  [(ngModel)]="searchGrad"></td>
@@ -30,10 +30,9 @@
                   <option value="1">1+</option>
               </select>
             </td>
-            <td><select class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  >
-                  <option value="">Tip pregleda</option>
-                  <option value="one">Pregled</option>
-                  <option value="two">Operacija</option>
+            <td><select class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
+              <option value="">Izaberite tip</option>
+              <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip}}</option>
                 </select>
             </td>
           </tr>
@@ -117,7 +116,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> <button class="form-control" (click)="lekariNavigate($event)">Prikazi lekare</button></p>
+                        <p> <button class="form-control" (click)="lekariNavigate($event)">Prikazi slobodne lekare</button></p>
                         <p> <button class="form-control" (click)="profilNavigate($event)">Prikazi profil klinike</button></p>
                       </div>
                     </div>

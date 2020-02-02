@@ -13,7 +13,10 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
+
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+
+
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';

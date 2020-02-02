@@ -46,6 +46,7 @@ public class KlinikaService {
 
     public List<Klinika> findAll() { return klinikaRepository.findAll(); }
 
+
     @Transactional
     public Klinika add(Klinika klinika){
         return klinikaRepository.save(klinika);
