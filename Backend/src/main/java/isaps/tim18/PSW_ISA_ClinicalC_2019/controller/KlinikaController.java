@@ -3,14 +3,19 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -19,6 +24,9 @@ public class KlinikaController {
 
     @Autowired
     private KlinikaService klinikaService;
+
+    @Autowired
+    private LekarService lekarService;
 
     @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
@@ -150,5 +158,24 @@ public class KlinikaController {
         Boolean zahtevi =  klinikaService.removeZahtev(idZahteva);
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/slobodneKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Klinika>> slobodneKlinike(@RequestBody lekariterminiDTO zahtev) throws ParseException {
+
+
+        List<Klinika> slobodneKlinike=new ArrayList<>();
+        HashMap<String,Lekar> lekari;
+
+        List<Klinika> listaKlinika =  klinikaService.findAll(); //sve klinike
+        for (Klinika k : listaKlinika){  //filtriranje zauzetih
+            zahtev.setIdKlinike(k.getId());
+            lekari=lekarService.getSlobodniLekariTermini(zahtev);
+            if(!lekari.isEmpty()){
+                slobodneKlinike.add(k);
+            }
+        }
+
+        return new ResponseEntity<>(slobodneKlinike, HttpStatus.OK); //vracanje slobodnih
     }
 }

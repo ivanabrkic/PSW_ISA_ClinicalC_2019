@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
+import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -28,6 +29,11 @@ export class LekarService {
 
   public getSlobodni(zahtev : Zahtev): Observable<Lekar[]> {
     return this.http.post<Lekar[]>('/server/lekar/getSlobodniLekari', JSON.stringify(zahtev), httpOptions);
+  }
+
+  public getSlobodniLekariTermini(zahtev : pretragaDTO): Observable<Map<String,Lekar>> {
+    const pretraga = JSON.stringify(zahtev);
+    return this.http.post<Map<String,Lekar>>('/server/lekar/getSlobodniLekariTermini', pretraga, httpOptions);
   }
 
   public update(lekar: Lekar) {

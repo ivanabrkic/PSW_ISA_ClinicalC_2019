@@ -47,4 +47,11 @@ public interface LekarRepository extends JpaRepository<Lekar, Long> {
             " AND o.datum = ?2 ", nativeQuery = true)
     List<Long> imaPreglede(Long idLekara, String datum, String pocetak, String kraj);
 
+   // @Query(value="SELECT pocetak FROM Pregled AS o WHERE o.lekar_id=?1 AND CAST(?2 AS DATE )=CAST(o.datum AS DATE) AND o.status='Zakazan'",nativeQuery = true)
+    @Query(value="SELECT pocetak, lekar_id, datum, kraj FROM Pregled AS o WHERE o.lekar_id = ?1 AND o.datum=?2 And o.status='Zakazan'",nativeQuery = true)
+    List<String> zauzetiTermini(Long idLekara,String datum);
+
+    @Query(value="SELECT pocetak, lekar_id, datum, kraj FROM Operacija AS o WHERE o.lekar_id = ?1 AND o.datum=?2 ",nativeQuery = true)
+    List<String> zauzetiTermini2(Long idLekara,String datum);
+
 }

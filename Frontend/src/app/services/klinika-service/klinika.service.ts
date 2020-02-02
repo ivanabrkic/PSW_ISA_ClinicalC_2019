@@ -8,6 +8,7 @@ import { Operacija } from 'src/app/models/operacija/operacija';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { Message } from 'src/app/models/message/message';
+import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -32,6 +33,8 @@ export class KlinikaService {
   public getKlinike() {
     return this.http.get<Klinika>('/server/klinika/all', httpOptions);
   }
+
+ 
 
   public getSale(id : number): Observable<Sala[]> {
     return this.http.post<Sala[]>('/server/klinika/getSale', id, httpOptions);
