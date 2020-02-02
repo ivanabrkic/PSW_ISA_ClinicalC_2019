@@ -142,8 +142,6 @@ export class RadniKalendarSaleComponent implements OnInit {
         var sat2 = parseInt(this.pregledi[i].kraj.split(':')[0])
         var minut2 = parseInt(this.pregledi[i].kraj.split(':')[1])
 
-        alert(this.pregledi[i].tipPregleda)
-
         if (this.pregledi[i].jboPacijenta == undefined) {
           this.data.push({
             Id: i,
