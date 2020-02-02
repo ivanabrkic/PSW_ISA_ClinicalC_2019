@@ -74,9 +74,9 @@ insert into lekovi(sifra, naziv) values ('ry71h', 'bromazemam');
 insert into lekovi(sifra, naziv) values ('r451h', 'sinacilin');
 insert into lekovi(sifra, naziv) values ('r211h', 'gentamicin');
 
-insert into recept(broj, overen, pacijent_id) values (23, false, 3);
-insert into recept(broj, overen, pacijent_id) values (29, false, 6);
-insert into recept(broj, overen, pacijent_id) values (28, false, 6);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (23, false, 3, null);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (29, false, 6, null);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (28, false, 6, null);
 
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 1);
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 2);
