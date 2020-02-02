@@ -4,6 +4,7 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
@@ -117,6 +118,14 @@ public class KlinikaController {
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
+    
+    @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody Long id) {
+
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(id);
+
+        return new ResponseEntity<>(pregledi, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/getZahtevi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Zahtev>> getZahtevi(@RequestBody Long idKlinike) {
@@ -125,6 +134,8 @@ public class KlinikaController {
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
+    
+  
 
     @PostMapping(value = "/getSaleSlobodneOd", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Sala>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){

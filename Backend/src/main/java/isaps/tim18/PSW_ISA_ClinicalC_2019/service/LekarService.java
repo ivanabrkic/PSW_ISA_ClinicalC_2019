@@ -160,22 +160,22 @@ public class LekarService {
 
         DateFormat dateFormat= new SimpleDateFormat("hh:mm");
 
-        String datum=zahtev.getDatum().replace('/','.');
-        System.out.println(datum);
+        //String datum=zahtev.getDatum().replace('/','.');
+        //System.out.println(datum);
 
         Cenovnik cen = cenovnikRepository.findByNaziv(zahtev.getSpecijalizacija());
         String specijalizacija=cen.getSpecijalizacija();
 
-        System.out.print(specijalizacija);
-        System.out.println();
+        //System.out.print(specijalizacija);
+        //System.out.println();
 
         List<Lekar> sviLekari = lekarRepository.findAll();
-        System.out.print(sviLekari);
-        System.out.println();
+        //System.out.print(sviLekari);
+       // System.out.println();
 
         List<Lekar> lekariKlinike=new ArrayList<>();
         for (Lekar lekar: sviLekari){
-            System.out.println(lekar.getSpecijalizacija());
+         //   System.out.println(lekar.getSpecijalizacija());
             if (lekar.getKlinika().getId().equals(zahtev.getIdKlinike()) && lekar.getSpecijalizacija().equals(specijalizacija)){
                 lekariKlinike.add(lekar);
             }
@@ -187,11 +187,13 @@ public class LekarService {
         int interval=15;
 
         for (Lekar l : lekariKlinike){
-            List<String> found=(lekarRepository.zauzetiTermini(l.getId(),datum));
-            List<String> found2=(lekarRepository.zauzetiTermini2(l.getId(),datum));
+            List<String> found=(lekarRepository.zauzetiTermini(l.getId(),zahtev.getDatum()));
+            List<String> found2=(lekarRepository.zauzetiTermini2(l.getId(),zahtev.getDatum()));
             found.addAll(found2);
             List<String> zauzetiterminipocetak=new ArrayList<>();
             List<String> zauzetiterminikraj=new ArrayList<>();
+            System.out.println(zahtev.getDatum());
+            
             for (String f : found){
                 String[] foundparse=f.split(",");
                 zauzetiterminipocetak.add(foundparse[0]);
