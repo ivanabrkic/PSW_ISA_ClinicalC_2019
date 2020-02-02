@@ -22,6 +22,8 @@ import { ZahteviOperacijePreglediComponent } from './zahtevi-operacije-pregledi/
 import { IzborSaleComponent } from './izbor-sale/izbor-sale.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ZakaziTerminComponent } from './zakazi-termin/zakazi-termin.component';
+import { MapaComponent } from './mapa/mapa.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent, 
@@ -35,7 +37,8 @@ import { ZakaziTerminComponent } from './zakazi-termin/zakazi-termin.component';
                 RegistracijaSalaComponent,
                 ZahteviOperacijePreglediComponent,
                 IzborSaleComponent,
-                ZakaziTerminComponent],
+                ZakaziTerminComponent,
+                MapaComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -64,7 +67,11 @@ import { ZakaziTerminComponent } from './zakazi-termin/zakazi-termin.component';
                           { path: 'medicinskoosoblje', component: TabelaMedicinskogOsobljaComponent},
                           { path: 'sale', component: PregledSalaComponent},
                           {path: 'zahtevi', component: ZahteviOperacijePreglediComponent}
-  ])
+  ]),
+  AgmCoreModule.forRoot({
+    apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
+    libraries: ['places']
+  })
   ],
   entryComponents: [
     DetaljiComponent,

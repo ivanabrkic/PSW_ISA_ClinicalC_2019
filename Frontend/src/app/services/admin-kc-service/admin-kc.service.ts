@@ -20,4 +20,8 @@ export class AdminKcService {
   public getUlogovanKorisnik(): Observable<AdminKc> {
     return this.http.get<AdminKc>('/server/korisnik/ulogovanKorisnik', httpOptions);
   }
+
+  public getLocation(){
+    return this.http.get<any>('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4', httpOptions);
+  }
 }
