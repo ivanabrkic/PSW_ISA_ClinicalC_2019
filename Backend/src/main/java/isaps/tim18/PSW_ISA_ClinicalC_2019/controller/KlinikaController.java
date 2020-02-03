@@ -58,15 +58,6 @@ public class KlinikaController {
         return new ResponseEntity<>(listaLekara, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/getSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Sala>> getSale(@RequestBody Long id){
-
-        System.out.println(id);
-        List<Sala> listaSala =  klinikaService.findSale(id);
-
-        return new ResponseEntity<>(listaSala, HttpStatus.OK);
-    }
-
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Klinika> update(@RequestBody Klinika klinika) throws Exception {
 
@@ -76,22 +67,6 @@ public class KlinikaController {
             return new ResponseEntity<>(klinika, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-    }
-
-    @PostMapping(value = "/removeSala", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Klinika> remove(@RequestBody Long id) throws Exception {
-
-        Klinika poruka = klinikaService.remove(id);
-
-        return new ResponseEntity<>(poruka, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/registerSala", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Sala> Register(@RequestBody Sala sala){
-
-        Sala poruka = klinikaService.addNovaSala(sala.getNaziv(), sala.getBroj(), sala.getId());
-
-        return new ResponseEntity<>(poruka, HttpStatus.OK);
     }
 
     @PostMapping(value = "/getOperacije", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)

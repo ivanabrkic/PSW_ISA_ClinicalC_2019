@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule } from '@angular/material';
+import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule, MatTabsModule } from '@angular/material';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SidebarAdminKlinikeComponent } from './sidebar-admin-klinike/sidebar-admin-klinike.component';
 import { AdminKlinikeIzmenaComponent } from './admin-klinike-izmena/admin-klinike-izmena.component';
@@ -24,6 +24,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ZakaziTerminComponent } from './zakazi-termin/zakazi-termin.component';
 import { MapaComponent } from './mapa/mapa.component';
 import { AgmCoreModule } from '@agm/core';
+import { TipoviPregledaComponent } from './tipovi-pregleda/tipovi-pregleda.component';
+import { RegistracijaTipovaComponent } from './registracija-tipova/registracija-tipova.component';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent, 
@@ -38,7 +40,9 @@ import { AgmCoreModule } from '@agm/core';
                 ZahteviOperacijePreglediComponent,
                 IzborSaleComponent,
                 ZakaziTerminComponent,
-                MapaComponent],
+                MapaComponent,
+                TipoviPregledaComponent,
+                RegistracijaTipovaComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -61,12 +65,14 @@ import { AgmCoreModule } from '@agm/core';
     MatCheckboxModule,
     MatListModule,
     MatCardModule,
+    MatTabsModule,
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
                           { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
                           { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
                           { path: 'medicinskoosoblje', component: TabelaMedicinskogOsobljaComponent},
                           { path: 'sale', component: PregledSalaComponent},
-                          {path: 'zahtevi', component: ZahteviOperacijePreglediComponent}
+                          {path: 'zahtevi', component: ZahteviOperacijePreglediComponent},
+                          {path: 'tipovi', component:TipoviPregledaComponent}
   ]),
   AgmCoreModule.forRoot({
     apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -77,7 +83,8 @@ import { AgmCoreModule } from '@agm/core';
     DetaljiComponent,
     RegistracijaMedicinskogOsobljaComponent,
     RegistracijaSalaComponent,
-    ZakaziTerminComponent
+    ZakaziTerminComponent,
+    RegistracijaTipovaComponent
   ],
   providers: [AdminKlinikeService],
   exports:   [SidebarAdminKlinikeComponent, 

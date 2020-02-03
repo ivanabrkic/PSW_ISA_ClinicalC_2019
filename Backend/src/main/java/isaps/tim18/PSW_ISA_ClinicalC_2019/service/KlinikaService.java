@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class KlinikaService {
@@ -88,59 +90,6 @@ public class KlinikaService {
             return null;
         }
         return lekarRepository.findByKlinika(k);
-    }
-
-    public List<Sala> findSale(Long id) {
-        Klinika k = klinikaRepository.findById(id).get();
-
-        if (k != null){
-            return salaRepository.findByKlinikaId(id);
-        }
-        return null;
-    }
-
-    @Transactional
-    public Klinika remove(Long id){
-        Klinika klinika = new Klinika();
-        if(salaRepository.findById(id).isPresent()) {
-            if (operacijaRepository.findBySalaId(id).size() != 0 || pregledRepository.findBySalaId(id).size() != 0){
-                System.out.println(id);
-                System.out.println(operacijaRepository.findBySalaId(id).size());
-                System.out.println(pregledRepository.findBySalaId(id).size());
-                klinika.setNaziv("Ne možete obrisati salu koja ima zakazane preglede ili operacije.");
-            }
-            else {
-                salaRepository.deleteById(id);
-                klinika.setNaziv("Sala uspešno obrisana!");
-            }
-        }
-        else{
-            klinika.setNaziv("Tražena sala ne postoji!");
-        }
-        return klinika;
-    }
-
-    public Sala addNovaSala(String naziv, String broj, Long idKlinike) {
-        Sala poruka = new Sala();
-        Klinika k = klinikaRepository.findById(idKlinike).get();
-
-        if (salaRepository.findByNazivAndKlinikaAndBroj(naziv, k, broj) == null) {
-
-            Sala s = new Sala();
-
-            s.setNaziv(naziv);
-            s.setBroj(broj);
-            s.setKlinika(k);
-
-            salaRepository.saveAndFlush(s);
-
-            poruka.setNaziv("Uspešno dodata nova sala!");
-        }
-        else{
-            poruka.setNaziv("Sala sa željenim imenom već postoji!");
-        }
-
-        return poruka;
     }
 
     public List<OperacijaDTO> getOperacije(Long id) {
@@ -269,10 +218,10 @@ public class KlinikaService {
     }
 
     public List<Long> getSlobodniLekari(Zahtev zahtev){
+        String vremeZakazivanja = "";
 
         if(zahtev.getTipPosete() == "Operacija") {
             if (lekarSlobodan(zahtev)) {
-                String vremeZakazivanja = "";
 
                 int osamSati = 8 * 60;
                 int sesnaestSati = 16 * 60;
@@ -316,8 +265,6 @@ public class KlinikaService {
                 return new ArrayList<Long>();
             }
         }
-        String vremeZakazivanja = "";
-
         int osamSati = 8 * 60;
         int sesnaestSati = 16 * 60;
         int dvanaestSati = 24 * 60;
@@ -365,4 +312,5 @@ public class KlinikaService {
         }
         return false;
     }
+
 }
