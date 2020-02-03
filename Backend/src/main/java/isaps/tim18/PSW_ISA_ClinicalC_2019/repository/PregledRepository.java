@@ -3,6 +3,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,7 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
             " AND (( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) ) OR " +
             " ( CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time)  )" +
             " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
-            " AND o.datum = ?2 ", nativeQuery = true)
+            " AND o.datum = ?2 AND NOT o.status = 'Završen'", nativeQuery = true)
     List<Long> findByKlinikaIdAndVreme(Long idKlinike, String datum, String pocetak, String kraj);
     
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO(c.naziv,  p.datum, p.pocetak, p.kraj,s.naziv,s.broj,k.naziv,l.ime,l.prezime,c.cena,p.popust) FROM Pregled p INNER JOIN Cenovnik c ON p.cenovnik.id = c.id INNER JOIN p.sala as s INNER JOIN s.klinika as k INNER JOIN p.lekar as l " +
@@ -36,4 +37,11 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
            )
     List<predefInfoDTO> findByKlinikaIdPredef(Long id);
 
+    @Query("SELECT p FROM Pregled p WHERE p.cenovnik.id = ?1 " +
+            "AND NOT p.status = 'Završen'")
+    List<Pregled> findByCenovnikId(Long idTipa);
+
+    @Query("SELECT p.sala FROM Pregled p WHERE p.sala.id = ?1 " +
+            "AND NOT p.status = 'Završen'")
+    List<Sala> findBySalaIdAndStatus(Long id);
 }

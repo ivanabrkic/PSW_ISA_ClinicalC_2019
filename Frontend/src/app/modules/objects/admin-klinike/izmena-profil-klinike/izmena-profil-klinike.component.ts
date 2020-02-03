@@ -15,6 +15,8 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
   klinikaForm: FormGroup;
   submitted = false;
 
+  adresaParentValue : String;
+
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
   constructor(private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
@@ -28,6 +30,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
         this.adminKlinike = ulogovanKorisnik;
+        this.adresaParentValue = this.adminKlinike.klinika.adresa + "," + this.adminKlinike.klinika.grad + "," + this.adminKlinike.klinika.drzava
       });
 
     this.klinikaForm = this.formBuilder.group({
@@ -40,6 +43,8 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
       ocena: ['']    
     },  {
     });
+
+
   }
 
   get f() { return this.klinikaForm.controls; }
@@ -58,6 +63,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
     this.klinikaService.update(this.klinikaForm.value, this.adminKlinike.klinika.id).pipe(first()).subscribe(result => {
         alert('Uspešno ste izmenili profil klinike!\n\n');
         this.adminKlinike.klinika = result;
+        this.adresaParentValue = this.adminKlinike.klinika.adresa + "," + this.adminKlinike.klinika.grad + "," + this.adminKlinike.klinika.drzava
       },
       error => {
         alert('Neuspešna izmena!\n\n');
