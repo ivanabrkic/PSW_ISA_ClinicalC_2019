@@ -1,5 +1,4 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
-
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Operacija;
@@ -10,7 +9,6 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.OperacijaRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PregledRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -79,4 +77,12 @@ public class CenovnikService {
         return new Message("Tip pregleda ne postoji!");
     }
 
+    public String findByNaziv(String ime){
+        Cenovnik found=cenovnikRepository.findByNaziv(ime);
+        return found.getSpecijalizacija();
+    }
+
+    public List<Cenovnik> findAll(){
+        return cenovnikRepository.findAll();
+    }
 }

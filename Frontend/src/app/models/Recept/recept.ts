@@ -1,5 +1,6 @@
 import {Pacijent} from '../pacijent/pacijent';
 import {Lekovi} from '../Lekovi/lekovi';
+import {MedicinskaSestra} from '../medicinskas/medicinskas';
 
 export class Recept {
   id: number;
@@ -7,4 +8,5 @@ export class Recept {
   overen: boolean;
   pacijent: Pacijent;
   lekovi: Array<Lekovi>;
+  medicinskaSestra: MedicinskaSestra;
 }

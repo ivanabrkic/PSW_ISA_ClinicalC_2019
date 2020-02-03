@@ -2,6 +2,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class KlinikaService {
     public Klinika findById(int id) { return klinikaRepository.findById(id); }
 
     public List<Klinika> findAll() { return klinikaRepository.findAll(); }
+
 
     @Transactional
     public Klinika add(Klinika klinika){
@@ -114,6 +116,12 @@ public class KlinikaService {
         List<PregledDTO> obicni = pregledRepository.findBySalaId(id);
 
         predef.addAll(obicni);
+
+        return predef;
+    }
+    
+    public List<predefInfoDTO> getPreglediPredef(Long id) {
+        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id);
 
         return predef;
     }

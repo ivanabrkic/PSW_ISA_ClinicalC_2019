@@ -8,7 +8,11 @@ import { Operacija } from 'src/app/models/operacija/operacija';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { Message } from 'src/app/models/message/message';
+<<<<<<< HEAD
 import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
+=======
+import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
+>>>>>>> bb19f5621617c0fa304ae16e19b8376fc2e7b125
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -35,6 +39,19 @@ export class KlinikaService {
     return this.http.get<Klinika>('/server/klinika/all', httpOptions);
   }
 
+<<<<<<< HEAD
+=======
+ 
+
+  public getSale(id : number): Observable<Sala[]> {
+    return this.http.post<Sala[]>('/server/klinika/getSale', id, httpOptions);
+  }
+
+  public getSaleSlobodneOd(zahtev : Zahtev): Observable<Sala[]> {
+    return this.http.post<Sala[]>('/server/klinika/getSaleSlobodneOd', JSON.stringify(zahtev), httpOptions);
+  }
+
+>>>>>>> bb19f5621617c0fa304ae16e19b8376fc2e7b125
   public update(klinika: Klinika, id: number){
     klinika.id = id;
     const k = JSON.stringify(klinika)

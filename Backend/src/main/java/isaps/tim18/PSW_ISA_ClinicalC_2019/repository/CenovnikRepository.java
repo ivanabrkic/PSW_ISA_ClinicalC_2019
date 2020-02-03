@@ -15,4 +15,7 @@ public interface CenovnikRepository extends JpaRepository<Cenovnik, Long> {
     @Query("SELECT c FROM Cenovnik c WHERE c.naziv = ?1 AND c.specijalizacija = ?2 AND c.klinika.id = ?3 AND c.cena = ?4")
     List<Cenovnik> findByNazivAndSpecijalizacijaAndKlinikaAndCena(String naziv, String specijalizacija, Long klinika, float cena);
 
+    Cenovnik findByNaziv(String ime);
+
+    List<Cenovnik> findAll();
 }

@@ -13,7 +13,10 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
+
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+
+
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
@@ -62,6 +65,8 @@ import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekara
 import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
 import { PretragafilterLekari } from './helpers/filterLekari';
 import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { PredefinisaniTerminiComponent } from './modules/shared/predefinisani-termini/predefinisani-termini.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -101,7 +106,8 @@ import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
     ListaLekaraComponent,
     PretragafilterFilter,
     ProfilKlinikeComponent,
-    PretragafilterLekari
+    PretragafilterLekari,
+    PredefinisaniTerminiComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -121,7 +127,8 @@ import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
     MatDatepickerModule,
     CommonModule,
     MatDatepickerModule,        
-    MatNativeDateModule,       
+    MatNativeDateModule,  
+    MatGridListModule,     
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
@@ -151,6 +158,7 @@ import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
        {path: 'listaPoseta', component: PoseteComponent},
        {path:'listaLekara',component:ListaLekaraComponent},
        {path:'profilKlinike',component:ProfilKlinikeComponent},
+       {path:'listaPredefinisanih',component:PredefinisaniTerminiComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],
