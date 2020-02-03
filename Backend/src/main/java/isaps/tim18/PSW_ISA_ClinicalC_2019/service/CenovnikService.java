@@ -11,6 +11,13 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PregledRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
+import net.bytebuddy.asm.Advice;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -79,4 +86,12 @@ public class CenovnikService {
         return new Message("Tip pregleda ne postoji!");
     }
 
+    public String findByNaziv(String ime){
+        Cenovnik found=cenovnikRepository.findByNaziv(ime);
+        return found.getSpecijalizacija();
+    }
+
+    public List<Cenovnik> findAll(){
+        return cenovnikRepository.findAll();
+    }
 }

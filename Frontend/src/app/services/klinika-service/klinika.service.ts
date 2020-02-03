@@ -9,6 +9,7 @@ import { Lekar } from 'src/app/models/lekar/lekar';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { Message } from 'src/app/models/message/message';
 import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
+import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 

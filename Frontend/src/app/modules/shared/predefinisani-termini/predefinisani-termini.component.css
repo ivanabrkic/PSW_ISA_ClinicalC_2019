@@ -1,0 +1,20 @@
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+div {
+  font-family: 'Roboto';
+}
+
+mat-grid-tile {
+   background-image: url("/assets/img/ambulance2.png");
+   background-size:300px;
+   font-weight: bold;
+ 
+  
+
+  }
+
+
+
+.content-container {
+  padding-top: 20px;
+  padding-left: 220px;
+}

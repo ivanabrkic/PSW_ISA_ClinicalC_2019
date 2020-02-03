@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -71,6 +73,13 @@ public class LekarController {
         return new ResponseEntity<>(lekari, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/getSlobodniLekariTermini", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String,Lekar>> getSlobodniLekariTermini(@RequestBody lekariterminiDTO zahtev) throws Exception {
+
+        HashMap<String,Lekar> lekari = lekarService.getSlobodniLekariTermini(zahtev);
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    }
     @PostMapping(value = "/lekarSlobodan", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> lekarSlobodan(@RequestBody Zahtev zahtev){
 

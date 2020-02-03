@@ -22,6 +22,11 @@ public class Recept {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Pacijent pacijent;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="med_sestra", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private MedicinskaSestra medicinskaSestra;
+
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Lekovi> lekovi = new ArrayList<Lekovi>();
 
@@ -32,11 +37,12 @@ public class Recept {
 
     }
 
-    public Recept(boolean overen, Pacijent pacijent, ArrayList<Lekovi> lekovi, int broj) {
+    public Recept(boolean overen, Pacijent pacijent, ArrayList<Lekovi> lekovi, int broj, MedicinskaSestra medicinskaSestra) {
         this.overen = overen;
         this.pacijent = pacijent;
         this.lekovi = lekovi;
         this.broj = broj;
+        this.medicinskaSestra = medicinskaSestra;
     }
 
     public int getBroj() {
@@ -77,5 +83,13 @@ public class Recept {
 
     public void setLekovi(ArrayList<Lekovi> lekovi) {
         this.lekovi = lekovi;
+    }
+
+    public MedicinskaSestra getMedicinskaSestra() {
+        return medicinskaSestra;
+    }
+
+    public void setMedicinskaSestra(MedicinskaSestra medicinskaSestra) {
+        this.medicinskaSestra = medicinskaSestra;
     }
 }
