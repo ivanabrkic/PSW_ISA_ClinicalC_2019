@@ -18,6 +18,9 @@ public class Zahtev {
     @Column(name="stavka",nullable = false)
     private String stavkaCenovnika;
 
+    @Column(name="tip_posiljaoca",nullable = false)
+    private String tipPosiljaoca;
+
     @Column(name="posiljalacJbo",nullable = false)
     private String posiljalacJbo;
 
@@ -26,6 +29,9 @@ public class Zahtev {
 
     @Column(name="jboPacijenta",nullable = false)
     private String jboPacijenta;
+
+    @Column(name="jbo_lekara",nullable = false)
+    private String jboLekara;
 
     @Column(name="datum",nullable = false)
     private String datum;
@@ -43,6 +49,22 @@ public class Zahtev {
     private Long idKlinike;
 
     public Zahtev() {
+    }
+
+    public String getTipPosiljaoca() {
+        return tipPosiljaoca;
+    }
+
+    public void setTipPosiljaoca(String tipPosiljaoca) {
+        this.tipPosiljaoca = tipPosiljaoca;
+    }
+
+    public String getJboLekara() {
+        return jboLekara;
+    }
+
+    public void setJboLekara(String jboLekara) {
+        this.jboLekara = jboLekara;
     }
 
     public Long getIdStavke() {

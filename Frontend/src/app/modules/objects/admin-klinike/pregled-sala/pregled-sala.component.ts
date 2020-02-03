@@ -24,7 +24,6 @@ export class PregledSalaComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-
   constructor(public dialog: MatDialog, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {

@@ -60,10 +60,10 @@ insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust,
 insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke) values ('13:00', '13:15', '1.2.2020.', 7, 1, 2, 2);
 insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke) values ('13:00', '13:15', '1.2.2020.', 7, 2, 2, 2);
 
-insert into zahtev (id_stavke, stavka, tip_posete, posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
-(6, 'Ultrazvuk srca', 'Pregled', '1234567891111', 'Ivana Brkic', '8766566541111', '30.1.2020.', '13:00', '13:15', 'Nema dodatnih informacija.', 1);
-insert into zahtev (id_stavke, stavka, tip_posete, posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
-(2, 'Ugradnja stenta', 'Operacija', '1234567891111', 'Ivana Brkic', '1231231231111', '3.2.2020.', '12:15', '16:00', 'U pitanju je operacija na srcu. Potreban mi je anesteziolog da izvršim operaciju.', 1);
+insert into zahtev (id_stavke, stavka, tip_posete, tip_posiljaoca,  posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, jbo_lekara, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
+(6, 'Ultrazvuk srca', 'Pregled', 'Lekar', '1234567891111', 'Ivana Brkic', '8766566541111', '1234567891111','30.1.2020.', '13:00', '13:15', 'Nema dodatnih informacija.', 1);
+insert into zahtev (id_stavke, stavka, tip_posete, tip_posiljaoca, posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, jbo_lekara, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
+(2, 'Ugradnja stenta', 'Operacija', 'Lekar', '1234567891111', 'Ivana Brkic', '1231231231111', '1234567891111', '3.2.2020.', '12:15', '16:00', 'U pitanju je operacija na srcu. Potreban mi je anesteziolog da izvršim operaciju.', 1);
 
 insert into lekovi(sifra, naziv) values ('ry71h', 'bromazemam');
 insert into lekovi(sifra, naziv) values ('r451h', 'sinacilin');
