@@ -1,6 +1,7 @@
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Injectable } from '@angular/core';
+import {ZdravstveniKarton} from "../../../../models/zdravstvenik/zdravstveniKarton";
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -19,5 +20,8 @@ export class ZdravstveniKartonService {
     return this.http.get<String[]>('/server/dijagnoze/get', httpOptions2);
   }
 
-
+  public update(zdravstveniKarton: ZdravstveniKarton){
+    const karton = JSON.stringify(zdravstveniKarton);
+    return this.http.post('/server/zk/update', karton, httpOptions)
+  }
 }

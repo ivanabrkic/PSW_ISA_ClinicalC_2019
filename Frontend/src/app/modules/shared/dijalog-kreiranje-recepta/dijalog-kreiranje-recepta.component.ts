@@ -30,7 +30,6 @@ export class DijalogKreiranjeReceptaComponent implements OnInit {
         );
         podaci.splice(0, 1);
         this.noviPodaci = podaci;
-        //ovde je dobro, dobijam niz, ne niz u nizu
       }
     );
   }

@@ -24,12 +24,12 @@
                 <th></th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let pacijent of this.pacijentiNovi | pretragafilterPacijent:searchIme:searchPrezime:searchJbo" >
+                <tr *ngFor="let pacijent of this.pacijentiNovi | pretragafilterPacijent:searchIme:searchPrezime:searchJbo; let idx = index;" >
                   <td><b>{{pacijent.ime}}</b></td>
                   <td><b>{{pacijent.prezime}}</b></td>
                   <td><b>{{pacijent.jbo}}</b></td>
-                  <td><b>{{this.datumi[this.pacijentiNovi.indexOf(pacijent)]}}</b></td>
-                  <td><button mat-raised-button (click)="ZapocniPregled(pacijent)"
+                  <td><b id="datum">{{this.datumi[this.pacijentiNovi.indexOf(pacijent)]}}</b></td>
+                  <td><button mat-raised-button (click)="ZapocniPregled(pacijent, idx)"
                               class="btn btn-success">Zapocni Pregled</button></td>
                 </tbody>
               </table>

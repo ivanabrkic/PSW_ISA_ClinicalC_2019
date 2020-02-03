@@ -62,7 +62,7 @@ public class ReceptController {
     public ResponseEntity<Recept> ukloniOdbijen(@RequestBody Recept recept) throws Exception {
 
 
-        receptService.removeByBrojAndPacijent(recept);
+        receptService.removeById(recept);
 
         return new ResponseEntity<>(recept, HttpStatus.OK);
     }

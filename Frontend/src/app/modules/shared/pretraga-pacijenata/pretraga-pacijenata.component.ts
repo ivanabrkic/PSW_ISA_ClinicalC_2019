@@ -7,7 +7,8 @@ import {PregledService} from '../services/pregled-service/pregled.service';
 import {PacijentService} from '../services/pacijent-service/pacijent.service';
 import {Pregled} from '../../../models/pregled/pregled';
 import {SessionService} from '../services/SessionService/session.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {PregledIzvestajDTO} from "../../../helpers/pregled-izvestaj-dto";
 
 @Component({
   selector: 'app-pretraga-pacijenata',
@@ -17,10 +18,11 @@ import {Router} from "@angular/router";
 export class PretragaPacijenataComponent implements OnInit {
   pregledi: any;
   lekar: Lekar;
-  preglediNovi: Pregled[] = [];
+  preglediNovi: PregledIzvestajDTO[] = [];
   pacijentiNovi: Pacijent[] = [];
   pacijenti: any;
-  datumi: String[] = [];
+  datumi: string[] = [];
+  datumZaPregled: string;
 
   constructor(private pregledService: PregledService, public dialog: MatDialog, private lekarService: LekarService,
               private pacijentiService: PacijentService, private sessionService: SessionService,  private router: Router) {
@@ -62,8 +64,11 @@ export class PretragaPacijenataComponent implements OnInit {
   ngOnInit() {
   }
 
-  ZapocniPregled(pacijent: Pacijent) {
+  ZapocniPregled(pacijent: Pacijent, index: number) {
+    this.sessionService.lekarZaPregled = this.lekar;
     this.sessionService.pacijentZaPregled = pacijent;
+    this.sessionService.datumZaPregled = this.datumi[index];
+    this.sessionService.pregled = this.pregledi[index];
     this.router.navigate(['/formaIzvestaj']);
   }
 }

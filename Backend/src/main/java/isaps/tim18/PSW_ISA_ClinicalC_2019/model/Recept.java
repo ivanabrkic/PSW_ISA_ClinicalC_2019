@@ -14,9 +14,6 @@ public class Recept {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="broj", nullable = false)
-    private int broj;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="pacijent_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -36,15 +33,6 @@ public class Recept {
         this.overen = overen;
         this.pacijent = pacijent;
         this.lekovi = lekovi;
-        this.broj = broj;
-    }
-
-    public int getBroj() {
-        return broj;
-    }
-
-    public void setBroj(int broj) {
-        this.broj = broj;
     }
 
     public boolean isOveren() {

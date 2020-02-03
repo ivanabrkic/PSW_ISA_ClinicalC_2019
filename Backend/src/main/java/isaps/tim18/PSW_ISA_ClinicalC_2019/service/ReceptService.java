@@ -8,13 +8,12 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReceptService {
     @Autowired
     ReceptRepository receptRepository;
-
-    public Recept findById(int id) { return receptRepository.findById(id); }
 
     public List<Recept> findAll() { return receptRepository.findAll(); }
 
@@ -29,18 +28,26 @@ public class ReceptService {
 
     @Transactional
     public Recept updateOveren(Recept recept){
-        Recept r = receptRepository.findByBrojAndPacijent(recept.getBroj(), recept.getPacijent());
-        if(r != null){
+        Optional<Recept> o = receptRepository.findById(recept.getId());
+        Recept r;
+        if(o.isPresent()){
+            r = o.get();
             r.setOveren(recept.isOveren());
             receptRepository.save(r);
             return r;
         }
+
         return null;
     }
 
     @Transactional
-    public Recept removeByBrojAndPacijent(Recept recept){
-        receptRepository.delete(recept);
+    public Recept removeById(Recept recept){
+        Optional<Recept> opt = receptRepository.findById(recept.getId());
+
+        if(opt.isPresent()){
+            receptRepository.delete(opt.get());
+        }
+
         return recept;
     }
 

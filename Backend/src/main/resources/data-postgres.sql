@@ -55,7 +55,7 @@ insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Opšti 
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ultrazvuk srca', 6000, 1, 'Kardiolog');
 
 
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('12:00', '12:45', '30.1.2020.', 6, 1, 1, 1, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('12:00', '12:45', '30.1.2020.', 6, 1, 1, 1, 'Završen');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '31.1.2020.', 7, 1, 2, 4, 'Zakazan');
 
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:00', '08:15', '5.2.2020.', 1, 2, 6, 60, 'Neaktivan');
@@ -74,9 +74,9 @@ insert into lekovi(sifra, naziv) values ('ry71h', 'bromazemam');
 insert into lekovi(sifra, naziv) values ('r451h', 'sinacilin');
 insert into lekovi(sifra, naziv) values ('r211h', 'gentamicin');
 
-insert into recept(broj, overen, pacijent_id) values (23, false, 3);
-insert into recept(broj, overen, pacijent_id) values (29, false, 6);
-insert into recept(broj, overen, pacijent_id) values (28, false, 6);
+insert into recept(overen, pacijent_id) values (false, 3);
+insert into recept(overen, pacijent_id) values (false, 6);
+insert into recept(overen, pacijent_id) values (false, 6);
 
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 1);
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 2);

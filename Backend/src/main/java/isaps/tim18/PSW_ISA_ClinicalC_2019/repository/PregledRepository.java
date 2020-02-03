@@ -1,20 +1,23 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PregledRepository  extends JpaRepository<Pregled, Long> {
 
-    @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO(p.pacijent.jbo, p.lekar.jbo, p.datum, p.pocetak, p.kraj) FROM Pregled p")
-    List<PregledDTO> findAll(String s);
-
-    void deleteBySalaId(Long id);
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.lekar.jbo) " +
+            "FROM Pregled p WHERE NOT p.status = 'Završen'")
+    List<PregledIzvestajDTO> findAll(String s);
+    
+    Optional<Pregled> findById(Long id);
 
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO(p.pacijent.jbo, p.lekar.jbo, p.datum, p.pocetak, p.kraj) FROM Pregled p " +
             "WHERE p.sala.id = ?1" +

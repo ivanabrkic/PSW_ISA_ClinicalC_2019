@@ -7,5 +7,5 @@ export class Izvestaj {
   zdravstveniKarton: ZdravstveniKarton;
   recept: Recept;
   lekar: Lekar;
-  datum: string;
+  datum: String;
 }
