@@ -70,4 +70,5 @@ public class Cenovnik {
     public void setKlinika(Klinika klinika) {
         this.klinika = klinika;
     }
+
 }

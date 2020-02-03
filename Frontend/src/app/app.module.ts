@@ -13,7 +13,10 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDatepickerModule } from '@angular/material';
+
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+
+
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
@@ -43,14 +46,14 @@ import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dija
 import {MatDialogModule} from '@angular/material/dialog';
 import { KreiranjeLekovaComponent } from './modules/objects/adminkc/kreiranje-lekova/kreiranje-lekova.component';
 import { NotFoundComponent } from './home/not-found/not-found.component';
-import { KlinikaService } from './modules/shared/services/klinika-service/klinika.service';
-import { LoginService } from './modules/shared/services/login-and-register-service/login.service';
-import { RegisterService } from './modules/shared/services/login-and-register-service/register.service';
+import { KlinikaService } from './services/klinika-service/klinika.service';
+import { LoginService } from './services/login-and-register-service/login.service';
+import { RegisterService } from './services/login-and-register-service/register.service';
 import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/adminkc/registracija-administratora-klinike/registracija-administratora-klinike.component';
-import { AdminKlinikeService } from './modules/shared/services/admin-klinike-service/admin-klinike.service';
-import { ZdravstveniKartonService } from './modules/shared/services/zdravstveni-karton-service/zdravstveni-karton.service';
-import { PacijentService } from './modules/shared/services/pacijent-service/pacijent.service';
-import { PoseteService } from './modules/shared/services/posete-service/posete.service';
+import { AdminKlinikeService } from './services/admin-klinike-service/admin-klinike.service';
+import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/zdravstveni-karton.service';
+import { PacijentService } from './services/pacijent-service/pacijent.service';
+import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
 import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-sifre.component';
 
@@ -62,7 +65,9 @@ import { PretragafilterFilter } from './helpers/filter';
 import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
 import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
 import { PretragafilterLekari } from './helpers/filterLekari';
-import { MatNativeDateModule } from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { PredefinisaniTerminiComponent } from './modules/shared/predefinisani-termini/predefinisani-termini.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -103,7 +108,8 @@ import { MatNativeDateModule } from '@angular/material';
     ListaLekaraComponent,
     PretragafilterFilter,
     ProfilKlinikeComponent,
-    PretragafilterLekari
+    PretragafilterLekari,
+    PredefinisaniTerminiComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -122,7 +128,7 @@ import { MatNativeDateModule } from '@angular/material';
     MatDialogModule,
     MatDatepickerModule,
     CommonModule,
-    MatDatepickerModule,
+    MatNativeDateModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
@@ -153,6 +159,9 @@ import { MatNativeDateModule } from '@angular/material';
        {path: 'listaPoseta', component: PoseteComponent},
        {path: 'listaLekara', component: ListaLekaraComponent},
        {path: 'profilKlinike', component: ProfilKlinikeComponent},
+       {path: 'listaLekara', component: ListaLekaraComponent},
+       {path: 'profilKlinike', component: ProfilKlinikeComponent},
+       {path: 'listaPredefinisanih', component: PredefinisaniTerminiComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],

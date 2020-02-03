@@ -7,48 +7,62 @@
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">Medicinsko osoblje klinike "{{adminKlinike.klinika.naziv}}"</h4>
                         <button mat-raised-button (click)="showDialogRegister()"
-                            class="btn btn-primary pull-right">Registruj novog lekara/medicinsku sestru</button>
+                        class="btn btn-primary pull-right">Registruj novog lekara/medicinsku sestru</button>
+                    </div>
+                    <div style="padding-left: 30px;" class="row">
+                        <div style="padding-top: 20px;" class="col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <input (keyup)="applyFilter($event.target.value)" placeholder="Pretraži medicinsko osoblje" #naziv
+                                    matInput>
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th></th>
-                                    <th>Specijalizacija / Departman</th>
-                                    <th>Ocena</th>
-                                    <th>Ime i prezime</th>
-                                    <th>Email</th>
-                                    <th>Kontakt telefon</th>
-                                    <th>Jbo</th>
-                                    <th></th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let med of lekari">
-                                        <td><b>{{med.tipKorisnika}}</b></td>
-                                        <td><b>{{med.specijalizacija}}</b></td>
-                                        <td>{{med.ocena}}</td>
-                                        <td><a (click)="showDialogLekar(med)">{{med.ime}} {{med.prezime}}</a></td>
-                                        <td>{{med.email}}</td>
-                                        <td>{{med.kontaktTelefon}}</td>
-                                        <td>{{med.jbo}}</td>
-                                        <td><button id={{med.id}} mat-raised-button (click)="removeLekar($event)"
-                                                class="btn btn-danger">Otpusti</button></td>
-
-                                    </tr>
-                                    <tr *ngFor="let med of medicinskeSestre">
-                                        <td><b>{{med.tipKorisnika}}</b></td>
-                                        <td><b>{{med.specijalizacija}}</b></td>
-                                        <td>{{med.ocena}}</td>
-                                        <td><a (click)="showDialogSestra(med)">{{med.ime}} {{med.prezime}}</a></td>
-                                        <td>{{med.email}}</td>
-                                        <td>{{med.kontaktTelefon}}</td>
-                                        <td>{{med.jbo}}</td>
-                                        <td><button id={{med.id}} mat-raised-button (click)="removeMedSestra($event)"
-                                                class="btn btn-danger">Otpusti</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="tipKorisnika">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tip medicinskog osoblja</th>
+                                <td mat-cell *matCellDef="let med"> {{med.tipKorisnika}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="specijalizacija">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Specijalizacija </th>
+                                <td mat-cell *matCellDef="let med"> {{med.specijalizacija}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="ocena">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ocena </th>
+                                <td mat-cell *matCellDef="let med"> {{med.ocena}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="ime">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ime </th>
+                                <td mat-cell *matCellDef="let med"><a (click)="showDialogSestra(med)">{{med.ime}} {{med.prezime}}</a> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="prezime">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prezime </th>
+                                <td mat-cell *matCellDef="let med"><a (click)="showDialogSestra(med)">{{med.ime}} {{med.prezime}}</a> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                                <td mat-cell *matCellDef="let med"> {{med.email}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="kontaktTelefon" >
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Kontakt telefon </th>
+                                <td mat-cell *matCellDef="let med"> {{med.kontaktTelefon}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jbo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> jbo </th>
+                                <td mat-cell *matCellDef="let med"> {{med.jbo}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Ukloni">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let med"> <button *ngIf="med.tipKorisnika == 'Medicinska sestra'" id={{med.id}} mat-raised-button (click)="removeMedSestra($event)"
+                                    class="btn btn-danger">Otpusti</button>
+                                    <button *ngIf="med.tipKorisnika == 'Lekar'" id={{med.id}} mat-raised-button (click)="removeLekar($event)"
+                                    class="btn btn-danger">Otpusti</button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { KorisnikService } from 'src/app/modules/shared/services/korisnik-service/korisnik.service';
+import { KorisnikService } from 'src/app/services/korisnik-service/korisnik.service';
 
 @Component({
   selector: 'app-dijalog-odbijanje-zahteva',

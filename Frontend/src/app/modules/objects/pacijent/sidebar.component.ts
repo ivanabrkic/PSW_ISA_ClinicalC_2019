@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/modules/shared/services/login-and-register-service/login.service';
+import { LoginService } from 'src/app/services/login-and-register-service/login.service';
 
 @Component({
   selector: 'app-patient-sidebar',

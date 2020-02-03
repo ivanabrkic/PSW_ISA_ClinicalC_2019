@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
-import { LoginService } from 'src/app/modules/shared/services/login-and-register-service/login.service';
+import { LoginService } from 'src/app/services/login-and-register-service/login.service';
 
 @Component({ templateUrl: 'login.component.html', styleUrls: ['login.component.css']})
 export class LoginComponent implements OnInit {

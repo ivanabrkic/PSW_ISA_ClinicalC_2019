@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pacijent } from 'src/app/models/pacijent/pacijent';
-import { PacijentService } from 'src/app/modules/shared/services/pacijent-service/pacijent.service';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
 
 @Component({
   templateUrl: './pacijentPregled.component.html',

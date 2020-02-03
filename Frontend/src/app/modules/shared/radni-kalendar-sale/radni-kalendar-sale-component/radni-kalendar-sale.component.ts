@@ -3,7 +3,7 @@ import { View, PopupOpenEventArgs, ScheduleComponent, EventSettingsModel } from 
 import { loadCldr, L10n } from "@syncfusion/ej2-base";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Operacija } from 'src/app/models/operacija/operacija';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { Pregled } from 'src/app/models/pregled/pregled';
 
@@ -121,6 +121,7 @@ export class RadniKalendarSaleComponent implements OnInit {
           Description: this.operacije[i].jboLekara,
           StartTime: new Date(godina, mesec, dan, sat1, minut1),
           EndTime: new Date(godina, mesec, dan, sat2, minut2),
+          Location: this.operacije[i].tipPregleda,
           IsAllDay: false
         })
       }
@@ -141,15 +142,30 @@ export class RadniKalendarSaleComponent implements OnInit {
         var sat2 = parseInt(this.pregledi[i].kraj.split(':')[0])
         var minut2 = parseInt(this.pregledi[i].kraj.split(':')[1])
 
-        this.data.push({
-          Id: i,
-          Subject: 'Pregled',
-          EventType: this.pregledi[i].jboPacijenta,
-          Description: this.pregledi[i].jboLekara,
-          StartTime: new Date(godina, mesec, dan, sat1, minut1),
-          EndTime: new Date(godina, mesec, dan, sat2, minut2),
-          IsAllDay: false
-        })
+        if (this.pregledi[i].jboPacijenta == undefined) {
+          this.data.push({
+            Id: i,
+            Subject: 'Predefinisani pregled',
+            EventType: this.pregledi[i].jboPacijenta,
+            Description: this.pregledi[i].jboLekara,
+            StartTime: new Date(godina, mesec, dan, sat1, minut1),
+            EndTime: new Date(godina, mesec, dan, sat2, minut2),
+            Location: this.pregledi[i].tipPregleda,
+            IsAllDay: false
+          })
+        }
+        else{
+          this.data.push({
+            Id: i,
+            Subject: 'Pregled',
+            EventType: this.pregledi[i].jboPacijenta,
+            Description: this.pregledi[i].jboLekara,
+            StartTime: new Date(godina, mesec, dan, sat1, minut1),
+            EndTime: new Date(godina, mesec, dan, sat2, minut2),
+            Location: this.pregledi[i].tipPregleda,
+            IsAllDay: false
+          })
+        }
       }
 
     }

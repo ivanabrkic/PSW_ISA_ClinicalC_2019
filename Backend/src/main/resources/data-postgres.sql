@@ -36,10 +36,6 @@ insert into medicinska_sestra (meds_id, br_slobodnih_dana, klinika_id, radno_vre
 insert into medicinska_sestra (meds_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena, specijalizacija) values (10, 56, 3, 'Prva smena od 8:00 do 16:00', 5.0, 'Nema');
 insert into administrator_klinickog_centra (adminkc_id) values (10);
 
-insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (1, 3, '12/12/2019','10:10','11:00','pregled');
-insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (2, 3, '13/12/2019','11:10','13:50','operacija');
-insert into posete (id, pacijent_id, datum, pocetak, kraj, tipposete) values (3, 7, '14/12/2019','11:10','11:00','pregled');
-
 insert into dijagnoze (sifra, sifradijagnoze, naziv) values (100,'1sf3','depresija');
 insert into dijagnoze (sifra, sifradijagnoze, naziv) values (200,'1sf124', 'anksioznost');
 
@@ -53,7 +49,6 @@ insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Vađenj
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('EKG', 5000, 1, 'Neurolog');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Opšti pregled', 1000, 1, 'Opšta praksa');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ultrazvuk srca', 6000, 1, 'Kardiolog');
-
 
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('12:00', '12:45', '30.1.2020.', 6, 1, 1, 1, 'Zakazan');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '31.1.2020.', 7, 1, 2, 4, 'Zakazan');
@@ -74,9 +69,9 @@ insert into lekovi(sifra, naziv) values ('ry71h', 'bromazemam');
 insert into lekovi(sifra, naziv) values ('r451h', 'sinacilin');
 insert into lekovi(sifra, naziv) values ('r211h', 'gentamicin');
 
-insert into recept(broj, overen, pacijent_id) values (23, false, 3);
-insert into recept(broj, overen, pacijent_id) values (29, false, 6);
-insert into recept(broj, overen, pacijent_id) values (28, false, 6);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (23, false, 3, null);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (29, false, 6, null);
+insert into recept(broj, overen, pacijent_id, med_sestra) values (28, false, 6, null);
 
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 1);
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 2);

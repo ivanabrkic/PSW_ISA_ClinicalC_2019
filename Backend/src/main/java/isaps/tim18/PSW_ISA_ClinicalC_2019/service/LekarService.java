@@ -1,5 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
@@ -11,9 +13,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class LekarService {
@@ -114,8 +120,13 @@ public class LekarService {
         }
 
         String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
+        List<Long> radeUToVreme = new ArrayList<>();
 
-        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVreme(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+        if (zahtev.getTipPosete() == "Operacija") {
+            radeUToVreme = lekarRepository.daLiJeRadnoVremeOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+        }else {
+            radeUToVreme = lekarRepository.daLiJeRadnoVremePregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+        }
 
         HashMap<Long, Long> slobodni = new HashMap<Long, Long>();
         for (Long id : radeUToVreme){
@@ -145,4 +156,88 @@ public class LekarService {
         return false;
     }
 
-}
+
+    public HashMap<String,Lekar> getSlobodniLekariTermini(lekariterminiDTO zahtev) throws ParseException {
+
+        DateFormat dateFormat= new SimpleDateFormat("hh:mm");
+
+        //String datum=zahtev.getDatum().replace('/','.');
+        //System.out.println(datum);
+
+        Cenovnik cen = cenovnikRepository.findByNaziv(zahtev.getSpecijalizacija());
+        String specijalizacija=cen.getSpecijalizacija();
+
+        //System.out.print(specijalizacija);
+        //System.out.println();
+
+        List<Lekar> sviLekari = lekarRepository.findAll();
+        //System.out.print(sviLekari);
+       // System.out.println();
+
+        List<Lekar> lekariKlinike=new ArrayList<>();
+        for (Lekar lekar: sviLekari){
+         //   System.out.println(lekar.getSpecijalizacija());
+            if (lekar.getKlinika().getId().equals(zahtev.getIdKlinike()) && lekar.getSpecijalizacija().equals(specijalizacija)){
+                lekariKlinike.add(lekar);
+            }
+        }
+
+
+        HashMap<String,Lekar> lekartermin=new HashMap<String, Lekar>();
+        List<String> zauzetiTermini=new ArrayList<String>();
+        int interval=15;
+
+        for (Lekar l : lekariKlinike){
+            List<String> found=(lekarRepository.zauzetiTermini(l.getId(),zahtev.getDatum()));
+            List<String> found2=(lekarRepository.zauzetiTermini2(l.getId(),zahtev.getDatum()));
+            found.addAll(found2);
+            List<String> zauzetiterminipocetak=new ArrayList<>();
+            List<String> zauzetiterminikraj=new ArrayList<>();
+            System.out.println(zahtev.getDatum());
+            
+            for (String f : found){
+                String[] foundparse=f.split(",");
+                zauzetiterminipocetak.add(foundparse[0]);
+                zauzetiterminikraj.add(foundparse[3]);
+            }
+                for (int i =0;i<24;i++){
+                    for (int j=0;j<60;j+=interval){
+                        String i2;
+                        String j2;
+
+
+                        i2=Integer.toString(i);
+                        if(i2.length()==1)
+                            i2='0'+i2;
+                        j2=Integer.toString(j);
+                        if(j2.length()==1)
+                            j2='0'+j2;
+
+                        String termin=i2+":"+j2;
+
+
+                        boolean exists=false;
+                        for (int m =0;m<zauzetiterminipocetak.size();m++){
+                            if (dateFormat.parse(zauzetiterminipocetak.get(m)).compareTo(dateFormat.parse(termin))>0 || dateFormat.parse(termin).compareTo(dateFormat.parse(zauzetiterminikraj.get(m)))<0){
+                                exists=true;
+                                break;
+                            }
+                        }
+                        if (!exists)
+                            lekartermin.put(termin,l);
+                    }
+                }
+                found.clear();
+                zauzetiterminipocetak.clear();
+                zauzetiterminikraj.clear();
+            }
+
+
+        System.out.println(lekariKlinike);
+
+        System.out.println("Pronadjeni lekari su");
+        System.out.println(lekartermin);
+
+        return lekartermin;
+
+    }}

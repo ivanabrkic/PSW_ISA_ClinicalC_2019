@@ -2,13 +2,16 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class KlinikaService {
@@ -45,6 +48,7 @@ public class KlinikaService {
     public Klinika findById(int id) { return klinikaRepository.findById(id); }
 
     public List<Klinika> findAll() { return klinikaRepository.findAll(); }
+
 
     @Transactional
     public Klinika add(Klinika klinika){
@@ -90,59 +94,6 @@ public class KlinikaService {
         return lekarRepository.findByKlinika(k);
     }
 
-    public List<Sala> findSale(Long id) {
-        Klinika k = klinikaRepository.findById(id).get();
-
-        if (k != null){
-            return salaRepository.findByKlinikaId(id);
-        }
-        return null;
-    }
-
-    @Transactional
-    public Klinika remove(Long id){
-        Klinika klinika = new Klinika();
-        if(salaRepository.findById(id).isPresent()) {
-            if (operacijaRepository.findBySalaId(id).size() != 0 || pregledRepository.findBySalaId(id).size() != 0){
-                System.out.println(id);
-                System.out.println(operacijaRepository.findBySalaId(id).size());
-                System.out.println(pregledRepository.findBySalaId(id).size());
-                klinika.setNaziv("Ne možete obrisati salu koja ima zakazane preglede ili operacije.");
-            }
-            else {
-                salaRepository.deleteById(id);
-                klinika.setNaziv("Sala uspešno obrisana!");
-            }
-        }
-        else{
-            klinika.setNaziv("Tražena sala ne postoji!");
-        }
-        return klinika;
-    }
-
-    public Sala addNovaSala(String naziv, String broj, Long idKlinike) {
-        Sala poruka = new Sala();
-        Klinika k = klinikaRepository.findById(idKlinike).get();
-
-        if (salaRepository.findByNazivAndKlinikaAndBroj(naziv, k, broj) == null) {
-
-            Sala s = new Sala();
-
-            s.setNaziv(naziv);
-            s.setBroj(broj);
-            s.setKlinika(k);
-
-            salaRepository.saveAndFlush(s);
-
-            poruka.setNaziv("Uspešno dodata nova sala!");
-        }
-        else{
-            poruka.setNaziv("Sala sa željenim imenom već postoji!");
-        }
-
-        return poruka;
-    }
-
     public List<OperacijaDTO> getOperacije(Long id) {
         List<OperacijaDTO> operacijeDTO = operacijaRepository.findBySalaId(id);
 
@@ -161,7 +112,18 @@ public class KlinikaService {
     }
 
     public List<PregledDTO> getPregledi(Long id) {
-        return pregledRepository.findBySalaId(id);
+        List<PregledDTO> predef = pregledRepository.findBySalaIdPredef(id);
+        List<PregledDTO> obicni = pregledRepository.findBySalaId(id);
+
+        predef.addAll(obicni);
+
+        return predef;
+    }
+    
+    public List<predefInfoDTO> getPreglediPredef(Long id) {
+        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id);
+
+        return predef;
     }
 
     public List<Lekar> findLekariOperacije(String datum, String pocetak, String kraj, Long id){
@@ -264,10 +226,10 @@ public class KlinikaService {
     }
 
     public List<Long> getSlobodniLekari(Zahtev zahtev){
+        String vremeZakazivanja = "";
 
         if(zahtev.getTipPosete() == "Operacija") {
             if (lekarSlobodan(zahtev)) {
-                String vremeZakazivanja = "";
 
                 int osamSati = 8 * 60;
                 int sesnaestSati = 16 * 60;
@@ -296,7 +258,7 @@ public class KlinikaService {
 
                 String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
 
-                List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVreme(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+                List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVremeOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
 
                 List<Long> slobodni = new ArrayList<>();
                 for (Long id : radeUToVreme) {
@@ -311,8 +273,6 @@ public class KlinikaService {
                 return new ArrayList<Long>();
             }
         }
-        String vremeZakazivanja = "";
-
         int osamSati = 8 * 60;
         int sesnaestSati = 16 * 60;
         int dvanaestSati = 24 * 60;
@@ -340,7 +300,7 @@ public class KlinikaService {
 
         String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
 
-        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVreme(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVremePregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
 
         List<Long> slobodni = new ArrayList<>();
         for (Long id : radeUToVreme) {
@@ -360,4 +320,5 @@ public class KlinikaService {
         }
         return false;
     }
+
 }

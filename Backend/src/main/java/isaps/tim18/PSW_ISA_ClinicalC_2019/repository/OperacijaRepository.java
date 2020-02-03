@@ -12,9 +12,9 @@ import java.util.List;
 @Repository
 public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
 
-    @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO(o.pacijent.jbo, o.datum, o.pocetak, o.kraj) FROM Operacija o " +
+    @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO(c.naziv, o.pacijent.jbo, o.datum, o.pocetak, o.kraj) FROM Operacija o LEFT OUTER JOIN Cenovnik c ON o.cenovnik.id = c.id " +
             "WHERE o.sala.id = ?1" +
-            " GROUP BY o.datum, o.pocetak, o.kraj, o.pacijent.jbo")
+            " GROUP BY o.datum, o.pocetak, o.kraj, o.pacijent.jbo, c.naziv")
     List<OperacijaDTO> findBySalaId(Long id);
 
     @Query("SELECT o.lekari FROM Operacija o WHERE o.datum = ?1 " +
@@ -28,4 +28,6 @@ public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
             " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
             " AND o.datum = ?2 ", nativeQuery = true)
     List<Long> findByKlinikaIdAndVreme(Long idKlinike, String datum, String pocetak, String kraj);
+
+    List<Operacija> findByCenovnikId(Long idTipa);
 }

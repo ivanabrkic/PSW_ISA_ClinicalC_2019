@@ -156,8 +156,6 @@ export class ZakaziTerminComponent implements OnInit {
         });
     }
     this.obradjen = false
-
-
     this.dialogRef.close(this.obradjen);
   }
 
