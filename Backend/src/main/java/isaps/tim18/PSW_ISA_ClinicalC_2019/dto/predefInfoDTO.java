@@ -1,6 +1,8 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.dto;
 
 public class predefInfoDTO {
+	
+	private Long id;
 
     private String datum;
 
@@ -24,10 +26,29 @@ public class predefInfoDTO {
     
     private int popust;
 
-    
+    public Long getIdSale() {
+		return idSale;
+	}
+
+	public void setIdSale(Long idSale) {
+		this.idSale = idSale;
+	}
+
+	private Long idKlinike;
+    private Long idStavke;
+    private String jboLekara;
+    private Long idSale;
     
 
-    public String getNazivSale() {
+    public String getJboLekara() {
+		return jboLekara;
+	}
+
+	public void setJboLekara(String jboLekara) {
+		this.jboLekara = jboLekara;
+	}
+
+	public String getNazivSale() {
 		return nazivSale;
 	}
 
@@ -78,7 +99,7 @@ public class predefInfoDTO {
 	public predefInfoDTO() {
     }
 
-    public predefInfoDTO(String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust) {
+    public predefInfoDTO(Long id,String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust,Long idK,Long idS,String jboLek,Long idSale) {
         this.tipPregleda = naziv;
         this.datum = datum;
         this.pocetak = pocetak;
@@ -90,10 +111,39 @@ public class predefInfoDTO {
         this.lekarIme=ime;
         this.cena=cena;
         this.popust=popust;
+        this.idKlinike=idK;
+        this.idStavke=idS;
+        this.jboLekara=jboLek;
+        this.idSale=idSale;
+        this.id=id;
     }
 
 
-    public float getPopust() {
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getIdKlinike() {
+		return idKlinike;
+	}
+
+	public void setIdKlinike(Long idKlinike) {
+		this.idKlinike = idKlinike;
+	}
+
+	public Long getIdStavke() {
+		return idStavke;
+	}
+
+	public void setIdStavke(Long idStavke) {
+		this.idStavke = idStavke;
+	}
+
+	public float getPopust() {
 		return popust;
 	}
 

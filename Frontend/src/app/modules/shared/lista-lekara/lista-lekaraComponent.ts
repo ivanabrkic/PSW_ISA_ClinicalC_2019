@@ -6,6 +6,10 @@ import { Lekar } from 'src/app/models/lekar/lekar';
 import { LekarService } from 'src/app/services/lekar-service/lekar.service';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 import { LekarPregledComponent } from '../../objects/lekar/lekarPregled.component';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
+import { PredefZahtev } from 'src/app/models/PredefZahtev/PredefZahtev';
+import { predefInfo } from 'src/app/models/predefInfoDTO/predefInfo';
+import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
 
 @Component({
   selector: 'app-lista-lekara',
@@ -23,8 +27,11 @@ export class ListaLekaraComponent implements OnInit {
   private termini: String[];
   private datum :String;
   private zahtev: pretragaDTO;
+  private izabraniLekar:Lekar;
+  private dodatneInfo:string;
+  private selectedTermin:string;
 
-  constructor(private listaLekaraService: LekarService) {
+  constructor(private listaLekaraService: LekarService,private pacijentService: PacijentService,private predefTermService:PredefTerminiServiceService) {
 
   }
 
@@ -60,6 +67,34 @@ export class ListaLekaraComponent implements OnInit {
     
   }
 
+  zakaziNavigate(event){
+    
+    //zahtev.dodatneInformacije=
+    this.pacijentService.getUlogovanKorisnik().subscribe(
+      podaci => {
+        var zahtev=new PredefZahtev;
+        // zahtev.datum=this.izabraniTermin.datum;
+        // zahtev.pocetak=this.selectedTermin;
+        // zahtev.kraj=this.izabraniTermin.kraj;
+        // zahtev.idKlinike=this.izabraniTermin.idKlinike;
+        // zahtev.jboPacijenta= podaci.jbo;
+        // zahtev.posiljalacImePrezime=podaci.ime+" "+podaci.prezime;
+        // zahtev.posiljalacJbo=podaci.jbo;
+        // zahtev.tipPosete='Pregled';
+        // zahtev.stavkaCenovnika=this.izabraniTermin.tipPregleda;
+        // zahtev.dodatneInformacije=this.dodatneInfo;
+        // zahtev.tipPosiljaoca='Pacijent';
+        // zahtev.jboLekara=this.izabraniLekar.jbo;
+
+        this.predefTermService.zakaziTermin(zahtev).subscribe( data=>{alert('Termin uspesno zakazan');})
+       
+     },
+    );
+  }
+
+  onSelect(lekar){
+    this.izabraniLekar=lekar;
+  }
  
 
   ngOnInit() {

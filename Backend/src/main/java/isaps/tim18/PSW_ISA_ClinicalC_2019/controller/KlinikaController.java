@@ -3,21 +3,36 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.klinikaPacDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PregledService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.ZahtevService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+
+import javax.swing.text.DateFormatter;
 
 @RestController
 @RequestMapping(value = "klinika")
@@ -28,6 +43,12 @@ public class KlinikaController {
 
     @Autowired
     private LekarService lekarService;
+    
+    @Autowired
+    private ZahtevService zahtevService;
+    
+    @Autowired 
+    PregledService pregledService;
 
     @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
@@ -95,9 +116,16 @@ public class KlinikaController {
     }
     
     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody Long id) {
+    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
+    	
 
-        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(id);
+    	
+    		Calendar cal = Calendar.getInstance();
+    		SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
+    		String date=sdf.format(cal.getTime());
+
+    	
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
@@ -163,5 +191,23 @@ public class KlinikaController {
         }
 
         return new ResponseEntity<>(slobodneKlinike, HttpStatus.OK); //vracanje slobodnih
+    }
+    
+    @PostMapping(value = "/zakaziTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public String zakaziTermin(@RequestBody Zahtev zahtev){
+       
+            zahtevService.add(zahtev);
+            return "Uspesno dodat zahtev!";  
+        
+    }
+    
+    @PostMapping(value = "/zakaziPredefTerminn", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pregled> zakaziPredefTermin(@RequestBody predefDTO pregled)throws Exception{
+    		
+    		System.out.print(pregled.getId());
+            Optional<Pregled> pronadjenpregled=pregledService.update(pregled);
+            
+                return new ResponseEntity<>(pronadjenpregled.get(), HttpStatus.OK);
+  
     }
 }

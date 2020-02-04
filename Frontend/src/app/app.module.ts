@@ -67,6 +67,7 @@ import { PretragafilterLekari } from './helpers/filterLekari';
 import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { PredefinisaniTerminiComponent } from './modules/shared/predefinisani-termini/predefinisani-termini.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
 
 
 @NgModule({
@@ -162,7 +163,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
       { path: '**', component: NotFoundComponent},
       ])
   ],
-  providers: [AdminKlinikeService, KlinikaService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService],
+  providers: [AdminKlinikeService, KlinikaService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService,PredefTerminiServiceService],
 
   bootstrap: [AppComponent]
 })
