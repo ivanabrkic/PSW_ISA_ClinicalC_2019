@@ -39,6 +39,7 @@ public class PredefTerminService {
     }
 
     public List<Lekar> getAllLekariForTip(Long idTipa){
+
         Cenovnik tip = cenovnikRepository.findById(idTipa).get();
 
         return lekarRepository.findBySpecijalizacijaAndKlinika(tip.getSpecijalizacija(), tip.getKlinika());
@@ -64,7 +65,8 @@ public class PredefTerminService {
             String pocetak = date.toLocalTime().toString();
             String kraj = date.plusMinutes(trajanje).toLocalTime().toString();
 
-            if (isLekarRadnoVreme(idLekara, pocetak, kraj) && lekarSlobodan(idLekara, datum, pocetak, kraj) && !slobodneSale(idKlinike, datum, pocetak, kraj).isEmpty()){
+            if (isLekarRadnoVreme(idLekara, pocetak, kraj) && lekarSlobodan(idLekara, datum, pocetak, kraj) && !slobodneSale(idKlinike, datum, pocetak, kraj).isEmpty()
+                && (date.getDayOfWeek().name() != "SUNDAY")){
                 TerminDTO terminDTO = new TerminDTO();
                 terminDTO.setDatum(datum);
                 terminDTO.setPocetak(pocetak);
@@ -72,8 +74,14 @@ public class PredefTerminService {
 
                 List<Sala> listaSlobodnihSala = slobodneSale(idKlinike, datum, pocetak, kraj);
                 terminDTO.setSale(listaSlobodnihSala);
+                
+                System.out.println(terminDTO.getDatum());
 
                 listaTermina.add(terminDTO);
+            }
+
+            if(listaTermina.size() == 150){
+                return listaTermina;
             }
 
         }
@@ -82,6 +90,7 @@ public class PredefTerminService {
     }
 
     public List<Sala> slobodneSale(Long idKlinike, String datum, String pocetak, String kraj){
+
         List<Long> saleNeO = operacijaRepository.findByKlinikaIdAndVreme(idKlinike, datum, pocetak, kraj);
         List<Long> saleNeP = pregledRepository.findByKlinikaIdAndVreme(idKlinike, datum, pocetak, kraj);
 
@@ -142,7 +151,7 @@ public class PredefTerminService {
         else if (pocetak >= 0 && kraj <= osamSati){
             vremeZakazivanja = "Treca smena od 00:00 do 8:00";
         }
-        else if (pocetak >= sesnaestSati){
+        else if (pocetak >= sesnaestSati && kraj <= 0){
             vremeZakazivanja = "Druga smena od 16:00 do 00:00";
         }
 
@@ -153,7 +162,28 @@ public class PredefTerminService {
 
 
     public Message dodajTermin(Pregled pregled) {
-        pregledRepository.save(pregled);
-        return new Message("Uspešno dodat predefinisan termin!");
+
+        if (salaRepository.findById(pregled.getSala().getId()).isPresent() && lekarRepository.findById(pregled.getLekar().getId()).isPresent() && cenovnikRepository.findById(pregled.getCenovnik().getId()).isPresent()){
+            Sala s = salaRepository.findById(pregled.getSala().getId()).get();
+            Lekar l = lekarRepository.findById(pregled.getLekar().getId()).get();
+            Cenovnik c = cenovnikRepository.findById(pregled.getCenovnik().getId()).get();
+
+            Pregled p = new Pregled();
+            p.setPocetak(pregled.getPocetak());
+            p.setKraj(pregled.getKraj());
+            p.setDatum(pregled.getDatum());
+            p.setLekar(l);
+            p.setPacijent(null);
+            p.setCenovnik(c);
+            p.setSala(s);
+            p.setStatus(pregled.getStatus());
+            p.setPopust(pregled.getPopust());
+
+            pregledRepository.save(p);
+
+            return new Message("Uspešno dodat predefinisan termin!");
+
+        }
+        return new Message("Nemoguće je dodati željeni termin!");
     }
 }

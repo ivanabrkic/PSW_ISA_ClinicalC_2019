@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login-and-register-service/login.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'sidebar-admin-klinike',
@@ -8,14 +9,16 @@ import { LoginService } from 'src/app/services/login-and-register-service/login.
 })
 export class SidebarAdminKlinikeComponent implements OnInit {
 
-  constructor(private loginService:LoginService) { }
+  constructor(private _snackBar: MatSnackBar, private loginService:LoginService) { }
 
   ngOnInit() {
   }
 
   odjava(){
     this.loginService.odjava().subscribe(data => {
-      alert("Uspešno ste se odjavili!")
+      this._snackBar.open("Uspešno ste se odjavili!", "",  {
+        duration: 3000
+      });
     });
 }
 

@@ -185,6 +185,7 @@ public class KlinikaService {
     }
 
     public List<Sala> findSaleSlobodneOd(Zahtev zahtev) {
+
         if (pacijentSlobodan(zahtev) && !getSlobodniLekari(zahtev).isEmpty()) {
             List<Long> saleNeO = operacijaRepository.findByKlinikaIdAndVreme(zahtev.getIdKlinike(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
             List<Long> saleNeP = pregledRepository.findByKlinikaIdAndVreme(zahtev.getIdKlinike(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
@@ -214,7 +215,6 @@ public class KlinikaService {
 
     public boolean pacijentSlobodan(Zahtev zahtev) {
         Pacijent p = pacijentRepository.findByJbo(zahtev.getJboPacijenta());
-
         List<Long> operacije = pacijentRepository.ifPacijentSlobodanOperacije(p.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
         List<Long> pregledi = pacijentRepository.ifPacijentSlobodanPregledi(p.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
 

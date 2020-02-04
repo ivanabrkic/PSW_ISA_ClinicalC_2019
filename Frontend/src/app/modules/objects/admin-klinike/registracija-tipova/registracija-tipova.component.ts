@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { Sala } from 'src/app/models/sala/sala';
@@ -33,7 +33,7 @@ export class RegistracijaTipovaComponent implements OnInit {
   specijalizacije: String[];
 
 
-  constructor(private dialogRef: MatDialogRef<RegistracijaTipovaComponent>,
+  constructor(private _snackBar: MatSnackBar,private dialogRef: MatDialogRef<RegistracijaTipovaComponent>,
     private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService, @Inject(MAT_DIALOG_DATA) data) {
       this.izmena = data.izmeni
       if (data.izmeni){

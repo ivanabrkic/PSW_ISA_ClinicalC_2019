@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Dijagnoza} from '../../../../models/Dijagnoza/dijagnoza';
 import { DijagnozaService } from 'src/app/services/DijagnozaService/dijagnoza.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-kreiranje-dijagnoza',
@@ -12,7 +13,7 @@ export class KreiranjeDijagnozaComponent implements OnInit {
   sifre = [];
   novaDijagnoza: Dijagnoza;
   constructor(
-    private dijagnozaService: DijagnozaService) { }
+    private _snackBar: MatSnackBar, private dijagnozaService: DijagnozaService) { }
 
   ngOnInit() {
     this.getDijagnoze();

@@ -1,12 +1,11 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.TerminDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +15,11 @@ import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class LekarService {
@@ -29,6 +29,9 @@ public class LekarService {
 
     @Autowired
     private CenovnikRepository cenovnikRepository;
+
+    @Autowired
+    private PacijentRepository pacijentRepository;
 
     public List<Lekar> findAll() {
     return lekarRepository.findAll();
@@ -84,7 +87,7 @@ public class LekarService {
         }
         return lekarRepository.findById(id).get();
     }
-
+    ////////////////////////// IVANA ZA ZAHTEVE ////////////////////////////////////////////////////////////////////
     public List<Lekar> getSlobodniLekari(Zahtev zahtev){
 
         String vremeZakazivanja = "";
@@ -155,7 +158,7 @@ public class LekarService {
         return false;
     }
 
-
+    //////////////////////////////// TESLA LEKARI TERMINI METODA ////////////////////////////////////////////
     public HashMap<String,Lekar> getSlobodniLekariTermini(lekariterminiDTO zahtev) throws ParseException {
 
         DateFormat dateFormat= new SimpleDateFormat("hh:mm");
@@ -239,4 +242,98 @@ public class LekarService {
 
         return lekartermin;
 
-    }}
+    }
+
+    ///////////////////////////////// ZAKAZIVANJE LEKARA /////////////////////////////////////////////////////
+    public List<TerminDTO> getSlobodniTerminiLekar(Long idLekara, Long idPacijenta, Integer trajanje){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start = LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 0, 0, 0);
+
+        start = start.plusDays(1);
+
+        LocalDateTime end = start.plusMonths(1);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY.");
+
+        List<TerminDTO> listaTermina = new ArrayList<>();
+
+        for (LocalDateTime date = start; date.isBefore(end); date = date.plusMinutes(trajanje)) {
+            String datum = formatter.format(date.toLocalDate());
+            String pocetak = date.toLocalTime().toString();
+            String kraj = date.plusMinutes(trajanje).toLocalTime().toString();
+
+            if (isLekarRadnoVreme(idLekara, pocetak, kraj) && lekarSlobodan(idLekara, datum, pocetak, kraj) && pacijentSlobodan(idPacijenta, datum, pocetak, kraj)){
+                TerminDTO terminDTO = new TerminDTO();
+                terminDTO.setDatum(datum);
+                terminDTO.setPocetak(pocetak);
+                terminDTO.setKraj(kraj);
+
+                List<Sala> listaSlobodnihSala = new ArrayList<Sala>();
+                terminDTO.setSale(listaSlobodnihSala);
+
+                listaTermina.add(terminDTO);
+            }
+
+        }
+
+        return listaTermina;
+    }
+
+    public boolean lekarSlobodan(Long lekarId, String datum, String pocetak, String kraj){
+        if (lekarRepository.imaOperacije(lekarId, datum, pocetak, kraj).isEmpty()
+                && lekarRepository.imaPreglede(lekarId, datum, pocetak, kraj).isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isLekarRadnoVreme(Long idLekara, String pocetakString, String krajString){
+        String vremeZakazivanja = "";
+
+        int osamSati = 8 * 60;
+        int sesnaestSati = 16 * 60;
+        int dvanaestSati = 24 * 60;
+
+        int satPocetak = Integer.parseInt(pocetakString.split(":")[0]) * 60;
+        int minutPocetak = Integer.parseInt(pocetakString.split(":")[1]);
+
+        int satKraj = Integer.parseInt(krajString.split(":")[0]) * 60;
+        int minutKraj = Integer.parseInt(krajString.split(":")[1]);
+
+        int pocetak = satPocetak + minutPocetak;
+        int kraj = satKraj + minutKraj;
+
+        if (pocetak == 0){
+            vremeZakazivanja = "Treca smena od 00:00 do 8:00";
+        }
+        else if (kraj == 0) {
+            vremeZakazivanja = "Druga smena od 16:00 do 00:00";
+        }
+        else if (pocetak >= osamSati && kraj <= sesnaestSati){
+            vremeZakazivanja = "Prva smena od 8:00 do 16:00";
+        }
+        else if (pocetak >= 0 && kraj <= osamSati){
+            vremeZakazivanja = "Treca smena od 00:00 do 8:00";
+        }
+        else if (pocetak >= sesnaestSati){
+            vremeZakazivanja = "Druga smena od 16:00 do 00:00";
+        }
+
+        Lekar lekar = lekarRepository.findById(idLekara).get();
+
+        return lekar.getRadnoVreme().equals(vremeZakazivanja);
+    }
+
+    public boolean pacijentSlobodan(Long pacijentId, String datum, String pocetak, String kraj) {
+
+        List<Long> operacije = pacijentRepository.ifPacijentSlobodanOperacije(pacijentId, datum, pocetak, kraj);
+        List<Long> pregledi = pacijentRepository.ifPacijentSlobodanPregledi(pacijentId, datum, pocetak, kraj);
+
+        if (operacije.isEmpty() && pregledi.isEmpty()){
+            return true;
+        }
+
+        return false;
+    }
+
+}

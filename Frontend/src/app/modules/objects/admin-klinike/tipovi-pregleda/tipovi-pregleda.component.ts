@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatDialogConfig, MatDialog, MatSort } from '@angular/material';
+import { MatTableDataSource, MatDialogConfig, MatDialog, MatSort, MatSnackBar } from '@angular/material';
 import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
@@ -24,7 +24,7 @@ export class TipoviPregledaComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private adminkService: AdminKlinikeService, private klinikaService: KlinikaService) {
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog, private adminkService: AdminKlinikeService, private klinikaService: KlinikaService) {
           this.dataSource = new MatTableDataSource(null);
   }
 

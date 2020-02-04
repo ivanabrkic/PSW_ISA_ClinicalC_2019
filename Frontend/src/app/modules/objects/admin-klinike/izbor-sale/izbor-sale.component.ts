@@ -230,6 +230,8 @@ export class IzborSaleComponent implements OnInit {
     noviZahtev.kraj = krajnji.getHours().toString() + ":" + krajnji.getMinutes().toString()
 
     noviZahtev.jboPacijenta = this.passZahtev.jboPacijenta
+    noviZahtev.id = this.passZahtev.id
+    noviZahtev.idStavke = this.passZahtev.idStavke
 
     this.klinikaService.getSaleSlobodneOd(noviZahtev)
       .subscribe(data => {

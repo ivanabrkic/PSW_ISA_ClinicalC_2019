@@ -5,7 +5,7 @@ import { Lekar } from 'src/app/models/lekar/lekar';
 import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
 import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
 import { LekarService } from 'src/app/services/lekar-service/lekar.service';
-import { MatDialog, MatDialogConfig, MatDialogRef, MatTableDataSource, MatSort } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
 import { DetaljiComponent } from '../detalji/detalji.component';
 import { RegistracijaMedicinskogOsobljaComponent } from '../registracija-medicinskog-osoblja/registracija-medicinskog-osoblja.component';
 import { MedicinskoOsoblje } from 'src/app/models/medicinsko-osoblje/medicinsko-osoblje';
@@ -28,7 +28,7 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private lekarService: LekarService, private medSestraService: MedicinskaSestraService, private adminkService: AdminKlinikeService) {
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog, private lekarService: LekarService, private medSestraService: MedicinskaSestraService, private adminkService: AdminKlinikeService) {
     this.dataSource = new MatTableDataSource(null);
   }
 

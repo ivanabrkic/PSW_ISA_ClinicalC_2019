@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule, MatTabsModule } from '@angular/material';
+import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule, MatTabsModule, MatStepperModule, MatSnackBarModule, MatButtonModule } from '@angular/material';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SidebarAdminKlinikeComponent } from './sidebar-admin-klinike/sidebar-admin-klinike.component';
 import { AdminKlinikeIzmenaComponent } from './admin-klinike-izmena/admin-klinike-izmena.component';
@@ -70,13 +70,18 @@ import { DodavanjePredefTerminaComponent } from './dodavanje-predef-termina/doda
     MatListModule,
     MatCardModule,
     MatTabsModule,
+    MatStepperModule,
+    MatSnackBarModule,
+    MatButtonModule,
+    MatPaginatorModule,
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
                           { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
                           { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
                           { path: 'medicinskoosoblje', component: TabelaMedicinskogOsobljaComponent},
                           { path: 'sale', component: PregledSalaComponent},
                           {path: 'zahtevi', component: ZahteviOperacijePreglediComponent},
-                          {path: 'tipovi', component:TipoviPregledaComponent}
+                          {path: 'tipovi', component:TipoviPregledaComponent},
+                          {path: 'predefinisani', component:PredefinisaniTerminiComponent}
   ]),
   AgmCoreModule.forRoot({
     apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { first } from 'rxjs/operators';
 import { Sala } from 'src/app/models/sala/sala';
@@ -27,11 +27,10 @@ export class RegistracijaSalaComponent implements OnInit {
 
   idSale : number
 
-  constructor(private dialogRef: MatDialogRef<RegistracijaSalaComponent>,
+  constructor(private _snackBar: MatSnackBar,private dialogRef: MatDialogRef<RegistracijaSalaComponent>,
     private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService, @Inject(MAT_DIALOG_DATA) data) {
       this.izmena = data.izmeni
       if (data.izmeni){
-        alert("Izmena")
         this.title = 'Izmeni podatke o sali'
         this.buttonTitle = 'Izmeni'
         this.sala = data.sala
@@ -66,8 +65,6 @@ export class RegistracijaSalaComponent implements OnInit {
   }
 
   onSubmit() {
-
-    alert(JSON.stringify(this.registerForm.value))
 
     this.submitted = true;
 

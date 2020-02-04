@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { Vreme } from 'src/app/models/vreme/vreme';
 import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
 import { Lekar } from 'src/app/models/lekar/lekar';
@@ -33,7 +33,7 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
   medSestra: MedicinskaSestra = new MedicinskaSestra();
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
-  constructor(private dialogRef: MatDialogRef<RegistracijaMedicinskogOsobljaComponent>,
+  constructor(private _snackBar: MatSnackBar,private dialogRef: MatDialogRef<RegistracijaMedicinskogOsobljaComponent>,
     private formBuilder: FormBuilder, private adminkService:AdminKlinikeService, private lekarService: LekarService, private medSestraService: MedicinskaSestraService
   ) {
     this.adminkService.getUlogovanKorisnik()

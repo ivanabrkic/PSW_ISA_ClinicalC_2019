@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { Sala } from 'src/app/models/sala/sala';
@@ -24,7 +24,7 @@ export class PregledSalaComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
         this.adminKlinike = ulogovanKorisnik;
