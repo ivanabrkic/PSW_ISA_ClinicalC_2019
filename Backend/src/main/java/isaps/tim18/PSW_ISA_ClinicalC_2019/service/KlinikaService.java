@@ -156,7 +156,7 @@ public class KlinikaService {
         	}
         }
 
-        return odgovarajuci;
+        return odgovarajuci; //termini koji se ne poklapaju s pacijentovim
     }
 
     public List<Lekar> findLekariOperacije(String datum, String pocetak, String kraj, Long id){
