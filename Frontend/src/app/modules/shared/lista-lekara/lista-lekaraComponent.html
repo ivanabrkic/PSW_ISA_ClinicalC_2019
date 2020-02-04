@@ -55,11 +55,11 @@
                 </thead>
 
                 <tbody>
-                  <tr *ngFor="let lekar of lekari | pretragafilterLekari:searchIme:searchPrezime:searchOcena:searchPregled" >
+                  <tr (click)="onSelect(lekar)" *ngFor="let lekar of lekari | pretragafilterLekari:searchIme:searchPrezime:searchOcena:searchPregled" >
                     <td>{{lekar.ime}}</td>
                     <td>{{lekar.prezime}} </td>
                     <td>{{lekar.ocena}} </td>
-                    <td *ngIf="!terminiSakriveni" ><select ng-model="selectedTermin" >
+                    <td *ngIf="!terminiSakriveni" ><select [(ngModel)]="selectedValue" >
                       <option value="">Izaberite termin</option>
                       <option *ngFor="let termin of termini" [ngValue]="termin">{{termin}}</option>
                     </select></td>
@@ -74,3 +74,69 @@
   </div>
 </body>
   </html>
+
+        
+  <div *ngIf="izabraniTermin">
+    <div class="content-container">
+      <div class="container-fluid">
+        <div class="main-content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header card-header-danger">
+                    <h4 class="card-title">Zakazivanje termina</h4>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Datum : {{izabraniTermin.datum}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Pocetak i kraj : {{izabraniTermin.pocetak}} - {{izabraniTermin.kraj}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Klinika i sala : {{izabraniTermin.nazivKlinike}}, {{izabraniTermin.nazivSale}},{{izabraniTermin.brojSale}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Lekar : {{izabraniTermin.lekarIme}} {{izabraniTermin.lekarPrezime}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Tip pregleda : {{izabraniTermin.tipPregleda}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Cena i popust: {{izabraniTermin.cena}}, {{izabraniTermin.popust}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p><mat-form-field class="example-full-width">
+                            <input matInput placeholder="Unesite dodatne informacije" type="text"
+                            id="info"
+                            [(ngModel)]="dodatneInfo" name="info" class="mat-form-control">
+                         </mat-form-field></p>
+                          <p> <button class="form-control" (click)="zakaziNavigate($event)">Zakazi termin</button></p>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
