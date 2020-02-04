@@ -17,14 +17,13 @@
             <option value="1">1+</option>
         </select>
       </td>
-      <td><select *ngIf="terminiSakriveni" class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  >
-        <option value="">Tip pregleda</option>
-        <option value="one">Zubar</option>
-        <option value="two">Psiholog</option>
-      </select>
+      <td><select *ngIf="!terminiSakriveni" class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
+        <option value="">Izaberite tip</option>
+        <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
+          </select>
   </td>
-  <td><mat-form-field *ngIf="terminiSakriveni">
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+  <td><mat-form-field *ngIf="!terminiSakriveni">
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
@@ -51,7 +50,7 @@
                   <th>Ime</th>
                   <th>Prezime</th>
                   <th>Ocena</th>
-                  <th *ngIf="!terminiSakriveni">Slobodni termini za datum</th>
+                  <th *ngIf="terminiSakriveni">Slobodni termini za datum</th>
                 </thead>
 
                 <tbody>
@@ -59,9 +58,10 @@
                     <td>{{lekar.ime}}</td>
                     <td>{{lekar.prezime}} </td>
                     <td>{{lekar.ocena}} </td>
-                    <td *ngIf="!terminiSakriveni" ><select [(ngModel)]="selectedValue" >
+                    <td *ngIf="terminiSakriveni" >
+                      <select [(ngModel)]="selectedTermin"  id="{{lekar.id}}" >
                       <option value="">Izaberite termin</option>
-                      <option *ngFor="let termin of termini" [ngValue]="termin">{{termin}}</option>
+                      <option *ngFor="let termin of termini" value="{{termin}}">{{termin}}</option>
                     </select></td>
                   </tr>
                 </tbody>
@@ -76,7 +76,7 @@
   </html>
 
         
-  <div *ngIf="izabraniTermin">
+  <div *ngIf="izabraniLekar">
     <div class="content-container">
       <div class="container-fluid">
         <div class="main-content">
@@ -91,32 +91,32 @@
                     <form>
                       <div class="row">
                         <div class="col-md-12">
-                          <p> Datum : {{izabraniTermin.datum}} </p>
+                          <p> Datum : {{zahtev.datum}} </p>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12">
-                          <p> Pocetak i kraj : {{izabraniTermin.pocetak}} - {{izabraniTermin.kraj}} </p>
+                          <p> Pocetak: {{zahtev.start}}</p>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12">
-                          <p> Klinika i sala : {{izabraniTermin.nazivKlinike}}, {{izabraniTermin.nazivSale}},{{izabraniTermin.brojSale}} </p>
+                          <p> Klinika: {{klinika.naziv}} </p>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12">
-                          <p> Lekar : {{izabraniTermin.lekarIme}} {{izabraniTermin.lekarPrezime}} </p>
+                          <p> Lekar : {{izabraniLekar.ime}} {{izabraniLekar.prezime}} </p>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12">
-                          <p> Tip pregleda : {{izabraniTermin.tipPregleda}} </p>
+                          <p> Tip pregleda : {{zahtev.specijalizacija}} </p>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12">
-                          <p> Cena i popust: {{izabraniTermin.cena}}, {{izabraniTermin.popust}} </p>
+                          <p> Cena i popust: {{zahtev.cena}}, {{zahtev.popust}} </p>
                         </div>
                       </div>
                       <div class="row">

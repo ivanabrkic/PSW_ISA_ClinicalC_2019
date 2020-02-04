@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home';
@@ -163,7 +163,7 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
       { path: '**', component: NotFoundComponent},
       ])
   ],
-  providers: [AdminKlinikeService, KlinikaService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService,PredefTerminiServiceService],
+  providers: [DatePipe,AdminKlinikeService, KlinikaService, LoginService, RegisterService, ZdravstveniKartonService,PacijentService,PoseteService,PredefTerminiServiceService],
 
   bootstrap: [AppComponent]
 })

@@ -8,6 +8,8 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PregledService;
@@ -48,7 +50,13 @@ public class KlinikaController {
     private ZahtevService zahtevService;
     
     @Autowired 
-    PregledService pregledService;
+    private PregledService pregledService;
+    
+    @Autowired 
+    private AdministratorKlinikeService adminklService;
+    
+    @Autowired
+    private CenovnikRepository cenovnikRepository;
 
     @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
@@ -194,12 +202,27 @@ public class KlinikaController {
     }
     
     @PostMapping(value = "/zakaziTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public String zakaziTermin(@RequestBody Zahtev zahtev){
+    public  ResponseEntity<Zahtev> zakaziTermin(@RequestBody Zahtev zahtev){
+    	
+    	System.out.print("Zahtev primljen");
        
             zahtevService.add(zahtev);
-            return "Uspesno dodat zahtev!";  
+            List<AdministratorKlinike> administratori=adminklService.findAllByKlinikaId(zahtev.getIdKlinike());
+            MailSenderController m=new MailSenderController();
+            for (AdministratorKlinike a : administratori) {
+            	m.sendSimpleMessage(a.getEmail(),"Novi zahtev",
+            			 "Pristigao je novi zahtev za zakazivanje termina"+
+            			" Za datum: "+zahtev.getDatum()+" i vreme: "+zahtev.getPocetak()+"-"+zahtev.getKraj()+
+            			" za posetu: "+ zahtev.getTipPosete()+" tipa: "
+            			+ ""+zahtev.getStavkaCenovnika()+" od strane: "+zahtev.getTipPosiljaoca()+
+            			". Ulogujte se na vas nalog kako biste prihvatili ili odbili zahtev."
+            			+ ""
+            			+ "Ovaj mejl je automatski generisan i na njega nemojte odgovarati.");
+            }
+            return new ResponseEntity<>(zahtev, HttpStatus.OK); //vracanje slobodnih  
         
     }
+
     
     @PostMapping(value = "/zakaziPredefTerminn", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Pregled> zakaziPredefTermin(@RequestBody predefDTO pregled)throws Exception{
@@ -208,6 +231,15 @@ public class KlinikaController {
             Optional<Pregled> pronadjenpregled=pregledService.update(pregled);
             
                 return new ResponseEntity<>(pronadjenpregled.get(), HttpStatus.OK);
+  
+    }
+    
+    @PostMapping(value = "/getCena", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public float NadjiCenu(@RequestBody lekariterminiDTO zahtev)throws Exception{
+    		
+    		Cenovnik cen=cenovnikRepository.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
+            
+                return cen.getCena();
   
     }
 }
