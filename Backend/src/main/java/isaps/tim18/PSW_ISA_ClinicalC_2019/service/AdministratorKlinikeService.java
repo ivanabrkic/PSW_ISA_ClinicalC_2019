@@ -35,6 +35,10 @@ public class AdministratorKlinikeService {
     public AdministratorKlinike findByEmail(String email) {
         return administratorKlinikeRepository.findByEmail(email);
     }
+    
+    public List<AdministratorKlinike> findAllByKlinikaId(Long id) {
+    	return administratorKlinikeRepository.findByKlinikaId(id);
+    }
 
     @Transactional
     public AdministratorKlinike add(AdministratorKlinike admin){
