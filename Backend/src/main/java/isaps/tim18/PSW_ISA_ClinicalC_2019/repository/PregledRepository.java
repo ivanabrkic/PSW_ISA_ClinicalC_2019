@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
@@ -49,4 +50,8 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
     @Query("SELECT p.sala FROM Pregled p WHERE p.sala.id = ?1 " +
             "AND NOT p.status = 'Završen'")
     List<Sala> findBySalaIdAndStatus(Long id);
+
+    @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO(l,k.id,k.naziv,k.ocena,l.ocena) from Pregled p inner join p.lekar as l inner join p.sala as s  inner join s.klinika as k inner join p.cenovnik as c " +
+            "WHERE p.id=?1")
+    posetaLekarKlinikaDTO findInfo(Long id);
 }

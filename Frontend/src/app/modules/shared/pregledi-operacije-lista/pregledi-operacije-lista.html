@@ -1,29 +1,122 @@
 <app-patient-sidebar></app-patient-sidebar>
 <div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-danger">
-            <h4 class="card-title ">Lista poseta</h4>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-    <th>Datum</th>
-    <th>Pocetak</th>
-    <th>Kraj</th>
-    <th>Tip posete</th>
-                </thead>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-danger">
+						<h4 class="card-title ">Lista pregleda</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table">
+								<thead class=" text-primary">
+									<th>Datum</th>
+									<th>Pocetak</th>
+									<th>Kraj</th>
+                  <th>Tip posete</th>
+ 
+								</thead>
+								<tbody>
+									<tr *ngFor="let pregled of pregledi" [class.selected]="pregled === selectedPregled"
+                  (click)="onSelectPr(pregled)">
+										<td>
+											<span class="badge">{{pregled.datum}}</span>
+										</td>
+										<td>{{pregled.pocetak}}</td>
+										<td>{{pregled.kraj}}</td>
+                    <td>{{pregled.tipPosete}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-  <tbody>
-    <tr *ngFor="let poseta of posete">
-        <td> <span class="badge">{{poseta.datum}}</span> </td><td>{{poseta.pocetak}}</td>
-        <td>{{poseta.kraj}}</td><td>{{poseta.tipPosete}}</td>
-    </tr>
-  </tbody>
-              </table>
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-danger">
+						<h4 class="card-title ">Lista operacija</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table">
+								<thead class=" text-primary">
+									<th>Datum</th>
+									<th>Pocetak</th>
+									<th>Kraj</th>
+                  <th>Tip posete</th>
+ 
+								</thead>
+								<tbody>
+									<tr *ngFor="let operacija of operacije" [class.selected]="operacija === selectedOperacija"
+                  (click)="onSelectOp(operacija)">
+										<td>
+											<span class="badge">{{operacija.datum}}</span>
+										</td>
+										<td>{{operacija.pocetak}}</td>
+										<td>{{operacija.kraj}}</td>
+                    <td>{{operacija.tipPosete}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div *ngIf="selected">
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title">Osnovne informacije</h4>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Datum : {{selected.datum}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Termin : {{selected.pocetak}} - {{selected.kraj}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Lekar : {{selected.ime}} {{selected.prezime}}, ocena: {{selectedLOcena}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Klinika: {{selected.naziv}}, ocena: {{selectedKOcena}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Tip pregleda: {{selected.naziv}}</p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -31,3 +124,5 @@
     </div>
   </div>
 </div>
+
+

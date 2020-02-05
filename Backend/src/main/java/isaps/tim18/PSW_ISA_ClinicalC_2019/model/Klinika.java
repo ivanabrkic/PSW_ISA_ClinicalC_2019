@@ -1,6 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="klinika")
@@ -30,6 +31,13 @@ public class Klinika {
 
     @Column(name="ocena",unique=false)
     private float ocena;
+
+    @ManyToMany(mappedBy = "ocenjeneKlinikePacijenta")
+    Set<Pacijent> ocenePacijenata;
+
+    @OneToMany(mappedBy = "klinika")
+    Set<oceneKlinike> ocene;
+
 
     public Klinika(){
 

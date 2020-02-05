@@ -3,6 +3,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="lekar")
@@ -25,6 +26,23 @@ public class Lekar extends Korisnik{
     @JoinColumn(name="klinika_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Klinika klinika;
+
+
+    @ManyToMany(mappedBy = "ocenjeniLekariPacijenta")
+    Set<Pacijent> ocenePacijenta;
+
+
+    @OneToMany(mappedBy = "lekar")
+    Set<oceneLekari> ocene;
+
+    public Set<Pacijent> getPacijenti() {
+        return ocenePacijenta;
+    }
+
+    public void setPacijenti(Set<Pacijent> pacijenti) {
+        this.ocenePacijenta = pacijenti;
+    }
+
 
     public Lekar() {
     }

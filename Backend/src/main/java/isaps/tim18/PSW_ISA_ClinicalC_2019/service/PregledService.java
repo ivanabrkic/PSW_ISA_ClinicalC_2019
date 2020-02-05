@@ -1,7 +1,9 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,10 @@ public class PregledService {
 	
 	
 	public Optional<Pregled> findById(Long id) {return pregledRepo.findById(id);}
+
+	public List<Pregled> findByPacijentId(Long id) {return pregledRepo.findByPacijentId(id);}
+
+	public posetaLekarKlinikaDTO findInfo(Long id){return pregledRepo.findInfo(id);}
 
 	public Optional<Pregled> update(predefDTO pregled) {
 		
