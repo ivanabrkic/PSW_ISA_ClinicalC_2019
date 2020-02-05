@@ -1,7 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.dto;
 
 public class PregledDTO {
-    private Long id;
 
     private String jboPacijenta;
 
@@ -22,7 +21,8 @@ public class PregledDTO {
     public PregledDTO() {
     }
 
-    public PregledDTO(String jboPacijenta, String jboLekara, String datum, String pocetak, String kraj) {
+    public PregledDTO(String tipPregleda, String jboPacijenta, String jboLekara, String datum, String pocetak, String kraj) {
+        this.tipPregleda = tipPregleda;
         this.jboPacijenta = jboPacijenta;
         this.datum = datum;
         this.pocetak = pocetak;
@@ -30,21 +30,12 @@ public class PregledDTO {
         this.jboLekara = jboLekara;
     }
 
-    public PregledDTO(Long id, String jboPacijenta, String jboLekara, String datum, String pocetak, String kraj) {
-        this.id = id;
-        this.jboPacijenta = jboPacijenta;
+    public PregledDTO(String tipPregleda, String jboLekara, String datum, String pocetak, String kraj) {
+        this.tipPregleda = tipPregleda;
         this.datum = datum;
         this.pocetak = pocetak;
         this.kraj = kraj;
         this.jboLekara = jboLekara;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getSalaId() {

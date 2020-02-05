@@ -30,6 +30,12 @@ public class OpstiIzvestajController {
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<OpstiIzvestaj>> all() throws Exception {
         List<OpstiIzvestaj> izvestaji = opstiIzvestajService.findAll();
-        return new ResponseEntity<>(izvestaji, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(izvestaji, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getIzvestajByZKartonId", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<OpstiIzvestaj> getById(@RequestBody Long id) throws Exception {
+        OpstiIzvestaj izvestaj = opstiIzvestajService.findByZkartonId(id);
+        return new ResponseEntity<>(izvestaj, HttpStatus.OK);
     }
 }

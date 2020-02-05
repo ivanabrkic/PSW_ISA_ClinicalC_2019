@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {LoginService} from '../services/login-and-register-service/login.service';
-import {KorisnikService} from '../services/korisnik-service/korisnik.service';
+import {LoginService} from '../../../services/login-and-register-service/login.service';
+import {KorisnikService} from '../../../services/korisnik-service/korisnik.service';
 import {Korisnik} from '../../../models/korisnik/korisnik';
 import {first} from 'rxjs/operators';
 

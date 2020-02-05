@@ -25,7 +25,7 @@ public class Izvestaj {
     private Recept recept;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn(name = "lekar", referencedColumnName = "id")
+    @JoinColumn(name = "lekar_id", referencedColumnName = "lekar_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Lekar lekar;
 
@@ -82,5 +82,13 @@ public class Izvestaj {
 
     public void setDatum(String datum) {
         this.datum = datum;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

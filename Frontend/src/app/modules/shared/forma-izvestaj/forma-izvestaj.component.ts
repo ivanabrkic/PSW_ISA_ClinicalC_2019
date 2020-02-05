@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SessionService} from '../services/SessionService/session.service';
+import {SessionService} from '../../../services/SessionService/session.service';
 import {Pacijent} from '../../../models/pacijent/pacijent';
 import {Izvestaj} from '../../../models/izvestaj/izvestaj';
 import {ZdravstveniKarton} from '../../../models/zdravstvenik/zdravstveniKarton';
@@ -10,12 +10,12 @@ import {Lekovi} from '../../../models/Lekovi/lekovi';
 import {DijalogKreiranjeReceptaComponent} from '../dijalog-kreiranje-recepta/dijalog-kreiranje-recepta.component';
 import {MatDialog} from '@angular/material/dialog';
 import {first} from 'rxjs/operators';
-import {PregledService} from '../services/pregled-service/pregled.service';
+import {PregledService} from '../../../services/pregled-service/pregled.service';
 import {DijalogUnosDijagnozaComponent} from '../dijalog-unos-dijagnoza/dijalog-unos-dijagnoza.component';
-import {OpstiIzvestajService} from '../services/opsti-izvestaj/opsti-izvestaj.service';
-import {ZdravstveniKartonService} from '../services/zdravstveni-karton-service/zdravstveni-karton.service';
-import {PacijentService} from '../services/pacijent-service/pacijent.service';
-import {Router} from "@angular/router";
+import {OpstiIzvestajService} from '../../../services/opsti-izvestaj/opsti-izvestaj.service';
+import {ZdravstveniKartonService} from '../../../services/zdravstveni-karton-service/zdravstveni-karton.service';
+import {PacijentService} from '../../../services/pacijent-service/pacijent.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-forma-izvestaj',
@@ -33,7 +33,7 @@ export class FormaIzvestajComponent implements OnInit {
   izvestajForm: FormGroup;
   submitted = false;
   lekovi: Lekovi[] = [];
-  recept: Recept = new Recept();
+  recept: Recept;
 
   constructor(private sessionService: SessionService, private formBuilder: FormBuilder, public dialog: MatDialog,
               private pregledService: PregledService, private opstiIzvestajService: OpstiIzvestajService,

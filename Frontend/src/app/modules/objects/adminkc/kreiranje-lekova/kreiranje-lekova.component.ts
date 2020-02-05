@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Lekovi} from '../../../../models/Lekovi/lekovi';
-import { LekoviService } from 'src/app/modules/shared/services/LekoviService/lekovi.service';
+import { LekoviService } from 'src/app/services/LekoviService/lekovi.service';
 
 @Component({
   selector: 'app-kreiranje-lekova',

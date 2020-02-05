@@ -13,7 +13,10 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDatepickerModule } from '@angular/material';
+
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+
+
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
@@ -43,18 +46,18 @@ import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dija
 import {MatDialogModule} from '@angular/material/dialog';
 import { KreiranjeLekovaComponent } from './modules/objects/adminkc/kreiranje-lekova/kreiranje-lekova.component';
 import { NotFoundComponent } from './home/not-found/not-found.component';
-import { KlinikaService } from './modules/shared/services/klinika-service/klinika.service';
-import { LoginService } from './modules/shared/services/login-and-register-service/login.service';
-import { RegisterService } from './modules/shared/services/login-and-register-service/register.service';
+import { KlinikaService } from './services/klinika-service/klinika.service';
+import { LoginService } from './services/login-and-register-service/login.service';
+import { RegisterService } from './services/login-and-register-service/register.service';
 import { RegistracijaAdministratoraKlinikeComponent } from './modules/objects/adminkc/registracija-administratora-klinike/registracija-administratora-klinike.component';
-import { AdminKlinikeService } from './modules/shared/services/admin-klinike-service/admin-klinike.service';
-import { ZdravstveniKartonService } from './modules/shared/services/zdravstveni-karton-service/zdravstveni-karton.service';
-import { PacijentService } from './modules/shared/services/pacijent-service/pacijent.service';
-import { PoseteService } from './modules/shared/services/posete-service/posete.service';
+import { AdminKlinikeService } from './services/admin-klinike-service/admin-klinike.service';
+import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/zdravstveni-karton.service';
+import { PacijentService } from './services/pacijent-service/pacijent.service';
+import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
 import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-sifre.component';
 import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
-import { SessionService } from './modules/shared/services/SessionService/session.service';
+import { SessionService } from './services/SessionService/session.service';
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { PretragafilterFilter } from './helpers/filter';
@@ -63,11 +66,17 @@ import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-k
 import { PretragafilterLekari } from './helpers/filterLekari';
 import { PretragaFilterPacijent } from './helpers/filterPacijent';
 import { PretragaFilterLek } from './helpers/filterLek';
-import { MatNativeDateModule } from '@angular/material';
 import { PretragaPacijenataComponent } from './modules/shared/pretraga-pacijenata/pretraga-pacijenata.component';
 import { FormaIzvestajComponent } from './modules/shared/forma-izvestaj/forma-izvestaj.component';
 import { DijalogKreiranjeReceptaComponent } from './modules/shared/dijalog-kreiranje-recepta/dijalog-kreiranje-recepta.component';
 import { DijalogUnosDijagnozaComponent } from './modules/shared/dijalog-unos-dijagnoza/dijalog-unos-dijagnoza.component';
+
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { PredefinisaniTerminiComponent } from './modules/shared/predefinisani-termini/predefinisani-termini.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { PregledIzvestajaComponent } from './modules/shared/pregled-izvestaja/pregled-izvestaja.component';
+import { PregledLekovaComponent } from './modules/shared/pregled-lekova/pregled-lekova.component';
+import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izmena-izvestaja.component';
 
 
 
@@ -115,7 +124,11 @@ import { DijalogUnosDijagnozaComponent } from './modules/shared/dijalog-unos-dij
     PretragaPacijenataComponent,
     FormaIzvestajComponent,
     DijalogKreiranjeReceptaComponent,
-    DijalogUnosDijagnozaComponent
+    DijalogUnosDijagnozaComponent,
+    PredefinisaniTerminiComponent,
+    PregledIzvestajaComponent,
+    PregledLekovaComponent,
+    IzmenaIzvestajaComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -134,7 +147,7 @@ import { DijalogUnosDijagnozaComponent } from './modules/shared/dijalog-unos-dij
     MatDialogModule,
     MatDatepickerModule,
     CommonModule,
-    MatDatepickerModule,
+    MatNativeDateModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
@@ -152,11 +165,14 @@ import { DijalogUnosDijagnozaComponent } from './modules/shared/dijalog-unos-dij
       { path: 'odmor', component: OdmorComponent},
       { path: 'promenaLozinke', component: PromenaSifreComponent},
       { path: 'overaRecepta', component: OveraRecepataComponent},
+      { path: 'izmenaIzvestaja', component: IzmenaIzvestajaComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
       { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
       { path: 'lekarPregled', component: LekarPregledComponent},
       {path: 'pacijentPregled', component: PacijentPregledComponent},
       {path: 'pacijent', component: PacijentComponent},
+      {path: 'pregledIzvestaja', component: PregledIzvestajaComponent},
+      {path: 'pregledLekova', component: PregledLekovaComponent},
       { path: 'login', component: LoginComponent },
       { path: 'kreiranjeDijagnoza', component: KreiranjeDijagnozaComponent },
       { path: 'kreiranjeLekova', component: KreiranjeLekovaComponent },
@@ -169,6 +185,9 @@ import { DijalogUnosDijagnozaComponent } from './modules/shared/dijalog-unos-dij
        {path: 'listaPoseta', component: PoseteComponent},
        {path: 'listaLekara', component: ListaLekaraComponent},
        {path: 'profilKlinike', component: ProfilKlinikeComponent},
+       {path: 'listaLekara', component: ListaLekaraComponent},
+       {path: 'profilKlinike', component: ProfilKlinikeComponent},
+       {path: 'listaPredefinisanih', component: PredefinisaniTerminiComponent},
       { path: '**', component: NotFoundComponent},
       ])
   ],

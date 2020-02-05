@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DijagnozeService {
@@ -14,7 +15,7 @@ public class DijagnozeService {
     @Autowired
     DijagnozeRepository dijagnozeRepo;
 
-    public Dijagnoze findById(int id) { return dijagnozeRepo.findBySifra(id); }
+    public Optional<Dijagnoze> findById(Long id) { return dijagnozeRepo.findById(id); }
 
     public Dijagnoze findBySifraDijagnoze(String sifra) { return dijagnozeRepo.findBySifraDijagnoze(sifra); }
 

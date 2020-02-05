@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Recept} from '../../../../models/Recept/recept';
 import {MatDialog} from '@angular/material/dialog';
-import {ReceptServiceService} from '../../../shared/services/recept-service/recept-service.service';
+import {ReceptServiceService} from '../../../../services/recept-service/recept-service.service';
+import {MedicinskaSestra} from '../../../../models/medicinskas/medicinskas';
+import {MedicinskaSestraService} from '../../../../services/medicinska-sestra-service/medicinska-sestra.service';
 
 
 @Component({
@@ -12,8 +14,12 @@ import {ReceptServiceService} from '../../../shared/services/recept-service/rece
 export class OveraRecepataComponent implements OnInit {
   recepti: any;
   public izmenjeniRecept: Recept = new Recept();
+  medSestra: MedicinskaSestra;
 
-  constructor(public dialog: MatDialog, private receptService: ReceptServiceService) {
+  constructor(public dialog: MatDialog, private receptService: ReceptServiceService, private medsestraService: MedicinskaSestraService) {
+    this.medsestraService.getUlogovanKorisnik().subscribe(data =>
+      this.medSestra = data
+    )
     this.receptService.getNeoverene()
       .subscribe(data => {
           // @ts-ignore
@@ -33,7 +39,7 @@ export class OveraRecepataComponent implements OnInit {
       );
   }
 
-  getRecepte(){
+  getRecepte() {
     this.receptService.getNeoverene().subscribe(
       podaci => { this.recepti = podaci; },
       err => console.log('Nisu ucitani korisnici'),
@@ -45,6 +51,9 @@ export class OveraRecepataComponent implements OnInit {
     const indexRecepta = this.recepti.findIndex(item => (item.id === r.id && item.pacijent === r.pacijent));
     this.izmenjeniRecept = this.recepti.find(item => (item.id === r.id && item.pacijent === r.pacijent));
     this.izmenjeniRecept.overen = true;
+    console.log(this.medSestra);
+    this.izmenjeniRecept.medicinskaSestra = this.medSestra;
+    console.log(this.izmenjeniRecept);
     this.recepti[indexRecepta] = this.izmenjeniRecept;
     this.receptService.overi(this.izmenjeniRecept).subscribe(
       data => r,

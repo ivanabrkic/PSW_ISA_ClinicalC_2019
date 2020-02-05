@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekovi;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Recept;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.ReceptRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,19 @@ import java.util.Optional;
 public class ReceptService {
     @Autowired
     ReceptRepository receptRepository;
+
+    @Autowired
+    LekoviService lekoviService;
+
+    public Recept findById(Long id) {
+        Optional<Recept> r = receptRepository.findById(id);
+
+        if(r.isPresent()){
+            return r.get();
+        }
+
+        return null;
+    }
 
     public List<Recept> findAll() { return receptRepository.findAll(); }
 
@@ -33,6 +48,7 @@ public class ReceptService {
         if(o.isPresent()){
             r = o.get();
             r.setOveren(recept.isOveren());
+            r.setMedicinskaSestra(recept.getMedicinskaSestra());
             receptRepository.save(r);
             return r;
         }
@@ -46,6 +62,31 @@ public class ReceptService {
 
         if(opt.isPresent()){
             receptRepository.delete(opt.get());
+        }
+
+        return recept;
+    }
+
+    @Transactional
+    public Recept update(Recept recept){
+        Optional<Recept> opt = receptRepository.findById(recept.getId());
+        List<Lekovi> lekovi = new ArrayList<Lekovi>();
+
+        if(opt.isPresent()){
+            Recept r = opt.get();
+            Lekovi lek = new Lekovi();
+            for(int i = 0;i < recept.getLekovi().size(); i++){
+                lek = lekoviService.findBySifra(recept.getLekovi().get(i).getSifra());
+
+                if(lek != null){
+                    lekovi.add(lek);
+                }
+            }
+
+            r.setLekovi(lekovi);
+
+            r.setOveren(false);
+            receptRepository.save(r);
         }
 
         return recept;

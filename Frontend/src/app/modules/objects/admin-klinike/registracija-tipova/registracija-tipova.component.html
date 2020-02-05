@@ -1,0 +1,61 @@
+<mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger pull-right">X</button>
+</mat-dialog-actions>
+<h1 mat-dialog-title>{{title}}</h1>
+<mat-dialog-content class="text">
+    <div style="overflow-x: hidden" class="content-container">
+        <div class="container-fluid">
+            <div style="width: 400px" class="main-content">
+                <div class="row">
+                    <form #registerForma  (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h5 class="card-title">Unesite naziv tipa, specijalizaciju i cenu</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input [(ngModel)]="tip.naziv" placeholder="Naziv tipa pregleda" #ime matInput
+                                                [ngClass]="{ 'is-invalid': submitted && f.naziv?.errors }"
+                                                formControlName="naziv" class="mat-form-control">
+                                            <mat-error *ngIf="submitted && f.naziv?.errors">
+                                                <div *ngIf="f.naziv?.errors.required">Unos naziva je obavezan</div>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <mat-form-field>
+                                            <mat-label>Izaberite specijalizaciju lekara koji mogu da vrše ovaj tip pregleda</mat-label>
+                                            <mat-select #c (selectionChange)="onChangeSpec(c.value)"
+                                                [(value)]="selectedSpec">
+                                                <mat-option *ngFor="let c of specijalizacije" [value]="c">{{c}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <mat-form-field class="example-full-width">
+                                            <input  type = "number" [(ngModel)]="tip.cena" placeholder="Cena (din)" #cena matInput
+                                                [ngClass]="{ 'is-invalid': submitted && f.cena?.errors }"
+                                                formControlName="cena" class="mat-form-control">
+                                            <mat-error *ngIf="submitted && f.cena?.errors">
+                                                <div *ngIf="f.cena?.errors.required">Unos cene je obavezan</div>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <button mat-raised-button type="submit" class="btn btn-primary pull-right">{{buttonTitle}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

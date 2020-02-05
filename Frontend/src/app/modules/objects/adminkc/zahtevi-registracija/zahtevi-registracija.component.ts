@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DijalogOdbijanjeZahtevaComponent} from '../dijalog-odbijanje-zahteva/dijalog-odbijanje-zahteva.component';
-import { PacijentService } from 'src/app/modules/shared/services/pacijent-service/pacijent.service';
-import { KorisnikService } from 'src/app/modules/shared/services/korisnik-service/korisnik.service';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
+import { KorisnikService } from 'src/app/services/korisnik-service/korisnik.service';
 import { Korisnik } from 'src/app/models/korisnik/korisnik';
 
 

@@ -19,12 +19,6 @@ public class Pacijent extends Korisnik{
         return pacijentiKlinike;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="zkarton_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private ZdravstveniKarton zdravstveniKarton;
-
-
     public void setPacijentiKlinike(List<PacijentiKlinike> pacijentiKlinike) {
         this.pacijentiKlinike = pacijentiKlinike;
     }
@@ -32,16 +26,8 @@ public class Pacijent extends Korisnik{
     public Pacijent() {
     }
 
-    public Pacijent(Korisnik korisnik, ZdravstveniKarton zdravstveniKarton) {
+    public Pacijent(Korisnik korisnik) {
         super(korisnik);
-        this.zdravstveniKarton = zdravstveniKarton;
     }
 
-    public ZdravstveniKarton getZdravstveniKarton() {
-        return zdravstveniKarton;
-    }
-
-    public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
-        this.zdravstveniKarton = zdravstveniKarton;
-    }
 }

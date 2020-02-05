@@ -2,8 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { Sala } from 'src/app/models/sala/sala';
 import { MatTableDataSource } from '@angular/material';
 import { Lekar } from 'src/app/models/lekar/lekar';
@@ -12,7 +12,7 @@ import { RadniKalendarSaleComponent } from 'src/app/modules/shared/radni-kalenda
 import { Operacija } from 'src/app/models/operacija/operacija';
 import { Pregled } from 'src/app/models/pregled/pregled';
 import { ZakaziTerminComponent } from '../zakazi-termin/zakazi-termin.component';
-import { LekarService } from 'src/app/modules/shared/services/lekar-service/lekar.service';
+import { LekarService } from 'src/app/services/lekar-service/lekar.service';
 
 @Component({
   selector: 'app-izbor-sale',

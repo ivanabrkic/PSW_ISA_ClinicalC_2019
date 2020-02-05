@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
 import { first } from 'rxjs/operators';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   templateUrl: './izmena-profil-klinike.component.html',
@@ -14,6 +14,8 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
   loading = false;
   klinikaForm: FormGroup;
   submitted = false;
+
+  adresaParentValue : String;
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
@@ -28,6 +30,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
         this.adminKlinike = ulogovanKorisnik;
+        this.adresaParentValue = this.adminKlinike.klinika.adresa + "," + this.adminKlinike.klinika.grad + "," + this.adminKlinike.klinika.drzava
       });
 
     this.klinikaForm = this.formBuilder.group({
@@ -40,6 +43,8 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
       ocena: ['']
     },  {
     });
+
+
   }
 
   get f() { return this.klinikaForm.controls; }
@@ -58,6 +63,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
     this.klinikaService.update(this.klinikaForm.value, this.adminKlinike.klinika.id).pipe(first()).subscribe(result => {
         alert('Uspešno ste izmenili profil klinike!\n\n');
         this.adminKlinike.klinika = result;
+        this.adresaParentValue = this.adminKlinike.klinika.adresa + "," + this.adminKlinike.klinika.grad + "," + this.adminKlinike.klinika.drzava
       },
       error => {
         alert('Neuspešna izmena!\n\n');

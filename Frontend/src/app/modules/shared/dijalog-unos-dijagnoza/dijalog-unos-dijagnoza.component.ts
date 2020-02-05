@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Dijagnoza} from '../../../models/Dijagnoza/dijagnoza';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {DijagnozaService} from '../services/DijagnozaService/dijagnoza.service';
+import { DijagnozaService } from '../../../services/DijagnozaService/dijagnoza.service';
 import {ZdravstveniKarton} from '../../../models/zdravstvenik/zdravstveniKarton';
 
 @Component({
@@ -14,6 +14,8 @@ export class DijalogUnosDijagnozaComponent implements OnInit {
   noviPodaci: any;
   zdravstveniKarton: ZdravstveniKarton;
   postoji = false;
+  postojiDijagnoza = false;
+  noveDijagnoze: Dijagnoza[] = [];
   constructor(public dialogRef: MatDialogRef<DijalogUnosDijagnozaComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, private dijagnozaService: DijagnozaService) {
     this.zdravstveniKarton = this.data;
@@ -26,7 +28,18 @@ export class DijalogUnosDijagnozaComponent implements OnInit {
           cekiran: true,
         }];
         this.dijagnoze.forEach( (dijagnoza) => {
+          this.zdravstveniKarton.dijagnoze.forEach( (dijagnozaKarton) =>{
+            if(dijagnoza.nazivDijagnoze === dijagnozaKarton.nazivDijagnoze){
+              this.postojiDijagnoza = true;
+            }
+          });
+            if (this.postojiDijagnoza === true){
+              podaci.push({dijagnoze: dijagnoza, cekiran: true});
+              this.postojiDijagnoza = false;
+            } else {
             podaci.push({dijagnoze: dijagnoza, cekiran: false});
+              this.postojiDijagnoza = false;
+            }
           }
         );
         podaci.splice(0, 1);
@@ -46,24 +59,13 @@ export class DijalogUnosDijagnozaComponent implements OnInit {
   }
 
   unesiDijagnoze() {
-    this.noviPodaci.forEach( element => {
-      console.log(this.zdravstveniKarton.dijagnoze.indexOf(element.dijagnoze));
-      this.zdravstveniKarton.dijagnoze.forEach(dijagnoza => {
-        console.log(element.dijagnoze.nazivDijagnoze);
-        if (element.dijagnoze.nazivDijagnoze === dijagnoza.nazivDijagnoze) {
-          this.postoji = true;
-          }
-        }
-      );
-      if (this.postoji === false) {
-        if (element.cekiran === true) {
+    this.zdravstveniKarton.dijagnoze = this.noveDijagnoze;
+    this.noviPodaci.forEach(element => {
+      if (element.cekiran === true) {
           this.zdravstveniKarton.dijagnoze.push(element.dijagnoze);
-        }
-      } else {
-        this.postoji = false;
-      }
-    });
-    console.log(this.noviPodaci)
+          }
+        });
+    console.log(this.zdravstveniKarton.dijagnoze);
     this.dialogRef.close(this.zdravstveniKarton);
   }
 

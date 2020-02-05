@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   templateUrl: './admin-klinike-pregled.component.html',

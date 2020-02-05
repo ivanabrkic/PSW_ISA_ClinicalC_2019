@@ -1,0 +1,26 @@
+<div style = "text-align: center;width: 500px">
+  <div class="card">
+    <div class="card-header card-header-danger">
+      <h4 class="card-title ">Pripisani lekovi na pregledu</h4>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class=" text-primary">
+          <th>Sifra leka</th>
+          <th>Naziv leka</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let lek of this.recept.lekovi">
+            <td> <span class="badge">{{lek.sifra}}</span> </td>
+            <td> <span class="badge">{{lek.naziv}}</span> </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div style = "margin-top: 20px;">
+    <button class = "btn btn-secondary" (click)="this.dialogRef.close()" style = "margin-left: 20px">Zatvori</button>
+  </div>
+</div>

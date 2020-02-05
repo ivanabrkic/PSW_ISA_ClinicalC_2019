@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { first } from 'rxjs/operators';
 import { Sala } from 'src/app/models/sala/sala';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { Klinika } from 'src/app/models/klinika/klinika';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   templateUrl: './registracija-sala.component.html',
@@ -19,8 +21,30 @@ export class RegistracijaSalaComponent implements OnInit {
   sala: Sala;
   idKlinike:number;
 
+  izmena:boolean
+
+  title:String
+  buttonTitle:String
+
+  idSale : number
+
   constructor(private dialogRef: MatDialogRef<RegistracijaSalaComponent>,
-    private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
+    private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService, @Inject(MAT_DIALOG_DATA) data) {
+      this.izmena = data.izmeni
+      if (data.izmeni){
+        alert("Izmena")
+        this.title = 'Izmeni podatke o sali'
+        this.buttonTitle = 'Izmeni'
+        this.sala = data.sala
+        this.idSale = data.sala.id
+      }
+      else{
+        this.title = 'Registruj novu salu'
+        this.buttonTitle = 'Registruj'
+        this.sala = new Sala()
+        this.sala.naziv = ""
+        this.sala.broj = ""
+      }
   }
 
   ngOnInit() {
@@ -35,7 +59,6 @@ export class RegistracijaSalaComponent implements OnInit {
       left: '20%'
     });
 
-
     this.registerForm = this.formBuilder.group({
       naziv: ['', Validators.required],
       broj: ['', Validators.required]
@@ -44,6 +67,8 @@ export class RegistracijaSalaComponent implements OnInit {
   }
 
   onSubmit() {
+
+    alert(JSON.stringify(this.registerForm.value))
 
     this.submitted = true;
 
@@ -55,18 +80,33 @@ export class RegistracijaSalaComponent implements OnInit {
     this.loading = true;
 
     this.sala = this.registerForm.value;
-    this.sala.id = this.idKlinike;
+    this.sala.klinika = new Klinika()
+    this.sala.klinika.id = this.idKlinike;
+    this.sala.id = this.idSale
 
-    this.klinikaService.registerSala(this.sala).pipe(first()).subscribe(result => {
-      alert(result.naziv);
-    },
-      error => {
-        alert('Neuspešna registracija!\n\n');
-        this.loading = false;
-      });
+    if (this.izmena){
+
+      this.klinikaService.updateSala(this.sala).pipe(first()).subscribe(result => {
+        alert(result.text);
+      },
+        error => {
+          alert('Neuspešna registracija!\n\n');
+          this.loading = false;
+        });
+    }
+    else{
+
+      this.klinikaService.registerSala(this.sala).pipe(first()).subscribe(result => {
+        alert(result.text);
+      },
+        error => {
+          alert('Neuspešna registracija!\n\n');
+          this.loading = false;
+        });
+    }
 
 
-    this.dialogRef.close()
+    this.dialogRef.close();
 
   }
 

@@ -3,7 +3,7 @@ import {Klinika} from '../../../../models/klinika/klinika';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 
 @Component({
   selector: 'app-registracija-klinike',

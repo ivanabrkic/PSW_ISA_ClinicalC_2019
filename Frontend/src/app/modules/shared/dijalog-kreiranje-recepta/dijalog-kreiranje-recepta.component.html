@@ -7,9 +7,12 @@
   </div>
   <div  style = "width: 100%;margin-top: 20px;display: inline;text-align: left;"
         *ngFor="let podatak of this.noviPodaci | filter:searchNaziv">
-    <label style = "margin-left: 3px;margin-top: 7px">
-      <input type="checkbox" id="checkbox_category"  (change)="change(podatak, $event)">{{podatak.lek.naziv}}</label>
-<!--    <button class = "btn btn-secondary" (click)="this.dialogRef.close(1)" style = "margin-left: 20px">Nazad</button>-->
+    <label *ngIf="podatak.cekiran === true" style = "margin-left: 3px;margin-top: 7px">
+      <input type="checkbox" id="checkbox_category"  checked="true" (change)="change(podatak, $event)">{{podatak.lek.naziv}}</label>
+    <label *ngIf="podatak.cekiran === false" style = "margin-left: 3px;margin-top: 7px">
+    <input type="checkbox" id="checkbox_category_smth" (change)="change(podatak, $event)">{{podatak.lek.naziv}}</label>
+
+    <!--    <button class = "btn btn-secondary" (click)="this.dialogRef.close(1)" style = "margin-left: 20px">Nazad</button>-->
   </div>
   <div style = "margin-top: 20px;">
     <button class = "btn btn-primary" (click)="kreirajRecept()">Predaj</button>

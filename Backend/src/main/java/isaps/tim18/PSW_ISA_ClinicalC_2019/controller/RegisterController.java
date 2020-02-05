@@ -61,7 +61,7 @@ public class RegisterController {
         ZdravstveniKarton zdravstveniKarton = new ZdravstveniKarton();
         //Dodavanje novog pacijenta preko konstruktora koji prima Korisnika kao parametar
         //Dodaje se u isto vreme u obe tabele, u tabelu Pacijent kao referenca na tabelu Korisnik
-        Pacijent p = new Pacijent(noviPacijent, zdravstveniKarton);
+        Pacijent p = new Pacijent(noviPacijent);
         pacijentService.add(p);
 
         System.out.println("Account with email " + noviPacijent.getEmail() + "has been created!");

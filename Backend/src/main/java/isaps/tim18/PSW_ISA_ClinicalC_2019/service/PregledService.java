@@ -17,7 +17,7 @@ public class PregledService {
     @Autowired
     PregledRepository pregledRepository;
 
-    public List<PregledIzvestajDTO> findAll() { return pregledRepository.findAll("smh"); }
+    public List<PregledIzvestajDTO> findPregledeById(Long idLekar) { return pregledRepository.findPregledeById(idLekar); }
 
     @Transactional
     public void updateZavrsen(PregledIzvestajDTO p) {

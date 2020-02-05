@@ -20,9 +20,9 @@ public class PregledController {
     @Autowired
     PregledService pregledService;
 
-    @GetMapping(value = "/allPreglede", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PregledIzvestajDTO>> getPreglede() {
-        List<PregledIzvestajDTO> pregledi = pregledService.findAll();
+    @PostMapping(value = "/allPregledeByLekar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PregledIzvestajDTO>> getPreglede(@RequestBody Long idLekara) {
+        List<PregledIzvestajDTO> pregledi = pregledService.findPregledeById(idLekara);
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }

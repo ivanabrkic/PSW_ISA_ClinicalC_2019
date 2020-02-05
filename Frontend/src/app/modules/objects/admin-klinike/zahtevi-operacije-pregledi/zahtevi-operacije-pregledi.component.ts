@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 
 @Component({
   selector: 'app-zahtevi-operacije-pregledi',
@@ -52,6 +52,13 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
     .subscribe(data => {
         this.zahtevi = data;
   });
+    if (!obradjen){
+      this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
+      .subscribe(data => {
+          this.zahtevi = data;
+          this.izbor = obradjen
+    });
+    }
   }
 
 }

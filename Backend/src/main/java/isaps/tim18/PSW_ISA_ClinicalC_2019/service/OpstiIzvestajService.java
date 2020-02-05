@@ -17,6 +17,20 @@ public class OpstiIzvestajService {
 
     public List<OpstiIzvestaj> findAll() { return opstiIzvestajRepository.findAll(); }
 
+    public OpstiIzvestaj findByZkartonId(Long id) {
+        System.out.println(id);
+        Long idOpsti = opstiIzvestajRepository.findByZkarton(id);
+        System.out.println(idOpsti);
+        Optional<OpstiIzvestaj> o = opstiIzvestajRepository.findById(idOpsti);
+        System.out.println(o.isPresent());
+        OpstiIzvestaj opstiIzvestaj = new OpstiIzvestaj();
+        if(o.isPresent()){
+            opstiIzvestaj = o.get();
+            return opstiIzvestaj;
+        }
+        return null;
+    }
+
     @Transactional
     public OpstiIzvestaj update(OpstiIzvestaj opstiIzvestaj) {
         Optional<OpstiIzvestaj> o = opstiIzvestajRepository.findById(opstiIzvestaj.getId());
