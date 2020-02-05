@@ -58,16 +58,16 @@ public class CenovnikController {
 
 
     @GetMapping(value = "/all", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> getAllKlinike(){
+    public ResponseEntity<List<Cenovnik>> getAllKlinike(){
 
         List<Cenovnik> listaCenovnika =  cenovnikService.findAll();
-        List<String>tipovi=new ArrayList<>();
+//        List<String>tipovi=new ArrayList<>();
+//
+//        for (Cenovnik c:listaCenovnika){
+//            tipovi.add(c.getNaziv());
+//        }
 
-        for (Cenovnik c:listaCenovnika){
-            tipovi.add(c.getNaziv());
-        }
-
-        return new ResponseEntity<>(tipovi, HttpStatus.OK);
+        return new ResponseEntity<>(listaCenovnika, HttpStatus.OK);
     }
 
 }

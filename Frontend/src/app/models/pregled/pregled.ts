@@ -1,4 +1,5 @@
 export class Pregled{
+    id:number;
     jboPacijenta:String;
     jboLekara:String;
     pocetak:String;
