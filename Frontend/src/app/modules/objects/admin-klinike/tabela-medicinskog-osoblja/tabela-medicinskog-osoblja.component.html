@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Medicinsko osoblje klinike "{{adminKlinike.klinika.naziv}}"</h4>
+                        <h4 *ngIf="adminKlinike.klinika ? true : false" class="card-title ">Medicinsko osoblje klinike "{{adminKlinike.klinika.naziv}}"</h4>
                         <button mat-raised-button (click)="showDialogRegister()"
                         class="btn btn-primary pull-right">Registruj novog lekara/medicinsku sestru</button>
                     </div>
@@ -33,12 +33,8 @@
                                 <td mat-cell *matCellDef="let med"> {{med.ocena}} </td>
                             </ng-container>
                             <ng-container matColumnDef="ime">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ime </th>
-                                <td mat-cell *matCellDef="let med"><a (click)="showDialogSestra(med)">{{med.ime}} </a> </td>
-                            </ng-container>
-                            <ng-container matColumnDef="prezime">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prezime </th>
-                                <td mat-cell *matCellDef="let med"><a (click)="showDialogSestra(med)">{{med.prezime}}</a> </td>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ime i prezime </th>
+                                <td mat-cell *matCellDef="let med"><a (click)="showDialogSestra(med)">{{med.ime}} {{med.prezime}} </a> </td>
                             </ng-container>
                             <ng-container matColumnDef="email">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>

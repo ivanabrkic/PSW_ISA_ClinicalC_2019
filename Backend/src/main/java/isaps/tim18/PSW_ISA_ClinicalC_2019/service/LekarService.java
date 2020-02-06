@@ -125,9 +125,9 @@ public class LekarService {
         List<Long> radeUToVreme = new ArrayList<>();
 
         if (zahtev.getTipPosete() == "Operacija") {
-            radeUToVreme = lekarRepository.daLiJeRadnoVremeOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+            radeUToVreme = lekarRepository.radnoVremeSpecOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
         }else {
-            radeUToVreme = lekarRepository.daLiJeRadnoVremePregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+            radeUToVreme = lekarRepository.radnoVremeSpecPregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
         }
 
         HashMap<Long, Long> slobodni = new HashMap<Long, Long>();

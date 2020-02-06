@@ -102,6 +102,8 @@ public class KlinikaController {
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
 
+    ////////////////////////////////////// USLUZIVANJE ZAHTEVA //////////////////////////////////////////
+
     @PostMapping(value = "/getZahtevi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Zahtev>> getZahtevi(@RequestBody Long idKlinike) {
 
@@ -109,13 +111,19 @@ public class KlinikaController {
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
-    
-  
 
-    @PostMapping(value = "/getSaleSlobodneOd", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Sala>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
+    @PostMapping(value = "/getSlobodneSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SalaDTO>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
 
-        List<Sala> listaSala =  klinikaService.findSaleSlobodneOd(zahtev);
+        List<SalaDTO> listaSala =  klinikaService.findSlobodneSale(zahtev);
+
+        return new ResponseEntity<>(listaSala, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getDrugiTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SalaDTO>> getDrugiTermin(@RequestBody Zahtev zahtev){
+
+        List<SalaDTO> listaSala =  klinikaService.findDrugiTermin(zahtev);
 
         return new ResponseEntity<>(listaSala, HttpStatus.OK);
     }
@@ -145,6 +153,8 @@ public class KlinikaController {
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
+    
+    //////////////////////////////////// TESLA ///////////////////////////////////////////////////
 
     @PostMapping(value="/slobodneKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Klinika>> slobodneKlinike(@RequestBody lekariterminiDTO zahtev) throws ParseException {

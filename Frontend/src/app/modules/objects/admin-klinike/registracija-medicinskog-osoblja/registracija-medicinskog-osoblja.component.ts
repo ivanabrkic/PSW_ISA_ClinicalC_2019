@@ -106,31 +106,9 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
     this.registerForm.controls['tipKorisnika'].setValue(this.selectedTip)
     this.registerForm.controls['klinika'].setValue(this.adminKlinike.klinika)
     
-    this.loading = true;
+    this.loading = true
 
-    if (this.selectedTip == "Lekar") {
-
-      this.lekarService.register(this.registerForm.value).pipe(first()).subscribe(result => {
-        alert('Uspešno ste registrovali lekara!\n\n');
-        this.lekar = result;
-      },
-        error => {
-          alert('Neuspešna registracija!\n\n');
-          this.loading = false;
-        });
-    }
-    else {
-      this.medSestraService.register(this.registerForm.value).pipe(first()).subscribe(result => {
-        alert('Uspešno ste registrovali medicinsku sestru!\n\n');
-        this.medSestra = result;
-      },
-        error => {
-          alert('Neuspešna registracija!\n\n');
-          this.loading = false;
-        });
-    }
-
-    this.dialogRef.close()
+    this.dialogRef.close(this.registerForm.value)
 
   }
 

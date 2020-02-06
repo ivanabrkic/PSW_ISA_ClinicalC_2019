@@ -2,7 +2,10 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.TerminDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -56,34 +58,33 @@ public class PredefTerminService {
 
         LocalDateTime end = start.plusMonths(1);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY.");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.YYYY.");
 
         List<TerminDTO> listaTermina = new ArrayList<>();
 
-        for (LocalDateTime date = start; date.isBefore(end); date = date.plusMinutes(trajanje)) {
-            String datum = formatter.format(date.toLocalDate());
-            String pocetak = date.toLocalTime().toString();
-            String kraj = date.plusMinutes(trajanje).toLocalTime().toString();
+        for (LocalDateTime date = start; date.isBefore(end); date = date.plusMinutes(15)) {
+            if (date.toLocalDate() == date.plusMinutes(trajanje).toLocalDate()) {
+                String datum = formatter.format(date.toLocalDate());
+                String pocetak = date.toLocalTime().toString();
+                String kraj = date.plusMinutes(trajanje).toLocalTime().toString();
 
-            if (isLekarRadnoVreme(idLekara, pocetak, kraj) && lekarSlobodan(idLekara, datum, pocetak, kraj) && !slobodneSale(idKlinike, datum, pocetak, kraj).isEmpty()
-                && (date.getDayOfWeek().name() != "SUNDAY")){
-                TerminDTO terminDTO = new TerminDTO();
-                terminDTO.setDatum(datum);
-                terminDTO.setPocetak(pocetak);
-                terminDTO.setKraj(kraj);
+                if (isLekarRadnoVreme(idLekara, pocetak, kraj) && lekarSlobodan(idLekara, datum, pocetak, kraj) && !slobodneSale(idKlinike, datum, pocetak, kraj).isEmpty()
+                        && (date.getDayOfWeek().name() != "SUNDAY")) {
+                    TerminDTO terminDTO = new TerminDTO();
+                    terminDTO.setDatum(datum);
+                    terminDTO.setPocetak(pocetak);
+                    terminDTO.setKraj(kraj);
 
-                List<Sala> listaSlobodnihSala = slobodneSale(idKlinike, datum, pocetak, kraj);
-                terminDTO.setSale(listaSlobodnihSala);
-                
-                System.out.println(terminDTO.getDatum());
+                    List<Sala> listaSlobodnihSala = slobodneSale(idKlinike, datum, pocetak, kraj);
+                    terminDTO.setSale(listaSlobodnihSala);
 
-                listaTermina.add(terminDTO);
+                    listaTermina.add(terminDTO);
+                }
+
+                if (listaTermina.size() == 150) {
+                    return listaTermina;
+                }
             }
-
-            if(listaTermina.size() == 150){
-                return listaTermina;
-            }
-
         }
 
         return listaTermina;
@@ -91,28 +92,16 @@ public class PredefTerminService {
 
     public List<Sala> slobodneSale(Long idKlinike, String datum, String pocetak, String kraj){
 
-        List<Long> saleNeO = operacijaRepository.findByKlinikaIdAndVreme(idKlinike, datum, pocetak, kraj);
-        List<Long> saleNeP = pregledRepository.findByKlinikaIdAndVreme(idKlinike, datum, pocetak, kraj);
+        List<Sala> sveSale = salaRepository.findByKlinikaId(idKlinike);
+        List<Sala> slobodne = new ArrayList<>();
 
-        HashMap<Long, Long> uniqueIdSale = new HashMap<Long, Long>();
-
-        for (Long s : saleNeO) {
-            uniqueIdSale.put(s, s);
-        }
-
-        for (Long s : saleNeP) {
-            uniqueIdSale.put(s, s);
-        }
-
-        List<Sala> sve = salaRepository.findByKlinikaId(idKlinike);
-        List<Sala> prolaze = new ArrayList<Sala>();
-        for (Sala s : sve) {
-            if (!uniqueIdSale.containsKey(s.getId())) {
-                prolaze.add(s);
+        for (Sala s : sveSale){
+            if (salaRepository.checkIfSalaZauzeta(s.getId(), datum, pocetak, kraj).isEmpty()){
+                slobodne.add(s);
             }
         }
 
-        return prolaze;
+        return slobodne;
     }
 
     public boolean lekarSlobodan(Long lekarId, String datum, String pocetak, String kraj){

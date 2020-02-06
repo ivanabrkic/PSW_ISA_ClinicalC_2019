@@ -73,8 +73,12 @@ export class KlinikaService {
     return this.http.post<Lekar[]>('/server/klinika/getLekariOperacije', JSON.stringify(op), httpOptions);
   }
 
-  public getSaleSlobodneOd(zahtev : Zahtev): Observable<Sala[]> {
-    return this.http.post<Sala[]>('/server/klinika/getSaleSlobodneOd', JSON.stringify(zahtev), httpOptions);
+  public getSlobodneSale(zahtev : Zahtev): Observable<Sala[]> {
+    return this.http.post<Sala[]>('/server/klinika/getSlobodneSale', JSON.stringify(zahtev), httpOptions);
+  }
+
+  getDrugiTermin(passZahtev: Zahtev) {
+    return this.http.post<Sala[]>('/server/klinika/getDrugiTermin', JSON.stringify(passZahtev), httpOptions);
   }
   ///////////////////////////////////////// ZAKAZI OPERACIJU/PREGLED ///////////////////////////////////////////////
   public zakaziOperaciju(operacija : Operacija) {

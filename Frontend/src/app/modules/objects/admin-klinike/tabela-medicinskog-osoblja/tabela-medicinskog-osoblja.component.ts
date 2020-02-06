@@ -9,6 +9,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatTableDataSource, MatSort, 
 import { DetaljiComponent } from '../detalji/detalji.component';
 import { RegistracijaMedicinskogOsobljaComponent } from '../registracija-medicinskog-osoblja/registracija-medicinskog-osoblja.component';
 import { MedicinskoOsoblje } from 'src/app/models/medicinsko-osoblje/medicinsko-osoblje';
+import { first } from 'rxjs/operators';
 
 @Component({
   templateUrl: './tabela-medicinskog-osoblja.component.html',
@@ -16,7 +17,7 @@ import { MedicinskoOsoblje } from 'src/app/models/medicinsko-osoblje/medicinsko-
 })
 export class TabelaMedicinskogOsobljaComponent implements OnInit {
 
-  displayedColumns: string[] = ['tipKorisnika', 'specijalizacija', 'ocena', 'ime', 'prezime', 'email', 'kontaktTelefon','jbo', 'Ukloni'];
+  displayedColumns: string[] = ['tipKorisnika', 'specijalizacija', 'ocena', 'ime', 'email', 'kontaktTelefon', 'jbo', 'Ukloni'];
   dataSource: any
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
@@ -24,7 +25,7 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
   medicinskeSestre: MedicinskaSestra[] = [];
   registerDialog: any;
 
-  medOsoblje : MedicinskoOsoblje[] = []
+  medOsoblje: MedicinskoOsoblje[] = []
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -44,14 +45,14 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
               this.medOsoblje.push(element)
             });
             this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
-            .subscribe(data => {
-              this.medicinskeSestre = data;
-              this.medicinskeSestre.forEach(element => {
-                this.medOsoblje.push(element)
+              .subscribe(data => {
+                this.medicinskeSestre = data;
+                this.medicinskeSestre.forEach(element => {
+                  this.medOsoblje.push(element)
+                });
+                this.dataSource = new MatTableDataSource(this.medOsoblje);
+                this.dataSource.sort = this.sort;
               });
-              this.dataSource = new MatTableDataSource(this.medOsoblje);
-              this.dataSource.sort = this.sort;
-            });
           });
       });
 
@@ -104,24 +105,64 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
     dialogConfig.height = '600px';
 
     this.registerDialog = this.dialog.open(RegistracijaMedicinskogOsobljaComponent, dialogConfig);
-    this.registerDialog.afterClosed().subscribe(() => {
-      this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
-      .subscribe(data => {
-        this.lekari = data;
-        this.medOsoblje = []
-        this.lekari.forEach(element => {
-          this.medOsoblje.push(element)
-        });
-        this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.medicinskeSestre = data;
-          this.medicinskeSestre.forEach(element => {
-            this.medOsoblje.push(element)
-          });
-          this.dataSource = new MatTableDataSource(this.medOsoblje);
-          this.dataSource.sort = this.sort;
-        });
-      });
+    this.registerDialog.afterClosed().subscribe(result => {
+      if (result != true) {
+
+        if (result.tipKorisnika == 'Lekar') {
+          this.lekarService.register(result).pipe(first()).subscribe(result => {
+            alert('Uspešno ste registrovali lekara!\n\n');
+
+            this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
+              .subscribe(data => {
+                this.lekari = data;
+                this.medOsoblje = []
+                this.lekari.forEach(element => {
+                  this.medOsoblje.push(element)
+                });
+                this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
+                  .subscribe(data => {
+                    this.medicinskeSestre = data;
+                    this.medicinskeSestre.forEach(element => {
+                      this.medOsoblje.push(element)
+                    });
+                    this.dataSource = new MatTableDataSource(this.medOsoblje);
+                    this.dataSource.sort = this.sort;
+                  });
+              });
+          },
+            error => {
+              alert('Neuspešna registracija!\n\n');
+            });
+        }
+        else {
+          this.medSestraService.register(result).pipe(first()).subscribe(result => {
+            alert('Uspešno ste registrovali medicinsku sestru!\n\n');
+
+            this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
+              .subscribe(data => {
+                this.lekari = data;
+                this.medOsoblje = []
+                this.lekari.forEach(element => {
+                  this.medOsoblje.push(element)
+                });
+                this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
+                  .subscribe(data => {
+                    this.medicinskeSestre = data;
+                    this.medicinskeSestre.forEach(element => {
+                      this.medOsoblje.push(element)
+                    });
+                    this.dataSource = new MatTableDataSource(this.medOsoblje);
+                    this.dataSource.sort = this.sort;
+                  });
+              });
+
+          },
+            error => {
+              alert('Neuspešna registracija!\n\n');
+            });
+        }
+      }
+      ////////////////////////////////////////////////////
     });
   }
 
@@ -130,22 +171,22 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
       if (data == null) {
         alert("Uspešno ste otpustili lekara!")
         this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.lekari = data;
-          this.medOsoblje = []
-          this.lekari.forEach(element => {
-            this.medOsoblje.push(element)
-          });
-          this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
           .subscribe(data => {
-            this.medicinskeSestre = data;
-            this.medicinskeSestre.forEach(element => {
+            this.lekari = data;
+            this.medOsoblje = []
+            this.lekari.forEach(element => {
               this.medOsoblje.push(element)
             });
-            this.dataSource = new MatTableDataSource(this.medOsoblje);
-            this.dataSource.sort = this.sort;
+            this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
+              .subscribe(data => {
+                this.medicinskeSestre = data;
+                this.medicinskeSestre.forEach(element => {
+                  this.medOsoblje.push(element)
+                });
+                this.dataSource = new MatTableDataSource(this.medOsoblje);
+                this.dataSource.sort = this.sort;
+              });
           });
-        });
       }
     },
       error => {
@@ -158,22 +199,22 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
       if (data == null) {
         alert("Uspešno ste otpustili medicinsku sestru!")
         this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.lekari = data;
-          this.medOsoblje = []
-          this.lekari.forEach(element => {
-            this.medOsoblje.push(element)
-          });
-          this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
           .subscribe(data => {
-            this.medicinskeSestre = data;
-            this.medicinskeSestre.forEach(element => {
+            this.lekari = data;
+            this.medOsoblje = []
+            this.lekari.forEach(element => {
               this.medOsoblje.push(element)
             });
-            this.dataSource = new MatTableDataSource(this.medOsoblje);
-            this.dataSource.sort = this.sort;
+            this.medSestraService.getMedicinskeSestreKlinike(this.adminKlinike.klinika.id)
+              .subscribe(data => {
+                this.medicinskeSestre = data;
+                this.medicinskeSestre.forEach(element => {
+                  this.medOsoblje.push(element)
+                });
+                this.dataSource = new MatTableDataSource(this.medOsoblje);
+                this.dataSource.sort = this.sort;
+              });
           });
-        });
       }
     },
       error => {

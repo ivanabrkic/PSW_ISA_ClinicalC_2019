@@ -27,7 +27,7 @@ import { AgmCoreModule } from '@agm/core';
 import { TipoviPregledaComponent } from './tipovi-pregleda/tipovi-pregleda.component';
 import { RegistracijaTipovaComponent } from './registracija-tipova/registracija-tipova.component';
 import { PredefinisaniTerminiComponent } from './predefinisani-termini/predefinisani-termini.component';
-import { DodavanjePredefTerminaComponent } from './dodavanje-predef-termina/dodavanje-predef-termina.component';
+import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent, 
@@ -45,9 +45,9 @@ import { DodavanjePredefTerminaComponent } from './dodavanje-predef-termina/doda
                 MapaComponent,
                 TipoviPregledaComponent,
                 RegistracijaTipovaComponent,
-                PredefinisaniTerminiComponent,
-                DodavanjePredefTerminaComponent],
-  imports: [
+                PredefinisaniTerminiComponent
+    ],
+    imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -95,7 +95,7 @@ import { DodavanjePredefTerminaComponent } from './dodavanje-predef-termina/doda
     ZakaziTerminComponent,
     RegistracijaTipovaComponent
   ],
-  providers: [AdminKlinikeService],
+  providers: [AdminKlinikeService, PredefTerminiServiceService],
   exports:   [SidebarAdminKlinikeComponent, 
               AdminKlinikeIzmenaComponent, 
               AdminKlinikePregledComponent, 
