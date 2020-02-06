@@ -54,8 +54,8 @@ export class PregledSalaComponent implements OnInit {
       });
   }
 
-  removeSala(event: any) {
-    this.klinikaService.removeSala(event.target.id).subscribe(data => {
+  removeSala(sala: Sala) {
+    this.klinikaService.removeSala(sala.id).subscribe(data => {
       alert(data.text)
       this.klinikaService.getSale(this.adminKlinike.klinika.id)
         .subscribe(data => {

@@ -6,6 +6,7 @@ import { KlinikaService } from 'src/app/services/klinika-service/klinika.service
 import { LekarCheckBox } from 'src/app/models/lekar/lekarCheckBox';
 import { Operacija } from 'src/app/models/operacija/operacija';
 import { Pregled } from 'src/app/models/pregled/pregled';
+import { Email } from 'src/app/models/email/email';
 
 @Component({
   selector: 'app-zakazi-termin',
@@ -135,28 +136,15 @@ export class ZakaziTerminComponent implements OnInit {
       pregled.salaId = this.sala.id
     }
 
-    if (this.tip == 'Operacija') {
-      this.klinikaService.zakaziOperaciju(operacija)
-        .subscribe(data => {
-          alert(data.text)
-          this.klinikaService.removeZahtev(this.idZahteva)
-            .subscribe(data => {
+    this.obradjen = false
 
-            });
-        });
+    if (this.tip == 'Operacija') {
+      this.dialogRef.close([this.obradjen, operacija, this.idZahteva, this.sala]);
     }
     else {
-      this.klinikaService.zakaziPregled(pregled)
-        .subscribe(data => {
-          alert(data.text)
-          this.klinikaService.removeZahtev(this.idZahteva)
-            .subscribe(data => {
-
-            });
-        });
+      this.dialogRef.close([this.obradjen, pregled, this.idZahteva, this.sala]);
     }
-    this.obradjen = false
-    this.dialogRef.close(this.obradjen);
+
   }
 
 }

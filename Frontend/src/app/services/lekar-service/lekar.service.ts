@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
+import { Message } from 'src/app/models/message/message';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -43,14 +44,18 @@ export class LekarService {
 
   public register(lekar: Lekar) {
     const lek = JSON.stringify(lekar);
-    return this.http.post<Lekar>('/server/lekar/register' , lek, httpOptions);
+    return this.http.post<Message>('/server/lekar/register' , lek, httpOptions);
   }
 
   public remove(id: number) {
-    return this.http.post<Lekar>('/server/lekar/remove' , id, httpOptions);
+    return this.http.post<Message>('/server/lekar/remove' , id, httpOptions);
   }
 
   public lekarSlobodan(zahtev : Zahtev) {
     return this.http.post<boolean>('/server/lekar/lekarSlobodan', JSON.stringify(zahtev), httpOptions);
+  }
+
+  public findLekarByJbo(jbo : String){
+    return this.http.post<Lekar>('/server/lekar/findLekarByJbo', jbo, httpOptions);
   }
 }

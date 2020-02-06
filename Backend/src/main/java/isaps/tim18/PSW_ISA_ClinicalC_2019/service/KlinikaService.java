@@ -9,17 +9,13 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.DateFormatter;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -133,7 +129,7 @@ public class KlinikaService {
     public List<predefInfoDTO> getPreglediPredef(Long id,String s,Long pacId) throws ParseException {
     	
     	
-        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id,s);
+        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef2(id,s);
         List<Pregled> pacZauzet=pregledRepository.findByPacijentId(pacId);
         
         List<predefInfoDTO> odgovarajuci=new ArrayList<>();

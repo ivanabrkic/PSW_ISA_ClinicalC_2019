@@ -76,4 +76,7 @@ public class PacijentService {
         return pacijentRepository.removePacijentByJbo(jbo);
     }
 
+    public Pacijent findPacijentByJbo(String jbo) {
+        return pacijentRepository.findByJbo(jbo);
+    }
 }

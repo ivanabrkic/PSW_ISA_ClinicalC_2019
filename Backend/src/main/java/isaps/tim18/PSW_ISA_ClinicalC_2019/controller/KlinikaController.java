@@ -1,40 +1,20 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.klinikaPacDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PredefTerminService;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PregledService;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.ZahtevService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import javax.swing.text.DateFormatter;
 
 @RestController
 @RequestMapping(value = "klinika")
@@ -200,6 +180,16 @@ public class KlinikaController {
         Boolean zahtevi =  klinikaService.removeZahtev(idZahteva);
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/obavestiMejlomZahtevPrihvacen", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> obavestiMejlomZahtevPrihvacen(@RequestBody EmailDTO emailDTO) throws Exception {
+
+        MailSenderController mailSender = new MailSenderController();
+
+        mailSender.sendSimpleMessage(emailDTO.getEmail(), emailDTO.getSubject(), emailDTO.getText());
+
+        return new ResponseEntity<>(new Message("Uspešno poslat mejl korisniku!"), HttpStatus.OK);
     }
     
     //////////////////////////////////// TESLA ///////////////////////////////////////////////////

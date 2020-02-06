@@ -26,19 +26,20 @@ public class predefInfoDTO {
     
     private int popust;
 
-  public Long getIdSale() {
+
+
+	private Long idKlinike;
+    private Long idStavke;
+    private String jboLekara;
+    private Long idSale;
+
+	public Long getIdSale() {
 		return idSale;
 	}
 
 	public void setIdSale(Long idSale) {
 		this.idSale = idSale;
 	}
-
-	private Long idKlinike;
-    private Long idStavke;
-    private String jboLekara;
-    private Long idSale;
-    
 
     public String getJboLekara() {
 		return jboLekara;
@@ -100,30 +101,38 @@ public class predefInfoDTO {
     }
 
   public predefInfoDTO(String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust) {
-
-  public predefInfoDTO(Long id,String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust,Long idK,Long idS,String jboLek,Long idSale) {
-        this.tipPregleda = naziv;
-        this.datum = datum;
-        this.pocetak = pocetak;
-        this.kraj = kraj;
-        this.nazivSale=nazivs;
-        this.brojSale=broj;
-        this.nazivKlinike=nazivkl;
-        this.lekarPrezime=prezime;
-        this.lekarIme=ime;
-        this.cena=cena;
-        this.popust=popust;
+		this.id = id;
+		this.tipPregleda = naziv;
+		this.datum = datum;
+		this.pocetak = pocetak;
+		this.kraj = kraj;
+		this.nazivSale=nazivs;
+		this.brojSale=broj;
+		this.nazivKlinike=nazivkl;
+		this.lekarPrezime=prezime;
+		this.lekarIme=ime;
+		this.cena=cena;
+		this.popust=popust;
     }
 
-
-    public float getPopust() {
-        this.idKlinike=idK;
-        this.idStavke=idS;
-        this.jboLekara=jboLek;
-        this.idSale=idSale;
-        this.id=id;
-    }
-
+	public predefInfoDTO(Long id, String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust, Long idK, Long idS, String jboLek, Long idSale) {
+		this.id = id;
+		this.tipPregleda = naziv;
+		this.datum = datum;
+		this.pocetak = pocetak;
+		this.kraj = kraj;
+		this.nazivSale=nazivs;
+		this.brojSale=broj;
+		this.nazivKlinike=nazivkl;
+		this.lekarPrezime=prezime;
+		this.lekarIme=ime;
+		this.cena=cena;
+		this.popust=popust;
+	    this.idKlinike=idK;
+	    this.idStavke=idS;
+	    this.jboLekara=jboLek;
+	    this.idSale=idSale;
+	}
 
     public Long getId() {
 		return id;
@@ -164,8 +173,6 @@ public class predefInfoDTO {
     public void setTipPregleda(String tipPregleda) {
         this.tipPregleda = tipPregleda;
     }
-
-
 
     public String getDatum() {
         return datum;

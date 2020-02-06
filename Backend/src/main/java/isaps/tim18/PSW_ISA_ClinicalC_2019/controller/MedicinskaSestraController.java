@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.MedicinskaSestraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,27 +39,23 @@ public class MedicinskaSestraController {
     }
 
     @PostMapping(value = "/remove", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MedicinskaSestra> remove(@RequestBody Long id) throws Exception {
+    public ResponseEntity<Message> remove(@RequestBody Long id) throws Exception {
 
-        MedicinskaSestra med = medicinskaSestraService.remove(id);
+        Message message = medicinskaSestraService.remove(id);
 
-        if (med == null){
-            return new ResponseEntity<>(med, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(med, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PostMapping(value = "/register", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MedicinskaSestra> register(@RequestBody MedicinskaSestra medSestra) throws Exception {
+    public ResponseEntity<Message> register(@RequestBody MedicinskaSestra medSestra) throws Exception {
+
         medSestra.setAktivnostNaloga(true);
         medSestra.setLozinka("12345678b");
         medSestra.setBrSlobodnihDana(60);
-        MedicinskaSestra l = medicinskaSestraService.add(medSestra);
 
-        if (l != null){
-            return new ResponseEntity<>(medSestra, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        Message message = medicinskaSestraService.add(medSestra);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
 }

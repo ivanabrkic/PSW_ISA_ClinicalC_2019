@@ -22,7 +22,7 @@ export class ListaKlinikaComponent implements OnInit {
   selectedKlinika: Klinika;  
   date=new FormControl(new Date);
   zahtev=new pretragaDTO();
-  tipovi:String[];
+  // tipovi:String[];
   tipovi:Cenovnik[];
   searchPregled:Cenovnik;
 
@@ -100,7 +100,7 @@ onChange(selected){
     selectedDate=moment(selectedDate).format('D.M.YYYY.');
     console.log(selectedDate);
     let klinika=this.selectedKlinika;{
-      this.router.navigate(['/listaLekara'],{state:{klinika:klinika,zahtev:this.zahtev}});
+      // this.router.navigate(['/listaLekara'],{state:{klinika:klinika,zahtev:this.zahtev}});
     // var selectedDate=this.date.value;
     // selectedDate=moment(selectedDate).format('D.M.YYYY.');
     // console.log(selectedDate);
@@ -108,6 +108,7 @@ onChange(selected){
       this.router.navigate(['/listaLekara'],{state:{klinika:klinika,zahtev:this.zahtev,tip:this.searchPregled}});
     }
   }
+}
 
 
   profilNavigate(event){

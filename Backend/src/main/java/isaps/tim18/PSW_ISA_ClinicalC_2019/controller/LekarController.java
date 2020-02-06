@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
@@ -21,6 +22,16 @@ public class LekarController {
     @Autowired
     private LekarService lekarService;
 
+    @PostMapping(value = "/findLekarByJbo", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Lekar> findLekarByJbo(@RequestBody String jbo) throws Exception {
+        Lekar lekar = lekarService.findLekarByJbo(jbo);
+
+        if (lekar != null){
+            return new ResponseEntity<>(lekar, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Lekar> update(@RequestBody Lekar lekar) throws Exception {
         Lekar l = lekarService.update(lekar);
@@ -32,28 +43,23 @@ public class LekarController {
     }
 
     @PostMapping(value = "/register", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Lekar> register(@RequestBody Lekar lekar) throws Exception {
+    public ResponseEntity<Message> register(@RequestBody Lekar lekar) throws Exception {
+
         lekar.setAktivnostNaloga(true);
         lekar.setLozinka("12345678b");
         lekar.setBrSlobodnihDana(60);
 
-        Lekar l = lekarService.add(lekar);
+        Message message = lekarService.add(lekar);
 
-        if (l != null){
-            return new ResponseEntity<>(lekar, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PostMapping(value = "/remove", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Lekar> remove(@RequestBody Long id) throws Exception {
+    public ResponseEntity<Message> remove(@RequestBody Long id) throws Exception {
 
-        Lekar lekar = lekarService.remove(id);
+        Message message = lekarService.remove(id);
 
-        if (lekar == null){
-            return new ResponseEntity<>(lekar, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(lekar, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -92,6 +98,14 @@ public class LekarController {
     public ResponseEntity<List<Lekar>> getAllLekariKlinike(@RequestBody Klinika k) {
 
         List<Lekar> lekari = lekarService.findAllByKlinika(k);
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getBySpecijalizacija", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Lekar> getBySpecijalizacija(@RequestBody String spec) {
+
+        Lekar lekari = lekarService.findBySpecijalizacija(spec);
 
         return new ResponseEntity<>(lekari, HttpStatus.OK);
     }

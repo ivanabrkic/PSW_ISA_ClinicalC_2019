@@ -1,13 +1,9 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.TerminDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
@@ -15,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,7 +21,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class LekarService {
@@ -79,18 +75,28 @@ public class LekarService {
     }
 
     @Transactional
-    public Lekar add(Lekar lekar){
-        return lekarRepository.save(lekar);
+    public Message add(Lekar lekar){
+        if (lekarRepository.findByJbo(lekar.getJbo()) == null && lekarRepository.findByEmail(lekar.getEmail()) == null){
+            lekarRepository.save(lekar);
+            return new Message("Uspešno ste registrovali lekara!");
+        }
+
+        return new Message("Ne možete registrovati lekara! JBO ili email već postoje!");
     }
 
     @Transactional
-    public Lekar remove(Long id){
-        lekarRepository.deleteById(id);
+    public Message remove(Long id){
 
         if(!lekarRepository.findById(id).isPresent()) {
-            return null;
+            return new Message("Lekar ne postoji!");
         }
-        return lekarRepository.findById(id).get();
+
+        if(lekarRepository.imaOperacije(id).isEmpty() && lekarRepository.imaPreglede(id).isEmpty()){
+            lekarRepository.deleteById(id);
+            return new Message("Lekar uspešno obrisan!");
+        }
+
+        return new Message("Ne možete obrisati lekara koji ima zakazane operacije ili preglede!");
     }
     ////////////////////////// IVANA ZA ZAHTEVE ////////////////////////////////////////////////////////////////////
     public List<Lekar> getSlobodniLekari(Zahtev zahtev){
@@ -341,5 +347,11 @@ public class LekarService {
         return false;
     }
 
+    public Lekar findLekarByJbo(String jbo) {
+        return lekarRepository.findByJbo(jbo);
+    }
+
+    public Lekar findBySpecijalizacija(String spec) {
+        return lekarRepository.findBySpecijalizacija(spec);
+    }
 }
-    }}

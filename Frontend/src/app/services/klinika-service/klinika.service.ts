@@ -13,6 +13,7 @@ import { Termin } from 'src/app/models/termin/termin';
 import { LekarTrajanje } from 'src/app/models/termin/lekartrajanje';
 import { PregledId } from 'src/app/models/pregled/PregledId';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
+import { Email } from 'src/app/models/email/email';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -96,6 +97,10 @@ export class KlinikaService {
   
   public removeZahtev(id : number) {
     return this.http.post<Boolean>('/server/klinika/removeZahtev', id, httpOptions);
+  }
+
+  public sendEmail(email : Email){
+    return this.http.post<Message>('/server/klinika/obavestiMejlomZahtevPrihvacen', email, httpOptions)
   }
   ///////////////////////////////////////// TIPOVI PREGLEDA /////////////////////////////////////////////////////////
   public getTipovi(idKlinike : number) {

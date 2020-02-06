@@ -13,6 +13,8 @@ import { Operacija } from 'src/app/models/operacija/operacija';
 import { Pregled } from 'src/app/models/pregled/pregled';
 import { ZakaziTerminComponent } from '../zakazi-termin/zakazi-termin.component';
 import { LekarService } from 'src/app/services/lekar-service/lekar.service';
+import { Email } from 'src/app/models/email/email';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
 
 @Component({
   selector: 'app-izbor-sale',
@@ -53,7 +55,7 @@ export class IzborSaleComponent implements OnInit {
 
   @Input() public passZahtev: Zahtev;
 
-  constructor(public dialog: MatDialog, private lekarService: LekarService, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
+  constructor(public dialog: MatDialog, private pacijentService: PacijentService, private lekarService: LekarService, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.dataSource = new MatTableDataSource(this.sale);
   }
 
@@ -124,6 +126,34 @@ export class IzborSaleComponent implements OnInit {
       });
   }
 
+  posaljiPacijentuMail(jboPacijenta: String, sala: Sala) {
+    this.pacijentService.findPacijentByJbo(jboPacijenta).subscribe(data => {
+      var email: Email = new Email()
+      email.email = data.email
+      email.subject = "Obaveštenje o zakazanoj operaciji!"
+      email.text =
+        "Poštovani/a " + data.ime + " " + data.prezime + " obaveštavamo vas o zakazanoj operaciji " + data[1].tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
+        + data[1].datum + " od " + data[1].pocetak + " do " + data[1].kraj + " "
+        + "kod lekara " + data[1].jboLekara + " za pacijenta " + data[1].jboPacijenta + "."
+      this.klinikaService.sendEmail(email).subscribe(data => alert(data.text))
+
+    })
+  }
+
+  posaljiLekaruMail(jboLekara: String, sala: Sala) {
+    this.lekarService.findLekarByJbo(jboLekara).subscribe(data => {
+      var email: Email = new Email()
+      email.email = data.email
+      email.subject = "Obaveštenje o zakazanoj operaciji!"
+      email.text =
+        "Poštovani/a " + data.ime + " " + data.prezime + " obaveštavamo vas o zakazanoj operaciji " + data[1].tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
+        + data[1].datum + " od " + data[1].pocetak + " do " + data[1].kraj + " "
+        + "kod lekara " + data[1].jboLekara + " za pacijenta " + data[1].jboPacijenta + "."
+      this.klinikaService.sendEmail(email).subscribe(data =>
+        alert(data.text))
+    })
+  }
+
   zakaziTermin(sala: Sala) {
     var noviZahtev: Zahtev = new Zahtev()
     noviZahtev.idStavke = this.passZahtev.idStavke
@@ -157,9 +187,35 @@ export class IzborSaleComponent implements OnInit {
 
         this.zakaziTerminDialog = this.dialog.open(ZakaziTerminComponent, dialogConfig);
         this.zakaziTerminDialog.afterClosed().subscribe(
-          data => this.zahtevObradjen.emit(data)
-        );
-
+          data => {
+            if (this.passZahtev.tipPosete == 'Operacija') {
+              this.klinikaService.zakaziOperaciju(data[1])
+                .subscribe(data => {
+                  alert(data.text)
+                  this.klinikaService.removeZahtev(data[2])
+                    .subscribe(data => {
+                      alert("USAO")
+                      data[1].jboLekara.forEach(element => {
+                        this.posaljiLekaruMail(element, data[3])
+                      })
+                      this.posaljiPacijentuMail(data[1].jboPacijenta, data[3])
+                      this.zahtevObradjen.emit(data[0])
+                    });
+                });
+            }
+            else {
+              this.klinikaService.zakaziPregled(data[1])
+                .subscribe(data => {
+                  alert(data.text)
+                  this.klinikaService.removeZahtev(data[2])
+                    .subscribe(data => {
+                      this.posaljiLekaruMail(data[1].jboLekara, data[3])
+                      this.posaljiPacijentuMail(data[1].jboPacijenta, data[3])
+                      this.zahtevObradjen.emit(data[0])
+                    });
+                });
+            }
+          });
       });
   }
 
