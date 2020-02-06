@@ -8,6 +8,8 @@ export class Pregled{
     tipPregleda:String;
     tipId:number;
     salaId:number;
+    popust:number;
+    status:String;
 
     public Pregled(){
     }

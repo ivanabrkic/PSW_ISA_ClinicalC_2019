@@ -9,10 +9,12 @@ import { Lekar } from 'src/app/models/lekar/lekar';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { Message } from 'src/app/models/message/message';
 import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
+import { Termin } from 'src/app/models/termin/termin';
+import { LekarTrajanje } from 'src/app/models/termin/lekartrajanje';
+import { PregledId } from 'src/app/models/pregled/PregledId';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
-
 
 @Injectable({
   providedIn: 'root'
@@ -72,8 +74,12 @@ export class KlinikaService {
     return this.http.post<Lekar[]>('/server/klinika/getLekariOperacije', JSON.stringify(op), httpOptions);
   }
 
-  public getSaleSlobodneOd(zahtev : Zahtev): Observable<Sala[]> {
-    return this.http.post<Sala[]>('/server/klinika/getSaleSlobodneOd', JSON.stringify(zahtev), httpOptions);
+  public getSlobodneSale(zahtev : Zahtev): Observable<Sala[]> {
+    return this.http.post<Sala[]>('/server/klinika/getSlobodneSale', JSON.stringify(zahtev), httpOptions);
+  }
+
+  getDrugiTermin(passZahtev: Zahtev) {
+    return this.http.post<Sala[]>('/server/klinika/getDrugiTermin', JSON.stringify(passZahtev), httpOptions);
   }
   ///////////////////////////////////////// ZAKAZI OPERACIJU/PREGLED ///////////////////////////////////////////////
   public zakaziOperaciju(operacija : Operacija) {
@@ -107,6 +113,17 @@ export class KlinikaService {
   public updateTip(tip : TipPregleda){
     return this.http.post<Message>('/server/cenovnik/updateTip', JSON.stringify(tip), httpOptions);
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////PREDEFINISANI DODAVANJE/////////////////////////////////////////////
+  public getLekariForTip(idTipa : number){
+    return this.http.post<Lekar[]>('/server/klinika/getLekariForTip', idTipa, httpOptions);
+  }
+
+  public getTermini(lekarTrajanje : LekarTrajanje){
+    return this.http.post<Termin[]>('/server/klinika/getTermini', JSON.stringify(lekarTrajanje), httpOptions);
+  }
+
+  public zakaziTermin(termin : PregledId){
+    return this.http.post<Message>('/server/klinika/dodajTermin', JSON.stringify(termin), httpOptions);
+  }
 
 }

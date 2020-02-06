@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { Sala } from 'src/app/models/sala/sala';
@@ -33,16 +33,15 @@ export class RegistracijaTipovaComponent implements OnInit {
   specijalizacije: String[];
 
 
-  constructor(private dialogRef: MatDialogRef<RegistracijaTipovaComponent>,
+  constructor(private _snackBar: MatSnackBar,private dialogRef: MatDialogRef<RegistracijaTipovaComponent>,
     private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService, @Inject(MAT_DIALOG_DATA) data) {
       this.izmena = data.izmeni
+      this.specijalizacije = ['Zubar', 'Kardiolog', 'Anesteziolog', 'Psihijatar', 'Ginekolog', 'Opšta praksa', 'Nefrolog', 'Urolog', 'Dermatolog', 'Neurolog']
       if (data.izmeni){
         this.title = 'Izmeni podatke o tipu pregleda'
         this.buttonTitle = 'Izmeni'
         this.tip = data.tip
         this.idTipa = data.tip.id
-
-        this.specijalizacije = ['Zubar', 'Kardiolog', 'Anesteziolog', 'Psihijatar', 'Ginekolog', 'Opšta praksa', 'Nefrolog', 'Urolog', 'Dermatolog', 'Neurolog']
         this.selectedSpec = this.tip.specijalizacija
       }
       else{
@@ -52,9 +51,11 @@ export class RegistracijaTipovaComponent implements OnInit {
         this.tip.naziv = ""
         this.tip.specijalizacija = "Zubar"
         this.tip.cena = 0
+        this.selectedSpec = this.tip.specijalizacija
       }}
 
   ngOnInit() {
+
     this.adminkService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.idKlinike = ulogovanKorisnik.klinika.id;
@@ -91,33 +92,12 @@ export class RegistracijaTipovaComponent implements OnInit {
 
     this.loading = true;
 
-
     this.tip = this.registerForm.value;
     this.tip.klinika = new Klinika()
     this.tip.klinika.id = this.idKlinike;
     this.tip.id = this.idTipa
 
-    if (this.izmena){
-
-      this.klinikaService.updateTip(this.tip).pipe(first()).subscribe(result => {
-        alert(result.text);
-      },
-        error => {
-          alert('Neuspešna registracija!\n\n');
-          this.loading = false;
-        }); 
-    }
-    else{
-      this.klinikaService.registerTip(this.tip).pipe(first()).subscribe(result => {
-        alert(result.text);
-      },
-        error => {
-          alert('Neuspešna registracija!\n\n');
-          this.loading = false;
-        });
-    }
-
-    this.dialogRef.close()
+    this.dialogRef.close(this.tip)
 
   }
 

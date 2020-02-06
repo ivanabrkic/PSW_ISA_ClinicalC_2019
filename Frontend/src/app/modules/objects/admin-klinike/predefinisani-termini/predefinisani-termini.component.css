@@ -1,23 +1,9 @@
-.main-content {
-    padding-left: 220px;
+.mat-column-select {
+    overflow: initial;
   }
 
-  .content-container {
-    padding-top: 20px;
-    padding-left: 220px;
-  }
-
-  tr a{
-    cursor: pointer;
-    color:#007bff;
-  }
-  
-  tr a:hover {
-    text-decoration: underline;
-  }
-  
-  tr a:active {
-    color: black;
+  table {
+    width: 100%;
   }
 
   .main-content {
@@ -67,6 +53,10 @@
   table {
     width: 100%;
   }
+
+  ::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
   
   .mat-form-field {
     font-size: 16px;

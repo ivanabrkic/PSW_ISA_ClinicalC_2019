@@ -31,6 +31,7 @@
             </td>
             <td><select class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
               <option value="">Izaberite tip</option>
+<!--               <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip}}</option>  PRETPOSTAVLJAM DA SI HTELA OVO DRUGO-->
               <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
                 </select>
             </td>

@@ -17,6 +17,13 @@ import { InfoWindowManager } from '@agm/core';
 })
 export class PredefinisaniTerminiComponent implements OnInit {
 
+// <<<<<<< 2_2_Dodavanje_predefinisanih_termina          VIDI OVO
+//   predefTermService:PredefTerminiServiceService;
+//   termini:predefInfo[];
+
+//   constructor(p:PredefTerminiServiceService) { 
+//     this.predefTermService=p;
+// =======
   termini:predefInfo[];
   izabraniTermin:predefInfo;
   dodatneInfo:String;
@@ -34,6 +41,12 @@ export class PredefinisaniTerminiComponent implements OnInit {
   }
 
   getTermini(){
+// <<<<<<< 2_2_Dodavanje_predefinisanih_termina
+//     this.predefTermService.findAll(history.state.klinika).subscribe(
+//       podaci => {this.termini = podaci; },
+//       err => console.log('Nisu ucitani'),
+//       () => console.log('Uspesno ucitani')
+// =======   VIDI OVO
     var info=new klinikaPacDTO;
     info.idKlin=history.state.klinika;
     this.pacService.getUlogovanKorisnik().subscribe(data=>{

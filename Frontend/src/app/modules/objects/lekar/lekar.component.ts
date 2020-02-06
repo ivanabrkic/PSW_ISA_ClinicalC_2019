@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { LekarService } from 'src/app/services/lekar-service/lekar.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   templateUrl: './lekar.component.html',
@@ -17,7 +18,7 @@ export class LekarComponent implements OnInit {
 
   lekar: Lekar = new Lekar();
 
-  constructor(private formBuilder: FormBuilder, private lekarService: LekarService) {
+  constructor(private _snackBar: MatSnackBar,private formBuilder: FormBuilder, private lekarService: LekarService) {
     this.lekarService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.lekar = ulogovanKorisnik;

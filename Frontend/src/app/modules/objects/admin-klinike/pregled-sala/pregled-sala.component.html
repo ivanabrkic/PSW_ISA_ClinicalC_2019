@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Sale klinike "{{adminKlinike.klinika.naziv}}"</h4>
+                        <h4 *ngIf="adminKlinike.klinika ? true : false" class="card-title ">Sale klinike "{{adminKlinike.klinika.naziv}}"</h4>
                         <button mat-raised-button (click)="showDialogRegister()"
                         class="btn btn-primary pull-right">Registruj novu salu</button>
                     </div>

@@ -10,7 +10,7 @@
                 <div class="card-header card-header-danger">
                   <h4 class="card-title">Profil klinike</h4>
                 </div>
-                <div class="card-body">
+                <div *ngIf="adminKlinike.klinika ? true : false" class="card-body">
                   <div class="row">
                     <div class="col-md-5">
                       <mat-form-field class="example-full-width">

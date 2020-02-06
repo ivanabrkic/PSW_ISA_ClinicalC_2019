@@ -17,6 +17,10 @@ public class PregledDTO {
 
     private Long salaId;
 
+    private Integer popust;
+
+    private String status;
+
     public PregledDTO() {
     }
 
@@ -35,6 +39,22 @@ public class PregledDTO {
         this.pocetak = pocetak;
         this.kraj = kraj;
         this.jboLekara = jboLekara;
+    }
+
+    public Integer getPopust() {
+        return popust;
+    }
+
+    public void setPopust(Integer popust) {
+        this.popust = popust;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getSalaId() {

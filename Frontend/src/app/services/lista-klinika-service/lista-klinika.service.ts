@@ -24,6 +24,12 @@ export class ListaKlinikaService {
     return this.http.post<Klinika[]>('/server/klinika/slobodneKlinike', z, httpOptions);
   }
 
+// <<<<<<< 2_2_Dodavanje_predefinisanih_termina
+//   public findTipovi():Observable<String[]>{
+//     return this.http.get<String[]>('/server/cenovnik/all', httpOptions);
+//   }
+
+// ======= VIDI OVO @TESLA
   public findTipovi():Observable<Cenovnik[]>{
     return this.http.get<Cenovnik[]>('/server/cenovnik/all', httpOptions);
   }
