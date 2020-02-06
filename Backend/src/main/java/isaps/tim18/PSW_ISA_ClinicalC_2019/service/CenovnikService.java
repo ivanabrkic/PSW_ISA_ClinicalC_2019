@@ -1,5 +1,4 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
-
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Operacija;
@@ -10,13 +9,11 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.OperacijaRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PregledRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
 import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 

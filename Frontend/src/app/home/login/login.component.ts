@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import { LoginService } from 'src/app/services/login-and-register-service/login.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({ templateUrl: 'login.component.html', styleUrls: ['login.component.css']})
 export class LoginComponent implements OnInit {
@@ -10,7 +11,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) { }
+  constructor(private _snackBar: MatSnackBar, private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
     // this.loginService.odjava();
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+
     this.loading = true;
     this.loginService.login(this.loginForm.value)
       .pipe(first())
@@ -40,27 +42,29 @@ export class LoginComponent implements OnInit {
           }
           alert('Uspešno ste se ulogovali!! :-)\n\n');
           console.log(data);
-
-          if (data.prvoLogovanje === true && data.tipKorisnika !== 'Pacijent') {
-            this.router.navigate(['/promenaLozinke']);
-          } else
-            if (data.tipKorisnika === 'Pacijent') {
-              this.router.navigate(['/pacijentPregled']);
-            } else if (data.tipKorisnika === 'Lekar') {
-              this.router.navigate(['/lekarPregled']);
-            } else if (data.tipKorisnika === 'Medicinska sestra') {
-              this.router.navigate(['/medicinskaSestra']);
-            } else if (data.tipKorisnika === 'Administrator klinike') {
-              this.router.navigate(['/administratorklinikepregled']);
-            } else if (data.tipKorisnika === 'Administrator klinickog centra') {
-              this.router.navigate(['/administratorKc']);
-            } else {
-              this.router.navigate(['/welcome']);
-            }
-          },
-          error => {
-            alert('Pogrešan email ili lozinka!! :-)\n\n');
-            this.loading = false;
+          this._snackBar.open("Uspešno ste se ulogovali!", "",  {
+            duration: 3000,
+            verticalPosition: 'bottom'
+          });
+          if (data.tipKorisnika === 'Pacijent') {
+            this.router.navigate(['/pacijentPregled']);
+          } else if (data.tipKorisnika === 'Lekar') {
+            this.router.navigate(['/lekarPregled']);
+          } else if (data.tipKorisnika === 'Medicinska sestra') {
+            this.router.navigate(['/medicinskaSestra']);
+          } else if (data.tipKorisnika === 'Administrator klinike') {
+            this.router.navigate(['/administratorklinikepregled']);
+          } else if (data.tipKorisnika === 'Administrator klinickog centra') {
+            this.router.navigate(['/administratorKc']);
+          } else {
+            this.router.navigate(['/welcome']);
+          }
+        },
+        error => {
+          this._snackBar.open("Pogrešan email ili lozinka!", "",  {
+            duration: 3000,
+          });
+          this.loading = false;
         });
 
 

@@ -24,8 +24,10 @@ public class PregledController {
     @PostMapping(value = "/allPregledeByLekar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PregledIzvestajDTO>> getPreglede(@RequestBody Long idLekara) {
         List<PregledIzvestajDTO> pregledi = pregledService.findPregledeById(idLekara);
-
-        return new ResponseEntity<>(pregledi, HttpStatus.OK);
+        for(int i = 0; i < pregledi.size();i++){
+            System.out.println("Pregled id: " + pregledi.get(i).getId());
+        }
+        return new ResponseEntity(pregledi, HttpStatus.OK);
     }
 
     @PostMapping(value = "/zavrsenPregled", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

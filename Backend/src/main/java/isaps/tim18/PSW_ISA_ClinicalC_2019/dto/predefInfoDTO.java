@@ -99,7 +99,7 @@ public class predefInfoDTO {
 	public predefInfoDTO() {
 	}
 
-	public predefInfoDTO(Long id,String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust,Long idK,Long idS,String jboLek,Long idSale) {
+	public predefInfoDTO(String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust) {
 		this.tipPregleda = naziv;
 		this.datum = datum;
 		this.pocetak = pocetak;
@@ -111,79 +111,102 @@ public class predefInfoDTO {
 		this.lekarIme=ime;
 		this.cena=cena;
 		this.popust=popust;
-		this.idKlinike=idK;
-		this.idStavke=idS;
-		this.jboLekara=jboLek;
-		this.idSale=idSale;
-		this.id=id;
 	}
 
+  public predefInfoDTO(Long id,String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust,Long idK,Long idS,String jboLek,Long idSale) {
+			this.tipPregleda = naziv;
+			this.datum = datum;
+			this.pocetak = pocetak;
+			this.kraj = kraj;
+			this.nazivSale=nazivs;
+			this.brojSale=broj;
+			this.nazivKlinike=nazivkl;
+			this.lekarPrezime=prezime;
+			this.lekarIme=ime;
+			this.cena=cena;
+			this.popust=popust;
+			  this.idKlinike=idK;
+			  this.idStavke=idS;
+			  this.jboLekara=jboLek;
+			  this.idSale=idSale;
+			  this.id=id;
+		}
 
-	public Long getId() {
-		return id;
+
+//		public float getPopust() {
+//			this.idKlinike=idK;
+//			this.idStavke=idS;
+//			this.jboLekara=jboLek;
+//			this.idSale=idSale;
+//			this.id=id;
+//		}
+
+
+		public Long getId() {
+			return id;
+		}
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+		public Long getIdKlinike() {
+			return idKlinike;
+		}
+
+		public void setIdKlinike(Long idKlinike) {
+			this.idKlinike = idKlinike;
+		}
+
+		public Long getIdStavke() {
+			return idStavke;
+		}
+
+		public void setIdStavke(Long idStavke) {
+			this.idStavke = idStavke;
+		}
+
+		public float getPopust() {
+			return popust;
+		}
+
+		public void setPopust(int popust) {
+			this.popust = popust;
+		}
+
+		public String getTipPregleda() {
+			return tipPregleda;
+		}
+
+		public void setTipPregleda(String tipPregleda) {
+			this.tipPregleda = tipPregleda;
+		}
+
+
+
+		public String getDatum() {
+			return datum;
+		}
+
+		public void setDatum(String datum) {
+			this.datum = datum;
+		}
+
+		public String getPocetak() {
+			return pocetak;
+		}
+
+		public void setPocetak(String pocetak) {
+			this.pocetak = pocetak;
+		}
+
+		public String getKraj() {
+			return kraj;
+		}
+
+		public void setKraj(String kraj) {
+			this.kraj = kraj;
+		}
+
+
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getIdKlinike() {
-		return idKlinike;
-	}
-
-	public void setIdKlinike(Long idKlinike) {
-		this.idKlinike = idKlinike;
-	}
-
-	public Long getIdStavke() {
-		return idStavke;
-	}
-
-	public void setIdStavke(Long idStavke) {
-		this.idStavke = idStavke;
-	}
-
-	public float getPopust() {
-		return popust;
-	}
-
-	public void setPopust(int popust) {
-		this.popust = popust;
-	}
-
-	public String getTipPregleda() {
-		return tipPregleda;
-	}
-
-	public void setTipPregleda(String tipPregleda) {
-		this.tipPregleda = tipPregleda;
-	}
-
-
-
-	public String getDatum() {
-		return datum;
-	}
-
-	public void setDatum(String datum) {
-		this.datum = datum;
-	}
-
-	public String getPocetak() {
-		return pocetak;
-	}
-
-	public void setPocetak(String pocetak) {
-		this.pocetak = pocetak;
-	}
-
-	public String getKraj() {
-		return kraj;
-	}
-
-	public void setKraj(String kraj) {
-		this.kraj = kraj;
-	}
-
-
-}

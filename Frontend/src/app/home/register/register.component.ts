@@ -5,6 +5,7 @@ import { MustMatch } from 'src/app/helpers/MustMatch';
 import {Router} from '@angular/router';
 import { first } from 'rxjs/operators';
 import { RegisterService } from 'src/app/services/login-and-register-service/register.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({ templateUrl: 'register.component.html', styleUrls: [ 'register.component.css' ] })
 export class RegisterComponent implements OnInit {
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private registerService: RegisterService) { }
+  constructor(private _snackBar: MatSnackBar, private formBuilder: FormBuilder, private router: Router, private registerService: RegisterService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -50,11 +51,14 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          alert('Uspešno ste se registrovali!! :-)');
+          this._snackBar.open("Uspešno ste se registrovali! Molimo Vas ulogujte se kako biste koristili usluge kliničkog centra!", "",  {
+            duration: 3000          });
           this.router.navigate(['/login']);
         },
         error => {
-          alert('Pokušajte ponovo!!');
+          this._snackBar.open("Greška prilikom registracije!", "",  {
+            duration: 3000
+                    });
           this.loading = false;
         });
   }

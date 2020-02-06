@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {Pregled} from '../../../models/pregled/pregled';
 import {ZdravstveniKarton} from '../../../models/zdravstvenik/zdravstveniKarton';
 import {KorisnikService} from '../../../services/korisnik-service/korisnik.service';
+import {ZdravstveniKartonService} from "../../../services/zdravstveni-karton-service/zdravstveni-karton.service";
 
 @Component({
   selector: 'app-pretraga-pacijenata',
@@ -29,10 +30,13 @@ export class PretragaPacijenataComponent implements OnInit {
   trajePregled = false;
   lekarPreglediPacijent: any;
   pregledTemp: Pregled[] = [];
+  objekat: any;
+  pacijent: Pacijent;
+  zdravstveniKarton: ZdravstveniKarton;
 
   constructor(private pregledService: PregledService, public dialog: MatDialog, private lekarService: LekarService,
               private pacijentiService: PacijentService, private sessionService: SessionService,
-              private router: Router, private korisnikService: KorisnikService) {
+              private router: Router, private korisnikService: KorisnikService, private zkartonService: ZdravstveniKartonService) {
     this.pacijentiService.getPacijentiAll().subscribe(pacijentData => {
       this.pacijenti = pacijentData;
       console.log(this.pacijenti);
@@ -52,8 +56,15 @@ export class PretragaPacijenataComponent implements OnInit {
   }
 
   onClick(pacijent) {
+    this.odrzaoPregled = false;
     this.selectedPacijent = pacijent;
-    this.bioNaPregledu(this.selectedPacijent);
+    this.zkartonService.getPacijentovZk(this.selectedPacijent).subscribe( zk => {
+      this.objekat = zk;
+      this.zdravstveniKarton = this.objekat;
+      console.log(this.selectedPacijent);
+      console.log(this.zdravstveniKarton)
+      this.bioNaPregledu(this.selectedPacijent);
+    });
   }
 
   ngOnInit() {
@@ -61,15 +72,20 @@ export class PretragaPacijenataComponent implements OnInit {
 
   bioNaPregledu(odabraniPacijent) {
     this.sessionService.pacijentProfil = odabraniPacijent;
+
     this.lekarService.getUlogovanKorisnik().subscribe(data => {
       this.lekar = data;
 
       this.pregledService.getPreglede(this.lekar.id).subscribe( pregledi => {
           this.pregledi = pregledi;
-
+          console.log(this.lekar.id);
+          console.log(this.pregledi);
           this.pregledi.forEach( pregled => {
+
             if (pregled.jboLekara === this.lekar.jbo) {
-              if (odabraniPacijent.jbo === pregled.jboPacijenta) {
+              console.log(this.selectedPacijent.jbo);
+              console.log(pregled.jboPacijenta);
+              if (this.selectedPacijent.jbo === pregled.jboPacijenta) {
                 this.odrzaoPregled = true;
                 this.lekarPreglediPacijent.push(pregled);
               }

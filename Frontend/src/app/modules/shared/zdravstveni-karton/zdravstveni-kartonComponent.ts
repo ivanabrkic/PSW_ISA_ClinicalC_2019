@@ -83,7 +83,7 @@ export class ZdravstveniKartonComponent implements OnInit {
                 console.log(this.dijagnoze);
             });
 
-          this.zkartonService.getPacijentovZk(this.pacijent).subscribe( zk => {
+            this.zkartonService.getPacijentovZk(this.pacijent).subscribe( zk => {
               this.objekat = zk;
               this.zdravstveniKarton = this.objekat;
               console.log(this.zdravstveniKarton);
@@ -99,6 +99,12 @@ export class ZdravstveniKartonComponent implements OnInit {
               );
               this.izvestajService.getByZk(this.zdravstveniKarton.id).subscribe( izv => {
                   this.objekat = izv;
+                  this.objekat.forEach( izvestaj => {
+                    if(izvestaj.idPacijenta === this.pacijent.id){
+                      this.izvestaji.push(izvestaj);
+                    }
+                  });
+
                   this.izvestaji = this.objekat;
                   console.log(this.izvestaji);
                 }

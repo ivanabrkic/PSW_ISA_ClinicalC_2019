@@ -26,7 +26,7 @@ public class PregledService {
 	@Autowired
 	PacijentRepository pacRepo;
 
-	public List<PregledIzvestajDTO> findPregledeById(Long idLekar) { return pregledRepo.findPregledeById(idLekar); }
+	public List<PregledIzvestajDTO> findPregledeById(Long idLekar) { return pregledRepo.nadjiPoIdLekara(idLekar); }
 
 	@Transactional
 	public void updateZavrsen(PregledIzvestajDTO p) {

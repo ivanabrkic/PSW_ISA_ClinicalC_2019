@@ -14,7 +14,8 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+
 
 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -55,11 +56,11 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
-import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-sifre.component';
+
 import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
 import { SessionService } from './services/SessionService/session.service';
 // search module
-import { Ng2SearchPipeModule } from 'ng2-search-filter'
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { PretragafilterFilter } from './helpers/filter';
 import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
 import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
@@ -116,7 +117,6 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
     KreiranjeLekovaComponent,
-    PromenaSifreComponent,
     OveraRecepataComponent,
     ListaLekaraComponent,
     PretragafilterFilter,
@@ -151,7 +151,10 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
     MatDialogModule,
     MatDatepickerModule,
     CommonModule,
+    MatDatepickerModule,
     MatNativeDateModule,
+    MatGridListModule,
+    MatSnackBarModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
@@ -167,7 +170,6 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
       { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
       { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
       { path: 'odmor', component: OdmorComponent},
-      { path: 'promenaLozinke', component: PromenaSifreComponent},
       { path: 'overaRecepta', component: OveraRecepataComponent},
       { path: 'izmenaIzvestaja', component: IzmenaIzvestajaComponent},
       { path: 'odsustvo', component: OdsustvoComponent},
@@ -186,14 +188,12 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
       { path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
-       {path: 'listaPoseta', component: PoseteComponent},
-       {path: 'listaLekara', component: ListaLekaraComponent},
-       {path: 'profilKlinike', component: ProfilKlinikeComponent},
-       {path: 'listaLekara', component: ListaLekaraComponent},
-       {path: 'profilKlinike', component: ProfilKlinikeComponent},
-       {path: 'listaPredefinisanih', component: PredefinisaniTerminiComponent},
+      {path: 'listaPoseta', component: PoseteComponent},
+      {path: 'listaLekara',component:ListaLekaraComponent},
+      {path: 'profilKlinike',component:ProfilKlinikeComponent},
+      {path: 'listaPredefinisanih',component:PredefinisaniTerminiComponent},
       { path: '**', component: NotFoundComponent},
-      ])
+    ])
   ],
   providers: [
     DatePipe,
@@ -206,7 +206,6 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
     PoseteService,
     SessionService,
     PredefTerminiServiceService],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }
