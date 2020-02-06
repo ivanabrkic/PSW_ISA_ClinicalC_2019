@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "izvestaj")
 public class Izvestaj {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "izvestaj")
@@ -18,11 +18,6 @@ public class Izvestaj {
     @JoinColumn(name = "zkarton", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ZdravstveniKarton zdravstveniKarton;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinColumn(name = "recept", referencedColumnName = "id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Recept recept;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "lekar_id", referencedColumnName = "lekar_id")
@@ -36,10 +31,9 @@ public class Izvestaj {
 
     }
 
-    public Izvestaj(String izvestaj, ZdravstveniKarton zdravstveniKarton, Recept recept, Lekar lekar, String datum) {
+    public Izvestaj(String izvestaj, ZdravstveniKarton zdravstveniKarton, Lekar lekar, String datum) {
         this.izvestaj = izvestaj;
         this.zdravstveniKarton = zdravstveniKarton;
-        this.recept = recept;
         this.lekar = lekar;
         this.datum = datum;
     }
@@ -58,14 +52,6 @@ public class Izvestaj {
 
     public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
         this.zdravstveniKarton = zdravstveniKarton;
-    }
-
-    public Recept getRecept() {
-        return recept;
-    }
-
-    public void setRecept(Recept recept) {
-        this.recept = recept;
     }
 
     public Lekar getLekar() {

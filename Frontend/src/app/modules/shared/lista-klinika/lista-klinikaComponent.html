@@ -1,10 +1,8 @@
-
 <app-patient-sidebar></app-patient-sidebar>
 
 <div class="main-content">
- 
-       
-      
+
+
 
   <div class="topnav">
     <div class="search-container">
@@ -22,18 +20,18 @@
           <tr>
             <td><input class="form-control" type="text" placeholder="Drzava" name="searchDrzava"  [(ngModel)]="searchDrzava"></td>
             <td><select class="form-control"  name="searchOcena" [(ngModel)]="searchOcena" ng-init="searchOcena = searchOcena || ocene[0].value" >
-                  <option  value="0">Ocena </option>
-                  <option value="5">5</option>
-                  <option value="4">4+</option>
-                  <option value="3">3+</option>
-                  <option value="2">2+</option>
-                  <option value="1">1+</option>
-              </select>
+              <option  value="0">Ocena </option>
+              <option value="5">5</option>
+              <option value="4">4+</option>
+              <option value="3">3+</option>
+              <option value="2">2+</option>
+              <option value="1">1+</option>
+            </select>
             </td>
             <td><select class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
               <option value="">Izaberite tip</option>
-              <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip}}</option>
-                </select>
+              <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
+            </select>
             </td>
           </tr>
           <!--button type="submit"><i class="fa fa-search"></i></!--button-->
@@ -41,10 +39,10 @@
       </form>
     </div>
   </div>
-  
 
 
-<div></div>
+
+  <div></div>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -56,24 +54,22 @@
             <div class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
-                  <th>Naziv</th>
-                  <th>E-mail</th>
-                  <th>Ocena</th>
-                  <th> Adresa</th>
-                  <th>Cena pregleda</th>
-                  <th>Cena operacije</th>
+                <th>Naziv</th>
+                <th>E-mail</th>
+                <th>Ocena</th>
+                <th> Adresa</th>
+                <th>Cena pregleda</th>
                 </thead>
 
                 <tbody>
-                  <tr *ngFor="let klinika of klinike | pretragafilterFilter:searchDrzava:searchGrad:searchOcena:searchText" [class.selected]="klinika === selectedKlinika"
+                <tr *ngFor="let klinika of klinike | pretragafilterFilter:searchDrzava:searchGrad:searchOcena:searchText" [class.selected]="klinika === selectedKlinika"
                     (click)="onSelect(klinika)">
-                    <td><b>{{klinika.naziv}}</b></td>
-                    <td>{{klinika.email}} </td>
-                    <td>{{klinika.ocena}} </td>
-                    <td>{{klinika.adresa}}</td>
-                    <td>TODO</td>
-                    <td>TODO</td>
-                  </tr>
+                  <td><b>{{klinika.naziv}}</b></td>
+                  <td>{{klinika.email}} </td>
+                  <td>{{klinika.ocena}} </td>
+                  <td>{{klinika.adresa}}</td>
+                  <td>TODO</td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -130,4 +126,3 @@
     </div>
   </div>
 </div>
-

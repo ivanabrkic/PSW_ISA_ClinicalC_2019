@@ -5,6 +5,8 @@ export class PregledIzvestajDTO {
   pocetak: string;
   kraj: string;
   jboLekara: string;
+  imeLekara: string;
+  prezimeLekara: string;
 
   Pregled() {
 

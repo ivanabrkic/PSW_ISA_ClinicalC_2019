@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Recept} from '../../models/Recept/recept';
+import {Izvestaj} from "../../models/izvestaj/izvestaj";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -41,5 +42,17 @@ export class ReceptServiceService {
     const body = JSON.stringify(r);
     console.log(body);
     return this.http.post('/server/recept/update', body, httpOptions);
+  }
+
+  save(r: Recept) {
+    const body = JSON.stringify(r);
+    console.log(body);
+    return this.http.post('/server/recept/save', body, httpOptions);
+  }
+
+  findByIzvestaj(izvestajID: number) {
+    const body = JSON.stringify(izvestajID);
+    console.log(body);
+    return this.http.post('/server/recept/findByIzvestaj', body, httpOptions);
   }
 }

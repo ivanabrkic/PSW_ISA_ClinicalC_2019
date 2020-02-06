@@ -91,6 +91,10 @@ public class CenovnikService {
         return found.getSpecijalizacija();
     }
 
+    public float findByNazivAndKlinikaId(String n,Long id) {
+        return cenovnikRepository.findByNazivAndKlinikaId(n, id).getCena();
+    }
+
     public List<Cenovnik> findAll(){
         return cenovnikRepository.findAll();
     }

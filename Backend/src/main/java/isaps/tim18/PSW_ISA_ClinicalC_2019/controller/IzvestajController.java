@@ -34,4 +34,11 @@ public class IzvestajController {
 
         return new ResponseEntity(izvestaj, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/save", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Izvestaj> save(@RequestBody Izvestaj izvestaj) throws Exception {
+        Izvestaj smth = izvestajService.save(izvestaj);
+
+        return new ResponseEntity(smth, HttpStatus.OK);
+    }
 }

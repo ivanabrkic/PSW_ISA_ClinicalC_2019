@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home';
@@ -64,6 +64,7 @@ import { PretragafilterFilter } from './helpers/filter';
 import { ListaLekaraComponent } from './modules/shared/lista-lekara/lista-lekaraComponent';
 import { ProfilKlinikeComponent } from './modules/shared/profil-klinike/profil-klinikeComponent';
 import { PretragafilterLekari } from './helpers/filterLekari';
+
 import { PretragaFilterPacijent } from './helpers/filterPacijent';
 import { PretragaFilterLek } from './helpers/filterLek';
 import { PretragaPacijenataComponent } from './modules/shared/pretraga-pacijenata/pretraga-pacijenata.component';
@@ -77,6 +78,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { PregledIzvestajaComponent } from './modules/shared/pregled-izvestaja/pregled-izvestaja.component';
 import { PregledLekovaComponent } from './modules/shared/pregled-lekova/pregled-lekova.component';
 import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izmena-izvestaja.component';
+
+import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
 
 
 
@@ -128,7 +131,8 @@ import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izme
     PredefinisaniTerminiComponent,
     PregledIzvestajaComponent,
     PregledLekovaComponent,
-    IzmenaIzvestajaComponent
+    IzmenaIzvestajaComponent,
+    PredefinisaniTerminiComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -192,6 +196,7 @@ import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izme
       ])
   ],
   providers: [
+    DatePipe,
     AdminKlinikeService,
     KlinikaService,
     LoginService,
@@ -199,7 +204,8 @@ import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izme
     ZdravstveniKartonService,
     PacijentService,
     PoseteService,
-    SessionService],
+    SessionService,
+    PredefTerminiServiceService],
 
   bootstrap: [AppComponent]
 })

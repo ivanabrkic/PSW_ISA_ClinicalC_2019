@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Izvestaj;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Recept;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,5 @@ public interface ReceptRepository extends JpaRepository<Recept, Long> {
     List<Recept> findAll();
     List<Recept> findByPacijent(Pacijent p);
     List<Recept> findByOveren(Boolean overen);
+    Recept findByIzvestaj(Izvestaj izvestaj);
 }

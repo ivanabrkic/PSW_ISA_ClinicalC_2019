@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ZdravstveniKarton} from '../../models/zdravstvenik/zdravstveniKarton';
 import {Izvestaj} from '../../models/izvestaj/izvestaj';
 import {Observable} from 'rxjs';
-import {IzvestajDto} from "../../helpers/izvestaj-dto";
+import {IzvestajDto} from "../../models/izvestajDTO/izvestaj-dto";
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -23,5 +23,10 @@ export class IzvestajService {
   public updateIzvestaj(izvestajDTO: IzvestajDto) {
     const body = JSON.stringify(izvestajDTO);
     return this.http.post('/server/izvestaj/updateIzvestaj', body, httpOptions);
+  }
+
+  public save(izvestaj: Izvestaj) {
+    const body = JSON.stringify(izvestaj);
+    return this.http.post('/server/izvestaj/save', body, httpOptions);
   }
 }

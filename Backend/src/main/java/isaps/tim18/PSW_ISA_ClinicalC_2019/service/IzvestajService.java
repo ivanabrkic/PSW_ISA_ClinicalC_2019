@@ -36,4 +36,6 @@ public class IzvestajService {
         System.out.println("Error");
         return null;
     }
+
+    public Izvestaj save(Izvestaj izvestaj) { return izvestajRepository.save(izvestaj); }
 }

@@ -80,19 +80,19 @@
                     </div>
                     <div class = "col-md-3">
                       <div style = "width: 350px;">
-                        <button style = "height: 35px; margin-left: 3px" class = "btn btn-info"
+                        <button type = "button" style = "height: 35px; margin-left: 3px" class = "btn btn-info"
                                 (click)="unesiDijagnoze()">Evidentiraj dijagnoze</button>
                         <label *ngIf="uneteDijagnoze === true" style = "color: red">*Dijagnoze unete!</label>
                       </div>
                       <div style = "width: 350px">
-                        <button style = "height: 35px;margin-left: 3px; margin-top: 5px" class = "btn btn-info"
+                        <button type = "button" style = "height: 35px;margin-left: 3px; margin-top: 5px" class = "btn btn-info"
                                 (click)="kreirajRecept()">Kreiraj recept</button>
                         <label *ngIf="kreiranRecept === true" style = "color: red">*Recept kreiran!</label>
                       </div>
                     </div>
                   </div>
                   <div class="row" style = "float:right; margin-top: 10px">
-                    <button mat-raised-button class = "btn btn-warning">Nov pregled/operacija</button>
+                    <button type = "button" mat-raised-button class = "btn btn-warning">Nov pregled/operacija</button>
                     <button type = "submit" mat-raised-button style = "margin-left: 5px" class = "btn btn-success">Zavrsi pregled</button>
                   </div>
                 </div>

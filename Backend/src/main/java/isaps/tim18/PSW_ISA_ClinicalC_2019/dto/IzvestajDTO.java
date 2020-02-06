@@ -6,15 +6,13 @@ public class IzvestajDTO {
     private Long idLekara;
     private String izvestaj;
     private Long idZdravKart;
-    private Long idRecept;
     private String datum;
 
-    public IzvestajDTO(Long id, Long idLekara, String izvestaj, Long idZdravKart, Long idRecept, String datum) {
+    public IzvestajDTO(Long id, Long idLekara, String izvestaj, Long idZdravKart, String datum) {
         this.id = id;
         this.idLekara = idLekara;
         this.izvestaj = izvestaj;
         this.idZdravKart = idZdravKart;
-        this.idRecept = idRecept;
         this.datum = datum;
     }
 
@@ -48,14 +46,6 @@ public class IzvestajDTO {
 
     public void setIdZdravKart(Long idZdravKart) {
         this.idZdravKart = idZdravKart;
-    }
-
-    public Long getIdRecept() {
-        return idRecept;
-    }
-
-    public void setIdRecept(Long idRecept) {
-        this.idRecept = idRecept;
     }
 
     public String getDatum() {

@@ -1,16 +1,23 @@
 export class predefInfo{
-    pocetak:String;
-    kraj:String;
-    datum:String;
-    tipPregleda:String;
-    lekarIme:String;
-    lekarPrezime:String;
-    cena:number;
-    nazivKlinike:String;
-    brojSale:String;
-    nazivSale:String;
-    popust:number;
+  id:number;
+  pocetak:String;
+  kraj:String;
+  datum:String;
+  tipPregleda:String;
+  lekarIme:String;
+  lekarPrezime:String;
+  cena:number;
+  nazivKlinike:String;
+  brojSale:String;
+  nazivSale:String;
+  popust:number;
 
-    public predefInfo(){
-    }
+  idKlinike:number;
+  idStavke:number;
+
+  jboLekara:String;
+  idSale:number;
+
+  public predefInfo(){
+  }
 }

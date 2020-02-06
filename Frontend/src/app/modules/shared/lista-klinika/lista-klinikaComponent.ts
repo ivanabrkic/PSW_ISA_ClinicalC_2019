@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 import { MatDatepickerInputEvent } from '@angular/material';
+import { Cenovnik } from 'src/app/models/Cenovnik/cenovnik';
 
 @Component({
   selector: 'app-lista-klinika',
@@ -21,7 +22,8 @@ export class ListaKlinikaComponent implements OnInit {
   selectedKlinika: Klinika;
   date=new FormControl(new Date);
   zahtev=new pretragaDTO();
-  tipovi:String[];
+  tipovi:Cenovnik[];
+  searchPregled:Cenovnik;
 
 
   constructor(private listaKlinikaService: ListaKlinikaService,private router:Router) {
@@ -51,6 +53,19 @@ export class ListaKlinikaComponent implements OnInit {
 
   }
 
+  getCena(naziv:string,id:number){
+    var pretraga=new pretragaDTO();
+    pretraga.start='00:00';
+    pretraga.finis='12:22';
+    pretraga.idKlinike=id;
+    pretraga.specijalizacija=naziv;
+    this.listaKlinikaService.getSlobodneKlinike(pretraga).subscribe(
+      podaci => {return podaci; },
+      err => console.log('Nisu ucitane klinike'),
+      () => console.log('Uspesno ucitane klinike')
+    );
+  }
+
   onSelect(klinika: Klinika): void {
     this.selectedKlinika = klinika;
     this.zahtev.idKlinike=klinika.id;
@@ -67,9 +82,9 @@ export class ListaKlinikaComponent implements OnInit {
       () => console.log('Uspesno ucitani tipovi')
     );
   }
-onChange(selected){
-  this.zahtev.specijalizacija=selected;
-   this.zahtev.idKlinike=null;
+  onChange(selected){
+    this.zahtev.specijalizacija=selected.naziv;
+    this.zahtev.idKlinike=null;
     this.zahtev.start='00:00';
     this.zahtev.finis='23:59';
     //this.zahtev.specijalizacija='Kardiolog';
@@ -78,14 +93,13 @@ onChange(selected){
       err => console.log('Nisu ucitane klinike'),
       () => console.log('Uspesno ucitane klinike')
     );
-}
+  }
   lekariNavigate(event){
-    var testdatum=5; //bice pokupljen iz dejtpikera
-    var selectedDate=this.date.value;
-    selectedDate=moment(selectedDate).format('D.M.YYYY.');
-    console.log(selectedDate);
+    // var selectedDate=this.date.value;
+    // selectedDate=moment(selectedDate).format('D.M.YYYY.');
+    // console.log(selectedDate);
     let klinika=this.selectedKlinika;{
-      this.router.navigate(['/listaLekara'],{state:{klinika:klinika,zahtev:this.zahtev}});
+      this.router.navigate(['/listaLekara'],{state:{klinika:klinika,zahtev:this.zahtev,tip:this.searchPregled}});
     }
   }
 
@@ -93,7 +107,7 @@ onChange(selected){
   profilNavigate(event){
 
     let klinika=this.selectedKlinika;
-      this.router.navigate(['/profilKlinike'],{state:{data:klinika}});
+    this.router.navigate(['/profilKlinike'],{state:{data:klinika}});
   }
 
 }

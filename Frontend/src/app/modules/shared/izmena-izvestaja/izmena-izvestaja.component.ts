@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SessionService} from '../../../services/SessionService/session.service';
 import {Pacijent} from '../../../models/pacijent/pacijent';
-import {IzvestajDto} from '../../../helpers/izvestaj-dto';
+import {IzvestajDto} from '../../../models/izvestajDTO/izvestaj-dto';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ReceptServiceService} from '../../../services/recept-service/recept-service.service';
@@ -10,11 +10,11 @@ import {DijalogKreiranjeReceptaComponent} from '../dijalog-kreiranje-recepta/dij
 import {PacijentService} from '../../../services/pacijent-service/pacijent.service';
 import {PregledService} from '../../../services/pregled-service/pregled.service';
 import {Router} from '@angular/router';
-import {IzvestajService} from "../../../services/izvestaj-service/izvestaj.service";
-import {DijalogUnosDijagnozaComponent} from "../dijalog-unos-dijagnoza/dijalog-unos-dijagnoza.component";
-import {ZdravstveniKarton} from "../../../models/zdravstvenik/zdravstveniKarton";
-import {ZdravstveniKartonService} from "../../../services/zdravstveni-karton-service/zdravstveni-karton.service";
-import {KorisnikService} from "../../../services/korisnik-service/korisnik.service";
+import {IzvestajService} from '../../../services/izvestaj-service/izvestaj.service';
+import {DijalogUnosDijagnozaComponent} from '../dijalog-unos-dijagnoza/dijalog-unos-dijagnoza.component';
+import {ZdravstveniKarton} from '../../../models/zdravstvenik/zdravstveniKarton';
+import {ZdravstveniKartonService} from '../../../services/zdravstveni-karton-service/zdravstveni-karton.service';
+import {KorisnikService} from '../../../services/korisnik-service/korisnik.service';
 
 @Component({
   selector: 'app-izmena-izvestaja',
@@ -38,8 +38,8 @@ export class IzmenaIzvestajaComponent implements OnInit {
               private receptService: ReceptServiceService, private pacijentService: PacijentService,
               private pregledService: PregledService, private router: Router, private izvestajService: IzvestajService,
               private zdravstveniKartonService: ZdravstveniKartonService, private korisnikService: KorisnikService) {
-    this.korisnikService.getUlogovanKorisnik().subscribe(korisnik =>{
-      if(korisnik.tipKorisnika === 'Lekar'){
+    this.korisnikService.getUlogovanKorisnik().subscribe(korisnik => {
+      if (korisnik.tipKorisnika === 'Lekar') {
         this.lekarJe = true;
         this.sestraJe = false;
         } else {
@@ -49,13 +49,11 @@ export class IzmenaIzvestajaComponent implements OnInit {
       }
     );
 
+    this.recept = this.sessionService.receptZaIzmenu;
+
     this.pacijentProfil = this.sessionService.pacijentProfil;
     this.izvestajStari = this.sessionService.izvestajZaIzmenu;
-    this.receptService.nadjiRecept(this.izvestajStari.idRecept).subscribe( stariRecept => {
-      this.objekat = stariRecept;
-      this.recept = this.objekat;
-      }
-    );
+
 
     this.zdravstveniKartonService.getPacijentovZk(this.pacijentProfil).subscribe(data => {
       this.objekat = data;
@@ -75,7 +73,7 @@ export class IzmenaIzvestajaComponent implements OnInit {
   }
 
 
-  unesiDijagnoze(){
+  unesiDijagnoze() {
     const dialogRef = this.dialog.open(DijalogUnosDijagnozaComponent, {
       data: this.zdravstveniKarton
     });
@@ -121,7 +119,7 @@ export class IzmenaIzvestajaComponent implements OnInit {
     this.izvestajService.updateIzvestaj(this.izvestajStari).subscribe(newData =>
       console.log(this.izvestajStari)
     );
-    console.log(this.zdravstveniKarton)
+    console.log(this.zdravstveniKarton);
     this.zdravstveniKartonService.updateDijagnoze(this.zdravstveniKarton).subscribe(data =>
       console.log(this.zdravstveniKarton)
     );

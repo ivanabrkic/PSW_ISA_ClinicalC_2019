@@ -7,7 +7,6 @@ import {PregledService} from '../../../services/pregled-service/pregled.service'
 import {PacijentService} from '../../../services/pacijent-service/pacijent.service';
 import {SessionService} from '../../../services/SessionService/session.service';
 import {Router} from '@angular/router';
-import {PregledIzvestajDTO} from '../../../helpers/pregled-izvestaj-dto';
 import {Pregled} from '../../../models/pregled/pregled';
 import {ZdravstveniKarton} from '../../../models/zdravstvenik/zdravstveniKarton';
 import {KorisnikService} from '../../../services/korisnik-service/korisnik.service';
@@ -42,10 +41,10 @@ export class PretragaPacijenataComponent implements OnInit {
       this.korisnikService.getUlogovanKorisnik().subscribe(korisnik => {
           if (korisnik.tipKorisnika === 'Medicinska sestra') {
             this.sestraJe = true;
+            this.lekarJe = false;
+          } else if (korisnik.tipKorisnika === 'Lekar') {
             this.lekarJe = true;
-          } else {
-            this.lekarJe = true;
-            this.sestraJe = true;
+            this.sestraJe = false;
           }
         }
       );
@@ -82,16 +81,9 @@ export class PretragaPacijenataComponent implements OnInit {
 
   }
 
-  ZapocniPregled(pacijent: Pacijent) {
-    this.sessionService.lekarZaPregled = this.lekar;
-    this.sessionService.pacijentZaPregled = pacijent;
-    // this.sessionService.datumZaPregled = this.datumi[index];
-    // this.sessionService.pregled = this.pregledi[index];
-    this.router.navigate(['/formaIzvestaj']);
-  }
-
   OtvoriZdravstveniKarton(zk: ZdravstveniKarton) {
-
+    this.sessionService.pacijentProfil = this.selectedPacijent;
+    console.log(this.sessionService.pacijentProfil);
     this.router.navigate(['/zdravstveniKarton']);
   }
 }

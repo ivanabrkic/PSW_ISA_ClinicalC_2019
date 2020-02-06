@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface IzvestajRepository extends JpaRepository<Izvestaj, Long> {
 
-    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.IzvestajDTO(i.id, i.lekar.id,  i.izvestaj, i.zdravstveniKarton.id, i.recept.id, i.datum) " +
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.IzvestajDTO(i.id, i.lekar.id,  i.izvestaj, i.zdravstveniKarton.id, i.datum) " +
             "FROM Izvestaj i WHERE i.zdravstveniKarton.id = ?1")
     public List<IzvestajDTO> findIzvestajByZdravstveniKartonDTO(Long idZk);
 }

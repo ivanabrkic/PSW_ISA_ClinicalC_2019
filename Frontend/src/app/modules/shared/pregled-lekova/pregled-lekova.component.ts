@@ -15,7 +15,7 @@ export class PregledLekovaComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<PregledLekovaComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, private receptService: ReceptServiceService) {
     this.idRecepta = data;
-
+    console.log(data);
     this.receptService.nadjiRecept(this.idRecepta).subscribe(recept => {
         this.objekat = recept;
         this.recept = this.objekat;

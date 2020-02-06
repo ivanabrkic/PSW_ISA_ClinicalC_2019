@@ -78,12 +78,10 @@
                     <div class="row">
                       <div *ngIf="lekarJe" class="col-md-12">
                         <p *ngIf="odrzaoPregled"> <button class="form-control" (click)="OtvoriZdravstveniKarton(selectedPacijent.zdravstveniKarton)">Otvori zdravstveni karton</button></p>
-                        <p *ngIf="trajePregled"> <button class="form-control" (click)="ZapocniPregled(selectedPacijent)">Zapocni pregled</button></p>
                         <p *ngIf="odrzaoPregled == false && sestraJe == false"> <button class="form-control" disabled (click)="OtvoriZdravstveniKarton(selectedPacijent.zdravstveniKarton)">Nemate pristup zdravstvenom kartonu</button></p>
                       </div>
                       <div *ngIf="sestraJe" class="col-md-12">
                         <p><button class="form-control" (click)="OtvoriZdravstveniKarton(selectedPacijent.zdravstveniKarton)">Otvori zdravstveni karton</button></p>
-                        <p> <button class="form-control" (click)="ZapocniPregled(selectedPacijent)">Zapocni pregled</button></p>
                       </div>
                     </div>
                   </form>

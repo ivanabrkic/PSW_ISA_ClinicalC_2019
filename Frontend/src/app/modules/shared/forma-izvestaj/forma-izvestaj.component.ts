@@ -16,6 +16,9 @@ import {OpstiIzvestajService} from '../../../services/opsti-izvestaj/opsti-izves
 import {ZdravstveniKartonService} from '../../../services/zdravstveni-karton-service/zdravstveni-karton.service';
 import {PacijentService} from '../../../services/pacijent-service/pacijent.service';
 import {Router} from '@angular/router';
+import {IzvestajService} from '../../../services/izvestaj-service/izvestaj.service';
+import {ReceptServiceService} from '../../../services/recept-service/recept-service.service';
+import {IzvestajDto} from '../../../models/izvestajDTO/izvestaj-dto';
 
 @Component({
   selector: 'app-forma-izvestaj',
@@ -24,11 +27,15 @@ import {Router} from '@angular/router';
 })
 export class FormaIzvestajComponent implements OnInit {
   pacijentZaPregled: Pacijent;
-  noviIzvestaj: Izvestaj = new Izvestaj();
+  noviIzvestaj: Izvestaj;
   opstiIzvestaj: OpstiIzvestaj;
   kreiranRecept = false;
   uneteDijagnoze = false;
+  objekat: any;
+  alergijeNaLek = false;
+  noviIzvestajDTO: IzvestajDto;
 
+  zdravstveniKarton: ZdravstveniKarton;
   loading = false;
   izvestajForm: FormGroup;
   submitted = false;
@@ -38,12 +45,12 @@ export class FormaIzvestajComponent implements OnInit {
   constructor(private sessionService: SessionService, private formBuilder: FormBuilder, public dialog: MatDialog,
               private pregledService: PregledService, private opstiIzvestajService: OpstiIzvestajService,
               private zdravstveniKartonService: ZdravstveniKartonService, private pacijentService: PacijentService,
-              private router: Router) {
-    this.pacijentZaPregled = this.sessionService.pacijentZaPregled;
-    console.log(this.pacijentZaPregled);
-    console.log(this.pacijentZaPregled.zdravstveniKarton);
-    this.opstiIzvestaj = this.pacijentZaPregled.zdravstveniKarton.opstiIzvestaj;
+              private router: Router, private izvestajService: IzvestajService, private receptService: ReceptServiceService) {
+    this.pacijentZaPregled = this.sessionService.pacijentProfil;
+    this.zdravstveniKarton = this.sessionService.zkPregled;
+    this.opstiIzvestaj = this.sessionService.opstiIzvestaj;
     this.noviIzvestaj = new Izvestaj();
+    this.recept = new Recept();
     console.log(this.sessionService.pregled);
   }
 
@@ -66,7 +73,7 @@ export class FormaIzvestajComponent implements OnInit {
   }
 
   unesiDijagnoze() {
-    this.openDialogDijagnoza(this.pacijentZaPregled.zdravstveniKarton);
+    this.openDialogDijagnoza(this.zdravstveniKarton);
   }
 
   openDialogRecept(recept: Recept): void {
@@ -94,12 +101,12 @@ export class FormaIzvestajComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         if (result !== null) {
-          this.pacijentZaPregled.zdravstveniKarton = result;
+          this.zdravstveniKarton = result;
           this.uneteDijagnoze = true;
         }
       },
       err => console.log('Neuspesno otvaranje prozora!'),
-      () => console.log(this.pacijentZaPregled.zdravstveniKarton)
+      () => console.log(this.zdravstveniKarton)
     );
   }
 
@@ -111,21 +118,29 @@ export class FormaIzvestajComponent implements OnInit {
 
     this.loading = true;
 
-    this.noviIzvestaj.zdravstveniKarton = this.pacijentZaPregled.zdravstveniKarton;
+    this.noviIzvestaj.zdravstveniKarton = this.zdravstveniKarton;
     this.noviIzvestaj.lekar = this.sessionService.lekarZaPregled;
-    this.noviIzvestaj.recept = this.recept;
     this.noviIzvestaj.datum = this.sessionService.datumZaPregled;
+    console.log(this.sessionService.datumZaPregled);
+    this.recept.pacijent = this.sessionService.pacijentProfil;
+
+    console.log(this.noviIzvestaj);
+    console.log(this.opstiIzvestaj);
+    console.log(this.recept);
+    console.log(this.zdravstveniKarton);
 
     this.opstiIzvestajService.update(this.opstiIzvestaj).subscribe( data =>
       console.log(data)
     );
+    console.log('Izvestaj je: ' + this.noviIzvestaj);
+    this.recept.izvestaj = this.noviIzvestaj;
+    console.log('Recept je: ' + this.recept);
 
-    this.pacijentService.update(this.pacijentZaPregled).subscribe(data =>
-      console.log(data)
-    );
-
+    this.receptService.save(this.recept).subscribe( data => console.log('sacuvan recept'));
+    this.zdravstveniKartonService.updateDijagnoze(this.zdravstveniKarton).subscribe( data =>
+    console.log('sacuvane dijagnoze'));
     this.pregledService.zavrsenPregled(this.sessionService.pregled).subscribe(data =>
-      this.router.navigate(['/pretragaPacijenata'])
+      this.router.navigate(['/zdravstveniKarton'])
     );
 
 

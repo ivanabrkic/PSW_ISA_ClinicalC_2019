@@ -20,7 +20,10 @@ export class DijalogKreiranjeReceptaComponent implements OnInit {
   temp: any[] = [];
   constructor(public dialogRef: MatDialogRef<DijalogKreiranjeReceptaComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, private lekoviService: LekoviService) {
-    if (data === undefined) {
+    this.recept = data;
+    if (this.recept.lekovi === undefined) {
+
+      this.recept = new Recept();
       // tslint:disable-next-line:no-shadowed-variable
       this.lekoviService.get().subscribe(data => {
           this.lekovi = data;

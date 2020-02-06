@@ -3,9 +3,9 @@ import {Recept} from '../Recept/recept';
 import {Lekar} from '../lekar/lekar';
 
 export class Izvestaj {
+  id: number;
   izvestaj: string;
   zdravstveniKarton: ZdravstveniKarton;
-  recept: Recept;
   lekar: Lekar;
   datum: String;
 }

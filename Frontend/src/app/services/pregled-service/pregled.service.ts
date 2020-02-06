@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Pregled} from '../../models/pregled/pregled';
 import {Lekar} from '../../models/lekar/lekar';
-import {PregledIzvestajDTO} from '../../helpers/pregled-izvestaj-dto';
+import {PregledIzvestajDTO} from '../../models/pregledIzvestajDTO/pregled-izvestaj-dto';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -22,5 +22,15 @@ export class PregledService {
     const pregled = JSON.stringify(p);
     console.log(pregled);
     return this.http.post('/server/pregled/zavrsenPregled', pregled, httpOptions);
+  }
+
+  getZakazane(jboLekara: string, jboPacijenta: string) {
+    const body = JSON.stringify({jboLekara, jboPacijenta})
+    return this.http.post('/server/pregled/getZakazane', body, httpOptions);
+  }
+
+  getZakazaneSestra(jboPacijenta: string) {
+    const body = JSON.stringify(jboPacijenta);
+    return this.http.post('/server/pregled/getZakazaneSestra', body, httpOptions);
   }
 }

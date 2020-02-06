@@ -1,8 +1,10 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Izvestaj;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekovi;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Recept;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.IzvestajRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.ReceptRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class ReceptService {
     @Autowired
     LekoviService lekoviService;
 
+    @Autowired
+    IzvestajRepository izvestajRepository;
+
     public Recept findById(Long id) {
         Optional<Recept> r = receptRepository.findById(id);
 
@@ -32,7 +37,23 @@ public class ReceptService {
 
     public List<Recept> findAll() { return receptRepository.findAll(); }
 
-    public Recept add(Recept r) { return receptRepository.save(r); }
+    @Transactional
+    public Recept add(Recept r) {
+        List<Lekovi> lekovi = new ArrayList<Lekovi>();
+        Lekovi lek = new Lekovi();
+        for(int i = 0;i < r.getLekovi().size(); i++){
+            lek = lekoviService.findBySifra(r.getLekovi().get(i).getSifra());
+
+            if(lek != null){
+                lekovi.add(lek);
+            }
+        }
+
+        r.setLekovi(lekovi);
+
+
+        return receptRepository.save(r);
+    }
 
     @Transactional
     public void remove(Recept r) { receptRepository.delete(r); }
@@ -40,6 +61,18 @@ public class ReceptService {
     public List<Recept> findByPacijent(Pacijent p) { return receptRepository.findByPacijent(p); }
 
     public List<Recept> findByOveren(Boolean o) { return receptRepository.findByOveren(o); }
+
+    public Recept findByIzvestaj(Long izvestajID) {
+        Optional<Izvestaj> izv = izvestajRepository.findById(izvestajID);
+
+        if(izv.isPresent()){
+            System.out.println("Nasao je izvestaj");
+            return receptRepository.findByIzvestaj(izv.get());
+        }
+
+
+        return null;
+    }
 
     @Transactional
     public Recept updateOveren(Recept recept){
@@ -91,5 +124,6 @@ public class ReceptService {
 
         return recept;
     }
+
 
 }
