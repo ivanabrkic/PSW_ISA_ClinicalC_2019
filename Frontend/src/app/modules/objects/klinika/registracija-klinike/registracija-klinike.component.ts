@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-registracija-klinike',
@@ -16,7 +17,7 @@ export class RegistracijaKlinikeComponent implements OnInit {
   submitted = false;
   loading = false;
 
-  constructor(
+  constructor(private _snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
     private klinikaService: KlinikaService,

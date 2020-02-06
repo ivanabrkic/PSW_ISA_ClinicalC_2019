@@ -14,7 +14,8 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+
 
 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -130,6 +131,7 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
     MatDatepickerModule,        
     MatNativeDateModule,  
     MatGridListModule,     
+    MatSnackBarModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},

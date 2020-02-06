@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Lekar } from 'src/app/models/lekar/lekar';
-import { MatDialogRef, MAT_DIALOG_DATA, MatListOption, MatTableDataSource } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatListOption, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Sala } from 'src/app/models/sala/sala';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { LekarCheckBox } from 'src/app/models/lekar/lekarCheckBox';
@@ -28,7 +28,7 @@ export class ZakaziTerminComponent implements OnInit {
   master_indeterminate: boolean = false;
   checkbox_list: LekarCheckBox[] = [];
 
-  constructor(private dialogRef: MatDialogRef<ZakaziTerminComponent>,
+  constructor(private _snackBar: MatSnackBar, private dialogRef: MatDialogRef<ZakaziTerminComponent>,
     @Inject(MAT_DIALOG_DATA) data, private klinikaService: KlinikaService) {
 
     this.slobodniLekari = data.lekari

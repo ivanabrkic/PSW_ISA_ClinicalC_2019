@@ -22,9 +22,9 @@ export class ListaKlinikaComponent implements OnInit {
   selectedKlinika: Klinika;  
   date=new FormControl(new Date);
   zahtev=new pretragaDTO();
+  tipovi:String[];
   tipovi:Cenovnik[];
   searchPregled:Cenovnik;
-
 
   constructor(private listaKlinikaService: ListaKlinikaService,private router:Router) {
   }
@@ -83,6 +83,7 @@ export class ListaKlinikaComponent implements OnInit {
     );
   }
 onChange(selected){
+  this.zahtev.specijalizacija=selected;
   this.zahtev.specijalizacija=selected.naziv;
    this.zahtev.idKlinike=null;
     this.zahtev.start='00:00';
@@ -95,6 +96,11 @@ onChange(selected){
     );
 }
   lekariNavigate(event){
+    var selectedDate=this.date.value;
+    selectedDate=moment(selectedDate).format('D.M.YYYY.');
+    console.log(selectedDate);
+    let klinika=this.selectedKlinika;{
+      this.router.navigate(['/listaLekara'],{state:{klinika:klinika,zahtev:this.zahtev}});
     // var selectedDate=this.date.value;
     // selectedDate=moment(selectedDate).format('D.M.YYYY.');
     // console.log(selectedDate);

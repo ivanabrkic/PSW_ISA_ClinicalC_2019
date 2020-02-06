@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatDialogConfig, MatDialog, MatSort } from '@angular/material';
+import { MatTableDataSource, MatDialogConfig, MatDialog, MatSort, MatSnackBar } from '@angular/material';
 import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
 import { RegistracijaSalaComponent } from '../registracija-sala/registracija-sala.component';
 import { RegistracijaTipovaComponent } from '../registracija-tipova/registracija-tipova.component';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tipovi-pregleda',
@@ -24,8 +25,8 @@ export class TipoviPregledaComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private adminkService: AdminKlinikeService, private klinikaService: KlinikaService) {
-          this.dataSource = new MatTableDataSource(null);
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog, private adminkService: AdminKlinikeService, private klinikaService: KlinikaService) {
+    this.dataSource = new MatTableDataSource(null);
   }
 
   ngOnInit() {
@@ -65,13 +66,24 @@ export class TipoviPregledaComponent implements OnInit {
     };
 
     this.registerDialog = this.dialog.open(RegistracijaTipovaComponent, dialogConfig);
-    this.registerDialog.afterClosed().subscribe(() => {
-      this.klinikaService.getTipovi(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.tipovi = data;
-          this.dataSource = new MatTableDataSource(this.tipovi);
-          this.dataSource.sort = this.sort;
-        });
+    this.registerDialog.afterClosed().subscribe(result => {
+      if (result != true) {
+
+        this.klinikaService.updateTip(result).pipe(first()).subscribe(result => {
+          alert(result.text);
+
+          this.klinikaService.getTipovi(this.adminKlinike.klinika.id)
+            .subscribe(data => {
+              this.tipovi = data;
+              this.dataSource = new MatTableDataSource(this.tipovi);
+              this.dataSource.sort = this.sort;
+            });
+        },
+          error => {
+            alert('Neuspešna izmena!\n\n');
+          });
+      }
+
     });
   }
 
@@ -90,13 +102,21 @@ export class TipoviPregledaComponent implements OnInit {
     };
 
     this.registerDialog = this.dialog.open(RegistracijaTipovaComponent, dialogConfig);
-    this.registerDialog.afterClosed().subscribe(() => {
-      this.klinikaService.getTipovi(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.tipovi = data;
-          this.dataSource = new MatTableDataSource(this.tipovi);
-          this.dataSource.sort = this.sort;
-        });
+    this.registerDialog.afterClosed().subscribe(result => {
+      if (result != true) {
+        this.klinikaService.registerTip(result).pipe(first()).subscribe(result => {
+          alert(result.text);
+          this.klinikaService.getTipovi(this.adminKlinike.klinika.id)
+            .subscribe(data => {
+              this.tipovi = data;
+              this.dataSource = new MatTableDataSource(this.tipovi);
+              this.dataSource.sort = this.sort;
+            });
+        },
+          error => {
+            alert('Neuspešna registracija!\n\n');
+          });
+      }
     });
   }
 
