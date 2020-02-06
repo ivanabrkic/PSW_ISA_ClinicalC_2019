@@ -4,8 +4,7 @@
 <div class="main-content">
  
        
-      
-
+    
   <div class="topnav">
     <div class="search-container">
       <form action="/action_page.php">
@@ -32,7 +31,8 @@
             </td>
             <td><select class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
               <option value="">Izaberite tip</option>
-              <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip}}</option>
+<!--               <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip}}</option>  PRETPOSTAVLJAM DA SI HTELA OVO DRUGO-->
+              <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
                 </select>
             </td>
           </tr>
@@ -61,7 +61,6 @@
                   <th>Ocena</th>
                   <th> Adresa</th>
                   <th>Cena pregleda</th>
-                  <th>Cena operacije</th>
                 </thead>
 
                 <tbody>
@@ -71,7 +70,6 @@
                     <td>{{klinika.email}} </td>
                     <td>{{klinika.ocena}} </td>
                     <td>{{klinika.adresa}}</td>
-                    <td>TODO</td>
                     <td>TODO</td>
                   </tr>
                 </tbody>

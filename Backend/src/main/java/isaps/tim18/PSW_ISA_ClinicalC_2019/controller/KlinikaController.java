@@ -1,20 +1,40 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.klinikaPacDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PredefTerminService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PregledService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.ZahtevService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import javax.swing.text.DateFormatter;
 
 @RestController
 @RequestMapping(value = "klinika")
@@ -28,6 +48,18 @@ public class KlinikaController {
 
     @Autowired
     private PredefTerminService predefTerminService;
+    
+    @Autowired
+    private ZahtevService zahtevService;
+    
+    @Autowired 
+    private PregledService pregledService;
+    
+    @Autowired 
+    private AdministratorKlinikeService adminklService;
+    
+    @Autowired
+    private CenovnikRepository cenovnikRepository;
 
     @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
@@ -103,6 +135,20 @@ public class KlinikaController {
     }
 
     ////////////////////////////////////// USLUZIVANJE ZAHTEVA //////////////////////////////////////////
+  // VIDI OVO TESLA
+//     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
+    	
+
+    	
+//     		Calendar cal = Calendar.getInstance();
+//     		SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
+//     		String date=sdf.format(cal.getTime());
+
+    	
+//         List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
+
+//         return new ResponseEntity<>(pregledi, HttpStatus.OK);
+//     }
 
     @PostMapping(value = "/getZahtevi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Zahtev>> getZahtevi(@RequestBody Long idKlinike) {
@@ -111,6 +157,8 @@ public class KlinikaController {
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
+    
+  
 
     @PostMapping(value = "/getSlobodneSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SalaDTO>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
@@ -199,4 +247,46 @@ public class KlinikaController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    @PostMapping(value = "/zakaziTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public  ResponseEntity<Zahtev> zakaziTermin(@RequestBody Zahtev zahtev){
+    	
+    	System.out.print("Zahtev primljen");
+       
+            zahtevService.add(zahtev);
+            List<AdministratorKlinike> administratori=adminklService.findAllByKlinikaId(zahtev.getIdKlinike());
+            MailSenderController m=new MailSenderController();
+            for (AdministratorKlinike a : administratori) {
+            	m.sendSimpleMessage(a.getEmail(),"Novi zahtev",
+            			 "Pristigao je novi zahtev za zakazivanje termina"+
+            			" Za datum: "+zahtev.getDatum()+" i vreme: "+zahtev.getPocetak()+"-"+zahtev.getKraj()+
+            			" za posetu: "+ zahtev.getTipPosete()+" tipa: "
+            			+ ""+zahtev.getStavkaCenovnika()+" od strane: "+zahtev.getTipPosiljaoca()+
+            			". Ulogujte se na vas nalog kako biste prihvatili ili odbili zahtev."
+            			+ ""
+            			+ "Ovaj mejl je automatski generisan i na njega nemojte odgovarati.");
+            }
+            return new ResponseEntity<>(zahtev, HttpStatus.OK); //vracanje slobodnih  
+        
+    }
+
+    
+    @PostMapping(value = "/zakaziPredefTerminn", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pregled> zakaziPredefTermin(@RequestBody predefDTO pregled)throws Exception{
+    		
+    		System.out.print(pregled.getId());
+            Optional<Pregled> pronadjenpregled=pregledService.update(pregled);
+            
+                return new ResponseEntity<>(pronadjenpregled.get(), HttpStatus.OK);
+  
+    }
+    
+    @PostMapping(value = "/getCena", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public float NadjiCenu(@RequestBody lekariterminiDTO zahtev)throws Exception{
+    		
+    		Cenovnik cen=cenovnikRepository.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
+            
+                return cen.getCena();
+  
+    }
 }

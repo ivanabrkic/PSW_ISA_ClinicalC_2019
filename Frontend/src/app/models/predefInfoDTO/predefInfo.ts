@@ -1,4 +1,5 @@
 export class predefInfo{
+    id:number;
     pocetak:String;
     kraj:String;
     datum:String;
@@ -10,6 +11,12 @@ export class predefInfo{
     brojSale:String;
     nazivSale:String;
     popust:number;
+
+    idKlinike:number;
+    idStavke:number;
+
+    jboLekara:String;
+    idSale:number;
 
     public predefInfo(){
     }

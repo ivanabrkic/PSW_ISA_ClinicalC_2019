@@ -22,4 +22,6 @@ public interface AdministratorKlinikeRepository extends JpaRepository<Administra
     AdministratorKlinike findByEmailAndLozinka(String email, String lozinka);
 
     AdministratorKlinike findByJbo(String jbo);
+
+	List<AdministratorKlinike> findByKlinikaId(Long id);
 }

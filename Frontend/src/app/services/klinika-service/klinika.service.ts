@@ -12,6 +12,7 @@ import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
 import { Termin } from 'src/app/models/termin/termin';
 import { LekarTrajanje } from 'src/app/models/termin/lekartrajanje';
 import { PregledId } from 'src/app/models/pregled/PregledId';
+import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 

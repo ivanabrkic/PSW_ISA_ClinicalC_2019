@@ -3,6 +3,11 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.TerminDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
@@ -10,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class LekarService {
@@ -337,3 +342,4 @@ public class LekarService {
     }
 
 }
+    }}
