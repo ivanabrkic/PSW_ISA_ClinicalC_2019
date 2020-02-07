@@ -56,11 +56,6 @@ import * as moment from 'moment';
           err => console.log('Greska pri ucitavanju korisnika'),
        );
     }
- 
-    ngOnInit() {
-      this.getPosete;
-    }
-
 
     //provera da li je dozvoljeno ocenjivanje lekara i klinike selektovanog pregleda
     dozvoljenoOcenjivanje(idKlinikeSelected,jboLekaraSelected){

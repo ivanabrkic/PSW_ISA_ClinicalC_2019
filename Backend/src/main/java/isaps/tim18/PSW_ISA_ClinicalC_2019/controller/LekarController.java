@@ -51,7 +51,7 @@ public class LekarController {
         Message message = lekarService.add(lekar);
       
         lekar.setPrvoLogovanje(true);
-        Lekar l = lekarService.add(lekar);
+      //  Lekar l = lekarService.add(lekar);
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

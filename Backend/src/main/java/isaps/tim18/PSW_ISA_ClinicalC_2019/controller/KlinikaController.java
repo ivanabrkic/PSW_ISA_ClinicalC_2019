@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -109,32 +111,20 @@ public class KlinikaController {
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
     
-     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
-
     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody Long id) {
+    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
+    	
 
-        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(id);
+    	
+    		Calendar cal = Calendar.getInstance();
+    		SimpleDateFormat sdf = new SimpleDateFormat("d.mMyyyy.");
+    		String date=sdf.format(cal.getTime());
+
+    	
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
-
-//     ////////////////////////////////////// USLUZIVANJE ZAHTEVA //////////////////////////////////////////
-// //     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {    	
-
-    	
-//     	Date date = new Date();
-// 		String modifiedDate= new SimpleDateFormat("d.M.yyyy.").format(date);
-
-    	
-//         List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(k.getIdKlin(),modifiedDate,k.getIdPac()); //Prosli termini se ne izlistavaju.
-
-//         return new ResponseEntity<>(pregledi, HttpStatus.OK);
-//     }
-
-// //         return new ResponseEntity<>(pregledi, HttpStatus.OK);
-// //     }
 
     @PostMapping(value = "/getZahtevi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Zahtev>> getZahtevi(@RequestBody Long idKlinike) {
@@ -256,8 +246,9 @@ public class KlinikaController {
        
             zahtevService.add(zahtev);
             List<AdministratorKlinike> administratori=adminklService.findAllByKlinikaId(zahtev.getIdKlinike());
+            MailSenderService m=new MailSenderService();
             for (AdministratorKlinike a : administratori) {
-            	mailSenderService.sendSimpleMessage(a.getEmail(),"Novi zahtev",
+            	m.sendSimpleMessage(a.getEmail(),"Novi zahtev",
             			 "Pristigao je novi zahtev za zakazivanje termina"+
             			" Za datum: "+zahtev.getDatum()+" i vreme: "+zahtev.getPocetak()+"-"+zahtev.getKraj()+
             			" za posetu: "+ zahtev.getTipPosete()+" tipa: "
@@ -268,26 +259,7 @@ public class KlinikaController {
             }
             return new ResponseEntity<>(zahtev, HttpStatus.OK); //vracanje slobodnih  
         
-
-        System.out.print("Zahtev primljen");
-
-        zahtevService.add(zahtev);
-        List<AdministratorKlinike> administratori=adminklService.findAllByKlinikaId(zahtev.getIdKlinike());
-        MailSenderController m=new MailSenderController();
-        for (AdministratorKlinike a : administratori) {
-            m.sendSimpleMessage(a.getEmail(),"Novi zahtev",
-                    "Pristigao je novi zahtev za zakazivanje termina"+
-                            " Za datum: "+zahtev.getDatum()+" i vreme: "+zahtev.getPocetak()+"-"+zahtev.getKraj()+
-                            " za posetu: "+ zahtev.getTipPosete()+" tipa: "
-                            + ""+zahtev.getStavkaCenovnika()+" od strane: "+zahtev.getTipPosiljaoca()+
-                            ". Ulogujte se na vas nalog kako biste prihvatili ili odbili zahtev."
-                            + ""
-                            + "Ovaj mejl je automatski generisan i na njega nemojte odgovarati.");
-        }
-        return new ResponseEntity<>(zahtev, HttpStatus.OK); //vracanje slobodnih
-
     }
-
 
     @PostMapping(value = "/zakaziPredefTerminn", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Pregled> zakaziPredefTermin(@RequestBody predefDTO pregled)throws Exception{

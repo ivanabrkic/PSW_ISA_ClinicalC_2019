@@ -54,7 +54,7 @@ public class MedicinskaSestraController {
         medSestra.setBrSlobodnihDana(60);
 
         medSestra.setPrvoLogovanje(true);
-        MedicinskaSestra l = medicinskaSestraService.add(medSestra);
+       // MedicinskaSestra l = medicinskaSestraService.add(medSestra);
 
         Message message = medicinskaSestraService.add(medSestra);
 

@@ -90,6 +90,7 @@ public class PacijentController {
             return new ResponseEntity<>(pacijent, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
       
     @PostMapping(value = "/getOperacije", consumes=MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<posetaLekarKlinikaDTO>> getOperacijeById(@RequestBody Long id) {

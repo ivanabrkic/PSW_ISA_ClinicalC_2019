@@ -129,53 +129,37 @@ public class KlinikaService {
 
         return predef;
     }
-// <<<<<<< 2_19+2_17_Algoritam+MejlZahtev
-//     ////////////////////////////// TESLINA METODA /////////////////////////////////////////////////
-//     public List<predefInfoDTO> getPreglediPredef(Long id,String s,Long pacId) throws ParseException {
-    	
-    	
-//         List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef2(id,s);
-// =======
-// <<<<<<< #1_5_Ocenjivanje                     VIDI STA TI TREBA ODAVDE
     
-//     public List<predefInfoDTO> getPreglediPredef(Long id,String modifiedDate,Long pacId) throws ParseException {
+ public List<predefInfoDTO> getPreglediPredefKlinPac(Long id,String s,Long pacId) throws ParseException {
     	
     	
-//         List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id,modifiedDate);
-// =======
+        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id,s);
+        List<Pregled> pacZauzet=pregledRepository.findByPacijentId(pacId);
+        
+        List<predefInfoDTO> odgovarajuci=new ArrayList<>();
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
+        
+        for (predefInfoDTO p:predef) {
+        	boolean found=false;
+        	for (Pregled z:pacZauzet) {
+        		if(sdf.parse(p.getDatum()).compareTo(sdf.parse(z.getDatum()))==0) {//ako se datumi poklapaju
+        			//(StartA <= EndB) and (EndA >= StartB) proveri poklapanje vremena
+        			if( LocalTime.parse(p.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getKraj(), DateTimeFormatter.ofPattern("HH:mm")))<=0)	{
+        				if(LocalTime.parse(p.getKraj(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")))>=0) {
+        					found=true;
+        				}
+        				
+        			}
+        		}
+        	}
+        	if (!found){
+        		odgovarajuci.add(p);
+        	}
+        }
 
-//     public List<predefInfoDTO> getPreglediPredef(Long id,String s,Long pacId) throws ParseException {
-
-
-//         List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id,s);
-// >>>>>>> develop
-// >>>>>>> develop
-//         List<Pregled> pacZauzet=pregledRepository.findByPacijentId(pacId);
-
-//         List<predefInfoDTO> odgovarajuci=new ArrayList<>();
-
-//         SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
-
-//         for (predefInfoDTO p:predef) {
-//             boolean found=false;
-//             for (Pregled z:pacZauzet) {
-//                 if(sdf.parse(p.getDatum()).compareTo(sdf.parse(z.getDatum()))==0) {//ako se datumi poklapaju
-//                     //(StartA <= EndB) and (EndA >= StartB) proveri poklapanje vremena
-//                     if( LocalTime.parse(p.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getKraj(), DateTimeFormatter.ofPattern("HH:mm")))<=0)	{
-//                         if(LocalTime.parse(p.getKraj(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")))>=0) {
-//                             found=true;
-//                         }
-
-//                     }
-//                 }
-//             }
-//             if (!found){
-//                 odgovarajuci.add(p);
-//             }
-//         }
-
-//         return odgovarajuci; //termini koji se ne poklapaju s pacijentovim
-//     }
+        return odgovarajuci; //termini koji se ne poklapaju s pacijentovim
+    }
     ////////////////////// ONA KOJA MENI TREBA  ////////////////////////////////////////////
     public List<predefInfoDTO> getPreglediPredef(Long id) {
         List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id);
@@ -774,4 +758,4 @@ public class KlinikaService {
 	}
 
 }
-}
+
