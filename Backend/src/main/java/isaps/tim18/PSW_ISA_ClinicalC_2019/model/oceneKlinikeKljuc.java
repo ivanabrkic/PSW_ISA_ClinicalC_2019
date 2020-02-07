@@ -2,26 +2,33 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class PacijentiKlinikeKey implements Serializable {
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
+public class oceneKlinikeKljuc  implements Serializable {
 
-	
-    @Column(name = "pacijent_id")
-    Long pacijentId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4258572701809223623L;
 
-    @Column(name = "klinika_id")
-    Long klinikaId;
-
-    public PacijentiKlinikeKey() {
-    }
-
-    public PacijentiKlinikeKey(Long pacijentId, Long klinikaId) {
+	public oceneKlinikeKljuc(Long pacijentId, Long klinikaId) {
         this.pacijentId = pacijentId;
         this.klinikaId = klinikaId;
     }
+
+    @Column(name = "pacijent_id")
+    Long pacijentId;
+
+    @Column(name="klinika_id")
+    Long klinikaId;
+    
+    public oceneKlinikeKljuc() {}
 
     public Long getPacijentId() {
         return pacijentId;
@@ -43,9 +50,9 @@ public class PacijentiKlinikeKey implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PacijentiKlinikeKey that = (PacijentiKlinikeKey) o;
-        return Objects.equals(pacijentId, that.pacijentId) &&
-                Objects.equals(klinikaId, that.klinikaId);
+        oceneKlinikeKljuc that = (oceneKlinikeKljuc) o;
+        return pacijentId.equals(that.pacijentId) &&
+                klinikaId.equals(that.klinikaId);
     }
 
     @Override
@@ -53,11 +60,4 @@ public class PacijentiKlinikeKey implements Serializable {
         return Objects.hash(pacijentId, klinikaId);
     }
 
-    @Override
-    public String toString() {
-        return "PacijentiKlinikeKey{" +
-                "pacijentId=" + pacijentId +
-                ", klinikaId=" + klinikaId +
-                '}';
-    }
 }

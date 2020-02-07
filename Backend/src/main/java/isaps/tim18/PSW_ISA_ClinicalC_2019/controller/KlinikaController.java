@@ -125,6 +125,9 @@ public class KlinikaController {
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
+    
+     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
 
     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody Long id) {
@@ -134,22 +137,21 @@ public class KlinikaController {
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
 
-    ////////////////////////////////////// USLUZIVANJE ZAHTEVA //////////////////////////////////////////
-  // VIDI OVO TESLA
-//     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
-    	
+//     ////////////////////////////////////// USLUZIVANJE ZAHTEVA //////////////////////////////////////////
+// //     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {    	
 
     	
-//     		Calendar cal = Calendar.getInstance();
-//     		SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
-//     		String date=sdf.format(cal.getTime());
+//     	Date date = new Date();
+// 		String modifiedDate= new SimpleDateFormat("d.M.yyyy.").format(date);
 
     	
-//         List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
-
+//         List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(k.getIdKlin(),modifiedDate,k.getIdPac()); //Prosli termini se ne izlistavaju.
 
 //         return new ResponseEntity<>(pregledi, HttpStatus.OK);
 //     }
+
+// //         return new ResponseEntity<>(pregledi, HttpStatus.OK);
+// //     }
 
     @PostMapping(value = "/getZahtevi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Zahtev>> getZahtevi(@RequestBody Long idKlinike) {
