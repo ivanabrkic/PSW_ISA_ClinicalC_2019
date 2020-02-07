@@ -36,10 +36,15 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          if (data.aktivnostNaloga === false) {
+            alert('Nalog jos nije aktiviran!');
+            return;
+          }
+          alert('Uspešno ste se ulogovali!! :-)\n\n');
+          console.log(data);
           this._snackBar.open("Uspešno ste se ulogovali!", "",  {
             duration: 3000,
             verticalPosition: 'bottom'
-            
           });
           if (data.tipKorisnika === 'Pacijent') {
             this.router.navigate(['/pacijentPregled']);

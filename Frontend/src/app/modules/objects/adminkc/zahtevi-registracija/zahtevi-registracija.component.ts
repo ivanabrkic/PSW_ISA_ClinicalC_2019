@@ -44,13 +44,10 @@ export class ZahteviRegistracijaComponent implements OnInit {
     this.izmenjeniKorisnik.aktivnostNaloga = true;
     this.korisnici[indexKorisnika] = this.izmenjeniKorisnik;
     this.korisnikService.updateAktivnost(this.izmenjeniKorisnik).subscribe(
-      data => korisnik,
+      data => this.getKorisnike(),
       err => console.log('Neuspesno nabavljen korisnik'),
       () => console.log('Uspesno dobavljen korisnik')
     );
-    this.korisnikService.updateAktivnost(this.izmenjeniKorisnik).subscribe(data => {
-      this.getKorisnike();
-    });
   }
 
   onItemRejected(korisnik: Korisnik) {

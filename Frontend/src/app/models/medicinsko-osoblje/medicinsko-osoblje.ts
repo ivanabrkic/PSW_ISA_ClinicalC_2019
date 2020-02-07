@@ -3,8 +3,8 @@ import { Korisnik } from '../korisnik/korisnik';
 
 export class MedicinskoOsoblje extends Korisnik{
     brSlobodnihDana : number;
-    ocena : number;
     radnoVreme : string;
+    ocena : number;
+    specijalizacija: String;
     klinika: Klinika;
-    specijalizacija:String;
 }

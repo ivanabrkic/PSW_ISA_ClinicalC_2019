@@ -50,6 +50,7 @@ public class MedicinskaSestraService {
         p.setPrezime(medicinskaSestra.getPrezime());
         p.setKontaktTelefon(medicinskaSestra.getKontaktTelefon());
         p.setLozinka(medicinskaSestra.getLozinka());
+        p.setPrvoLogovanje(medicinskaSestra.isPrvoLogovanje());
         medicinskaSestraRepository.save(p);
         return p;
     }

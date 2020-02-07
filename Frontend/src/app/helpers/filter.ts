@@ -9,11 +9,9 @@ import { Klinika } from '../models/klinika/klinika';
     transform(klinike: Klinika[],  searchDrzava: string, searchGrad: string, searchOcena:string, searchText:string) {
         if( klinike && klinike.length){
             return klinike.filter(item=>{
-              
-              
               var searchOcena2=searchOcena.replace('+','');
               var searchOcenaNum=Number(searchOcena2);
-              
+
 
               if (searchDrzava && item.drzava.toLowerCase().indexOf(searchDrzava.toLowerCase())===-1){
                 return false;
@@ -30,7 +28,7 @@ import { Klinika } from '../models/klinika/klinika';
               }
 
             return true;
-            })   
+            })
         }
         else{
             return klinike;

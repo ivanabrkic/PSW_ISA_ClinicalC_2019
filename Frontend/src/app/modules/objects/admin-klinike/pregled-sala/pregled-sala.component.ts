@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
 import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
@@ -87,15 +88,15 @@ export class PregledSalaComponent implements OnInit {
       if (result != true) {
 
         this.klinikaService.updateSala(result).pipe(first()).subscribe(result => {
-          alert(result.text);
+            alert(result.text);
 
-          this.klinikaService.getSale(this.adminKlinike.klinika.id)
-            .subscribe(data => {
-              this.sale = data;
-              this.dataSource = new MatTableDataSource(this.sale);
-              this.dataSource.sort = this.sort;
-            });
-        },
+            this.klinikaService.getSale(this.adminKlinike.klinika.id)
+              .subscribe(data => {
+                this.sale = data;
+                this.dataSource = new MatTableDataSource(this.sale);
+                this.dataSource.sort = this.sort;
+              });
+          },
           error => {
             alert('Neuspešna izmena!\n\n');
           });
@@ -121,15 +122,15 @@ export class PregledSalaComponent implements OnInit {
     this.registerDialog.afterClosed().subscribe(result => {
       if (result != true) {
         this.klinikaService.registerSala(result).pipe(first()).subscribe(result => {
-          alert(result.text);
+            alert(result.text);
 
-          this.klinikaService.getSale(this.adminKlinike.klinika.id)
-            .subscribe(data => {
-              this.sale = data;
-              this.dataSource = new MatTableDataSource(this.sale);
-              this.dataSource.sort = this.sort;
-            });
-        },
+            this.klinikaService.getSale(this.adminKlinike.klinika.id)
+              .subscribe(data => {
+                this.sale = data;
+                this.dataSource = new MatTableDataSource(this.sale);
+                this.dataSource.sort = this.sort;
+              });
+          },
           error => {
             alert('Neuspešna registracija!\n\n');
           });

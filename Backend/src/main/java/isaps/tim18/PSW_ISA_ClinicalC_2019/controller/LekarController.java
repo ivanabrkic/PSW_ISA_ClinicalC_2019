@@ -49,6 +49,9 @@ public class LekarController {
         lekar.setBrSlobodnihDana(60);
 
         Message message = lekarService.add(lekar);
+      
+        lekar.setPrvoLogovanje(true);
+        Lekar l = lekarService.add(lekar);
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

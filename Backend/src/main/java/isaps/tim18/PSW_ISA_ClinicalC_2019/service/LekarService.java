@@ -53,7 +53,11 @@ public class LekarService {
     public List<Lekar> findAllByKlinika(Klinika k){return lekarRepository.findByKlinika(k);}
 
     public List<Lekar> findByImeAndPrezime(String ime, String prezime) {
-    return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    	return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    }
+    
+    public Lekar findByJbo(String jbo) {
+    	return lekarRepository.findByJbo(jbo);
     }
 
     @Transactional
@@ -70,6 +74,7 @@ public class LekarService {
         p.setPrezime(lekar.getPrezime());
         p.setKontaktTelefon(lekar.getKontaktTelefon());
         p.setLozinka(lekar.getLozinka());
+        p.setPrvoLogovanje(lekar.isPrvoLogovanje());
         lekarRepository.save(p);
         return p;
     }

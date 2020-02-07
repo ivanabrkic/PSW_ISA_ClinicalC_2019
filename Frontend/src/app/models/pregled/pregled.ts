@@ -1,10 +1,10 @@
 export class Pregled{
-    id:number;
+    id: number;
     jboPacijenta:String;
-    jboLekara:String;
+    datum:String;
     pocetak:String;
     kraj:String;
-    datum:String;
+    jboLekara:String;
     tipPregleda:String;
     tipId:number;
     salaId:number;

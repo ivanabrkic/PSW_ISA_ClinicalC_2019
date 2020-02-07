@@ -53,6 +53,9 @@ public class MedicinskaSestraController {
         medSestra.setLozinka("12345678b");
         medSestra.setBrSlobodnihDana(60);
 
+        medSestra.setPrvoLogovanje(true);
+        MedicinskaSestra l = medicinskaSestraService.add(medSestra);
+
         Message message = medicinskaSestraService.add(medSestra);
 
         return new ResponseEntity<>(message, HttpStatus.OK);

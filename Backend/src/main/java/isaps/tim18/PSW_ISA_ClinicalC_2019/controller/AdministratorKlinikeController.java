@@ -52,6 +52,7 @@ public class AdministratorKlinikeController {
                 .aktivnostNaloga(true)
                 .jbo(korisnik.getJbo())
                 .kontaktTelefon(korisnik.getKontaktTelefon())
+                .prvoLogovanje(true)
                 .tipKorisnika("Administrator klinike").build();
 
         Klinika k = klinikaService.findByNaziv(korisnik.getKlinika());

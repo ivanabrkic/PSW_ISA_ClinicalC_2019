@@ -18,6 +18,6 @@ public interface CenovnikRepository extends JpaRepository<Cenovnik, Long> {
     Cenovnik findByNaziv(String ime);
 
     List<Cenovnik> findAll();
-    
+
     Cenovnik findByNazivAndKlinikaId(String n,Long id);
 }

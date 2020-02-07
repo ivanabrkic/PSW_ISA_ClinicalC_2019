@@ -23,21 +23,21 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
-  constructor(private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
+  constructor(private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.dataSource = new MatTableDataSource(null);
   }
 
   ngOnInit() {
     this.adminkService.getUlogovanKorisnik()
-    .subscribe(ulogovanKorisnik => {
-      this.adminKlinike = ulogovanKorisnik;
-      this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
-      .subscribe(data => {
-        this.zahtevi = data;
-        this.dataSource = new MatTableDataSource(this.zahtevi);
-        this.dataSource.sort = this.sort;
-      }); 
-    });
+      .subscribe(ulogovanKorisnik => {
+        this.adminKlinike = ulogovanKorisnik;
+        this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
+          .subscribe(data => {
+            this.zahtevi = data;
+            this.dataSource = new MatTableDataSource(this.zahtevi);
+            this.dataSource.sort = this.sort;
+          });
+      });
 
   }
 
@@ -53,12 +53,12 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
   zahtevObradjenHandler(obradjen : boolean){
     if (!obradjen){
       this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
-      .subscribe(data => {
+        .subscribe(data => {
           this.zahtevi = data;
           this.dataSource = new MatTableDataSource(this.zahtevi);
           this.dataSource.sort = this.sort;
           this.izbor = obradjen
-    });     
+        });
     }
   }
 

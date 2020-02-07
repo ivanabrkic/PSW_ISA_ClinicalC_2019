@@ -18,15 +18,20 @@ insert into sala (naziv, broj, klinika_id) values ('Mala sala', '2A', 1);
 insert into sala (naziv, broj, klinika_id) values ('Velika sala', '1A', 2);
 insert into sala (naziv, broj, klinika_id) values ('Mala sala', '2A', 2);
 
-
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena, specijalizacija) values (1, 33, 1, 'Prva smena od 8:00 do 16:00', 2.3, 'Kardiolog');
 insert into lekar (lekar_id, br_slobodnih_dana, klinika_id, radno_vreme, ocena, specijalizacija) values (2, 54, 1, 'Prva smena od 8:00 do 16:00' , 4.5, 'Anesteziolog');
 
-insert into administrator_klinike (admink_id, klinika_id) values (4, 1);
-insert into administrator_klinike (admink_id, klinika_id) values (5, 2);
 insert into pacijent (pacijent_id) values (6);
 insert into pacijent (pacijent_id) values (7);
 insert into pacijent (pacijent_id) values (3);
+
+insert into zkarton(broj_zk, pacijent_id) values (1, 6);
+insert into zkarton(broj_zk, pacijent_id) values (2, 7);
+insert into zkarton(broj_zk, pacijent_id) values (3, 3);
+
+insert into administrator_klinike (admink_id, klinika_id) values (4, 1);
+insert into administrator_klinike (admink_id, klinika_id) values (5, 2);
+
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (6, 1);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (6, 2);
 insert into pacijenti_klinike (pacijent_id, klinika_id) values (7, 1);
@@ -39,10 +44,6 @@ insert into administrator_klinickog_centra (adminkc_id) values (10);
 insert into dijagnoze (sifra, sifradijagnoze, naziv) values (100,'1sf3','depresija');
 insert into dijagnoze (sifra, sifradijagnoze, naziv) values (200,'1sf124', 'anksioznost');
 
-insert into zkarton(id,pacijent_id) values (1,3);
-
-insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,100);
-
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Popravka zuba', 3000, 1, 'Zubar');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ugradnja stenta', 10000, 1, 'Kardiolog');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Vađenje krajnika', 1500, 1, 'Opšta praksa');
@@ -50,8 +51,16 @@ insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('EKG', 5
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Opšti pregled', 1000, 1, 'Opšta praksa');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ultrazvuk srca', 6000, 1, 'Kardiolog');
 
+
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '31.1.2020.', 3, 1, 2, 4, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '4.1.2020.', 3, 2, 1, 4, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('16:00', '16:30', '29.1.2020.', 7, 2, 2, 4, 'Zakazan');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('12:00', '12:45', '7.2.2020.', 6, 1, 1, 1, 'Zakazan');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '1.2.2020.', 7, 1, 2, 4, 'Završen');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('17:30', '23:45', '6.2.2020.', 6, 1, 1, 1, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '31.2.2020.', 7, 1, 2, 4, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '29.2.2020.', 7, 1, 2, 4, 'Zakazan');
+
 
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:00', '08:15', '7.2.2020.', 1, 2, 6, 60, 'Neaktivan');
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:30', '08:45', '7.2.2020.',2, 2, 1, 10, 'Neaktivan');
@@ -69,9 +78,20 @@ insert into lekovi(sifra, naziv) values ('ry71h', 'bromazemam');
 insert into lekovi(sifra, naziv) values ('r451h', 'sinacilin');
 insert into lekovi(sifra, naziv) values ('r211h', 'gentamicin');
 
-insert into recept(broj, overen, pacijent_id, med_sestra) values (23, false, 3, null);
-insert into recept(broj, overen, pacijent_id, med_sestra) values (29, false, 6, null);
-insert into recept(broj, overen, pacijent_id, med_sestra) values (28, false, 6, null);
+insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton) values (
+'23.02.2020', 'Drogira se', 1, 1
+);
+insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton) values (
+'24.02.2020', 'Ne drogira se vise', 2, 1
+);
+
+insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton) values (
+'22.02.2020', 'Ne drogira se vise', 2, 1
+);
+
+insert into recept(overen, pacijent_id, izvestaj, med_sestra) values (false, 3, 1, null);
+insert into recept(overen, pacijent_id, izvestaj, med_sestra) values (false, 6, 2, null);
+insert into recept(overen, pacijent_id, izvestaj,med_sestra) values (false, 6, 3, null);
 
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 1);
 insert into recept_lekovi(recept_id, lekovi_id) values (1, 2);
@@ -79,3 +99,15 @@ insert into recept_lekovi(recept_id, lekovi_id) values (1, 3);
 insert into recept_lekovi(recept_id, lekovi_id) values (2, 2);
 insert into recept_lekovi(recept_id, lekovi_id) values (3, 3);
 insert into recept_lekovi(recept_id, lekovi_id) values (3, 1);
+
+insert into ocene_lekari values (1,6,3);
+insert into ocene_lekari values (2,3,5);
+insert into ocene_lekari values (2,7,4);
+
+insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, visina) values (1, 'bromazepam', '+2', 'B+', '78', '185');
+insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, visina) values (2, '', '0.3', '0+', '69', '178');
+insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, visina) values (3, '', '0', 'A-', '65', '161');
+
+insert into zkartoni_opsti_izvestaji(opsti_izvestaj_id, zkarton) values (2,1);
+
+insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,100);

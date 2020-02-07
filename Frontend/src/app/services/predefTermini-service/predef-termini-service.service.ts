@@ -25,13 +25,13 @@ export class PredefTerminiServiceService {
 
   public zakaziTermin(zahtev:PredefZahtev){
     let httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
-        const  z= JSON.stringify(zahtev)
-        return this.http.post<Zahtev>('/server/klinika/zakaziTermin', z, httpOptions);
-      }
+    const  z= JSON.stringify(zahtev)
+    return this.http.post<Zahtev>('/server/klinika/zakaziTermin', z, httpOptions);
+  }
 
-public zakaziPredefTermin(pregled:TamarinPregled) {
-  let httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
-  const lek = JSON.stringify(pregled);
-  return this.http.post<Pregled>('/server/klinika/zakaziPredefTerminn' , lek, httpOptions);
-}
+  public zakaziPredefTermin(pregled:TamarinPregled) {
+    let httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
+    const lek = JSON.stringify(pregled);
+    return this.http.post<Pregled>('/server/klinika/zakaziPredefTerminn' , lek, httpOptions);
+  }
 }

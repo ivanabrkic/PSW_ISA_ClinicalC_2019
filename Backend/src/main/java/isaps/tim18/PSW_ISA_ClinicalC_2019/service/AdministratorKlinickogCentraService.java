@@ -45,6 +45,7 @@ public class AdministratorKlinickogCentraService {
         p.setPrezime(administratorKlinickogCentra.getPrezime());
         p.setKontaktTelefon(administratorKlinickogCentra.getKontaktTelefon());
         p.setLozinka(administratorKlinickogCentra.getLozinka());
+        p.setPrvoLogovanje(administratorKlinickogCentra.isPrvoLogovanje());
         administratorKlinickogCentraRepository.save(p);
         return p;
     }

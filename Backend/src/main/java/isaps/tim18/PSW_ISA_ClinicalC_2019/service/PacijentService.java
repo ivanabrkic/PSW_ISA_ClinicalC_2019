@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacijentService {
@@ -54,6 +55,7 @@ public class PacijentService {
         p.setPrezime(pacijent.getPrezime());
         p.setKontaktTelefon(pacijent.getKontaktTelefon());
         p.setLozinka(pacijent.getLozinka());
+        p.setPrvoLogovanje(pacijent.isPrvoLogovanje());
         pacijentRepository.save(p);
         return p;
     }
@@ -79,4 +81,9 @@ public class PacijentService {
     public Pacijent findPacijentByJbo(String jbo) {
         return pacijentRepository.findByJbo(jbo);
     }
+  
+	public Optional<Pacijent> findById(Long id) {
+		return pacijentRepository.findById(id);
+	}
+
 }

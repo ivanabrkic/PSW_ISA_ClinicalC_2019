@@ -10,5 +10,6 @@ export class Korisnik {
   jbo: string;
   aktivnostNaloga: boolean;
   tipKorisnika: string;
+  prvoLogovanje: boolean;
   id: number;
 }

@@ -49,7 +49,6 @@ public class CenovnikController {
         return new ResponseEntity<>(poruka, HttpStatus.OK);
     }
 
-
     @GetMapping(value = "/all", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Cenovnik>> getAllKlinike(){
 

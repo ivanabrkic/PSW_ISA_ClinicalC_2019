@@ -1,9 +1,37 @@
-<app-patient-sidebar></app-patient-sidebar>
+<p *ngIf="this.pacijentJe == true"><app-patient-sidebar></app-patient-sidebar></p>
+<p *ngIf="this.lekarJe == true"><app-sidebarlekar></app-sidebarlekar></p>
+<p *ngIf="this.sestraJe == true"><app-sidebar-med-sestra></app-sidebar-med-sestra></p>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
+          <div *ngIf="(lekarJe || sestraJe) && this.noviPodaci.length > 0" class="card-header card-header-danger">
+            <h4 class="card-title ">Zakazani pregledi</h4>
+          </div>
+          <div *ngIf="(lekarJe || sestraJe) && this.noviPodaci.length > 0" class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Datum pregled</th>
+                <th>Vreme početka pregleda</th>
+                <th>Vreme kraja pregleda</th>
+                <th>Kod lekara</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let podaci of this.noviPodaci">
+                  <td> <span class="badge">{{podaci.pregled.datum}}</span> </td>
+                  <td> <span class="badge">{{podaci.pregled.pocetak}}</span> </td>
+                  <td> <span class="badge">{{podaci.pregled.kraj}}</span> </td>
+                  <td> <span class="badge">{{podaci.pregled.imeLekara}} {{podaci.pregled.prezimeLekara}}</span> </td>
+                  <td *ngIf="podaci.ispunjenUslov"><button (click)="zapocniPregled(sessionService.pacijentProfil, podaci.pregled)">Započni pregled</button></td>
+                  <td *ngIf="podaci.ispunjenUslov !== true"><button disabled>Započni pregled</button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
           <div class="card-header card-header-danger">
             <h4 class="card-title ">Zdravstveni karton</h4>
           </div>
@@ -11,15 +39,163 @@
             <div class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
-                <th>dijagnoza</th>
+                <th>Dijagnoze</th>
                 </thead>
-
                 <tbody>
                 <tr *ngFor="let dijagnoza of dijagnoze">
                   <td> <span class="badge">{{dijagnoza}}</span> </td>
                 </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+          <div class="card-header card-header-danger">
+            <h4 *ngIf="lekarJe" class="card-title ">Dostupni izvestaji sa pregleda</h4>
+            <h4 *ngIf="pacijentJe || sestraJe" class="card-title ">Izvestaji sa pregleda</h4>
+          </div>
+          <div *ngIf="lekarJe" class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Datum pregleda</th>
+                <th>Izvestaj sa pregleda</th>
+                <th>Propisani lekovi</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let izvestaj of this.izvestaji">
+                  <td> <span class="badge">{{izvestaj.datum}}</span> </td>
+                  <td> <a style="cursor:pointer;color:blue;text-decoration:underline;" (click)="prikaziIzvestaj(izvestaj.izvestaj)">Pogledaj izvestaj</a></td>
+                  <td> <a style="cursor:pointer;color:blue;text-decoration:underline;" (click)="prikaziLekove(izvestaj, izvestaj.id)">Pogledaj propisane lekove</a></td>
+                  <td *ngIf="izvestaj.idLekara === this.lekar.id"> <button (click)="izmeniIzvestaj(izvestaj)">Izmeni izvestaj</button></td>
+                  <td *ngIf="izvestaj.idLekara !== this.lekar.id"> Nemate dozvolu za izmenu izvestaja</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="lekarJe" class="card-header card-header-danger">
+            <h4 class="card-title ">Opsti podaci</h4>
+          </div>
+          <div *ngIf="lekarJe" class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                    <p>Dioptrija: <input disabled [(ngModel)]="opstiIzvestaj.dioptrija" placeholder="Dioptrija"></p>
+                </div>
+                <div class="col-md-4">
+                    <p>Visina: <input disabled [(ngModel)]="opstiIzvestaj.visina" placeholder = "Visina"></p>
+                </div>
+                <div class="col-md-4">
+                    <p>Tezina: <input disabled [(ngModel)]="opstiIzvestaj.tezina" placeholder="Tezina"></p>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                    <p>Krvna grupa:<input disabled [(ngModel)]="opstiIzvestaj.krvnaGrupa" placeholder="Krvna grupa"></p>
+                </div>
+                <div class="col-md-4">
+                    <p>Alergije na lekove:
+                      <input *ngIf="this.alergijeNaLek === true" disabled placeholder = "Nije alergican na lekove">
+                      <input *ngIf="this.alergijeNaLek !== true" disabled
+                                                  [(ngModel)]="opstiIzvestaj.alergijeNaLek" placeholder = "Alergije na lekove"></p>
+                </div>
+            </div>
+          </div>
+
+          <div *ngIf="pacijentJe" class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Datum pregleda</th>
+                <th>Izvestaj sa pregleda</th>
+                <th>Propisani lekovi</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let izvestaj of this.izvestaji">
+                  <td> <span class="badge">{{izvestaj.datum}}</span> </td>
+                  <td> <a style="cursor:pointer;color:blue;text-decoration:underline;" (click)="prikaziIzvestaj(izvestaj.izvestaj)">Pogledaj izvestaj</a></td>
+                  <td> <a style="cursor:pointer;color:blue;text-decoration:underline;" (click)="prikaziLekove(izvestaj, izvestaj.id)">Pogledaj propisane lekove</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="pacijentJe" class="card-header card-header-danger">
+            <h4 class="card-title ">Opsti podaci</h4>
+          </div>
+          <div *ngIf="pacijentJe" class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <p>Dioptrija: <input disabled [(ngModel)]="opstiIzvestaj.dioptrija" placeholder="Dioptrija"></p>
+              </div>
+              <div class="col-md-4">
+                <p>Visina: <input disabled [(ngModel)]="opstiIzvestaj.visina" placeholder = "Visina"></p>
+              </div>
+              <div class="col-md-4">
+                <p>Tezina: <input disabled [(ngModel)]="opstiIzvestaj.tezina" placeholder="Tezina"></p>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Krvna grupa:<input disabled [(ngModel)]="opstiIzvestaj.krvnaGrupa" placeholder="Krvna grupa"></p>
+              </div>
+              <div class="col-md-4">
+                <p>Alergije na lekove:
+                  <input *ngIf="this.alergijeNaLek === true" disabled placeholder = "Nije alergican na lekove">
+                  <input *ngIf="this.alergijeNaLek !== true" disabled
+                         [(ngModel)]="opstiIzvestaj.alergijeNaLek" placeholder = "Alergije na lekove"></p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="sestraJe" class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Datum pregleda</th>
+                <th>Izvestaj sa pregleda</th>
+                <th>Pripisani lekovi</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let izvestaj of this.izvestaji">
+                  <td> <span class="badge">{{izvestaj.datum}}</span> </td>
+                  <td> <a style="cursor:pointer;color:blue;text-decoration:underline;" (click)="prikaziIzvestaj(izvestaj.izvestaj)">Pogledaj izvestaj</a></td>
+                  <td> <a style="cursor:pointer;color:blue;text-decoration:underline;" (click)="prikaziLekove(izvestaj, izvestaj.id)">Pogledaj pripisane lekove</a></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="sestraJe" class="card-header card-header-danger">
+            <h4 class="card-title ">Opsti podaci</h4>
+          </div>
+          <div *ngIf="sestraJe" class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <p>Dioptrija: <input disabled [(ngModel)]="opstiIzvestaj.dioptrija" placeholder="Dioptrija"></p>
+              </div>
+              <div class="col-md-4">
+                <p>Visina: <input disabled [(ngModel)]="opstiIzvestaj.visina" placeholder = "Visina"></p>
+              </div>
+              <div class="col-md-4">
+                <p>Tezina: <input disabled [(ngModel)]="opstiIzvestaj.tezina" placeholder="Tezina"></p>
+
+              </div>
+            </div>
+            <div *ngIf="sestraJe" class="row">
+              <div class="col-md-4">
+                <p>Krvna grupa:<input disabled [(ngModel)]="opstiIzvestaj.krvnaGrupa" placeholder="Krvna grupa"></p>
+              </div>
+              <div class="col-md-4">
+                <p>Alergije na lekove:
+                  <input *ngIf="this.alergijeNaLek === true" disabled placeholder = "Nije alergican na lekove">
+                  <input *ngIf="this.alergijeNaLek !== true" disabled
+                         [(ngModel)]="opstiIzvestaj.alergijeNaLek" placeholder = "Alergije na lekove"></p>
+              </div>
             </div>
           </div>
         </div>

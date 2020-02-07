@@ -2,6 +2,12 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Set;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name="klinika")
 public class Klinika {
@@ -30,6 +36,12 @@ public class Klinika {
 
     @Column(name="ocena",unique=false)
     private float ocena;
+
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "klinika")
+    Set<oceneKlinike> ocene;
+
 
     public Klinika(){
 

@@ -3,8 +3,7 @@ import {Recept} from '../../../../models/Recept/recept';
 import {MatDialog} from '@angular/material/dialog';
 import {ReceptServiceService} from '../../../../services/recept-service/recept-service.service';
 import {MedicinskaSestra} from '../../../../models/medicinskas/medicinskas';
-import {KorisnikService} from "../../../../services/korisnik-service/korisnik.service";
-import {MedicinskaSestraService} from "../../../../services/medicinska-sestra-service/medicinska-sestra.service";
+import {MedicinskaSestraService} from '../../../../services/medicinska-sestra-service/medicinska-sestra.service';
 
 
 @Component({
@@ -49,8 +48,8 @@ export class OveraRecepataComponent implements OnInit {
   }
 
   Overi(r: Recept) {
-    const indexRecepta = this.recepti.findIndex(item => (item.broj === r.broj && item.pacijent === r.pacijent));
-    this.izmenjeniRecept = this.recepti.find(item => (item.broj === r.broj && item.pacijent === r.pacijent));
+    const indexRecepta = this.recepti.findIndex(item => (item.id === r.id && item.pacijent === r.pacijent));
+    this.izmenjeniRecept = this.recepti.find(item => (item.id === r.id && item.pacijent === r.pacijent));
     this.izmenjeniRecept.overen = true;
     console.log(this.medSestra);
     this.izmenjeniRecept.medicinskaSestra = this.medSestra;
@@ -64,8 +63,8 @@ export class OveraRecepataComponent implements OnInit {
   }
 
   Ponisti(r: Recept){
-    const indexRecepta = this.recepti.findIndex(item => (item.broj === r.broj && item.pacijent === r.pacijent));
-    this.izmenjeniRecept = this.recepti.find(item => (item.broj === r.broj && item.pacijent === r.pacijent));
+    const indexRecepta = this.recepti.findIndex(item => (item.id === r.id && item.pacijent === r.pacijent));
+    this.izmenjeniRecept = this.recepti.find(item => (item.id === r.id && item.pacijent === r.pacijent));
     console.log(this.izmenjeniRecept);
     this.receptService.Obrisi(this.izmenjeniRecept).subscribe(
       data => r,

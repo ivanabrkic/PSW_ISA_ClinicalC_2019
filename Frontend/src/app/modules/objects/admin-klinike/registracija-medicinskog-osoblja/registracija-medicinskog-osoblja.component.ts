@@ -34,19 +34,19 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
   constructor(private _snackBar: MatSnackBar,private dialogRef: MatDialogRef<RegistracijaMedicinskogOsobljaComponent>,
-    private formBuilder: FormBuilder, private adminkService:AdminKlinikeService, private lekarService: LekarService, private medSestraService: MedicinskaSestraService
+              private formBuilder: FormBuilder, private adminkService:AdminKlinikeService, private lekarService: LekarService, private medSestraService: MedicinskaSestraService
   ) {
     this.adminkService.getUlogovanKorisnik()
-    .subscribe(ulogovanKorisnik => {
-      this.adminKlinike = ulogovanKorisnik;
-    });
+      .subscribe(ulogovanKorisnik => {
+        this.adminKlinike = ulogovanKorisnik;
+      });
   }
 
   ngOnInit() {
     this.adminkService.getUlogovanKorisnik()
-    .subscribe(ulogovanKorisnik => {
-      this.adminKlinike = ulogovanKorisnik;
-    });
+      .subscribe(ulogovanKorisnik => {
+        this.adminKlinike = ulogovanKorisnik;
+      });
 
     this.radnoVreme = ['Prva smena od 8:00 - 16:00', 'Druga smena od 16:00 do 00:00', 'Treca smena od 00:00 do 8:00']
     this.specijalizacije = ['Zubar', 'Kardiolog', 'Anesteziolog', 'Psihijatar', 'Ginekolog', 'Opšta praksa', 'Nefrolog', 'Urolog', 'Dermatolog', 'Neurolog']
@@ -105,7 +105,7 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
     this.registerForm.controls['specijalizacija'].setValue(this.selectedSpec)
     this.registerForm.controls['tipKorisnika'].setValue(this.selectedTip)
     this.registerForm.controls['klinika'].setValue(this.adminKlinike.klinika)
-    
+
     this.loading = true
 
     this.dialogRef.close(this.registerForm.value)

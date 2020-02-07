@@ -61,7 +61,7 @@ export class PredefinisaniTerminiComponent implements OnInit {
   constructor(private pfService : PredefTerminiServiceService, private _snackBar: MatSnackBar, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.dataSource = new MatTableDataSource(null);
     this.dataSource2 = new MatTableDataSource(null);
-   }
+  }
 
   ngOnInit() {
     this.sati = [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -81,11 +81,11 @@ export class PredefinisaniTerminiComponent implements OnInit {
         this.tipovi = data
         this.selectedTip = this.tipovi[0]
 
-        this.pfService.findAll(this.klinikaId).subscribe(data => {
-          this.predef = data
-          this.dataSource2 = new MatTableDataSource(this.predef);
-          this.dataSource2.sort = this.sort;
-        })
+        // this.pfService.findAll(this.klinikaId).subscribe(data => {
+        //   this.predef = data
+        //   this.dataSource2 = new MatTableDataSource(this.predef);
+        //   this.dataSource2.sort = this.sort;
+        // })
 
 
       })
@@ -192,11 +192,11 @@ export class PredefinisaniTerminiComponent implements OnInit {
         duration: 2000,
         verticalPosition: 'top'
       });
-      this.pfService.findAll(this.klinikaId).subscribe(data => {
-        this.predef = data
-        this.dataSource2 = new MatTableDataSource(this.predef);
-        this.dataSource2.sort = this.sort;
-      })
+      // this.pfService.findAll(this.klinikaId).subscribe(data => {
+      //   this.predef = data
+      //   this.dataSource2 = new MatTableDataSource(this.predef);
+      //   this.dataSource2.sort = this.sort;
+      // })
 
     })
 

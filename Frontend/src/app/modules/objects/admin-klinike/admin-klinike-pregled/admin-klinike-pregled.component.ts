@@ -9,8 +9,8 @@ import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admi
 export class AdminKlinikePregledComponent implements OnInit {
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
- 
-  constructor(private adminkService: AdminKlinikeService) { 
+
+  constructor(private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.adminKlinike = ulogovanKorisnik;
