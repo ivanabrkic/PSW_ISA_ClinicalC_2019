@@ -87,9 +87,9 @@ public class CenovnikService {
         Cenovnik found=cenovnikRepository.findByNaziv(ime);
         return found.getSpecijalizacija();
     }
-    
+
     public float findByNazivAndKlinikaId(String n,Long id) {
-    	return cenovnikRepository.findByNazivAndKlinikaId(n, id).getCena();
+        return cenovnikRepository.findByNazivAndKlinikaId(n, id).getCena();
     }
 
     public List<Cenovnik> findAll(){

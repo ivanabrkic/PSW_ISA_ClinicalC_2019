@@ -66,6 +66,7 @@ export class RegistracijaAdministratoraKlinikeComponent implements OnInit {
     this.loading = true;
     this.AdminService.save(this.helperClass).pipe(first()).subscribe(result => {
         alert('Prosledjivanje zahteva');
+        result.prvoLogovanje = true;
       },
       error => {
         this.router.navigate(['administratorKc'])

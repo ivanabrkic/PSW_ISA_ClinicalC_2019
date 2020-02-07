@@ -3,8 +3,12 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
+
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
+
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,10 +20,22 @@ import java.util.Optional;
 @Repository
 public interface PregledRepository  extends JpaRepository<Pregled, Long> {
 
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.lekar.jbo, p.lekar.ime, p.lekar.prezime) " +
+            "FROM Pregled p WHERE p.lekar.id = ?1")
+    List<PregledIzvestajDTO> nadjiPoIdLekara(Long id);
+
     void deleteBySalaId(Long id);
-    
+
     List<Pregled> findByPacijentId(Long id);
-    
+
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.lekar.jbo, p.lekar.ime, p.lekar.prezime) " +
+            "FROM Pregled p WHERE p.status = 'Zakazan' AND p.pacijent.jbo = ?2 AND p.lekar.jbo = ?1")
+    List<PregledIzvestajDTO> getZakazaneByLekarAndPacijent(String jboLekara, String jboPacijenta);
+
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.lekar.jbo, p.lekar.ime, p.lekar.prezime) " +
+            "FROM Pregled p WHERE p.status = 'Zakazan'")
+    List<PregledIzvestajDTO> getZakazaneByPacijent(String jboPacijent);
+
     Optional<Pregled> findById(Long id);
 
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO(c.naziv, p.pacijent.jbo, p.lekar.jbo, p.datum, p.pocetak, p.kraj) FROM Pregled p LEFT OUTER JOIN Cenovnik c ON p.cenovnik.id = c.id " +
@@ -42,11 +58,12 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
             " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
             " AND o.datum = ?2 AND NOT o.status = 'Završen'", nativeQuery = true)
     List<Long> findByKlinikaIdAndVreme(Long idKlinike, String datum, String pocetak, String kraj);
-    
+
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO(p.id,c.naziv,  p.datum, p.pocetak, p.kraj,s.naziv,s.broj,k.naziv,l.ime,l.prezime,c.cena,p.popust,k.id,c.id,l.jbo,s.id) FROM Pregled p INNER JOIN Cenovnik c ON p.cenovnik.id = c.id INNER JOIN p.sala as s INNER JOIN s.klinika as k INNER JOIN p.lekar as l " +
-            "WHERE k.id = ?1 AND p.status = 'Neaktivan' AND date(to_date(?2,'d.m.yyyy.'))< date(to_date(p.datum,'d.m.yyyy.'))" 
+            "WHERE k.id = ?1 AND p.status = 'Neaktivan' AND date(to_date(?2,'d.m.yyyy.'))< date(to_date(p.datum,'d.m.yyyy.'))"
            )
     List<predefInfoDTO> findByKlinikaIdPredef(Long id,String danas);
+
 
     @Query("SELECT p FROM Pregled p WHERE p.cenovnik.id = ?1 " +
             "AND NOT p.status = 'Završen'")

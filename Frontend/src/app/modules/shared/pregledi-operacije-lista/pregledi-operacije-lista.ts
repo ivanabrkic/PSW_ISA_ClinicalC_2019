@@ -14,7 +14,7 @@ import { Pacijent } from 'src/app/models/pacijent/pacijent';
     private posete: Poseta[];
 
     private pacijent: Pacijent=new Pacijent();
-  
+
     constructor(private poseteService: PoseteService,private pacijentService: PacijentService) {
       this.pacijentService.getUlogovanKorisnik()
       .subscribe(
@@ -29,8 +29,8 @@ import { Pacijent } from 'src/app/models/pacijent/pacijent';
        );
 
     }
-  
- 
+
+
     ngOnInit() {
       this.pacijentService.getUlogovanKorisnik()
       .subscribe(
@@ -46,4 +46,3 @@ import { Pacijent } from 'src/app/models/pacijent/pacijent';
 
     }
   }
-  

@@ -23,7 +23,7 @@ export class ProfilKlinikeComponent implements OnInit {
   lekariNavigate(event){
         var testdatum=null;
       this.router.navigate(['/listaLekara'],{state:{klinika:this.klinika,datum:testdatum}});
-    
+
   }
   predefinisaniNavigate(event){
   this.router.navigate(['/listaPredefinisanih'],{state:{klinika:this.klinika.id}});

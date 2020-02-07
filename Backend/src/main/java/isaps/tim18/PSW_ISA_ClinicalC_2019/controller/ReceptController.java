@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Izvestaj;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Recept;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.ReceptService;
@@ -60,10 +61,32 @@ public class ReceptController {
 
     @PostMapping(value = "/neoveren", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Recept> ukloniOdbijen(@RequestBody Recept recept) throws Exception {
-        System.out.println(recept.getBroj());
 
-        receptService.removeByBrojAndPacijent(recept);
+
+        receptService.removeById(recept);
 
         return new ResponseEntity<>(recept, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/findById", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Recept> findById(@RequestBody Long receptId) throws Exception {
+        Recept recept = receptService.findById(receptId);
+
+        return new ResponseEntity<>(recept, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/findByIzvestaj", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Recept> findByIzvestaj(@RequestBody Long id) throws Exception {
+        Recept recept = receptService.findByIzvestaj(id);
+        System.out.println("Id izvestaja: " + id);
+        return new ResponseEntity(recept, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/update", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Recept> update(@RequestBody Recept noviRecept) throws Exception {
+        Recept recept = receptService.update(noviRecept);
+
+        return new ResponseEntity<>(recept, HttpStatus.OK);
+    }
+
 }

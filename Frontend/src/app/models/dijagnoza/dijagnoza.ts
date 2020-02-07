@@ -1,5 +1,5 @@
 export class Dijagnoza {
-  sifra: string;
+  sifra: number;
   sifraDijagnoze: string;
   nazivDijagnoze: string;
 

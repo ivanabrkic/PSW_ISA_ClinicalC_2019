@@ -30,24 +30,24 @@ import { PredefinisaniTerminiComponent } from './predefinisani-termini/predefini
 import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
 
 @NgModule({
-  declarations: [SidebarAdminKlinikeComponent, 
-                AdminKlinikeIzmenaComponent, 
-                AdminKlinikePregledComponent,
-                IzmenaProfilKlinikeComponent,
-                RegistracijaMedicinskogOsobljaComponent,
-                TabelaMedicinskogOsobljaComponent,
-                DetaljiComponent,
-                PregledSalaComponent,
-                RegistracijaSalaComponent,
-                ZahteviOperacijePreglediComponent,
-                IzborSaleComponent,
-                ZakaziTerminComponent,
-                MapaComponent,
-                TipoviPregledaComponent,
-                RegistracijaTipovaComponent,
-                PredefinisaniTerminiComponent
-    ],
-    imports: [
+  declarations: [SidebarAdminKlinikeComponent,
+    AdminKlinikeIzmenaComponent,
+    AdminKlinikePregledComponent,
+    IzmenaProfilKlinikeComponent,
+    RegistracijaMedicinskogOsobljaComponent,
+    TabelaMedicinskogOsobljaComponent,
+    DetaljiComponent,
+    PregledSalaComponent,
+    RegistracijaSalaComponent,
+    ZahteviOperacijePreglediComponent,
+    IzborSaleComponent,
+    ZakaziTerminComponent,
+    MapaComponent,
+    TipoviPregledaComponent,
+    RegistracijaTipovaComponent,
+    PredefinisaniTerminiComponent
+  ],
+  imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -59,7 +59,7 @@ import { PredefTerminiServiceService } from 'src/app/services/predefTermini-serv
     AngularFontAwesomeModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatSelectModule, 
+    MatSelectModule,
     MatCheckboxModule,
     MatIconModule,
     RadniKalendarSaleModule,
@@ -75,18 +75,18 @@ import { PredefTerminiServiceService } from 'src/app/services/predefTermini-serv
     MatButtonModule,
     MatPaginatorModule,
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
-                          { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
-                          { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
-                          { path: 'medicinskoosoblje', component: TabelaMedicinskogOsobljaComponent},
-                          { path: 'sale', component: PregledSalaComponent},
-                          {path: 'zahtevi', component: ZahteviOperacijePreglediComponent},
-                          {path: 'tipovi', component:TipoviPregledaComponent},
-                          {path: 'predefinisani', component:PredefinisaniTerminiComponent}
-  ]),
-  AgmCoreModule.forRoot({
-    apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
-    libraries: ['places']
-  })
+      { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
+      { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
+      { path: 'medicinskoosoblje', component: TabelaMedicinskogOsobljaComponent},
+      { path: 'sale', component: PregledSalaComponent},
+      {path: 'zahtevi', component: ZahteviOperacijePreglediComponent},
+      {path: 'tipovi', component:TipoviPregledaComponent},
+      {path: 'predefinisani', component:PredefinisaniTerminiComponent}
+    ]),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
+      libraries: ['places']
+    })
   ],
   entryComponents: [
     DetaljiComponent,
@@ -96,15 +96,15 @@ import { PredefTerminiServiceService } from 'src/app/services/predefTermini-serv
     RegistracijaTipovaComponent
   ],
   providers: [AdminKlinikeService, PredefTerminiServiceService],
-  exports:   [SidebarAdminKlinikeComponent, 
-              AdminKlinikeIzmenaComponent, 
-              AdminKlinikePregledComponent, 
-              IzmenaProfilKlinikeComponent,
-              TabelaMedicinskogOsobljaComponent],
-  bootstrap: [SidebarAdminKlinikeComponent, 
-              AdminKlinikeIzmenaComponent, 
-              AdminKlinikePregledComponent, 
-              IzmenaProfilKlinikeComponent,
-              TabelaMedicinskogOsobljaComponent]
+  exports:   [SidebarAdminKlinikeComponent,
+    AdminKlinikeIzmenaComponent,
+    AdminKlinikePregledComponent,
+    IzmenaProfilKlinikeComponent,
+    TabelaMedicinskogOsobljaComponent],
+  bootstrap: [SidebarAdminKlinikeComponent,
+    AdminKlinikeIzmenaComponent,
+    AdminKlinikePregledComponent,
+    IzmenaProfilKlinikeComponent,
+    TabelaMedicinskogOsobljaComponent]
 })
 export class AdminKlinikeModule { }

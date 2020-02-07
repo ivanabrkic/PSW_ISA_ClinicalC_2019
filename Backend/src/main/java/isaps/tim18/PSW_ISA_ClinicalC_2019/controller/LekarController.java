@@ -36,7 +36,7 @@ public class LekarController {
         lekar.setAktivnostNaloga(true);
         lekar.setLozinka("12345678b");
         lekar.setBrSlobodnihDana(60);
-
+        lekar.setPrvoLogovanje(true);
         Lekar l = lekarService.add(lekar);
 
         if (l != null){

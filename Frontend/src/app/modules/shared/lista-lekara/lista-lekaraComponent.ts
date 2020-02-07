@@ -26,7 +26,7 @@ import { DatePipe } from '@angular/common';
 
 export class ListaLekaraComponent implements OnInit {
   private klinika: Klinika;
-  private lekari: Lekar[];  
+  private lekari: Lekar[];
   private terminiSakriveni:boolean=false;
   private lekaritermini:Map<String,Lekar>=new Map();
   private termini: String[];
@@ -64,10 +64,10 @@ export class ListaLekaraComponent implements OnInit {
   getLekari() {
 
     this.listaLekaraService.getSlobodniLekariTermini(this.zahtev).subscribe(
-      podaci => {this.lekaritermini = podaci; 
+      podaci => {this.lekaritermini = podaci;
 
         this.lekari=Object.values(this.lekaritermini).filter((thing,i,arr)=>arr.findIndex(t=>t.id===thing.id)===i);
-   
+
         console.log(this.lekari);
         this.termini=Object.keys(this.lekaritermini);
         this.termini=Object.keys(this.lekaritermini).sort((n1,n2)=>{
@@ -79,18 +79,18 @@ export class ListaLekaraComponent implements OnInit {
           }
           return 0;
         });
-        
+
       },
       err => console.log('Nisu ucitani lekari'),
       () => console.log(this.lekaritermini)
-      
+
     );
-    
+
   }
 
   addEvent(type:string,event:MatDatepickerInputEvent<Date>){
     var selectedD=this.date.value;
-    this.selectedDate=moment(selectedD).format('D.M.YYYY.');   
+    this.selectedDate=moment(selectedD).format('D.M.YYYY.');
   }
 
   getSelectedTermin(id:number){
@@ -113,10 +113,10 @@ export class ListaLekaraComponent implements OnInit {
           if(parseInt(hours)==23)
             var hrs=0;
           else{
-          var hrs=parseInt(hours)+1;
-        }
+            var hrs=parseInt(hours)+1;
+          }
           var mins=parseInt(minutes)-30;
-          
+
         }
 
         var hrString=String(hrs);
@@ -139,17 +139,17 @@ export class ListaLekaraComponent implements OnInit {
         if(this.zahtev.specijalizacija!=null)
           zahtev.stavkaCenovnika=this.zahtev.specijalizacija; //ili ce biti pokupljeno iz prosle stranice ili izmenjeno na onchange,u suprotnom error
         else {
-          alert("Morate izabrati tip pregleda"); 
+          alert("Morate izabrati tip pregleda");
           return; }
         if (this.dodatneInfo.length>=1)
-              zahtev.dodatneInformacije=this.dodatneInfo;
-        else 
+          zahtev.dodatneInformacije=this.dodatneInfo;
+        else
           zahtev.dodatneInformacije="Nema dodatnih informacija";
         zahtev.tipPosiljaoca='Pacijent';
         zahtev.jboLekara=this.izabraniLekar.jbo;
         this.predefTermService.zakaziTermin(zahtev).subscribe( data=>{alert('Termin uspesno zakazan');})
-       
-     },
+
+      },
     );
   }
 
@@ -186,12 +186,12 @@ export class ListaLekaraComponent implements OnInit {
     this.izabraniLekar=lekar;
     this.zahtev.start=this.getSelectedTermin(this.izabraniLekar.id)
   }
- 
+
 
   ngOnInit() {
 
     var selectedD=this.date.value;
-    this.selectedDate=moment(selectedD).format('D.M.YYYY.'); 
+    this.selectedDate=moment(selectedD).format('D.M.YYYY.');
     this.klinika=history.state.klinika;
     this.zahtev=history.state.zahtev;
     this.izabraniTip=history.state.tip;
@@ -205,5 +205,5 @@ export class ListaLekaraComponent implements OnInit {
 
   }
 
- 
+
 }

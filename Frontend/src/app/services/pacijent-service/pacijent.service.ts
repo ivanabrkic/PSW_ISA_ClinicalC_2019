@@ -25,4 +25,8 @@ export class PacijentService {
   getPacijenti() {
     return this.http.get('/server/pacijent/allZahtevi');
   }
+
+  getPacijentiAll() {
+    return this.http.get('/server/pacijent/all');
+  }
 }

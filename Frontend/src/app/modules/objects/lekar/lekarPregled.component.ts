@@ -10,7 +10,7 @@ export class LekarPregledComponent implements OnInit {
 
   lekar: Lekar = new Lekar();
 
-  constructor(private lekarService : LekarService) { 
+  constructor(private lekarService : LekarService) {
     this.lekarService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.lekar = ulogovanKorisnik;

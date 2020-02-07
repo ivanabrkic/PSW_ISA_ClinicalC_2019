@@ -20,11 +20,11 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
-  constructor(private _snackBar: MatSnackBar,private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
+  constructor(private _snackBar: MatSnackBar,private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
-    .subscribe(ulogovanKorisnik => {
-      this.adminKlinike = ulogovanKorisnik;
-    });
+      .subscribe(ulogovanKorisnik => {
+        this.adminKlinike = ulogovanKorisnik;
+      });
   }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
       grad: [''],
       naziv: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      ocena: ['']    
+      ocena: ['']
     },  {
     });
 
@@ -53,7 +53,7 @@ export class IzmenaProfilKlinikeComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
-    
+
     // stop here if form is invalid
     if (this.klinikaForm.invalid) {
       return;
