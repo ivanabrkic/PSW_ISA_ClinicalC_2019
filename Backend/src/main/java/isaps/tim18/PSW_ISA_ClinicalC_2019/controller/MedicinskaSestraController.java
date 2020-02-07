@@ -53,6 +53,7 @@ public class MedicinskaSestraController {
         medSestra.setAktivnostNaloga(true);
         medSestra.setLozinka("12345678b");
         medSestra.setBrSlobodnihDana(60);
+        medSestra.setPrvoLogovanje(true);
         MedicinskaSestra l = medicinskaSestraService.add(medSestra);
 
         if (l != null){

@@ -28,7 +28,7 @@ export class RegistracijaSalaComponent implements OnInit {
   idSale: number
 
   constructor(private _snackBar: MatSnackBar, private dialogRef: MatDialogRef<RegistracijaSalaComponent>,
-    private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService, @Inject(MAT_DIALOG_DATA) data) {
+              private formBuilder: FormBuilder, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService, @Inject(MAT_DIALOG_DATA) data) {
     this.izmena = data.izmeni
     if (data.izmeni) {
       this.title = 'Izmeni podatke o sali'

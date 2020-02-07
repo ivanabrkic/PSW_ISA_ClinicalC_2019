@@ -1,0 +1,49 @@
+<p *ngIf="this.lekarJe == true"><app-sidebarlekar></app-sidebarlekar></p>
+<p *ngIf="this.sestraJe == true"><app-sidebar-med-sestra></app-sidebar-med-sestra></p>
+<div class="content-container" >
+  <div class="container-fluid" style = "width: 100%;">
+    <div class="main-content" style  = "width: 100%;">
+      <div class="container-fluid" >
+        <div class="row" >
+          <div class="col-md-8">
+            <form (ngSubmit)="onSubmit()" [formGroup]="izvestajForm">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h5 class="card-title">Izveštaj pregleda</h5>
+                </div>
+                <div class="card-body">
+                  <div class = "row">
+                    <div class = "col-md-7">
+                      <textarea style = "height: 350px;width: 450px; outline: none" placeholder="Unesite informacije o pregledu"
+                                [(ngModel)] = "izvestajStari.izvestaj" #izvestaj [ngClass]="{ 'is-invalid': submitted && f.izvestaj.errors }" formControlName="izvestaj"
+                                class="mat-form-control">
+                        <mat-error *ngIf="submitted && f.izvestaj.errors">
+                          <div *ngIf="f.izvestaj.errors.required">Unos izvestaja je obavezan</div>
+                        </mat-error>
+                      ></textarea>
+                    </div>
+                    <div class = "col-md-3">
+                      <div style = "width: 350px;">
+                        <button type="button" style = "height: 35px; margin-left: 3px" class = "btn btn-info"
+                                (click)="unesiDijagnoze()">Evidentiraj dijagnoze</button>
+                        <label *ngIf="uneteDijagnoze === true" style = "color: red">*Dijagnoze unete!</label>
+                      </div>
+                      <div style = "width: 350px">
+                        <button type="button" style = "height: 35px;margin-left: 3px; margin-top: 5px" class = "btn btn-info"
+                                (click)="kreirajRecept()">Kreiraj recept</button>
+                        <label *ngIf="kreiranRecept === true" style = "color: red">*Recept kreiran!</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style = "float:right; margin-top: 10px">
+                    <button type = "submit" mat-raised-button style = "margin-left: 5px" class = "btn btn-success">Sačuvaj izmene</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

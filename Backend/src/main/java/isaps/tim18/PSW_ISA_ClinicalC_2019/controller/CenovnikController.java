@@ -53,19 +53,19 @@ public class CenovnikController {
         return new ResponseEntity<>(poruka, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/all", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> getAllKlinike(){
-
-        List<Cenovnik> listaCenovnika =  cenovnikService.findAll();
-        List<String>tipovi=new ArrayList<>();
-
-        for (Cenovnik c:listaCenovnika){
-            tipovi.add(c.getNaziv());
-        }
-
-        return new ResponseEntity<>(tipovi, HttpStatus.OK);
-    }
-
+//    @GetMapping(value = "/all", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<String>> getAllKlinike(){
+//
+//        List<Cenovnik> listaCenovnika =  cenovnikService.findAll();
+//        List<String>tipovi=new ArrayList<>();
+//
+//        for (Cenovnik c:listaCenovnika){
+//            tipovi.add(c.getNaziv());
+//        }
+//
+//        return new ResponseEntity<>(tipovi, HttpStatus.OK);
+//    }
+//
     @GetMapping(value = "/all", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Cenovnik>> getAllKlinike(){
 

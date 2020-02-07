@@ -28,12 +28,15 @@ import * as moment from 'moment';
     private tipSort:boolean=true;
     private sortDatum:boolean=true;
   
-    constructor(private poseteService: PoseteService,private pacijentService: PacijentService) {
 
+    constructor(private poseteService: PoseteService,private pacijentService: PacijentService) {
       this.getPosete()
     }
   
-    getPosete(){
+    getPosete(){}
+
+
+    ngOnInit() {
       this.pacijentService.getUlogovanKorisnik()
       .subscribe(
         ulogovanKorisnik => {
@@ -196,4 +199,3 @@ import * as moment from 'moment';
     }
 
   }
-  

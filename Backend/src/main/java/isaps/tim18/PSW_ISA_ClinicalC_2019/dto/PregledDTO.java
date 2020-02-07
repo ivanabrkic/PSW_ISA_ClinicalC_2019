@@ -1,6 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.dto;
 
 public class PregledDTO {
+
     private String jboPacijenta;
 
     private String datum;

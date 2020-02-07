@@ -4,10 +4,12 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.HelperRejectedMail;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
@@ -16,6 +18,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "korisnik")
 public class KorisnikController {
+
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
 
     @Autowired
     private KorisnikService korisnikService;
@@ -37,13 +42,16 @@ public class KorisnikController {
     }
 
     @PostMapping(value = "/updateAktivnost", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Korisnik> updateAktivnost(@RequestBody Korisnik korisnik) throws Exception {
+    public ResponseEntity<Korisnik> updateAktivnost(@RequestBody Korisnik korisnik, WebRequest request) throws Exception {
         korisnikService.updateAktivnost(korisnik);
 
-        MailSenderController mailSender = new MailSenderController();
-
-        mailSender.sendSimpleMessage(korisnik.getEmail(), "Registracija na servis kliničkog centra",
-                 korisnik.getIme() + ", uspešno ste se registrovali na servis!");
+        try {
+            String appUrl = request.getContextPath();
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent
+                    (korisnik, appUrl));
+        } catch (Exception me) {
+            me.printStackTrace();
+        }
 
         return new ResponseEntity<>(korisnik, HttpStatus.OK);
     }

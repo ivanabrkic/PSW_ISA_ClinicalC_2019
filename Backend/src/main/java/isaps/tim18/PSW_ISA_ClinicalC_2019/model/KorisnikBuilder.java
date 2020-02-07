@@ -13,6 +13,7 @@ public class KorisnikBuilder {
     private String jbo;
     private Boolean aktivnostNaloga;
     private String tipKorisnika;
+    private Boolean prvoLogovanje;
 
 
     public KorisnikBuilder() {
@@ -30,6 +31,7 @@ public class KorisnikBuilder {
         this.jbo = korisnik.getJbo();
         this.aktivnostNaloga = korisnik.getAktivnostNaloga();
         this.tipKorisnika = korisnik.getTipKorisnika();
+        this.prvoLogovanje = true;
 
     }
 
@@ -88,6 +90,11 @@ public class KorisnikBuilder {
         return this;
     }
 
+    public KorisnikBuilder prvoLogovanje(Boolean bool){
+        this.prvoLogovanje = bool;
+        return this;
+    }
+
     public Korisnik build() {
         Korisnik korisnik = new Korisnik();
         korisnik.setGrad(grad);
@@ -101,6 +108,7 @@ public class KorisnikBuilder {
         korisnik.setJbo(jbo);
         korisnik.setTipKorisnika(tipKorisnika);
         korisnik.setAktivnostNaloga(aktivnostNaloga);
+        korisnik.setPrvoLogovanje(prvoLogovanje);
 
         return korisnik;
     }

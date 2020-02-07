@@ -28,7 +28,7 @@ export class PredefinisaniTerminiComponent implements OnInit {
   izabraniTermin:predefInfo;
   dodatneInfo:String;
 
-  constructor(private predefService: PredefTerminiServiceService , private pacService:PacijentService) { 
+  constructor(private predefService: PredefTerminiServiceService , private pacService:PacijentService) {
   }
 
   onSelect(selected:predefInfo): void {
@@ -56,22 +56,22 @@ export class PredefinisaniTerminiComponent implements OnInit {
         err => console.log('Nisu ucitani'),
         () => console.log(this.termini)
       );})
-   
+
   }
 
   zakaziNavigate(event){
-    
+
     //zahtev.dodatneInformacije=
     this.pacService.getUlogovanKorisnik().subscribe(
       podaci => {
         var zahtev=new TamarinPregled;
         zahtev.id=this.izabraniTermin.id;
         zahtev.pacijent_id=podaci.id;
-        this.predefService.zakaziPredefTermin(zahtev).subscribe(data=>{     
-         console.log(data);
+        this.predefService.zakaziPredefTermin(zahtev).subscribe(data=>{
+          console.log(data);
           alert('Termin uspesno zakazan');})
-  
-     },
+
+      },
     );
   }
 
