@@ -1,0 +1,197 @@
+<sidebar-admin-klinike></sidebar-admin-klinike>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Dodavanje predefinisanih termina</h4>
+                    </div>
+                    <div class="card-body">
+                        <mat-horizontal-stepper [linear]=true #stepper>
+                            <mat-step>
+                                <ng-template matStepLabel>Tip pregleda, popust i trajanje</ng-template>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Tip pregleda</mat-label>
+                                            <mat-select #t (selectionChange)="onChangeTip(t.value)"
+                                                [(value)]="selectedTip">
+                                                <mat-option *ngFor="let t of tipovi" [value]="t">{{t.naziv}} -
+                                                    {{t.cena}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Popust</mat-label>
+                                            <mat-select #p (selectionChange)="onChangePopust(p.value)"
+                                                [(value)]="selectedPopust">
+                                                <mat-option *ngFor="let popust of popusti" [value]="popust">{{popust}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Trajanje - sat</mat-label>
+                                            <mat-select #sat (selectionChange)="onChangeSat(sat.value)"
+                                                [(value)]="selectedSat">
+                                                <mat-option *ngFor="let sat of sati" [value]="sat">{{sat}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Trajanje - minut</mat-label>
+                                            <mat-select #m (selectionChange)="onChangeMinut(m.value)"
+                                                [(value)]="selectedMinut">
+                                                <mat-option *ngFor="let minut of minuti" [value]="minut">
+                                                    {{minut}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button style="margin:5px;" mat-raised-button color="primary"
+                                        (click)="listaLekara()" matStepperNext>Dalje</button>
+                                </div>
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Izaberite lekara</ng-template>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Lekari</mat-label>
+                                            <mat-select #l (selectionChange)="onChangeLekar(l.value)"
+                                                [(value)]="selectedLekar">
+                                                <mat-option *ngFor="let l of lekari" [value]="l"> {{l.jbo}} - {{l.ime}}
+                                                    {{l.prezime}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button style="margin:5px;" mat-raised-button color="accent" mat-button
+                                        matStepperPrevious>Nazad</button>
+                                    <button style="margin:5px;" mat-raised-button color="primary" mat-button
+                                        (click)="getTermini()" matStepperNext>Dalje</button>
+                                </div>
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Izaberite termin</ng-template>
+                                <div class="card-body">
+                                    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                                        <ng-container matColumnDef="datum">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
+                                            <td mat-cell *matCellDef="let termin"> {{termin.datum}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="pocetak">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Početak i kraj </th>
+                                            <td mat-cell *matCellDef="let termin"> {{termin.pocetak}} - {{termin.kraj}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="izaberiSalu">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                                            <td mat-cell *matCellDef="let termin"> <button style="margin:5px;"
+                                                    mat-raised-button color="primary" mat-button
+                                                    (click)="izaberiSalu(termin)" matStepperNext>Izaberi salu</button>
+
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>
+                                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons>
+                                    </mat-paginator>
+                                </div>
+                                <div>
+                                    <button style="margin:5px;" mat-raised-button color="accent"
+                                        matStepperPrevious>Nazad</button>
+                                </div>
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Izaberite salu</ng-template>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field>
+                                            <mat-label>Sale</mat-label>
+                                            <mat-select #s (selectionChange)="onChangeSala(s.value)"
+                                                [(value)]="selectedSala">
+                                                <mat-option *ngFor="let s of sale" [value]="s"> {{s.naziv}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button style="margin:5px;" mat-raised-button color="accent" mat-button
+                                        matStepperPrevious>Nazad</button>
+                                    <button style="margin:5px;" mat-raised-button color="warn" mat-button
+                                        (click)="stepper.reset()">Ispočetka</button>
+                                    <button style="margin:5px;" mat-raised-button color="primary" mat-button
+                                        (click)="zakaziTermin()">Dodaj pregled</button>
+                                </div>
+                            </mat-step>
+                        </mat-horizontal-stepper>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Lista predefinisanih termina</h4>
+                    </div>
+                    <div class="card-body">
+                        <table mat-table matSort [dataSource]="dataSource2" class="mat-elevation-z8">
+                            <ng-container matColumnDef="datum">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
+                                <td mat-cell *matCellDef="let pregled"> {{pregled.datum}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="pocetak">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Početak i kraj </th>
+                                <td mat-cell *matCellDef="let pregled"> {{pregled.pocetak}} - {{pregled.kraj}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="nazivSale">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sala </th>
+                                <td mat-cell *matCellDef="let pregled"> {{pregled.nazivSale}} {{pregled.brojSale}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="lekarIme">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Lekar </th>
+                                <td mat-cell *matCellDef="let pregled"> {{pregled.lekarIme}} {{pregled.lekarPrezime}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="tipPregleda">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip pregleda </th>
+                                <td mat-cell *matCellDef="let pregled"> {{pregled.tipPregleda}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="cena">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+                                <td mat-cell *matCellDef="let pregled"> {{pregled.cena}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="popust">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Popust </th>
+                                <td mat-cell *matCellDef="let pregled"> {{pregled.popust}} %
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

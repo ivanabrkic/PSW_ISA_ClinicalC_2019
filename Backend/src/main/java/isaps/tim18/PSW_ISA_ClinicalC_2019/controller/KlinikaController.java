@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
@@ -12,17 +13,17 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PredefTerminService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PregledService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.ZahtevService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,7 +34,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
 import javax.swing.text.DateFormatter;
 
 @RestController
@@ -45,6 +45,9 @@ public class KlinikaController {
 
     @Autowired
     private LekarService lekarService;
+
+    @Autowired
+    private PredefTerminService predefTerminService;
     
     @Autowired
     private ZahtevService zahtevService;
@@ -123,7 +126,7 @@ public class KlinikaController {
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
     
-    @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
     	
 
@@ -147,10 +150,18 @@ public class KlinikaController {
     
   
 
-    @PostMapping(value = "/getSaleSlobodneOd", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Sala>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
+    @PostMapping(value = "/getSlobodneSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SalaDTO>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
 
-        List<Sala> listaSala =  klinikaService.findSaleSlobodneOd(zahtev);
+        List<SalaDTO> listaSala =  klinikaService.findSlobodneSale(zahtev);
+
+        return new ResponseEntity<>(listaSala, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getDrugiTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SalaDTO>> getDrugiTermin(@RequestBody Zahtev zahtev){
+
+        List<SalaDTO> listaSala =  klinikaService.findDrugiTermin(zahtev);
 
         return new ResponseEntity<>(listaSala, HttpStatus.OK);
     }
@@ -180,6 +191,8 @@ public class KlinikaController {
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
+    
+    //////////////////////////////////// TESLA ///////////////////////////////////////////////////
 
     @PostMapping(value="/slobodneKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Klinika>> slobodneKlinike(@RequestBody lekariterminiDTO zahtev) throws ParseException {
@@ -199,6 +212,31 @@ public class KlinikaController {
 
         return new ResponseEntity<>(slobodneKlinike, HttpStatus.OK); //vracanje slobodnih
     }
+    ////////////////////// ZA DODAVANJE PREDEF TERMINA ////////////////////////////////////////////////////////////////////////
+    @PostMapping(value="/getTermini", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TerminDTO>> getTermini(@RequestBody LekarTrajanjeDTO lekarTrajanjeDTO) throws ParseException {
+
+        List<TerminDTO> termini = predefTerminService.getAllTerminiAndSale(lekarTrajanjeDTO.getIdLekara(), lekarTrajanjeDTO.getTrajanje());
+
+        return new ResponseEntity<>(termini, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/getLekariForTip", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Lekar>> getLekariForTip(@RequestBody Long idTipa) throws ParseException {
+
+        List<Lekar> lekari = predefTerminService.getAllLekariForTip(idTipa);
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/dodajTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> dodajTermin(@RequestBody Pregled pregled) throws ParseException {
+
+        Message message = predefTerminService.dodajTermin(pregled);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     @PostMapping(value = "/zakaziTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public  ResponseEntity<Zahtev> zakaziTermin(@RequestBody Zahtev zahtev){

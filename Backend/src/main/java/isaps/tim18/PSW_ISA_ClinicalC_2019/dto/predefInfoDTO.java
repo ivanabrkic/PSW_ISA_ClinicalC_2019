@@ -2,7 +2,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.dto;
 
 public class predefInfoDTO {
 	
-	private Long id;
+	  private Long id;
 
     private String datum;
 
@@ -26,7 +26,7 @@ public class predefInfoDTO {
     
     private int popust;
 
-    public Long getIdSale() {
+  public Long getIdSale() {
 		return idSale;
 	}
 
@@ -99,7 +99,9 @@ public class predefInfoDTO {
 	public predefInfoDTO() {
     }
 
-    public predefInfoDTO(Long id,String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust,Long idK,Long idS,String jboLek,Long idSale) {
+  public predefInfoDTO(String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust) {
+
+  public predefInfoDTO(Long id,String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust,Long idK,Long idS,String jboLek,Long idSale) {
         this.tipPregleda = naziv;
         this.datum = datum;
         this.pocetak = pocetak;
@@ -111,6 +113,10 @@ public class predefInfoDTO {
         this.lekarIme=ime;
         this.cena=cena;
         this.popust=popust;
+    }
+
+
+    public float getPopust() {
         this.idKlinike=idK;
         this.idStavke=idS;
         this.jboLekara=jboLek;

@@ -12,6 +12,12 @@ mat-grid-tile {
 
   }
 
+
+.content-container {
+  padding-top: 20px;
+  padding-left: 220px;
+}
+
   .tabela-div{
     width: 100px;
     margin-left: auto;

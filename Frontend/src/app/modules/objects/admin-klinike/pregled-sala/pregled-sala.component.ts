@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { Sala } from 'src/app/models/sala/sala';
 import { RegistracijaSalaComponent } from '../registracija-sala/registracija-sala.component';
 import { RadniKalendarSaleComponent } from 'src/app/modules/shared/radni-kalendar-sale/radni-kalendar-sale-component/radni-kalendar-sale.component';
+import { first } from 'rxjs/operators';
 
 @Component({
   templateUrl: './pregled-sala.component.html',
@@ -24,8 +25,7 @@ export class PregledSalaComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-
-  constructor(public dialog: MatDialog, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
         this.adminKlinike = ulogovanKorisnik;
@@ -83,13 +83,23 @@ export class PregledSalaComponent implements OnInit {
     };
 
     this.registerDialog = this.dialog.open(RegistracijaSalaComponent, dialogConfig);
-    this.registerDialog.afterClosed().subscribe(() => {
-      this.klinikaService.getSale(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.sale = data;
-          this.dataSource = new MatTableDataSource(this.sale);
-          this.dataSource.sort = this.sort;
-        });
+    this.registerDialog.afterClosed().subscribe(result => {
+      if (result != true) {
+
+        this.klinikaService.updateSala(result).pipe(first()).subscribe(result => {
+          alert(result.text);
+
+          this.klinikaService.getSale(this.adminKlinike.klinika.id)
+            .subscribe(data => {
+              this.sale = data;
+              this.dataSource = new MatTableDataSource(this.sale);
+              this.dataSource.sort = this.sort;
+            });
+        },
+          error => {
+            alert('Neuspešna izmena!\n\n');
+          });
+      }
     });
   }
 
@@ -108,13 +118,22 @@ export class PregledSalaComponent implements OnInit {
     };
 
     this.registerDialog = this.dialog.open(RegistracijaSalaComponent, dialogConfig);
-    this.registerDialog.afterClosed().subscribe(() => {
-      this.klinikaService.getSale(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.sale = data;
-          this.dataSource = new MatTableDataSource(this.sale);
-          this.dataSource.sort = this.sort;
-        });
+    this.registerDialog.afterClosed().subscribe(result => {
+      if (result != true) {
+        this.klinikaService.registerSala(result).pipe(first()).subscribe(result => {
+          alert(result.text);
+
+          this.klinikaService.getSale(this.adminKlinike.klinika.id)
+            .subscribe(data => {
+              this.sale = data;
+              this.dataSource = new MatTableDataSource(this.sale);
+              this.dataSource.sort = this.sort;
+            });
+        },
+          error => {
+            alert('Neuspešna registracija!\n\n');
+          });
+      }
     });
   }
 
@@ -143,7 +162,7 @@ export class PregledSalaComponent implements OnInit {
       });
   }
 
-  
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

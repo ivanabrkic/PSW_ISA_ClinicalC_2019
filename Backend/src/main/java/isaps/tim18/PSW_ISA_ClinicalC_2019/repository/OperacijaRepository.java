@@ -28,13 +28,6 @@ public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
             "AND o.sala.id = ?4")
     List<Lekar> findLekareOperacije(String datum, String pocetak, String kraj, Long id);
 
-    @Query(value = "SELECT sala_id FROM Operacija AS o LEFT OUTER JOIN Sala AS s ON o.sala_id = s.id WHERE s.klinika_id = ?1 " +
-            " AND (( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) ) OR " +
-            " ( CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time)  )" +
-            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
-            " AND o.datum = ?2 ", nativeQuery = true)
-    List<Long> findByKlinikaIdAndVreme(Long idKlinike, String datum, String pocetak, String kraj);
-
     List<Operacija> findByCenovnikId(Long idTipa);
 
     List<Operacija> findByPacijentId(Long id);

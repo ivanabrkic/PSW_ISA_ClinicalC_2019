@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
 import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   templateUrl: './medsestra-izmena.component.html',
@@ -17,7 +18,7 @@ export class MedSestraIzmenaComponent implements OnInit {
 
   medSestra: MedicinskaSestra = new MedicinskaSestra();
 
-  constructor(private formBuilder: FormBuilder, private medsService: MedicinskaSestraService) {
+  constructor(private _snackBar: MatSnackBar,private formBuilder: FormBuilder, private medsService: MedicinskaSestraService) {
     this.medsService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.medSestra = ulogovanKorisnik;

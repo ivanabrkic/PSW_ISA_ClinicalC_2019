@@ -58,6 +58,9 @@
                     <td>{{lekar.ime}}</td>
                     <td>{{lekar.prezime}} </td>
                     <td>{{lekar.ocena}} </td>
+<!--                     <td *ngIf="!terminiSakriveni" ><select ng-model="selectedTermin" >
+                      <option value="">Izaberite termin</option>
+                      <option *ngFor="let termin of termini" [ngValue]="termin">{{termin}}</option> VIDI OVO -->
                     <td *ngIf="terminiSakriveni" >
                       <select [(ngModel)]="selectedTermin"  id="{{lekar.id}}" >
                       <option value="">Izaberite termin</option>
@@ -74,7 +77,7 @@
   </div>
 </body>
   </html>
-
+<!-- VIDI I OVO DOLE  -->
         
   <div *ngIf="izabraniLekar">
     <div class="content-container">

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
 import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
 import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-zahtevi-operacije-pregledi',
@@ -16,17 +17,14 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
   izbor: boolean = false
   selectedZahtev:Zahtev;
 
+
+  displayedColumns: string[] = ['tipPosete', 'stavkaCenovnika', 'tipPosiljaoca', 'posiljalacImePrezime', 'datum', 'jbo','dodatneInformacije','izaberiSalu'];
+  dataSource: any
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+
   constructor(private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) { 
-    this.adminkService.getUlogovanKorisnik()
-      .subscribe(ulogovanKorisnik => {
-        this.adminKlinike = ulogovanKorisnik;
-        this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
-        .subscribe(data => {
-          this.zahtevi = data;
-        }); 
-      });
-
-
+    this.dataSource = new MatTableDataSource(null);
   }
 
   ngOnInit() {
@@ -36,9 +34,15 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
       this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
       .subscribe(data => {
         this.zahtevi = data;
+        this.dataSource = new MatTableDataSource(this.zahtevi);
+        this.dataSource.sort = this.sort;
       }); 
     });
 
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   izborSale(zahtev:Zahtev){
@@ -51,6 +55,8 @@ export class ZahteviOperacijePreglediComponent implements OnInit {
       this.klinikaService.getZahtevi(this.adminKlinike.klinika.id)
       .subscribe(data => {
           this.zahtevi = data;
+          this.dataSource = new MatTableDataSource(this.zahtevi);
+          this.dataSource.sort = this.sort;
           this.izbor = obradjen
     });     
     }

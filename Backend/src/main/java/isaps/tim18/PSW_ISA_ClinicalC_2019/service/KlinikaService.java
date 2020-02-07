@@ -2,6 +2,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.SalaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.DateFormatter;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -160,6 +162,12 @@ public class KlinikaService {
         return odgovarajuci; //termini koji se ne poklapaju s pacijentovim
     }
 
+    public List<predefInfoDTO> getPreglediPredef(Long id) {
+        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id);
+
+        return predef;
+    }
+
     public List<Lekar> findLekariOperacije(String datum, String pocetak, String kraj, Long id){
         return operacijaRepository.findLekareOperacije(datum, pocetak, kraj, id);
     }
@@ -217,40 +225,115 @@ public class KlinikaService {
 
         return "Uspesno zakazana operacija!";
     }
+    public List<SalaDTO> findDrugiTermin(Zahtev zahtev) {
 
-    public List<Sala> findSaleSlobodneOd(Zahtev zahtev) {
-        if (pacijentSlobodan(zahtev) && !getSlobodniLekari(zahtev).isEmpty()) {
-            List<Long> saleNeO = operacijaRepository.findByKlinikaIdAndVreme(zahtev.getIdKlinike(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
-            List<Long> saleNeP = pregledRepository.findByKlinikaIdAndVreme(zahtev.getIdKlinike(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
+        int satPocetak = Integer.parseInt(zahtev.getPocetak().split(":")[0]) * 60;
+        int satKraj = Integer.parseInt(zahtev.getKraj().split(":")[0]) * 60;
+        int minutKraj = Integer.parseInt(zahtev.getKraj().split(":")[1]);
+        int minutPocetak = Integer.parseInt(zahtev.getPocetak().split(":")[1]);
 
-            HashMap<Long, Long> uniqueIdSale = new HashMap<Long, Long>();
+        int trajanje = (satKraj + minutKraj) - (satPocetak + minutPocetak);
 
-            for (Long s : saleNeO) {
-                uniqueIdSale.put(s, s);
+        int godina = Integer.parseInt(zahtev.getDatum().split("\\.")[2]);
+        int mesec = Integer.parseInt(zahtev.getDatum().split("\\.")[1]);
+        int dan = Integer.parseInt(zahtev.getDatum().split("\\.")[0]);
+
+        LocalDateTime start = LocalDateTime.of(godina, mesec, dan, 0, 0, 0);
+
+        LocalDateTime end = start.plusDays(1);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.YYYY.");
+
+        HashMap<Long, SalaDTO> uniqueSale = new HashMap<>();
+
+        List<Sala> sveSale = salaRepository.findByKlinikaId(zahtev.getIdKlinike());
+
+        while (sveSale.size() != uniqueSale.size()) {
+            for (LocalDateTime date = start; date.isBefore(end); date = date.plusMinutes(15)) {
+
+                if (date.toLocalDate() == date.plusMinutes(trajanje).toLocalDate()) {
+                    String datum = formatter.format(date.toLocalDate());
+                    String pocetak = date.toLocalTime().toString();
+                    String kraj = date.plusMinutes(trajanje).toLocalTime().toString();
+
+                    zahtev.setDatum(datum);
+                    zahtev.setPocetak(pocetak);
+                    zahtev.setKraj(kraj);
+
+                    if (pacijentSlobodan(zahtev) && !getSlobodniLekari(zahtev).isEmpty()) {
+
+                        for (Sala s : sveSale) {
+                          if (salaRepository.checkIfSalaZauzeta(s.getId(), datum, pocetak, kraj).isEmpty()) {
+
+                                if (!uniqueSale.containsKey(s.getId())) {
+                                    SalaDTO salaDTO = new SalaDTO();
+
+                                    salaDTO.setDatumSlobodna(datum);
+                                    salaDTO.setPocetakSlobodna(pocetak);
+                                    salaDTO.setKrajSlobodna(kraj);
+
+                                    salaDTO.setNaziv(s.getNaziv());
+                                    salaDTO.setBroj(s.getBroj());
+                                    salaDTO.setKlinika(s.getKlinika());
+                                    salaDTO.setId(s.getId());
+                                    uniqueSale.put(s.getId(), salaDTO);
+                                }
+                            }
+                        }
+                    }
+
+                }
+
             }
+        }
 
-            for (Long s : saleNeP) {
-                uniqueIdSale.put(s, s);
-            }
+        List<SalaDTO> listaSalaDTO = new ArrayList<>();
 
-            List<Sala> sve = salaRepository.findByKlinikaId(zahtev.getIdKlinike());
-            List<Sala> prolaze = new ArrayList<Sala>();
-            for (Sala s : sve) {
-                if (!uniqueIdSale.containsKey(s.getId())) {
-                    prolaze.add(s);
+        for (SalaDTO sala : uniqueSale.values()){
+            listaSalaDTO.add(sala);
+        }
+
+        return listaSalaDTO;
+    }
+
+    public List<SalaDTO> findSlobodneSale(Zahtev zahtev) {
+
+        List<Sala> sveSale = salaRepository.findByKlinikaId(zahtev.getIdKlinike());
+
+        HashMap<Long, SalaDTO> uniqueSale = new HashMap<>();
+        if (pacijentSlobodan(zahtev) && lekarSlobodan(zahtev)){
+            for (Sala s : sveSale) {
+                if (salaRepository.checkIfSalaZauzeta(s.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()) {
+
+                    if(!uniqueSale.containsKey(s.getId())){
+                        SalaDTO salaDTO = new SalaDTO();
+
+                        salaDTO.setDatumSlobodna(zahtev.getDatum());
+                        salaDTO.setPocetakSlobodna(zahtev.getPocetak());
+                        salaDTO.setKrajSlobodna(zahtev.getKraj());
+
+                        salaDTO.setNaziv(s.getNaziv());
+                        salaDTO.setBroj(s.getBroj());
+                        salaDTO.setKlinika(s.getKlinika());
+                        salaDTO.setId(s.getId());
+                        uniqueSale.put(s.getId(), salaDTO);
+                    }
                 }
             }
-
-            return prolaze;
         }
-        return new ArrayList<Sala>();
+        List<SalaDTO> listaSalaDTO = new ArrayList<>();
+
+        for (SalaDTO sala : uniqueSale.values()){
+            listaSalaDTO.add(sala);
+        }
+
+        return listaSalaDTO;
     }
 
     public boolean pacijentSlobodan(Zahtev zahtev) {
-        Pacijent p = pacijentRepository.findByJbo(zahtev.getJboPacijenta());
 
-        List<Long> operacije = pacijentRepository.ifPacijentSlobodanOperacije(p.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
-        List<Long> pregledi = pacijentRepository.ifPacijentSlobodanPregledi(p.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
+        List<Long> operacije = pacijentRepository.ifPacijentSlobodanOperacije(pacijentRepository.findByJbo(zahtev.getJboPacijenta()).getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
+        List<Long> pregledi = pacijentRepository.ifPacijentSlobodanPregledi(pacijentRepository.findByJbo(zahtev.getJboPacijenta()).getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj());
 
         if (operacije.isEmpty() && pregledi.isEmpty()){
             return true;
@@ -260,39 +343,15 @@ public class KlinikaService {
     }
 
     public List<Long> getSlobodniLekari(Zahtev zahtev){
-        String vremeZakazivanja = "";
+        String vremeZakazivanja = getVremeZakazivanja(zahtev);
 
-        if(zahtev.getTipPosete() == "Operacija") {
+        if(zahtev.getTipPosete().equals("Operacija")) {
+
             if (lekarSlobodan(zahtev)) {
-
-                int osamSati = 8 * 60;
-                int sesnaestSati = 16 * 60;
-                int dvanaestSati = 24 * 60;
-
-                int satPocetak = Integer.parseInt(zahtev.getPocetak().split(":")[0]) * 60;
-                int minutPocetak = Integer.parseInt(zahtev.getPocetak().split(":")[1]);
-
-                int satKraj = Integer.parseInt(zahtev.getKraj().split(":")[0]) * 60;
-                int minutKraj = Integer.parseInt(zahtev.getKraj().split(":")[1]);
-
-                int pocetak = satPocetak + minutPocetak;
-                int kraj = satKraj + minutKraj;
-
-                if (pocetak == 0) {
-                    vremeZakazivanja = "Treca smena od 00:00 do 8:00";
-                } else if (kraj == 0) {
-                    vremeZakazivanja = "Druga smena od 16:00 do 00:00";
-                } else if (pocetak >= osamSati && kraj <= sesnaestSati) {
-                    vremeZakazivanja = "Prva smena od 8:00 do 16:00";
-                } else if (pocetak >= 0 && kraj <= osamSati) {
-                    vremeZakazivanja = "Treca smena od 00:00 do 8:00";
-                } else if (pocetak >= sesnaestSati) {
-                    vremeZakazivanja = "Druga smena od 16:00 do 00:00";
-                }
 
                 String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
 
-                List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVremeOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+                List<Long> radeUToVreme = lekarRepository.radnoVremeSpecOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
 
                 List<Long> slobodni = new ArrayList<>();
                 for (Long id : radeUToVreme) {
@@ -307,9 +366,37 @@ public class KlinikaService {
                 return new ArrayList<Long>();
             }
         }
+
+        // AKO JE PREGLED LEKAR KOJI JE POSLAO ZAHTEV NIJE OBAVEZAN I DA OBAVLJA PREGLED
+        String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
+
+        List<Long> radeUToVreme = lekarRepository.radnoVremeSpecPregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+
+        List<Long> slobodni = new ArrayList<>();
+        for (Long id : radeUToVreme) {
+            if (lekarRepository.imaOperacije(id, zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()
+                    && lekarRepository.imaPreglede(id, zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()) {
+                slobodni.add(id);
+            }
+        }
+        return slobodni;
+    }
+
+    public boolean lekarSlobodan(Zahtev zahtev){
+        Lekar lekar = lekarRepository.findByJbo(zahtev.getJboLekara());
+        if (lekarRepository.imaOperacije(lekar.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()
+                && lekarRepository.imaPreglede(lekar.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    public String getVremeZakazivanja(Zahtev zahtev){
+
+        String vremeZakazivanja = "";
+
         int osamSati = 8 * 60;
         int sesnaestSati = 16 * 60;
-        int dvanaestSati = 24 * 60;
 
         int satPocetak = Integer.parseInt(zahtev.getPocetak().split(":")[0]) * 60;
         int minutPocetak = Integer.parseInt(zahtev.getPocetak().split(":")[1]);
@@ -332,28 +419,9 @@ public class KlinikaService {
             vremeZakazivanja = "Druga smena od 16:00 do 00:00";
         }
 
-        String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
-
-        List<Long> radeUToVreme = lekarRepository.daLiJeRadnoVremePregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
-
-        List<Long> slobodni = new ArrayList<>();
-        for (Long id : radeUToVreme) {
-            if (lekarRepository.imaOperacije(id, zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()
-                    && lekarRepository.imaPreglede(id, zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()) {
-                slobodni.add(id);
-            }
-        }
-        return slobodni;
+        return vremeZakazivanja;
     }
 
-    public boolean lekarSlobodan(Zahtev zahtev){
-        Lekar lekar = lekarRepository.findByJbo(zahtev.getPosiljalacJbo());
-        if (lekarRepository.imaOperacije(lekar.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()
-                && lekarRepository.imaPreglede(lekar.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()){
-            return true;
-        }
-        return false;
-    }
 
 	public Optional<Klinika> findById(Long id) {
 		return klinikaRepository.findById(id);

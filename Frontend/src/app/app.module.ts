@@ -14,8 +14,10 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+
 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
@@ -132,6 +134,7 @@ import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
     MatDatepickerModule,        
     MatNativeDateModule,  
     MatGridListModule,     
+    MatSnackBarModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
