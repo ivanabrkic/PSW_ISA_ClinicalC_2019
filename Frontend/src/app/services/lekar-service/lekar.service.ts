@@ -28,10 +28,6 @@ export class LekarService {
     return this.http.post<Lekar[]>('/server/klinika/getLekari', id, httpOptions);
   }
 
-  public getSlobodni(zahtev : Zahtev): Observable<Lekar[]> {
-    return this.http.post<Lekar[]>('/server/lekar/getSlobodniLekari', JSON.stringify(zahtev), httpOptions);
-  }
-
   public getSlobodniLekariTermini(zahtev : pretragaDTO): Observable<Map<String,Lekar>> {
     const pretraga = JSON.stringify(zahtev);
     return this.http.post<Map<String,Lekar>>('/server/lekar/getSlobodniLekariTermini', pretraga, httpOptions);

@@ -41,6 +41,9 @@ public class KlinikaController {
     @Autowired
     private CenovnikRepository cenovnikRepository;
 
+    @Autowired
+    private MailSenderService mailSenderService;
+
     @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
         float ocena = (float)1.0;
@@ -137,8 +140,14 @@ public class KlinikaController {
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
-    
-  
+
+    @PostMapping(value = "/getSlobodniLekari", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Lekar>> getSlobodniLekari(@RequestBody Zahtev zahtev) throws Exception {
+
+        List<Lekar> lekari = klinikaService.getSlobodniLekariCeoLekar(zahtev);
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/getSlobodneSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SalaDTO>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
@@ -185,9 +194,7 @@ public class KlinikaController {
     @PostMapping(value = "/obavestiMejlomZahtevPrihvacen", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Message> obavestiMejlomZahtevPrihvacen(@RequestBody EmailDTO emailDTO) throws Exception {
 
-        MailSenderController mailSender = new MailSenderController();
-
-        mailSender.sendSimpleMessage(emailDTO.getEmail(), emailDTO.getSubject(), emailDTO.getText());
+        mailSenderService.sendSimpleMessage(emailDTO.getEmail(), emailDTO.getSubject(), emailDTO.getText());
 
         return new ResponseEntity<>(new Message("Uspešno poslat mejl korisniku!"), HttpStatus.OK);
     }
@@ -245,9 +252,8 @@ public class KlinikaController {
        
             zahtevService.add(zahtev);
             List<AdministratorKlinike> administratori=adminklService.findAllByKlinikaId(zahtev.getIdKlinike());
-            MailSenderController m=new MailSenderController();
             for (AdministratorKlinike a : administratori) {
-            	m.sendSimpleMessage(a.getEmail(),"Novi zahtev",
+            	mailSenderService.sendSimpleMessage(a.getEmail(),"Novi zahtev",
             			 "Pristigao je novi zahtev za zakazivanje termina"+
             			" Za datum: "+zahtev.getDatum()+" i vreme: "+zahtev.getPocetak()+"-"+zahtev.getKraj()+
             			" za posetu: "+ zahtev.getTipPosete()+" tipa: "

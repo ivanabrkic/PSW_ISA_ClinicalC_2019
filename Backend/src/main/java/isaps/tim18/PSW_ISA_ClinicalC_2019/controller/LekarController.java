@@ -4,7 +4,6 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -71,14 +70,6 @@ public class LekarController {
     }
 
 
-    @PostMapping(value = "/getSlobodniLekari", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Lekar>> getSlobodniLekari(@RequestBody Zahtev zahtev) throws Exception {
-
-        List<Lekar> lekari = lekarService.getSlobodniLekari(zahtev);
-
-        return new ResponseEntity<>(lekari, HttpStatus.OK);
-    }
-
     @PostMapping(value = "/getSlobodniLekariTermini", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HashMap<String,Lekar>> getSlobodniLekariTermini(@RequestBody lekariterminiDTO zahtev) throws Exception {
 
@@ -86,13 +77,14 @@ public class LekarController {
 
         return new ResponseEntity<>(lekari, HttpStatus.OK);
     }
-    @PostMapping(value = "/lekarSlobodan", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> lekarSlobodan(@RequestBody Zahtev zahtev){
 
-        Boolean lekarSlobodan =  lekarService.lekarSlobodan(zahtev);
-
-        return new ResponseEntity<>(lekarSlobodan, HttpStatus.OK);
-    }
+//    @PostMapping(value = "/lekarSlobodan", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Boolean> lekarSlobodan(@RequestBody Zahtev zahtev){
+//
+//        Boolean lekarSlobodan =  lekarService.lekarSlobodan(zahtev);
+//
+//        return new ResponseEntity<>(lekarSlobodan, HttpStatus.OK);
+//    }
 
     @PostMapping(value = "/klinika", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Lekar>> getAllLekariKlinike(@RequestBody Klinika k) {

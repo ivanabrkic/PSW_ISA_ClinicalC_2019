@@ -75,6 +75,10 @@ export class KlinikaService {
     return this.http.post<Lekar[]>('/server/klinika/getLekariOperacije', JSON.stringify(op), httpOptions);
   }
 
+  public getSlobodniLekari(zahtev : Zahtev) {
+    return this.http.post<Lekar[]>('/server/klinika/getSlobodniLekari', JSON.stringify(zahtev), httpOptions);
+  }
+
   public getSlobodneSale(zahtev : Zahtev): Observable<Sala[]> {
     return this.http.post<Sala[]>('/server/klinika/getSlobodneSale', JSON.stringify(zahtev), httpOptions);
   }

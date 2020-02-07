@@ -126,44 +126,41 @@ export class IzborSaleComponent implements OnInit {
       });
   }
 
-  posaljiPacijentuMail(jboPacijenta: String, sala: Sala) {
+  posaljiPacijentuMail(jboPacijenta: String, sala: Sala, operacija : any, tipPosete : String) {
     this.pacijentService.findPacijentByJbo(jboPacijenta).subscribe(data => {
       var email: Email = new Email()
       email.email = data.email
-      email.subject = "Obaveštenje o zakazanoj operaciji!"
+      email.subject = "Obaveštenje o zakazanoj/om  " + tipPosete + "!"
       email.text =
-        "Poštovani/a " + data.ime + " " + data.prezime + " obaveštavamo vas o zakazanoj operaciji " + data[1].tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
-        + data[1].datum + " od " + data[1].pocetak + " do " + data[1].kraj + " "
-        + "kod lekara " + data[1].jboLekara + " za pacijenta " + data[1].jboPacijenta + "."
+        "Poštovani/a " + data.ime + " " + data.prezime + " obaveštavamo vas o zakazanoj/om  " + tipPosete + " " + operacija.tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
+        + operacija.datum + " od " + operacija.pocetak + " do " + operacija.kraj + " "
+        + "kod lekara " + operacija.jboLekara + " za pacijenta " + operacija.jboPacijenta + "."
       this.klinikaService.sendEmail(email).subscribe(data => alert(data.text))
 
     })
   }
 
-  posaljiLekaruMail(jboLekara: String, sala: Sala) {
-    this.lekarService.findLekarByJbo(jboLekara).subscribe(data => {
+  posaljiLekaruMail(jboLekara: String, sala: Sala, pregled : any, tipPosete : String) {
+    this.lekarService.findLekarByJbo(jboLekara).subscribe(lekar => {
       var email: Email = new Email()
-      email.email = data.email
-      email.subject = "Obaveštenje o zakazanoj operaciji!"
+      email.email = lekar.email
+      email.subject = "Obaveštenje o zakazanoj/om " + tipPosete + "!"
       email.text =
-        "Poštovani/a " + data.ime + " " + data.prezime + " obaveštavamo vas o zakazanoj operaciji " + data[1].tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
-        + data[1].datum + " od " + data[1].pocetak + " do " + data[1].kraj + " "
-        + "kod lekara " + data[1].jboLekara + " za pacijenta " + data[1].jboPacijenta + "."
+        "Poštovani/a " + lekar.ime + " " + lekar.prezime + " obaveštavamo vas o zakazanoj/om  " + tipPosete + " " + pregled.tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
+        + pregled.datum + " od " + pregled.pocetak + " do " + pregled.kraj + " "
+        + "kod lekara (JBO lekara) " + pregled.jboLekara + " za pacijenta (JBO pacijenta) " + pregled.jboPacijenta + "."
       this.klinikaService.sendEmail(email).subscribe(data =>
-        alert(data.text))
+        alert(data.text + " " + lekar.ime + " " + lekar.prezime))
     })
   }
 
   zakaziTermin(sala: Sala) {
-    var noviZahtev: Zahtev = new Zahtev()
-    noviZahtev.idStavke = this.passZahtev.idStavke
-    noviZahtev.datum = sala.datumSlobodna
-    noviZahtev.pocetak = sala.pocetakSlobodna
-    noviZahtev.kraj = sala.krajSlobodna
-    noviZahtev.idKlinike = this.passZahtev.idKlinike
-    noviZahtev.tipPosete = this.passZahtev.tipPosete
 
-    this.lekarService.getSlobodni(noviZahtev)
+    this.passZahtev.datum = sala.datumSlobodna
+    this.passZahtev.pocetak = sala.pocetakSlobodna
+    this.passZahtev.kraj = sala.krajSlobodna
+
+    this.klinikaService.getSlobodniLekari(this.passZahtev)
       .subscribe(data => {
         var lekari = data;
         const dialogConfig = new MatDialogConfig();
@@ -186,32 +183,33 @@ export class IzborSaleComponent implements OnInit {
         };
 
         this.zakaziTerminDialog = this.dialog.open(ZakaziTerminComponent, dialogConfig);
+
         this.zakaziTerminDialog.afterClosed().subscribe(
-          data => {
+          dialogResult => {
             if (this.passZahtev.tipPosete == 'Operacija') {
-              this.klinikaService.zakaziOperaciju(data[1])
+              this.klinikaService.zakaziOperaciju(dialogResult[1])
                 .subscribe(data => {
                   alert(data.text)
-                  this.klinikaService.removeZahtev(data[2])
+                  this.klinikaService.removeZahtev(dialogResult[2])
                     .subscribe(data => {
-                      alert("USAO")
-                      data[1].jboLekara.forEach(element => {
-                        this.posaljiLekaruMail(element, data[3])
+                      dialogResult[1].jboLekara.forEach(element => {
+                        this.posaljiLekaruMail(element, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)
                       })
-                      this.posaljiPacijentuMail(data[1].jboPacijenta, data[3])
-                      this.zahtevObradjen.emit(data[0])
-                    });
+                      this.posaljiPacijentuMail(dialogResult[1].jboPacijenta, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)
+                      this.zahtevObradjen.emit(dialogResult[0])
+                    },
+                    error => alert(JSON.stringify(data)));
                 });
             }
             else {
-              this.klinikaService.zakaziPregled(data[1])
+              this.klinikaService.zakaziPregled(dialogResult[1])
                 .subscribe(data => {
                   alert(data.text)
-                  this.klinikaService.removeZahtev(data[2])
+                  this.klinikaService.removeZahtev(dialogResult[2])
                     .subscribe(data => {
-                      this.posaljiLekaruMail(data[1].jboLekara, data[3])
-                      this.posaljiPacijentuMail(data[1].jboPacijenta, data[3])
-                      this.zahtevObradjen.emit(data[0])
+                      this.posaljiLekaruMail(dialogResult[1].jboLekara, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)
+                      this.posaljiPacijentuMail(dialogResult[1].jboPacijenta, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)
+                      this.zahtevObradjen.emit(dialogResult[0])
                     });
                 });
             }
