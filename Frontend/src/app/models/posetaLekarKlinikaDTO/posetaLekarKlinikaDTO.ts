@@ -1,9 +1,9 @@
+import { Lekar } from '../lekar/lekar';
+
 export class posetaLekarKlinikaDTO{
     id:number;
     tipPosete:String;
-    lekarJbo:String;
-    lekarIme:String;
-    lekarPrezime:String;
+    lekar:Lekar;
     klinikaId:number;
     klinikaNaziv:String;
     klinikaOcena:number;

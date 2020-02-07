@@ -128,12 +128,11 @@ public class KlinikaController {
     	
 
     	
-    		Calendar cal = Calendar.getInstance();
-    		SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
-    		String date=sdf.format(cal.getTime());
+    	Date date = new Date();
+		String modifiedDate= new SimpleDateFormat("d.M.yyyy.").format(date);
 
     	
-        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(k.getIdKlin(),modifiedDate,k.getIdPac()); //Prosli termini se ne izlistavaju.
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }

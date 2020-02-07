@@ -2,23 +2,29 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 public class oceneLekari {
 
     @EmbeddedId
     oceneLekariKljuc id;
-
+    
+    @JsonIgnore
     @ManyToOne
     @MapsId("pacijent_id")
     @JoinColumn(name="pacijent_id")
     Pacijent pacijent;
-
+    
+    @JsonIgnore
     @ManyToOne
     @MapsId("lekar_id")
     @JoinColumn(name="lekar_id")
     Lekar lekar;
 
-    int ocena;
+    float ocena;
 
     public oceneLekariKljuc getId() {
         return id;
@@ -44,11 +50,18 @@ public class oceneLekari {
         this.lekar = lekar;
     }
 
-    public int getOcena() {
+    public float getOcena() {
         return ocena;
     }
 
-    public void setOcena(int ocena) {
+    public oceneLekari(Pacijent pacijent, Lekar lekar, float ocena2) {
+		super();
+		this.pacijent = pacijent;
+		this.lekar = lekar;
+		this.ocena = ocena2;
+	}
+
+	public void setOcena(float ocena) {
         this.ocena = ocena;
     }
 

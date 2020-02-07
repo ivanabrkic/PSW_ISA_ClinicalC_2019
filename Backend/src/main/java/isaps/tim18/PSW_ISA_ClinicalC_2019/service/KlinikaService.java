@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class KlinikaService {
@@ -128,10 +129,10 @@ public class KlinikaService {
         return predef;
     }
     
-    public List<predefInfoDTO> getPreglediPredef(Long id,String s,Long pacId) throws ParseException {
+    public List<predefInfoDTO> getPreglediPredef(Long id,String modifiedDate,Long pacId) throws ParseException {
     	
     	
-        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id,s);
+        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id,modifiedDate);
         List<Pregled> pacZauzet=pregledRepository.findByPacijentId(pacId);
         
         List<predefInfoDTO> odgovarajuci=new ArrayList<>();
@@ -353,5 +354,9 @@ public class KlinikaService {
         }
         return false;
     }
+
+	public Optional<Klinika> findById(Long id) {
+		return klinikaRepository.findById(id);
+	}
 
 }

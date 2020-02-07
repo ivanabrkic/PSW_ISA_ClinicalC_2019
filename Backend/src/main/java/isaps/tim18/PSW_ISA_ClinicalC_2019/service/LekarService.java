@@ -49,7 +49,11 @@ public class LekarService {
     public List<Lekar> findAllByKlinika(Klinika k){return lekarRepository.findByKlinika(k);}
 
     public List<Lekar> findByImeAndPrezime(String ime, String prezime) {
-    return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    	return lekarRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
+    }
+    
+    public Lekar findByJbo(String jbo) {
+    	return lekarRepository.findByJbo(jbo);
     }
 
     @Transactional

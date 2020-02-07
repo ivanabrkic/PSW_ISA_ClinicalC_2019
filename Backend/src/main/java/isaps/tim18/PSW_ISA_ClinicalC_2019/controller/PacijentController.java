@@ -3,12 +3,22 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaIdTipDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Operacija;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.oceneKlinike;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.oceneKlinikeKljuc;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.oceneLekari;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.oceneLekariKljuc;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.OperacijaService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PacijentService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PregledService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.oceneKlinikeService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.oceneLekariService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,6 +40,18 @@ public class PacijentController {
 
     @Autowired
     private PregledService pregledService;
+    
+    @Autowired
+    private oceneLekariService oceneLekariService;
+    
+    @Autowired
+    private oceneKlinikeService oceneKlinikeService;
+    
+    @Autowired
+    private LekarService lekarService;
+    
+    @Autowired 
+    KlinikaService klinikeService;
 
     @PostMapping(value = "/update", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Pacijent> update(@RequestBody Pacijent pacijent) throws Exception {
@@ -59,51 +81,112 @@ public class PacijentController {
         return new ResponseEntity<>(pacijenti, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getOperacije", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Operacija>> getOperacijeById(@RequestBody Long id) {
+    @PostMapping(value = "/getOperacije", consumes=MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<posetaLekarKlinikaDTO>> getOperacijeById(@RequestBody Long id) {
+    	
+    	//vraca operacije u proslosti
+        List<posetaLekarKlinikaDTO> operacije = operacijaService.findInfo(id);
+        
+        return new ResponseEntity<>(operacije, HttpStatus.OK);
 
-        List<Operacija> operacije = operacijaService.findByPacijentId(id);
-        if(operacije.size()>0)
-            return new ResponseEntity<>(operacije, HttpStatus.OK);
-        else return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
+    
+    @PostMapping(value = "/getPregledi", consumes=MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<posetaLekarKlinikaDTO>> getPreglediById(@RequestBody Long id) {
+    	
+    	//vraca preglede u proslosti
+        List<posetaLekarKlinikaDTO> pregledi = pregledService.findInfo(id);
+        
+        return new ResponseEntity<>(pregledi, HttpStatus.OK);
 
-    @GetMapping(value = "/getPregledi", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Pregled>> getPreglediById(@RequestBody Long id) {
-
-        List<Pregled> pregledi = pregledService.findByPacijentId(id);
-        if(pregledi.size()>0)
-            return new ResponseEntity<>(pregledi, HttpStatus.OK);
-        else return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
+    
+    @GetMapping(value = "/getOcenaLekara", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Float> getOcenaLekara(@RequestParam("pacijentId") String pacijentId, @RequestParam("idLekara")String idLekara){
+    	
+    			oceneLekari ocenaLekara=oceneLekariService.findByPacijentAndLekarId(Long.parseLong(pacijentId), Long.parseLong(idLekara));
+    			if(ocenaLekara!=null) {
+    				System.out.print(ocenaLekara.getOcena());
+    				return new ResponseEntity<>(ocenaLekara.getOcena(),HttpStatus.OK);	
+    			}
+    			else {
+    				float ocena=0;
+    				return new ResponseEntity<>(ocena,HttpStatus.OK);
+    			}
+	    
+    	}
+    
+    @GetMapping(value = "/getOcenaKlinike", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Float> getOcenaKlinike(@RequestParam("pacijentId") String pacijentId, @RequestParam("idKlinike")String idKlinike){
+    	
+    			oceneKlinike ocenaKlinike=oceneKlinikeService.findByPacijentAndKlinikaId(Long.parseLong(pacijentId), Long.parseLong(idKlinike));
+    			if(ocenaKlinike!=null)
+    				return new ResponseEntity<>(ocenaKlinike.getOcena(),HttpStatus.OK);	
+    			else {
+    				float ocena=0;
+    				return new ResponseEntity<>(ocena,HttpStatus.OK);
+    			}
+	    
+    	}
 
-    @GetMapping(value = "/viseInfo", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<posetaLekarKlinikaDTO> viseInfo(@RequestBody posetaIdTipDTO dto) {
-
-        Optional<Pregled> p= Optional.of(new Pregled());
-        Optional<Operacija> o;
-        posetaLekarKlinikaDTO info;
-
-        if(dto.getTipPosete().equals("Poseta")) {
-            p = pregledService.findById(dto.getIdPosete());
-            info = pregledService.findInfo(p.get().getId());
-            info.setId(p.get().getId());
-        }
-        else {
-            o = operacijaService.findById(dto.getIdPosete());
-            info=operacijaService.findInfo(p.get().getId());
-            info.setId(o.get().getId());
-        }
-
-        return new ResponseEntity<>(info,HttpStatus.OK);
+    
+    @GetMapping(value = "/oceniLekara", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> oceniLekara(@RequestParam("ocena") String ocena, @RequestParam("jboLekara")String jboLekara,@RequestParam("idPacijenta")String idPacijenta){
+    	
+    	float ocenaF=Float.parseFloat(ocena);
+    	Long idPacijentaL=Long.parseLong(idPacijenta);
+    	Optional<Pacijent> pacijent=pacijentService.findById(idPacijentaL);
+    	Lekar lekar = lekarService.findByJbo(jboLekara);
+    	Long idLekara=lekar.getId();
+  
+    	
+    	try {
+	    	//Provera da li je pacijent vec ocenio lekara
+	    	oceneLekari ocenaLekara=oceneLekariService.findByPacijentAndLekarId(idPacijentaL,idLekara);
+	    	//Ukoliko postoji izmeni je
+	    	oceneLekariService.update(ocenaLekara, ocenaF);
+    		return new ResponseEntity<>("Ocena izmenjena",HttpStatus.OK);
+    	}
+    	catch(Exception e){
+	    	//Ukoliko ocena ne postoji dodaj je
+    			oceneLekari ocenaLekara=new oceneLekari();
+    			ocenaLekara.setId(new oceneLekariKljuc(idPacijentaL,idLekara));
+    			ocenaLekara.setOcena(ocenaF);
+    			ocenaLekara.setLekar(lekar);
+    			ocenaLekara.setPacijent(pacijent.get());
+	    		oceneLekariService.add(ocenaLekara);
+	    		return new ResponseEntity<>("Ocena dodata",HttpStatus.OK);	
+	    
+    	}
     }
-
-    //update:
-    //popuni ocene u tabeli
-    //napravi tabelu i za klinike
-    //kad stigne ocena :
-    // POZOVI TRAZENJE PACIJENT TO.
-    // AKO NEMA uzmi length vracenih za tu kliniku ili lekara dodaj novu saberi sve i leng+1 podeli i upisi
-    // AKO IMA izmeni njegovu saberi sve i podeli sa length.
+    
+    @GetMapping(value = "/oceniKliniku", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> oceniKliniku(@RequestParam("ocena") String ocena, @RequestParam("idKlinike")String idKlinike,@RequestParam("idPacijenta")String idPacijenta){
+    	
+    	Optional<Pacijent> pacijent=pacijentService.findById(Long.parseLong(idPacijenta));
+    	Optional<Klinika> klinika=klinikeService.findById(Long.parseLong(idKlinike));
+    	
+ 
+    	//Provera da li je pacijent vec ocenio kliniku
+    	oceneKlinike ocenaKlinike=oceneKlinikeService.findByPacijentAndKlinikaId(Long.parseLong(idPacijenta),Long.parseLong(idKlinike));
+    	
+    	//Ukoliko ocena ne postoji dodaj je
+    	if(ocenaKlinike==null) {
+    		ocenaKlinike=new oceneKlinike();
+    		ocenaKlinike.setId(new oceneKlinikeKljuc(Long.parseLong(idPacijenta),Long.parseLong(idKlinike)));
+    		ocenaKlinike.setPacijent(pacijent.get());
+    		ocenaKlinike.setKlinika(klinika.get());
+    		ocenaKlinike.setOcena(Float.parseFloat(ocena));
+    		oceneKlinikeService.add(ocenaKlinike);
+    		return new ResponseEntity<>("Ocena dodata",HttpStatus.OK);
+    		
+    	}
+    	//Ukoliko postoji izmeni je
+    	else {
+    		oceneKlinikeService.update(ocenaKlinike, Float.parseFloat(ocena));
+    		return new ResponseEntity<>("Ocena izmenjena",HttpStatus.OK);
+    	}
+    	
+    }
 
 }

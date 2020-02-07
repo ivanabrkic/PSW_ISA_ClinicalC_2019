@@ -3,7 +3,9 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card">
+				<div class="card">	
+				<button type="button" class="btn btn-primary btn-block" (click)="sortByTip()">Sortiraj po tipu posete</button>
+				<button type="button" class="btn btn-primary btn-block" (click)="sortByDatum()">Sortiraj po datumu posete</button>
 					<div class="card-header card-header-danger">
 						<h4 class="card-title ">Lista pregleda</h4>
 					</div>
@@ -11,11 +13,11 @@
 						<div class="table-responsive">
 							<table class="table">
 								<thead class=" text-primary">
-									<th>Datum</th>
+									<th>Datum
+									</th>
 									<th>Pocetak</th>
 									<th>Kraj</th>
-                  <th>Tip posete</th>
- 
+									<th>Tip pregleda</th>
 								</thead>
 								<tbody>
 									<tr *ngFor="let pregled of pregledi" [class.selected]="pregled === selectedPregled"
@@ -25,7 +27,7 @@
 										</td>
 										<td>{{pregled.pocetak}}</td>
 										<td>{{pregled.kraj}}</td>
-                    <td>{{pregled.tipPosete}}</td>
+										<td>{{pregled.tipPosete}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -52,18 +54,18 @@
 									<th>Datum</th>
 									<th>Pocetak</th>
 									<th>Kraj</th>
-                  <th>Tip posete</th>
+									<th>Tip operacije</th>
  
 								</thead>
 								<tbody>
 									<tr *ngFor="let operacija of operacije" [class.selected]="operacija === selectedOperacija"
-                  (click)="onSelectOp(operacija)">
+                  					(click)="onSelectOp(operacija)">
 										<td>
 											<span class="badge">{{operacija.datum}}</span>
 										</td>
 										<td>{{operacija.pocetak}}</td>
 										<td>{{operacija.kraj}}</td>
-                    <td>{{operacija.tipPosete}}</td>
+										<td> {{operacija.tipPosete}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -101,17 +103,27 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> Lekar : {{selected.ime}} {{selected.prezime}}, ocena: {{selectedLOcena}} </p>
+						<p> Lekar : {{selected.lekar.ime}} {{selected.lekar.prezime}}, ocena: {{selected.lekarOcena}} </p>
+						<p *ngIf="dozvoljenoOcenjivanjeLekara" >
+							Ocenite lekara: <ngb-rating  [(rate)]="currentRateLekar"></ngb-rating>
+							<hr>
+						
+						<p *ngIf="dozvoljenoOcenjivanjeLekara"> <button class="form-control" (click)="oceniLekara($event)">Ocenite</button></p>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> Klinika: {{selected.naziv}}, ocena: {{selectedKOcena}}</p>
+						<p> Klinika: {{selected.klinikaNaziv}}, ocena: {{selected.klinikaOcena}}</p>
+						<p  *ngIf="dozvoljenoOcenjivanjeKlinike">
+							Ocenite kliniku: <ngb-rating  [(rate)]="currentRateKlinika"></ngb-rating>
+							<hr>
+						
+						<p *ngIf="dozvoljenoOcenjivanjeKlinike">  <button class="form-control" (click)="oceniKliniku($event)">Ocenite</button></p>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> Tip pregleda: {{selected.naziv}}</p>
+						<p> Tip pregleda: {{selected.tipPosete}}</p>
                       </div>
                     </div>
                   </form>

@@ -2,17 +2,29 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class oceneLekariKljuc implements Serializable {
 
-    @Column(name = "pacijent_id")
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8996446703802611699L;
+
+	@Column(name = "pacijent_id")
     Long pacijentId;
 
     @Column(name="lekar_id")
     Long lekarId;
+    
+    public oceneLekariKljuc() {}
 
     public oceneLekariKljuc(Long pacijentId, Long lekarId) {
         this.pacijentId = pacijentId;

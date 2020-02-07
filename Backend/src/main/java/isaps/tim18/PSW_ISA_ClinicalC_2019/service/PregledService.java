@@ -1,5 +1,11 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +34,9 @@ public class PregledService {
 
 	public List<Pregled> findByPacijentId(Long id) {return pregledRepo.findByPacijentId(id);}
 
-	public posetaLekarKlinikaDTO findInfo(Long id){return pregledRepo.findInfo(id);}
+	public List<posetaLekarKlinikaDTO> findInfo(Long id){return pregledRepo.findInfo(id);}
 
 	public Optional<Pregled> update(predefDTO pregled) {
-		
-		System.out.println("Usao si ovde");
 		
 		Optional<Pregled> pronadjen=pregledRepo.findById(pregled.getId());
 		if (pronadjen!=null) {
@@ -46,5 +50,14 @@ public class PregledService {
 		
 		return null;
 	}
+
+//	public List<Pregled> findHistoryByPacijentId(Long id) {
+//		
+//		Date date = new Date();
+//		String modifiedDate= new SimpleDateFormat("d.M.yyyy.").format(date);
+//		System.out.print(modifiedDate);
+//
+//		return pregledRepo.findHistoryByPacijentId(id);
+//	}
 
 }

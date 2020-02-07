@@ -15,17 +15,55 @@ public class posetaLekarKlinikaDTO {
     Float klinikaOcena;
     Float lekarOcena;
 
-    public posetaLekarKlinikaDTO( Lekar lekar, Long klinikaId, String klinikaNaziv, Float klinikaOcena, Float lekarOcena) {
-        this.id = id;
-        this.tipPosete = tipPosete;
+    String datum;
+    String pocetak;
+    String kraj;
+
+    public posetaLekarKlinikaDTO(Long id, Lekar lekar, Long klinikaId, String klinikaNaziv, Float klinikaOcena, Float lekarOcena,String stavka,String datum,String pocetak,String kraj) {
         this.klinikaId = klinikaId;
         this.klinikaNaziv = klinikaNaziv;
         this.klinikaOcena = klinikaOcena;
         this.lekarOcena = lekarOcena;
         this.lekar=lekar;
+        this.tipPosete=stavka;
+        this.datum=datum;
+        this.pocetak=pocetak;
+        this.kraj=kraj;
+        this.id=id;
     }
 
-    public Lekar getLekar() {
+
+	public String getDatum() {
+		return datum;
+	}
+
+
+	public void setDatum(String datum) {
+		this.datum = datum;
+	}
+
+
+	public String getPocetak() {
+		return pocetak;
+	}
+
+
+	public void setPocetak(String pocetak) {
+		this.pocetak = pocetak;
+	}
+
+
+	public String getKraj() {
+		return kraj;
+	}
+
+
+	public void setKraj(String kraj) {
+		this.kraj = kraj;
+	}
+
+
+	public Lekar getLekar() {
         return lekar;
     }
 
@@ -33,7 +71,7 @@ public class posetaLekarKlinikaDTO {
         this.lekar = lekar;
     }
 
-    public posetaLekarKlinikaDTO(){}
+    public posetaLekarKlinikaDTO(Long id){this.id=id;}
 
     public Long getId() {
         return id;

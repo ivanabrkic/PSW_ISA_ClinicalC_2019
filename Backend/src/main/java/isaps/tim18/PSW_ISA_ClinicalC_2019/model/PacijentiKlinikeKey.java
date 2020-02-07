@@ -8,6 +8,7 @@ import java.util.Objects;
 @Embeddable
 public class PacijentiKlinikeKey implements Serializable {
 
+	
     @Column(name = "pacijent_id")
     Long pacijentId;
 

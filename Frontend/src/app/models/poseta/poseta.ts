@@ -1,9 +1,17 @@
+import { Lekar } from '../lekar/lekar';
+
 export class Poseta {
     id: String;
-    pacijent_id:String
-    datum:String;
+    tipPosete:String;
+    Lekar:Lekar;
+    klinikaId:number;
+    klinikaNaziv:String;
+    klinikaOcena:number;
+    lekarOcena:number;
+    datum:string
     pocetak:String;
     kraj:String;
-    tipPosete:String;
+
+    Poseta(){}
   }
   

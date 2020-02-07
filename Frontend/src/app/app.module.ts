@@ -15,7 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
@@ -68,6 +68,7 @@ import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { PredefinisaniTerminiComponent } from './modules/shared/predefinisani-termini/predefinisani-termini.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
+import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -112,6 +113,7 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
+    NgbModule,
     Ng2SearchPipeModule,
     BrowserModule,
     ReactiveFormsModule,
