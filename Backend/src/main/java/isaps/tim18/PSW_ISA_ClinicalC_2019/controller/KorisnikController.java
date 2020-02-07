@@ -3,6 +3,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.HelperRejectedMail;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KorisnikService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.MailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,9 @@ public class KorisnikController {
     @Autowired
     private KorisnikService korisnikService;
 
+    @Autowired
+    private MailSenderService mailSenderService;
+
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Korisnik>> getAllKorisnik() {
@@ -45,6 +49,8 @@ public class KorisnikController {
     public ResponseEntity<Korisnik> updateAktivnost(@RequestBody Korisnik korisnik, WebRequest request) throws Exception {
         korisnikService.updateAktivnost(korisnik);
 
+        mailSenderService.sendSimpleMessage(korisnik.getEmail(), "Registracija na servis kliničkog centra",
+                 korisnik.getIme() + ", uspešno ste se registrovali na servis!");
         try {
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent
@@ -62,9 +68,7 @@ public class KorisnikController {
         HelperRejectedMail hrm = helperRejectedMail;
         korisnikService.removeByJbo(helperRejectedMail.getJbo());
 
-        MailSenderController mailSender = new MailSenderController();
-
-        mailSender.sendSimpleMessage(helperRejectedMail.getKorisnikovEmail(), "Registracija na servis kliničkog centra",
+        mailSenderService.sendSimpleMessage(helperRejectedMail.getKorisnikovEmail(), "Registracija na servis kliničkog centra",
                 "Zahtev za registraciju je odbijen.\n\nRazlog:\n" + helperRejectedMail.getPoruka());
 
         String jboPretraga = helperRejectedMail.getJbo();

@@ -110,7 +110,7 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
 
         if (result.tipKorisnika == 'Lekar') {
           this.lekarService.register(result).pipe(first()).subscribe(result => {
-            alert('Uspešno ste registrovali lekara!\n\n');
+            alert(result.text);
 
             this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
               .subscribe(data => {
@@ -136,7 +136,7 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
         }
         else {
           this.medSestraService.register(result).pipe(first()).subscribe(result => {
-            alert('Uspešno ste registrovali medicinsku sestru!\n\n');
+            alert(result.text);
 
             this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
               .subscribe(data => {
@@ -166,10 +166,9 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
     });
   }
 
-  removeLekar(event: any) {
-    this.lekarService.remove(event.target.id).subscribe(data => {
-      if (data == null) {
-        alert("Uspešno ste otpustili lekara!")
+  removeLekar(lekar: Lekar) {
+    this.lekarService.remove(lekar.id).subscribe(data => {
+        alert(data.text)
         this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
           .subscribe(data => {
             this.lekari = data;
@@ -187,17 +186,15 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
                 this.dataSource.sort = this.sort;
               });
           });
-      }
     },
       error => {
         alert('Lekar ne može trenutno biti otpušten!\n\n');
       });
   }
 
-  removeMedSestra(event: any) {
-    this.medSestraService.remove(event.target.id).subscribe(data => {
-      if (data == null) {
-        alert("Uspešno ste otpustili medicinsku sestru!")
+  removeMedSestra(medSestra: MedicinskaSestra) {
+    this.medSestraService.remove(medSestra.id).subscribe(data => {
+        alert(data.text)
         this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
           .subscribe(data => {
             this.lekari = data;
@@ -215,7 +212,6 @@ export class TabelaMedicinskogOsobljaComponent implements OnInit {
                 this.dataSource.sort = this.sort;
               });
           });
-      }
     },
       error => {
         alert('Medicinska sestra ne može trenutno biti otpuštena!\n\n');

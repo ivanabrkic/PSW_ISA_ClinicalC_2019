@@ -21,7 +21,7 @@ public class Lekar extends Korisnik{
     @Column
     private float ocena;
 
-    @Column
+    @Column(name="specijalizacija")
     private String specijalizacija;
 
     @OneToOne(fetch = FetchType.LAZY)

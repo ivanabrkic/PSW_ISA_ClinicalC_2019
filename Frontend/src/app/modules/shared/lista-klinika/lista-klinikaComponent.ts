@@ -19,6 +19,14 @@ import { Cenovnik } from 'src/app/models/Cenovnik/cenovnik';
 
 export class ListaKlinikaComponent implements OnInit {
   private klinike: Klinika[];
+// <<<<<<< 2_19+2_17_Algoritam+MejlZahtev
+//   selectedKlinika: Klinika;  
+//   date=new FormControl(new Date);
+//   zahtev=new pretragaDTO();
+//   // tipovi:String[];
+//   tipovi:Cenovnik[];
+//   searchPregled:Cenovnik;
+// =======
   selectedKlinika: Klinika;
   date = new FormControl(new Date);
   zahtev = new pretragaDTO();
@@ -105,7 +113,23 @@ export class ListaKlinikaComponent implements OnInit {
       err => console.log('Nisu ucitane klinike'),
       () => console.log('Uspesno ucitane klinike')
     );
+// <<<<<<< 2_19+2_17_Algoritam+MejlZahtev
+// }
+//   lekariNavigate(event){
+//     var selectedDate=this.date.value;
+//     selectedDate=moment(selectedDate).format('D.M.YYYY.');
+//     console.log(selectedDate);
+//     let klinika=this.selectedKlinika;{
+//       // this.router.navigate(['/listaLekara'],{state:{klinika:klinika,zahtev:this.zahtev}});
+//     // var selectedDate=this.date.value;
+//     // selectedDate=moment(selectedDate).format('D.M.YYYY.');
+//     // console.log(selectedDate);
+//     let klinika=this.selectedKlinika;{
+//       this.router.navigate(['/listaLekara'],{state:{klinika:klinika,zahtev:this.zahtev,tip:this.searchPregled}});
+//     }
+// =======
   }
+}
 
   // lekariNavigate(event) {
   //   var selectedDate = this.date.value;

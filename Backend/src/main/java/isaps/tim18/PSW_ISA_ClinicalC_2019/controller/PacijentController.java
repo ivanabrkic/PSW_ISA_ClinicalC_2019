@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaIdTipDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
@@ -81,6 +82,15 @@ public class PacijentController {
         return new ResponseEntity<>(pacijenti, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/findPacijentByJbo", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pacijent> findPacijentByJbo(@RequestBody String jbo) throws Exception {
+        Pacijent pacijent = pacijentService.findPacijentByJbo(jbo);
+
+        if (pacijent != null){
+            return new ResponseEntity<>(pacijent, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+      
     @PostMapping(value = "/getOperacije", consumes=MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<posetaLekarKlinikaDTO>> getOperacijeById(@RequestBody Long id) {
     	

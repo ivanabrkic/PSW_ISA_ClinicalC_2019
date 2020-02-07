@@ -78,6 +78,10 @@ public class PacijentService {
         return pacijentRepository.removePacijentByJbo(jbo);
     }
 
+    public Pacijent findPacijentByJbo(String jbo) {
+        return pacijentRepository.findByJbo(jbo);
+    }
+  
 	public Optional<Pacijent> findById(Long id) {
 		return pacijentRepository.findById(id);
 	}

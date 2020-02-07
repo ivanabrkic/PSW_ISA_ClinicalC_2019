@@ -55,16 +55,16 @@ export class PregledSalaComponent implements OnInit {
       });
   }
 
-  removeSala(event: any) {
-    this.klinikaService.removeSala(event.target.id).subscribe(data => {
-        alert(data.text)
-        this.klinikaService.getSale(this.adminKlinike.klinika.id)
-          .subscribe(data => {
-            this.sale = data;
-            this.dataSource = new MatTableDataSource(this.sale);
-            this.dataSource.sort = this.sort;
-          });
-      },
+  removeSala(sala: Sala) {
+    this.klinikaService.removeSala(sala.id).subscribe(data => {
+      alert(data.text)
+      this.klinikaService.getSale(this.adminKlinike.klinika.id)
+        .subscribe(data => {
+          this.sale = data;
+          this.dataSource = new MatTableDataSource(this.sale);
+          this.dataSource.sort = this.sort;
+        });
+    },
       error => {
         alert('Sala trenutno ne može biti uklonjena!\n\n');
       });
