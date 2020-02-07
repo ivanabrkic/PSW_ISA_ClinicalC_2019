@@ -421,5 +421,7 @@ public class KlinikaService {
         return vremeZakazivanja;
     }
 
+    public List<Operacija> findOperacijeByLekar(Lekar lekar) { return operacijaRepository.findByLekari(lekar); }
+
 
 }

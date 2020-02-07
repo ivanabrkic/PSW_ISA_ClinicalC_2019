@@ -9,7 +9,6 @@ import {Recept} from '../../../models/Recept/recept';
 import {Lekovi} from '../../../models/Lekovi/lekovi';
 import {DijalogKreiranjeReceptaComponent} from '../dijalog-kreiranje-recepta/dijalog-kreiranje-recepta.component';
 import {MatDialog} from '@angular/material/dialog';
-import {first} from 'rxjs/operators';
 import {PregledService} from '../../../services/pregled-service/pregled.service';
 import {DijalogUnosDijagnozaComponent} from '../dijalog-unos-dijagnoza/dijalog-unos-dijagnoza.component';
 import {OpstiIzvestajService} from '../../../services/opsti-izvestaj/opsti-izvestaj.service';

@@ -20,7 +20,11 @@ export class SessionService {
   zkPregled: ZdravstveniKarton;
   opstiIzvestaj: OpstiIzvestaj;
 
-
+  //
+  ulogovanLekar: Lekar;
+  //
   receptZaIzmenu: Recept;
+  fromKalendar = false;
+  preglediKalendar: any;
   constructor() { }
 }

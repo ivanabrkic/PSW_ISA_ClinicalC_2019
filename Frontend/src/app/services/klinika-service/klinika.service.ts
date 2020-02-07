@@ -125,5 +125,10 @@ export class KlinikaService {
   public zakaziTermin(termin : PregledId){
     return this.http.post<Message>('/server/klinika/dodajTermin', JSON.stringify(termin), httpOptions);
   }
+  //////////////////////////////////Nikolino/////////////////////////////////////////////////////////////
 
+  public findOperacijeByLekar(lekar: Lekar): Observable<Operacija[]>{
+    const body = JSON.stringify(lekar);
+    return this.http.post<Operacija[]>('/server/klinika/findOperacijeByLekar', body, httpOptions);
+  }
 }

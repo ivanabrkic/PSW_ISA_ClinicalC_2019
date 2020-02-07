@@ -58,7 +58,7 @@ insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_st
 
 
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:00', '08:15', '7.2.2020.', 1, 2, 6, 60, 'Neaktivan');
-insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:30', '08:45', '7.2.2020.',2, 2, 1, 10, 'Neaktivan');
+insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:30', '08:45', '7.2.2020.',1, 2, 1, 10, 'Neaktivan');
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('09:00', '09:15', '7.2.2020.',2, 1, 1, 20, 'Neaktivan');
 
 insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke) values ('13:00', '13:15', '1.2.2020.', 7, 1, 2, 2);
@@ -103,3 +103,4 @@ insert into opsti_izvestaj(id, alergije_lek, dioptrija, krvna_grupa, tezina, vis
 insert into zkartoni_opsti_izvestaji(opsti_izvestaj_id, zkarton) values (2,1);
 
 insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,100);
+insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (2,200);

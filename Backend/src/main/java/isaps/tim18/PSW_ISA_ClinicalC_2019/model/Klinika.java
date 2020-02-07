@@ -1,10 +1,11 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="klinika")
-public class Klinika {
+public class Klinika implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,6 +17,8 @@ public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
             " GROUP BY o.datum, o.pocetak, o.kraj, o.pacijent.jbo, c.naziv")
     List<OperacijaDTO> findBySalaId(Long id);
 
+    List<Operacija> findByLekari(Lekar lekar);
+
     @Query("SELECT o.lekari FROM Operacija o WHERE o.datum = ?1 " +
             "AND o.pocetak = ?2 AND o.kraj = ?3 " +
             "AND o.sala.id = ?4")
