@@ -38,6 +38,12 @@ public class PregledService {
 
 	public List<PregledIzvestajDTO> findPregledeById(Long idLekar) { return pregledRepo.nadjiPoIdLekara(idLekar); }
 
+	public List<PreglediStatusDTO> findAll() {
+		List<PreglediStatusDTO> pregledi = pregledRepo.findAllPreglede();
+		pregledi.addAll(pregledRepo.findAllPregledeNezakazane());
+		return pregledi;
+	}
+
 	@Transactional
 	public void updateZavrsen(PregledIzvestajDTO p) {
 

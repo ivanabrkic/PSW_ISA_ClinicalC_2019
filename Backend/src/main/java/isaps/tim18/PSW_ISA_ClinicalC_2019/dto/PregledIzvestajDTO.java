@@ -28,16 +28,6 @@ public class PregledIzvestajDTO {
         this.prezimeLekara = prezimeLekara;
     }
 
-    public PregledIzvestajDTO(Long id, String datum, String pocetak, String kraj, String jboLekara, String imeLekara, String prezimeLekara) {
-        this.id = id;
-        this.datum = datum;
-        this.pocetak = pocetak;
-        this.kraj = kraj;
-        this.jboLekara = jboLekara;
-        this.imeLekara = imeLekara;
-        this.prezimeLekara = prezimeLekara;
-    }
-
     public Long getId() {
         return id;
     }

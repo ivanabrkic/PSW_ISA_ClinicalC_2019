@@ -25,8 +25,12 @@ public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
     List<OperacijaDTO> findBySalaId(Long id);
 
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaKalendarDTO(o.pacijent.jbo, o.datum, o.pocetak, o.kraj, o.pacijent.ime, o.pacijent.prezime)" +
-            "FROM Operacija o WHERE o.lekari.id = ?1")
+            "FROM Operacija o WHERE o.lekari.id = ?1 AND o.status = 'Zakazan'")
     List<OperacijaKalendarDTO> findByLekari(Long lekarId);
+
+    @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaKalendarDTO(o.pacijent.jbo, o.datum, o.pocetak, o.kraj, o.pacijent.ime, o.pacijent.prezime)" +
+            "FROM Operacija o WHERE o.status = 'Zakazan'")
+    List<OperacijaKalendarDTO> getZakazaneOperacije();
 
     @Query("SELECT o.lekari FROM Operacija o WHERE o.datum = ?1 " +
             "AND o.pocetak = ?2 AND o.kraj = ?3 " +

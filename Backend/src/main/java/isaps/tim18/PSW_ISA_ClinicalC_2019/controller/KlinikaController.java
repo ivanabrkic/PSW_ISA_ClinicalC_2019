@@ -298,4 +298,11 @@ public class KlinikaController {
 
     }
 
+    @GetMapping(value = "/getZakazaneOperacije", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OperacijaKalendarDTO>> getZakazaneOperacije() {
+        List<OperacijaKalendarDTO> operacije = klinikaService.getZakazaneOperacije();
+
+        return new ResponseEntity<>(operacije, HttpStatus.OK);
+    }
+
 }

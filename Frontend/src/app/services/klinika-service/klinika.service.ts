@@ -141,4 +141,9 @@ export class KlinikaService {
     const body = JSON.stringify(lekar);
     return this.http.post<OperacijaKalendarDTO[]>('/server/klinika/findOperacijeByLekar', body, httpOptions);
   }
+
+  public getZakazaneOperacije(): Observable<OperacijaKalendarDTO[]> {
+    return this.http.get<OperacijaKalendarDTO[]>('/server/klinika/getZakazaneOperacije', httpOptions);
+  }
+
 }

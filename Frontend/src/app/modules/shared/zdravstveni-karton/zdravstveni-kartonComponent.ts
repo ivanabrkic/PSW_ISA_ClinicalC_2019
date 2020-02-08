@@ -287,7 +287,7 @@ export class ZdravstveniKartonComponent implements OnInit {
 
   prikaziLekove(izvestajDTO: IzvestajDto, izvestajId: number) {
     console.log(izvestajDTO);
-    this.receptService.findByIzvestaj(izvestajDTO.id).subscribe( receptIzBaze => {
+    this.izvestajService.getReceptByIzvestajId(izvestajDTO.id).subscribe( receptIzBaze => {
       this.objekatRecept = receptIzBaze;
       console.log(this.objekatRecept);
       this.getovanRecept = this.objekatRecept;

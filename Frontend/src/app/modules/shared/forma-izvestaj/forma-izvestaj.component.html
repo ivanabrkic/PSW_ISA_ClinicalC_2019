@@ -1,4 +1,5 @@
-<app-sidebarlekar></app-sidebarlekar>
+<p *ngIf="this.lekarJe == true"><app-sidebarlekar></app-sidebarlekar></p>
+<p *ngIf="this.sestraJe == true"><app-sidebar-med-sestra></app-sidebar-med-sestra></p>
 <div class="content-container" >
   <div class="container-fluid" style = "width: 100%;">
     <div class="main-content" style  = "width: 100%;">

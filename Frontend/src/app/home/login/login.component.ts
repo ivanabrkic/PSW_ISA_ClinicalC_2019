@@ -52,8 +52,12 @@ export class LoginComponent implements OnInit {
           if (data.tipKorisnika === 'Pacijent') {
             this.router.navigate(['/pacijentPregled']);
           } else if (data.tipKorisnika === 'Lekar') {
+            this.sessionService.ulogovanLekarBool = true;
+            this.sessionService.ulogovanaSestraBool = false;
             this.router.navigate(['/lekarPregled']);
           } else if (data.tipKorisnika === 'Medicinska sestra') {
+            this.sessionService.ulogovanLekarBool = false;
+            this.sessionService.ulogovanaSestraBool = true;
             this.router.navigate(['/medicinskaSestra']);
           } else if (data.tipKorisnika === 'Administrator klinike') {
             this.router.navigate(['/administratorklinikepregled']);

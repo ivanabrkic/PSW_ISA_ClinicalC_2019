@@ -57,4 +57,11 @@ public class PregledController {
 
         return new ResponseEntity<>(zakazani, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PreglediStatusDTO>> findAll(){
+        List<PreglediStatusDTO> zakazani = pregledService.findAll();
+
+        return new ResponseEntity<>(zakazani, HttpStatus.OK);
+    }
 }

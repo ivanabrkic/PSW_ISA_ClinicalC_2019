@@ -75,12 +75,12 @@ public class ReceptController {
         return new ResponseEntity<>(recept, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/findByIzvestaj", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Recept> findByIzvestaj(@RequestBody Long id) throws Exception {
-        Recept recept = receptService.findByIzvestaj(id);
-        System.out.println("Id izvestaja: " + id);
-        return new ResponseEntity(recept, HttpStatus.OK);
-    }
+//    @PostMapping(value = "/findByIzvestaj", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Recept> findByIzvestaj(@RequestBody Long id) throws Exception {
+//        Recept recept = receptService.findByIzvestaj(id);
+//        System.out.println("Id izvestaja: " + id);
+//        return new ResponseEntity(recept, HttpStatus.OK);
+//    }
 
     @PostMapping(value = "/update", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Recept> update(@RequestBody Recept noviRecept) throws Exception {

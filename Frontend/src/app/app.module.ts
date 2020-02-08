@@ -82,11 +82,12 @@ import { PregledLekovaComponent } from './modules/shared/pregled-lekova/pregled-
 import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izmena-izvestaja.component';
 
 import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
-import { RadniKalendarLekarComponent } from './modules/shared/radni-kalendar-lekar/radni-kalendar-lekar.component';
+import { RadniKalendarLekarComponent } from './modules/objects/lekar/radni-kalendar-lekar/radni-kalendar-lekar.component';
 import {ScheduleModule} from '@syncfusion/ej2-angular-schedule';
 import { OdsustvoDijalogComponent } from './modules/shared/dijalog-odsustvo/odsustvo-dijalog.component';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
 import {MatIconModule} from '@angular/material/icon';
+import { RadniKalendarSestraComponent } from './modules/objects/medicinskas/radni-kalendar-sestra/radni-kalendar-sestra.component';
 
 
 
@@ -140,7 +141,8 @@ import {MatIconModule} from '@angular/material/icon';
     IzmenaIzvestajaComponent,
     PredefinisaniTerminiComponent,
     RadniKalendarLekarComponent,
-    OdsustvoDijalogComponent
+    OdsustvoDijalogComponent,
+    RadniKalendarSestraComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -174,6 +176,7 @@ import {MatIconModule} from '@angular/material/icon';
       {path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
       {path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
       {path: 'radniKalendarLekar', component: RadniKalendarLekarComponent},
+      {path: 'radniKalendarSestra', component: RadniKalendarSestraComponent},
       {path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
       {path: 'medicinskaSestra', component: ProfilMedSestraComponent},
       {path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent},

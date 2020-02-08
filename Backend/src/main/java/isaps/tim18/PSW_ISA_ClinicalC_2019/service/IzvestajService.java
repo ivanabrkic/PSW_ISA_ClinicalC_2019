@@ -2,6 +2,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.IzvestajDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Izvestaj;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Recept;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.ZdravstveniKarton;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.IzvestajRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,16 @@ public class IzvestajService {
 
             izvestajRepository.save(i);
             return izvestajDTO;
+        }
+        System.out.println("Error");
+        return null;
+    }
+
+    public Recept findReceptByIzvestaj(Long izvestaj) {
+        Optional<Izvestaj> izv = izvestajRepository.findById(izvestaj);
+        if(izv.isPresent()){
+            Izvestaj i = izv.get();
+            return i.getRecept();
         }
         System.out.println("Error");
         return null;

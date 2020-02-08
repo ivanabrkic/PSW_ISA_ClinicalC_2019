@@ -49,30 +49,36 @@ public class ReceptService {
             }
         }
 
-        r.setLekovi(lekovi);
+        Recept recept = new Recept();
+        recept.setLekovi(lekovi);
+        recept.setOveren(false);
+        recept.setMedicinskaSestra(r.getMedicinskaSestra());
+        recept.setPacijent(r.getPacijent());
 
-
-        return receptRepository.save(r);
+        return receptRepository.save(recept);
     }
 
     @Transactional
-    public void remove(Recept r) { receptRepository.delete(r); }
+    public void remove(Recept r) {
+        receptRepository.obrisiLekove(r.getId());
+        receptRepository.delete(r);
+    }
 
     public List<Recept> findByPacijent(Pacijent p) { return receptRepository.findByPacijent(p); }
 
     public List<Recept> findByOveren(Boolean o) { return receptRepository.findByOveren(o); }
 
-    public Recept findByIzvestaj(Long izvestajID) {
-        Optional<Izvestaj> izv = izvestajRepository.findById(izvestajID);
-
-        if(izv.isPresent()){
-            System.out.println("Nasao je izvestaj");
-            return receptRepository.findByIzvestaj(izv.get());
-        }
-
-
-        return null;
-    }
+//    public Recept findByIzvestaj(Long izvestajID) {
+//        Optional<Izvestaj> izv = izvestajRepository.findById(izvestajID);
+//
+//        if(izv.isPresent()){
+//            System.out.println("Nasao je izvestaj");
+//            return receptRepository.findByIzvestaj(izv.get());
+//        }
+//
+//
+//        return null;
+//    }
 
     @Transactional
     public Recept updateOveren(Recept recept){
@@ -94,6 +100,7 @@ public class ReceptService {
         Optional<Recept> opt = receptRepository.findById(recept.getId());
 
         if(opt.isPresent()){
+            receptRepository.obrisiLekove(opt.get().getId());
             receptRepository.delete(opt.get());
         }
 
@@ -124,6 +131,4 @@ public class ReceptService {
 
         return recept;
     }
-
-
 }
