@@ -89,6 +89,8 @@ import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
 import { ZakaziLekarComponent } from './modules/objects/lekar/zakazi-lekar/zakazi-lekar.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import {MatIconModule} from '@angular/material/icon';
+import { PregledSalaComponent } from './modules/objects/admin-klinike/pregled-sala/pregled-sala.component';
+import { ListaSalaComponent } from './modules/shared/lista-sala/lista-salaComponent';
 
 @NgModule({
   declarations: [
@@ -140,9 +142,11 @@ import {MatIconModule} from '@angular/material/icon';
     PregledLekovaComponent,
     IzmenaIzvestajaComponent,
     PredefinisaniTerminiComponent,
+    ListaSalaComponent,
     ZakaziLekarComponent,
     RadniKalendarLekarComponent,
     OdsustvoDijalogComponent
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -231,12 +235,13 @@ import {MatIconModule} from '@angular/material/icon';
       {path: 'listaKlinika', component: ListaKlinikaComponent},
       {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
       {path: 'listaPoseta', component: PoseteComponent},
-      {path: 'listaLekara', component: ListaLekaraComponent},
-      {path: 'profilKlinike', component: ProfilKlinikeComponent},
-      {path: 'listaPredefinisanih', component: PredefinisaniTerminiComponent},
-      {path: '**', component: NotFoundComponent},
-    ]),
-    ScheduleModule
+      {path: 'listaLekara',component:ListaLekaraComponent},
+      {path: 'profilKlinike',component:ProfilKlinikeComponent},
+      {path: 'listaPredefinisanih',component:PredefinisaniTerminiComponent},
+       {path: 'listaSala', component: ListaSalaComponent},
+      { path: '**', component: NotFoundComponent},
+    ])
+
   ],
   providers: [
     DatePipe,
