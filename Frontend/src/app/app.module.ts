@@ -84,6 +84,8 @@ import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izme
 import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
 import {MatIconModule} from '@angular/material/icon';
+import { PregledSalaComponent } from './modules/objects/admin-klinike/pregled-sala/pregled-sala.component';
+import { ListaSalaComponent } from './modules/shared/lista-sala/lista-salaComponent';
 
 
 @NgModule({
@@ -134,7 +136,8 @@ import {MatIconModule} from '@angular/material/icon';
     PregledIzvestajaComponent,
     PregledLekovaComponent,
     IzmenaIzvestajaComponent,
-    PredefinisaniTerminiComponent
+    PredefinisaniTerminiComponent,
+    ListaSalaComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -196,6 +199,7 @@ import {MatIconModule} from '@angular/material/icon';
       {path: 'listaLekara',component:ListaLekaraComponent},
       {path: 'profilKlinike',component:ProfilKlinikeComponent},
       {path: 'listaPredefinisanih',component:PredefinisaniTerminiComponent},
+       {path: 'listaSala', component: ListaSalaComponent},
       { path: '**', component: NotFoundComponent},
     ])
   ],

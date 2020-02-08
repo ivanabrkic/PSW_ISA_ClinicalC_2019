@@ -27,7 +27,9 @@ export class ProfilKlinikeComponent implements OnInit {
   }
   predefinisaniNavigate(event){
   this.router.navigate(['/listaPredefinisanih'],{state:{klinika:this.klinika.id}});
-
 }
+ listaSalaNavigate(event){
+  this.router.navigate(['/listaSala'],{state:{klinika:this.klinika}});
+ }
 
 }
