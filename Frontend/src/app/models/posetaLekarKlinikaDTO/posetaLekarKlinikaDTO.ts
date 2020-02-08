@@ -1,17 +1,13 @@
 import { Lekar } from '../lekar/lekar';
 
-export class Poseta {
-    id: String;
+export class posetaLekarKlinikaDTO{
+    id:number;
     tipPosete:String;
-    Lekar:Lekar;
+    lekar:Lekar;
     klinikaId:number;
     klinikaNaziv:String;
     klinikaOcena:number;
     lekarOcena:number;
-    datum:string
-    pocetak:String;
-    kraj:String;
 
-    Poseta(){}
-  }
-  
+    posetaLekarKlinikaDTO(){}
+}

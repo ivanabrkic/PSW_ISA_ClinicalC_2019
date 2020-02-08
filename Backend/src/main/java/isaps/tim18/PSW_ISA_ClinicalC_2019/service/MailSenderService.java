@@ -1,14 +1,19 @@
-package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
+package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.stereotype.Service;
 
 import java.util.Properties;
 
-public class MailSenderController {
+@Service
+public class MailSenderService {
+
+    @Autowired
     private JavaMailSenderImpl mailSender;
-    public MailSenderController(){
+
+    public MailSenderService(){
         mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);

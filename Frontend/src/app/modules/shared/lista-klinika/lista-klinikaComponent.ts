@@ -105,30 +105,25 @@ export class ListaKlinikaComponent implements OnInit {
       err => console.log('Nisu ucitane klinike'),
       () => console.log('Uspesno ucitane klinike')
     );
+
   }
 
-  // lekariNavigate(event) {
-  //   var selectedDate = this.date.value;
-  //   selectedDate = moment(selectedDate).format('D.M.YYYY.');
-  //   console.log(selectedDate);
-  //   let klinika = this.selectedKlinika;
-  //   {
-  //     this.router.navigate(['/listaLekara'], {state: {klinika: klinika, zahtev: this.zahtev}});
-  //     // var selectedDate=this.date.value;
-  //     // selectedDate=moment(selectedDate).format('D.M.YYYY.');
-  //     // console.log(selectedDate);
-  //     let klinika = this.selectedKlinika;
-  //     {
-  //       this.router.navigate(['/listaLekara'], {
-  //         state: {
-  //           klinika: klinika,
-  //           zahtev: this.zahtev,
-  //           tip: this.searchPregled
-  //         }
-  //       });
-  //     }
-  //   }
-  // }
+
+  lekariNavigate(event) {
+    var selectedDate = this.date.value;
+    selectedDate = moment(selectedDate).format('D.M.YYYY.');
+    console.log(selectedDate);
+      let klinika = this.selectedKlinika;
+        this.router.navigate(['/listaLekara'], 
+        {  state: {
+            klinika: klinika,
+            zahtev: this.zahtev,
+            tip: this.searchPregled
+          }
+        });
+  }
+
+
   profilNavigate(event) {
 
     let klinika = this.selectedKlinika;

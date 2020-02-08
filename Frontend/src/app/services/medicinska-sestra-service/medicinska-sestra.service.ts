@@ -2,6 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
+import { Message } from 'src/app/models/message/message';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -32,10 +33,10 @@ export class MedicinskaSestraService {
 
   public register(medSes: MedicinskaSestra) {
     const med = JSON.stringify(medSes);
-    return this.http.post<MedicinskaSestra>('/server/medicinska_sestra/register' , med, httpOptions);
+    return this.http.post<Message>('/server/medicinska_sestra/register' , med, httpOptions);
   }
 
   public remove(id: number) {
-    return this.http.post<MedicinskaSestra>('/server/medicinska_sestra/remove' , id, httpOptions);
+    return this.http.post<Message>('/server/medicinska_sestra/remove' , id, httpOptions);
   }
 }

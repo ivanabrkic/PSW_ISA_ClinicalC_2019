@@ -1,5 +1,14 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,11 +16,15 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.LekarPacijentPregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PregledRepository;
-
 import javax.transaction.Transactional;
 
 @Service
@@ -43,8 +56,12 @@ public class PregledService {
 
 	public Optional<Pregled> findById(Long id) {return pregledRepo.findById(id);}
 
-	public Optional<Pregled> update(predefDTO pregled) {
+	public List<Pregled> findByPacijentId(Long id) {return pregledRepo.findByPacijentId(id);}
 
+	public List<posetaLekarKlinikaDTO> findInfo(Long id){return pregledRepo.findInfo(id);}
+
+	public Optional<Pregled> update(predefDTO pregled) {
+		
 		System.out.println("Usao si ovde");
 
 		Optional<Pregled> pronadjen=pregledRepo.findById(pregled.getId());
@@ -60,6 +77,14 @@ public class PregledService {
 		return null;
 	}
 
+//	public List<Pregled> findHistoryByPacijentId(Long id) {
+//		
+//		Date date = new Date();
+//		String modifiedDate= new SimpleDateFormat("d.M.yyyy.").format(date);
+//		System.out.print(modifiedDate);
+//
+//		return pregledRepo.findHistoryByPacijentId(id);
+//	}
 	public List<PregledIzvestajDTO> getZakazane(LekarPacijentPregledDTO lekarPacijentPregledDTO){
 		return pregledRepo.getZakazaneByLekarAndPacijent(lekarPacijentPregledDTO.getJboLekara(), lekarPacijentPregledDTO.getJboPacijenta());
 	}

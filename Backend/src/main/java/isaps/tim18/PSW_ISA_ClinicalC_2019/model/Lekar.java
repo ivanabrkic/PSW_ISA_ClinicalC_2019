@@ -1,9 +1,12 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Set;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name="lekar")
 @PrimaryKeyJoinColumn(name = "lekar_id")
@@ -18,13 +21,19 @@ public class Lekar extends Korisnik{
     @Column
     private float ocena;
 
-    @Column
+    @Column(name="specijalizacija")
     private String specijalizacija;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="klinika_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Klinika klinika;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "lekar")
+    private Set<oceneLekari> ocene;
+
 
     public Lekar() {
     }

@@ -7,6 +7,7 @@ export class Operacija{
     tipPregleda:String;
     tipId:number;
     salaId:number;
+    id:number;
 
     public Operacija(){
     }

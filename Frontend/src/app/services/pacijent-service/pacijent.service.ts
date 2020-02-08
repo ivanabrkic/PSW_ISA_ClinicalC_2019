@@ -30,6 +30,11 @@ export class PacijentService {
     return this.http.post<Pacijent>('/server/pacijent/getPacijent', jbo, httpOptions);
   }
 
+  public findPacijentByJbo(jbo : String){
+    return this.http.post<Pacijent>('/server/pacijent/findPacijentByJbo', jbo, httpOptions);
+
+  }
+
   getPacijentiAll() {
     return this.http.get('/server/pacijent/all');
   }

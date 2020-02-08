@@ -50,9 +50,9 @@
                             </ng-container>
                             <ng-container matColumnDef="Ukloni">
                                 <th mat-header-cell *matHeaderCellDef> </th>
-                                <td mat-cell *matCellDef="let med"> <button *ngIf="med.tipKorisnika == 'Medicinska sestra'" id={{med.id}} mat-raised-button (click)="removeMedSestra($event)"
+                                <td mat-cell *matCellDef="let med"> <button *ngIf="med.tipKorisnika == 'Medicinska sestra'" id={{med.id}} mat-raised-button (click)="removeMedSestra(med)"
                                     class="btn btn-danger">Otpusti</button>
-                                    <button *ngIf="med.tipKorisnika == 'Lekar'" id={{med.id}} mat-raised-button (click)="removeLekar($event)"
+                                    <button *ngIf="med.tipKorisnika == 'Lekar'" id={{med.id}} mat-raised-button (click)="removeLekar(med)"
                                     class="btn btn-danger">Otpusti</button>
                                 </td>
                             </ng-container>

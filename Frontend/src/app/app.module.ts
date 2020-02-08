@@ -14,8 +14,9 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
 
 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -84,6 +85,8 @@ import { PredefTerminiServiceService } from './services/predefTermini-service/pr
 import { RadniKalendarLekarComponent } from './modules/shared/radni-kalendar-lekar/radni-kalendar-lekar.component';
 import {ScheduleModule} from '@syncfusion/ej2-angular-schedule';
 import { OdsustvoDijalogComponent } from './modules/shared/dijalog-odsustvo/odsustvo-dijalog.component';
+import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -141,6 +144,7 @@ import { OdsustvoDijalogComponent } from './modules/shared/dijalog-odsustvo/odsu
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
+    NgbModule,
     Ng2SearchPipeModule,
     BrowserModule,
     ReactiveFormsModule,

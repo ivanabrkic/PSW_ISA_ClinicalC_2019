@@ -6,19 +6,16 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.DateFormatter;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class KlinikaService {
@@ -49,6 +46,9 @@ public class KlinikaService {
 
     @Autowired
     private LekarRepository lekarRepository;
+
+    @Autowired
+    private MailSenderService mailSenderService;
 
     public Klinika findByNaziv(String naziv) { return klinikaRepository.findByNaziv(naziv); }
 
@@ -126,38 +126,38 @@ public class KlinikaService {
 
         return predef;
     }
-
-    public List<predefInfoDTO> getPreglediPredef(Long id,String s,Long pacId) throws ParseException {
-
-
+    
+ public List<predefInfoDTO> getPreglediPredefKlinPac(Long id,String s,Long pacId) throws ParseException {
+    	
+    	
         List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id,s);
         List<Pregled> pacZauzet=pregledRepository.findByPacijentId(pacId);
-
+        
         List<predefInfoDTO> odgovarajuci=new ArrayList<>();
-
+        
         SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
-
+        
         for (predefInfoDTO p:predef) {
-            boolean found=false;
-            for (Pregled z:pacZauzet) {
-                if(sdf.parse(p.getDatum()).compareTo(sdf.parse(z.getDatum()))==0) {//ako se datumi poklapaju
-                    //(StartA <= EndB) and (EndA >= StartB) proveri poklapanje vremena
-                    if( LocalTime.parse(p.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getKraj(), DateTimeFormatter.ofPattern("HH:mm")))<=0)	{
-                        if(LocalTime.parse(p.getKraj(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")))>=0) {
-                            found=true;
-                        }
-
-                    }
-                }
-            }
-            if (!found){
-                odgovarajuci.add(p);
-            }
+        	boolean found=false;
+        	for (Pregled z:pacZauzet) {
+        		if(sdf.parse(p.getDatum()).compareTo(sdf.parse(z.getDatum()))==0) {//ako se datumi poklapaju
+        			//(StartA <= EndB) and (EndA >= StartB) proveri poklapanje vremena
+        			if( LocalTime.parse(p.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getKraj(), DateTimeFormatter.ofPattern("HH:mm")))<=0)	{
+        				if(LocalTime.parse(p.getKraj(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")))>=0) {
+        					found=true;
+        				}
+        				
+        			}
+        		}
+        	}
+        	if (!found){
+        		odgovarajuci.add(p);
+        	}
         }
 
         return odgovarajuci; //termini koji se ne poklapaju s pacijentovim
     }
-
+    ////////////////////// ONA KOJA MENI TREBA  ////////////////////////////////////////////
     public List<predefInfoDTO> getPreglediPredef(Long id) {
         List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id);
 
@@ -378,6 +378,44 @@ public class KlinikaService {
         return slobodni;
     }
 
+    public List<Lekar> getSlobodniLekariCeoLekar(Zahtev zahtev){
+        String vremeZakazivanja = getVremeZakazivanja(zahtev);
+
+        if(zahtev.getTipPosete().equals("Operacija")) {
+
+            if (lekarSlobodan(zahtev)) {
+
+                String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
+                List<Long> radeUToVreme = lekarRepository.radnoVremeSpecOperacija(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+
+                List<Lekar> slobodni = new ArrayList<>();
+                for (Long id : radeUToVreme) {
+                    if (lekarRepository.imaOperacije(id, zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()
+                            && lekarRepository.imaPreglede(id, zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()) {
+                        slobodni.add(lekarRepository.findById(id).get());
+                    }
+                }
+                return slobodni;
+            }
+            else {
+                return new ArrayList<Lekar>();
+            }
+        }
+
+        // AKO JE PREGLED LEKAR KOJI JE POSLAO ZAHTEV NIJE OBAVEZAN I DA OBAVLJA PREGLED
+        String specijalizacija = cenovnikRepository.findById(zahtev.getIdStavke()).get().getSpecijalizacija();
+        List<Long> radeUToVreme = lekarRepository.radnoVremeSpecPregled(zahtev.getIdKlinike(), vremeZakazivanja, specijalizacija);
+
+        List<Lekar> slobodni = new ArrayList<>();
+        for (Long id : radeUToVreme) {
+            if (lekarRepository.imaOperacije(id, zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()
+                    && lekarRepository.imaPreglede(id, zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()) {
+                slobodni.add(lekarRepository.findById(id).get());
+            }
+        }
+        return slobodni;
+    }
+
     public boolean lekarSlobodan(Zahtev zahtev){
         Lekar lekar = lekarRepository.findByJbo(zahtev.getJboLekara());
         if (lekarRepository.imaOperacije(lekar.getId(), zahtev.getDatum(), zahtev.getPocetak(), zahtev.getKraj()).isEmpty()
@@ -417,10 +455,311 @@ public class KlinikaService {
 
         return vremeZakazivanja;
     }
+    ///////////////////////// ALGORITAM NE DIRAJ!!! ///////////////////////////////////////////
+    public void algoritamOperacijaDrugiTermin(Zahtev zahtev){
+
+        List<SalaDTO> listaDrugiTermin = findDrugiTermin(zahtev);
+        boolean nasaoSaDva = false;
+
+        for(SalaDTO sala : listaDrugiTermin){
+            /// NOVA VREDNOST TERMINA!
+            zahtev.setPocetak(sala.getPocetakSlobodna());
+            zahtev.setKraj(sala.getKrajSlobodna());
+            zahtev.setDatum(sala.getDatumSlobodna());
+
+            List<Long> slobodniDrugiTermin = getSlobodniLekari(zahtev);
+
+            if (slobodniDrugiTermin.size() >= 2){
+
+                nasaoSaDva = true;
+
+                for(Long lekarId : slobodniDrugiTermin) {
+                    ///// TRAZIM LEKARA KOJI NIJE LEKAR KOJI JE GLAVNI NA OPERACIJI
+                    if (lekarId != lekarRepository.findByJbo(zahtev.getJboLekara()).getId()) {
+                        Operacija operacija = new Operacija();
+                        operacija.setDatum(zahtev.getDatum());
+                        operacija.setPocetak(zahtev.getPocetak());
+                        operacija.setKraj(zahtev.getKraj());
+                        operacija.setLekari(lekarRepository.findById(lekarId).get());
+                        operacija.setSala(salaRepository.findById(sala.getId()).get());
+                        operacija.setPacijent(pacijentRepository.findByJbo(zahtev.getJboPacijenta()));
+                        operacija.setCenovnik(cenovnikRepository.findById(zahtev.getIdStavke()).get());
+                        operacija.setStatus("Zakazan");
+
+                        operacijaRepository.save(operacija);
+
+                        break;
+                    }
+                }
+                /// GLAVNI LEKAR
+                Operacija operacija = new Operacija();
+                operacija.setDatum(zahtev.getDatum());
+                operacija.setPocetak(zahtev.getPocetak());
+                operacija.setKraj(zahtev.getKraj());
+                operacija.setLekari(lekarRepository.findByJbo(zahtev.getJboLekara()));
+                operacija.setSala(salaRepository.findById(sala.getId()).get());
+                operacija.setPacijent(pacijentRepository.findByJbo(zahtev.getJboPacijenta()));
+                operacija.setCenovnik(cenovnikRepository.findById(zahtev.getIdStavke()).get());
+                operacija.setStatus("Zakazan");
+
+                operacijaRepository.save(operacija);
+                posaljiEmailOperacija(pacijentRepository.findByJbo(zahtev.getJboPacijenta()), operacija);
+
+            }
+
+        }
+        /// U SLUCAJU DA NIJE NASAO NIJEDNU SA DVA SLOBODNA LEKARA
+        /// POSTO SVAKI TERMIN IMA UVEK GLAVNOG LEKARA MOGU DA DODELIM BILO KOJU SALU
+        /// NAJBOLJE PRVU JER JE "STO PRE"
+
+        if (!nasaoSaDva) {
+            Operacija operacija = new Operacija();
+            operacija.setDatum(listaDrugiTermin.get(0).getDatumSlobodna());
+            operacija.setPocetak(listaDrugiTermin.get(0).getPocetakSlobodna());
+            operacija.setKraj(listaDrugiTermin.get(0).getKrajSlobodna());
+            operacija.setLekari(lekarRepository.findByJbo(zahtev.getJboLekara()));
+            operacija.setSala(salaRepository.findById(listaDrugiTermin.get(0).getId()).get());
+            operacija.setPacijent(pacijentRepository.findByJbo(zahtev.getJboPacijenta()));
+            operacija.setCenovnik(cenovnikRepository.findById(zahtev.getIdStavke()).get());
+            operacija.setStatus("Zakazan");
+
+            operacijaRepository.save(operacija);
+            posaljiEmailOperacija(pacijentRepository.findByJbo(zahtev.getJboPacijenta()), operacija);
+
+        }
+    }
+
+    public void algoritamPregledDrugiTermin(Zahtev zahtev, List<SalaDTO> listaDrugiTermin){
+
+        boolean nasaoLekara = false;
+
+        for (SalaDTO salaDTO : listaDrugiTermin) {
+
+            zahtev.setDatum(salaDTO.getDatumSlobodna());
+            zahtev.setPocetak(salaDTO.getPocetakSlobodna());
+            zahtev.setKraj(salaDTO.getKrajSlobodna());
+
+            List<Long> slobodniLekari = getSlobodniLekari(zahtev);
+
+            for (Long lekarId : slobodniLekari) {
+                if (lekarId == lekarRepository.findByJbo(zahtev.getJboLekara()).getId()) {
+                    Pregled pregled = new Pregled();
+                    pregled.setDatum(zahtev.getDatum());
+                    pregled.setPocetak(zahtev.getPocetak());
+                    pregled.setKraj(zahtev.getKraj());
+                    pregled.setSala(salaRepository.findById(salaDTO.getId()).get());
+                    pregled.setLekar(lekarRepository.findById(lekarId).get());
+                    pregled.setPacijent(pacijentRepository.findByJbo(zahtev.getJboPacijenta()));
+                    pregled.setCenovnik(cenovnikRepository.findById(zahtev.getIdStavke()).get());
+                    pregled.setPopust(0);
+                    pregled.setStatus("Zakazan");
+
+                    nasaoLekara = true;
+                    pregledRepository.save(pregled);
+                    posaljiEmailPregled(pacijentRepository.findByJbo(zahtev.getJboPacijenta()), lekarRepository.findById(lekarId).get(), pregled);
+
+                    break;
+                }
+            }
+        }
+        //// AKO U PRVIM SLOBODNIM TERMINIMA BAS NIGDE NE POSTOJI ZELJENI LEKAR ZAMENI
+        if (!nasaoLekara){
+            zahtev.setDatum(listaDrugiTermin.get(0).getDatumSlobodna());
+            zahtev.setPocetak(listaDrugiTermin.get(0).getPocetakSlobodna());
+            zahtev.setKraj(listaDrugiTermin.get(0).getKrajSlobodna());
+
+            List<Long> slobodniLekari = getSlobodniLekari(zahtev);
+
+            Pregled pregled = new Pregled();
+            pregled.setDatum(zahtev.getDatum());
+            pregled.setPocetak(zahtev.getPocetak());
+            pregled.setKraj(zahtev.getKraj());
+            pregled.setSala(salaRepository.findById(listaDrugiTermin.get(0).getId()).get());
+            pregled.setLekar(lekarRepository.findById(slobodniLekari.get(0)).get());
+            pregled.setPacijent(pacijentRepository.findByJbo(zahtev.getJboPacijenta()));
+            pregled.setCenovnik(cenovnikRepository.findById(zahtev.getIdStavke()).get());
+            pregled.setPopust(0);
+            pregled.setStatus("Zakazan");
+
+            pregledRepository.save(pregled);
+            posaljiEmailPregled(pacijentRepository.findByJbo(zahtev.getJboPacijenta()), lekarRepository.findById(slobodniLekari.get(0)).get(), pregled);
+        }
+    }
+
+    public void algoritamPregledSlobodanTermin(Zahtev zahtev, SalaDTO salaDTO){
+
+        Pregled pregled = new Pregled();
+        pregled.setDatum(zahtev.getDatum());
+        pregled.setPocetak(zahtev.getPocetak());
+        pregled.setKraj(zahtev.getKraj());
+        pregled.setLekar(lekarRepository.findByJbo(zahtev.getJboLekara()));
+        pregled.setPacijent(pacijentRepository.findByJbo(zahtev.getJboPacijenta()));
+        pregled.setCenovnik(cenovnikRepository.findById(zahtev.getIdStavke()).get());
+        pregled.setSala(salaRepository.findById(salaDTO.getId()).get());
+        pregled.setPopust(0);
+        pregled.setStatus("Zakazan");
+
+        pregledRepository.save(pregled);
+        posaljiEmailPregled(pacijentRepository.findByJbo(zahtev.getJboPacijenta()), lekarRepository.findByJbo(zahtev.getJboLekara()), pregled);
+    }
+
+    public void algoritamOperacijaSlobodanTermin(Zahtev zahtev, List<Long> slobodniLekari, SalaDTO salaDTO) throws InterruptedException {
+
+        for(Long lekarId : slobodniLekari) {
+            if (lekarId != lekarRepository.findByJbo(zahtev.getJboLekara()).getId()) {
+                Operacija operacija = new Operacija();
+                operacija.setDatum(zahtev.getDatum());
+                operacija.setPocetak(zahtev.getPocetak());
+                operacija.setKraj(zahtev.getKraj());
+                operacija.setLekari(lekarRepository.findById(lekarId).get());
+                operacija.setSala(salaRepository.findById(salaDTO.getId()).get());
+                operacija.setPacijent(pacijentRepository.findByJbo(zahtev.getJboPacijenta()));
+                operacija.setCenovnik(cenovnikRepository.findById(zahtev.getIdStavke()).get());
+                operacija.setStatus("Zakazan");
+
+                operacijaRepository.save(operacija);
+
+                break;
+            }
+        }
+        Operacija operacija = new Operacija();
+        operacija.setDatum(zahtev.getDatum());
+        operacija.setPocetak(zahtev.getPocetak());
+        operacija.setKraj(zahtev.getKraj());
+        operacija.setLekari(lekarRepository.findByJbo(zahtev.getJboLekara()));
+        operacija.setSala(salaRepository.findById(salaDTO.getId()).get());
+        operacija.setPacijent(pacijentRepository.findByJbo(zahtev.getJboPacijenta()));
+        operacija.setCenovnik(cenovnikRepository.findById(zahtev.getIdStavke()).get());
+        operacija.setStatus("Zakazan");
+
+        operacijaRepository.save(operacija);
+        posaljiEmailOperacija(pacijentRepository.findByJbo(zahtev.getJboPacijenta()), operacija);
+    }
+
+    public void posaljiEmailPregled (Pacijent pacijent, Lekar lekar, Pregled pregled){
+        String emailPacijenta = pacijent.getEmail();
+        String subject = "Obaveštavamo Vas o uspešnom zakazivanju pregleda!";
+        String text = "Poštovani " + pacijent.getIme() + " " + pacijent.getPrezime() + " uspešno ste zakazali pregled "
+                + pregled.getCenovnik().getNaziv() + " za datum " + pregled.getDatum() + " od "
+                + pregled.getPocetak() + " do " + pregled.getKraj() + " u sali " + pregled.getSala().getNaziv() + " " + pregled.getSala().getBroj()
+                + " kod lekara " + lekar.getJbo() + " za pacijenta " + pacijent.getJbo() + "!";
+
+        mailSenderService.sendSimpleMessage(emailPacijenta, subject, text);
+
+        String emailLekara = lekar.getEmail();
+        text = "Poštovani " + lekar.getIme() + " " + lekar.getPrezime() + " uspešno ste zakazali pregled "
+                + pregled.getCenovnik().getNaziv() + " za datum " + pregled.getDatum() + " od "
+                + pregled.getPocetak() + " do " + pregled.getKraj() + " u sali " + pregled.getSala().getNaziv() + " " + pregled.getSala().getBroj()
+                + " kod lekara " + lekar.getJbo() + " za pacijenta " + pacijent.getJbo() + "!";
+
+        mailSenderService.sendSimpleMessage(emailLekara, subject, text);
+    }
+
+    public void posaljiEmailOperacija (Pacijent pacijent, Operacija operacija){
+
+        List<Lekar> lekariOperacije = operacijaRepository.findLekareOperacije(operacija.getDatum(), operacija.getPocetak(), operacija.getKraj(), operacija.getSala().getId());
+
+        String lekari = "";
+        for(int i = 0; i < lekariOperacije.size(); i++){
+            if (i == (lekariOperacije.size() - 1)){
+                lekari += lekariOperacije.get(i).getJbo();
+            }
+            else{
+                lekari += lekariOperacije.get(i).getJbo() + ", ";
+            }
+        }
+
+        String emailPacijenta = pacijent.getEmail();
+        String subject = "Obaveštavamo Vas o uspešnom zakazivanju operacije!";
+        String text = "Poštovani " + pacijent.getIme() + " " + pacijent.getPrezime() + " uspešno ste zakazali pregled "
+                + operacija.getCenovnik().getNaziv() + " za datum " + operacija.getDatum() + " od "
+                + operacija.getPocetak() + " do " + operacija.getKraj() + " u sali " + operacija.getSala().getNaziv() + " " + operacija.getSala().getBroj()
+                + " kod lekara " + lekari + " za pacijenta " + pacijent.getJbo() + "!";
+
+        mailSenderService.sendSimpleMessage(emailPacijenta, subject, text);
+
+        for(Lekar l : lekariOperacije) {
+            String emailLekara = l.getEmail();
+            text = "Poštovani " + l.getIme() + " " + l.getPrezime() + " uspešno ste zakazali pregled "
+                    + operacija.getCenovnik().getNaziv() + " za datum " + operacija.getDatum() + " od "
+                    + operacija.getPocetak() + " do " + operacija.getKraj() + " u sali " + operacija.getSala().getNaziv() + " " + operacija.getSala().getBroj()
+                    + " kod lekara " + lekari + " za pacijenta " + pacijent.getJbo() + "!";
+
+            mailSenderService.sendSimpleMessage(emailLekara, subject, text);
+        }
+    }
+
+    @Transactional
+    public void pokreniAlgoritam() throws InterruptedException {
+        // DOBAVI SVE ZAHTEVE
+        List<Zahtev> listaZahteva = zahtevRepository.findAll();
+
+        boolean obrisiZahtev = false;
+
+        for (Zahtev zahtev : listaZahteva) {
+            //////// DA LI IMA SLOBODNIH ZA SVE KRITERIJUME ZAHTEVA ///////////////////////////
+            List<SalaDTO> listaSlobodnih = findSlobodneSale(zahtev);
+
+            if (!listaSlobodnih.isEmpty()){
+
+                SalaDTO salaDTO =  listaSlobodnih.get(0);
+
+                if (zahtev.getTipPosete().equals("Pregled")){
+                    algoritamPregledSlobodanTermin(zahtev, salaDTO);
+                    obrisiZahtev = true;
+                }
+                else{
+                    /////// ADMINU OSTAVLJAM DA IZABERE JEDNOG LEKARA AKO HOCE ALI PRILIKOM
+                    /////// AUTOMATSKOG DODELJIVANJA BOLJE JE DA BUDU BAR DVA LEKARA PRISUTNA!
+                    /// DA LI IMA SLOBODNIH LEKARA ///////////////////////////////////////////
+                    List<Long> slobodniLekari = getSlobodniLekari(zahtev);
+                    ///////////////////////////////////////////////////////////////////////////
+                    if (slobodniLekari.size() >= 2) {
+                        algoritamOperacijaSlobodanTermin(zahtev, slobodniLekari, salaDTO);
+                        obrisiZahtev = true;
+                    }
+                    else{ ////////////// AKO NEMA BAR 2 SLOBODNA NADJI DRUGI TERMIN ///////////
+                        //// OVDE NE TREBA PROVERA AKO NE NADJE JER CE SE VRATITI SVAKAKO NA TERMIN
+                        //// IZ ZAHTEVA NA KRAJU KRAJEVA
+                        algoritamOperacijaDrugiTermin(zahtev);
+                        obrisiZahtev = true;
+                    }
+                }
+                ////////////////////////////////////////////////////////////////////////////////
+            }
+            else{ /////// AKO NEMA SLOBODNIH ZA TAJ TERMIN TRAZENI
+                List<SalaDTO> listaDrugiTermin = findDrugiTermin(zahtev);
+                ///// UOPSTE NEMA TERMINA? OSTAVI ZAHTEV... NEKA ADMIN ODLUCI STA CE DA URADI POVODOM TOGA
+                if (listaDrugiTermin.isEmpty()){
+                    obrisiZahtev = false;
+                }
+
+                if (zahtev.getTipPosete().equals("Pregled")){
+                    algoritamPregledDrugiTermin(zahtev, listaDrugiTermin);
+                    obrisiZahtev = true;
+                }
+                else{
+                    algoritamOperacijaDrugiTermin(zahtev);
+                    obrisiZahtev = true;
+                }
+            }
+            if (obrisiZahtev && zahtevRepository.findById(zahtev.getId()).isPresent()){
+                    zahtevRepository.deleteById(zahtev.getId());
+            }
+        }
+
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////
+	public Optional<Klinika> findById(Long id) {
+		return klinikaRepository.findById(id);
+	}
+
 
     public List<OperacijaKalendarDTO> findOperacijeByLekar(Lekar lekar) {
         System.out.println(lekar.getJbo());
-        return operacijaRepository.findByLekari(lekar.getId()); }
-
+        return operacijaRepository.findByLekari(lekar.getId());
+    }
 
 }
+
+

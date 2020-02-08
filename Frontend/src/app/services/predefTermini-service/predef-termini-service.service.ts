@@ -15,10 +15,7 @@ export class PredefTerminiServiceService {
 
   constructor(private http: HttpClient) { }
 
-// <<<<<<< 2_2_Dodavanje_predefinisanih_termina VIDI OVO
-//   public findAll(id:number): Observable<predefInfo[]> {
-// =======
-  public findAll(id:klinikaPacDTO): Observable<predefInfo[]> {
+   public findAll(id:klinikaPacDTO): Observable<predefInfo[]> {
     let httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
     return this.http.post<predefInfo[]>('/server/klinika/getPreglediPredef', id,httpOptions);

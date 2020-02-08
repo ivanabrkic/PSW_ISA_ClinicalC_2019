@@ -20,7 +20,7 @@ public class Pregled {
     @JoinColumn(name = "lekar_id", referencedColumnName = "lekar_id")
     Lekar lekar;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "sala_id", referencedColumnName = "id")
     Sala sala;

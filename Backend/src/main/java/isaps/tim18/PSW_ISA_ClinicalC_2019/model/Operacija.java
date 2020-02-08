@@ -20,7 +20,7 @@ public class Operacija {
     @JoinColumn(name = "lekar_id", referencedColumnName = "lekar_id")
     Lekar lekari;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "sala_id", referencedColumnName = "id")
     Sala sala;
@@ -38,7 +38,18 @@ public class Operacija {
     @JoinColumn(name = "id_stavke", referencedColumnName = "id")
     private Cenovnik cenovnik;
 
+    @Column
+    private String status;
+
     public Operacija() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getId() {
