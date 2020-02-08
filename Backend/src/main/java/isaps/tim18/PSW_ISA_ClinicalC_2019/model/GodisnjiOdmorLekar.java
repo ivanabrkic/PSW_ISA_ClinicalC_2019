@@ -1,11 +1,21 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "lekar_id")
-public class GodisnjiOdmorLekar extends Lekar{
+public class GodisnjiOdmorLekar{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="lekar_id", referencedColumnName = "lekar_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Lekar lekar;
 
     @Column
     private LocalDate datumOd;
@@ -14,6 +24,22 @@ public class GodisnjiOdmorLekar extends Lekar{
     private LocalDate datumDo;
 
     public GodisnjiOdmorLekar() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Lekar getLekar() {
+        return lekar;
+    }
+
+    public void setLekar(Lekar lekar) {
+        this.lekar = lekar;
     }
 
     public LocalDate getDatumOd() {

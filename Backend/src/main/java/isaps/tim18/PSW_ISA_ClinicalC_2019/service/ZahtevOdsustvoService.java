@@ -60,13 +60,13 @@ public class ZahtevOdsustvoService {
     public boolean imaGodisnji(ZahtevOdsustvo zahtevOdsustvo){
         if (zahtevOdsustvo.getKorisnikUloga().equals("Lekar")) {
             Lekar lekar = lekarRepository.findByJbo(zahtevOdsustvo.getKorisnikJbo());
-            if (godisnjiOdmorLekarRepository.findById(lekar.getId()).isPresent()){
+            if (!godisnjiOdmorLekarRepository.findByLekarId(lekar.getId()).isEmpty()){
                 return true;
             }
 
         } else {
             MedicinskaSestra medSestra = medicinskaSestraRepository.findByJbo(zahtevOdsustvo.getKorisnikJbo());
-            if (godisnjiOdmorMedSestraRepository.findById(medSestra.getId()).isPresent()){
+            if (!godisnjiOdmorMedSestraRepository.findBySestraId(medSestra.getId()).isEmpty()){
                 return true;
             }
         }
@@ -90,14 +90,31 @@ public class ZahtevOdsustvoService {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.YYYY.");
 
-        for(LocalDateTime date = start; date.isBefore(end);date =date.plusDays(1))
+        String pocetak = " ";
+        String kraj = " ";
+
+        if(lekar.getRadnoVreme().equals("Prva smena od 8:00 do 16:00")){
+            pocetak = "8:01";
+            kraj = "17:59";
+        }
+
+        if(lekar.getRadnoVreme().equals("Druga smena od 16:00 do 00:00")){
+            pocetak = "16:01";
+            kraj = "23:01";
+        }
+
+        if(lekar.getRadnoVreme().equals("Treca smena od 00:00 do 8:00")){
+            pocetak = "00:01";
+            kraj = "7:59";
+        }
+
+        for(LocalDateTime date = start; date.isBefore(end);date = date.plusDays(1))
 
         {
             String datum = formatter.format(date.toLocalDate());
-            String pocetak = "00:00";
-            String kraj = "23:59";
 
             if (!lekarRepository.imaPreglede(lekar.getId(), datum, pocetak, kraj).isEmpty() && !lekarRepository.imaOperacije(lekar.getId(), datum, pocetak, kraj).isEmpty()){
+                System.out.println(datum);
                 return true;
             }
         }
@@ -158,11 +175,12 @@ public class ZahtevOdsustvoService {
 
             if (zahtevOdsustvo.getKorisnikUloga().equals("Lekar")) {
                 Lekar lekar = lekarRepository.findByJbo(zahtevOdsustvo.getKorisnikJbo());
+                System.out.println(lekar.getId());
                 lekar.setBrSlobodnihDana(lekar.getBrSlobodnihDana() - zahtevOdsustvo.getBrojDana());
                 lekarRepository.save(lekar);
 
                 GodisnjiOdmorLekar god = new GodisnjiOdmorLekar();
-                god.setId(lekar.getId());
+                god.setLekar(lekar);
                 god.setDatumOd(start);
                 god.setDatumDo(end);
                 godisnjiOdmorLekarRepository.save(god);
@@ -176,7 +194,7 @@ public class ZahtevOdsustvoService {
                 medicinskaSestraRepository.save(medSestra);
 
                 GodisnjiOdmorMedSestra god = new GodisnjiOdmorMedSestra();
-                god.setId(medSestra.getId());
+                god.setMedicinskaSestra(medSestra);
                 god.setDatumOd(start);
                 god.setDatumDo(end);
                 godisnjiOdmorMedSestraRepository.save(god);

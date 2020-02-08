@@ -13,6 +13,8 @@ export class ZahtevOdsustvo {
   korisnikUloga: string
   overen: boolean;
 
+  razlog : String
+  klinikaId : number
 
   constructor(datumOd: string, datumDo: string, brojDana: number, opis: string, korisnikIme: string, korisnikPrezime: string, korisnikJbo: string, korisnikUloga: string, overen: boolean) {
     this.datumOd = datumOd;

@@ -112,4 +112,6 @@ insert into zkartoni_opsti_izvestaji(opsti_izvestaj_id, zkarton) values (2,1);
 insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (3,100);
 insert into zkarton_dijagnoze(zdravstveni_karton_id,dijagnoze_sifra) values (1,200);
 
-insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '19.2.2020.', '23.2.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 5, false, 1);
+insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '1.1.2020.', '1.3.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 60, false, 1);
+
+

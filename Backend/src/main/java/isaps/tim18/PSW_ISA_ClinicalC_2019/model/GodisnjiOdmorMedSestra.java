@@ -1,13 +1,21 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "meds_id")
-public class GodisnjiOdmorMedSestra extends MedicinskaSestra {
+public class GodisnjiOdmorMedSestra {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="meds_id", referencedColumnName = "meds_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private MedicinskaSestra medicinskaSestra;
 
     @Column
     private LocalDate datumOd;
@@ -16,6 +24,22 @@ public class GodisnjiOdmorMedSestra extends MedicinskaSestra {
     private LocalDate datumDo;
 
     public GodisnjiOdmorMedSestra() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public MedicinskaSestra getMedicinskaSestra() {
+        return medicinskaSestra;
+    }
+
+    public void setMedicinskaSestra(MedicinskaSestra medicinskaSestra) {
+        this.medicinskaSestra = medicinskaSestra;
     }
 
     public LocalDate getDatumOd() {
