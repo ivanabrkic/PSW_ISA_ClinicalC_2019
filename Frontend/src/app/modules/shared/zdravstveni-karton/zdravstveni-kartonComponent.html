@@ -1,6 +1,6 @@
-<p *ngIf="this.pacijentJe == true"><app-patient-sidebar></app-patient-sidebar></p>
-<p *ngIf="this.lekarJe == true"><app-sidebarlekar></app-sidebarlekar></p>
-<p *ngIf="this.sestraJe == true"><app-sidebar-med-sestra></app-sidebar-med-sestra></p>
+<app-patient-sidebar *ngIf="this.pacijentJe == true"></app-patient-sidebar>
+<app-sidebarlekar *ngIf="this.lekarJe == true"></app-sidebarlekar>
+<app-sidebar-med-sestra *ngIf="this.sestraJe == true"></app-sidebar-med-sestra>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">

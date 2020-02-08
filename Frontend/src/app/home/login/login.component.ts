@@ -44,8 +44,6 @@ export class LoginComponent implements OnInit {
               verticalPosition: 'bottom'
             });
           }
-
-          console.log(data);
           this._snackBar.open('Uspešno ste se ulogovali!', "",  {
             duration: 3000,
             verticalPosition: 'bottom'

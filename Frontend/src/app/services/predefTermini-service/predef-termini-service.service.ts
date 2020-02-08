@@ -21,6 +21,12 @@ export class PredefTerminiServiceService {
     return this.http.post<predefInfo[]>('/server/klinika/getPreglediPredef', id,httpOptions);
   }
 
+  public findAllPredef(id:number): Observable<predefInfo[]> {
+    let httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
+
+    return this.http.post<predefInfo[]>('/server/klinika/getPreglediPredef', id,httpOptions);
+  }
+
   public zakaziTermin(zahtev:PredefZahtev){
     let httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
     const  z= JSON.stringify(zahtev)

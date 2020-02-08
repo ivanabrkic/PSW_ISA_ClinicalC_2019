@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule, MatStepperModule, MatButtonModule, MatSelectModule, MatOptionModule, MatFormFieldModule } from '@angular/material';
 
 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -86,9 +86,9 @@ import { RadniKalendarLekarComponent } from './modules/shared/radni-kalendar-lek
 import {ScheduleModule} from '@syncfusion/ej2-angular-schedule';
 import { OdsustvoDijalogComponent } from './modules/shared/dijalog-odsustvo/odsustvo-dijalog.component';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
+import { ZakaziLekarComponent } from './modules/objects/lekar/zakazi-lekar/zakazi-lekar.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import {MatIconModule} from '@angular/material/icon';
-
-
 
 @NgModule({
   declarations: [
@@ -140,6 +140,7 @@ import {MatIconModule} from '@angular/material/icon';
     PregledLekovaComponent,
     IzmenaIzvestajaComponent,
     PredefinisaniTerminiComponent,
+    ZakaziLekarComponent
     RadniKalendarLekarComponent,
     OdsustvoDijalogComponent
   ],
@@ -165,6 +166,14 @@ import {MatIconModule} from '@angular/material/icon';
     MatNativeDateModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,   
+    MatOptionModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    TextFieldModule,
     MatIconModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},

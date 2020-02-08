@@ -56,6 +56,13 @@ export class FormaIzvestajComponent implements OnInit {
   get f() { return this.izvestajForm.controls; }
 
   ngOnInit() {
+
+    this.pacijentZaPregled = this.sessionService.pacijentProfil;
+    this.zdravstveniKarton = this.sessionService.zkPregled;
+    this.opstiIzvestaj = this.sessionService.opstiIzvestaj;
+    this.noviIzvestaj = new Izvestaj();
+    this.recept = new Recept();
+
     this.izvestajForm = this.formBuilder.group({
       dioptrija: ['', [Validators.required, Validators.minLength(1)]],
       visina: ['', [Validators.required, Validators.minLength(1)]],
@@ -145,5 +152,15 @@ export class FormaIzvestajComponent implements OnInit {
         this.router.navigate(['/radniKalendarLekar']);
       }
     });
+  }
+
+  zakaziSledeci : boolean = false
+
+  sledeciPregledOperacija(){
+    this.zakaziSledeci = true
+  }
+
+  nazad(){
+    this.zakaziSledeci = false
   }
 }
