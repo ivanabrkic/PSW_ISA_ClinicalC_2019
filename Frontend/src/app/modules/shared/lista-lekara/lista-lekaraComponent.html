@@ -1,11 +1,13 @@
-
+<app-patient-sidebar></app-patient-sidebar>
 <html ng-app="listalekara">
 <body ng-controler="listactrl">
+  <div class="main-content">
 <div class="topnav">
   <div class="search-container">
     <form action="/action_page.php">
       <table class="table">
         <tr>
+          <td><mat-icon aria-hidden="false" aria-label="Example home icon">filter_list</mat-icon></td>
           <td><input class="form-control" type="text" placeholder="Ime" name="searchIme"  [(ngModel)]="searchIme"></td>
           <td><input class="form-control" type="text" placeholder="Prezime" name="searchText"  [(ngModel)]="searchPrezime"></td>
           <td><select class="form-control"  name="searchOcena" [(ngModel)]="searchOcena" ng-init="searchOcena = searchOcena || ocene[0].value" >
@@ -58,9 +60,6 @@
                 <td>{{lekar.ime}}</td>
                 <td>{{lekar.prezime}} </td>
                 <td>{{lekar.ocena}} </td>
-                <!--                     <td *ngIf="!terminiSakriveni" ><select ng-model="selectedTermin" >
-                                      <option value="">Izaberite termin</option>
-                                      <option *ngFor="let termin of termini" [ngValue]="termin">{{termin}}</option> VIDI OVO -->
                 <td *ngIf="terminiSakriveni" >
                   <select [(ngModel)]="selectedTermin"  id="{{lekar.id}}" >
                     <option value="">Izaberite termin</option>
@@ -75,9 +74,6 @@
     </div>
   </div>
 </div>
-</body>
-</html>
-<!-- VIDI I OVO DOLE  -->
 
 <div *ngIf="izabraniLekar">
   <div class="content-container">
@@ -119,13 +115,13 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> Cena i popust: {{zahtev.cena}}, {{zahtev.popust}} </p>
+                        <p> Cena {{cena}}: </p>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
                         <p><mat-form-field class="example-full-width">
-                          <input matInput placeholder="Unesite dodatne informacije" type="text"
+                          <input matInput placeholder="Dodatne informacije" type="text"
                                  id="info"
                                  [(ngModel)]="dodatneInfo" name="info" class="mat-form-control">
                         </mat-form-field></p>
@@ -142,3 +138,6 @@
     </div>
   </div>
 </div>
+</div>
+</body>
+</html>

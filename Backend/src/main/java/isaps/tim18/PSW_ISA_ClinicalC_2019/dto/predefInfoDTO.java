@@ -118,6 +118,19 @@ public class predefInfoDTO {
         this.id=id;
     }
 
+    public predefInfoDTO(String naziv,  String datum, String pocetak, String kraj,String nazivs, String broj,String nazivkl,String ime,String prezime,float cena,int popust) {
+        this.tipPregleda = naziv;
+        this.datum = datum;
+        this.pocetak = pocetak;
+        this.kraj = kraj;
+        this.nazivSale=nazivs;
+        this.brojSale=broj;
+        this.nazivKlinike=nazivkl;
+        this.lekarPrezime=prezime;
+        this.lekarIme=ime;
+        this.cena=cena;
+        this.popust=popust;
+    }
 
     public Long getId() {
 		return id;

@@ -12,7 +12,7 @@ import { predefInfo } from 'src/app/models/predefInfoDTO/predefInfo';
 import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
-import { MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
 import { Cenovnik } from 'src/app/models/Cenovnik/cenovnik';
 import { DatePipe } from '@angular/common';
 
@@ -32,32 +32,18 @@ export class ListaLekaraComponent implements OnInit {
   private termini: String[];
   private datum :String;
   private zahtev: pretragaDTO;
-
-//   constructor(private listaLekaraService: LekarService) { VIDI OVO !!!!
-
-//   }
-
-//   getLekari() {
-//     // var pretraga=new pretragaDTO();
-//     // pretraga.start='00:01';
-//     // pretraga.finis='23:59';
-//     // pretraga.datum='30/1/2020.';
-//     // pretraga.specijalizacija='Kardiolog';
-//     // pretraga.idKlinike=this.klinika.id;
-//     this.listaLekaraService.getSlobodniLekariTermini(this.zahtev).subscribe(
-//       podaci => {this.lekaritermini = podaci; 
-//         //var distinctId=Object.values(this.lekaritermini).map(item=>item.id).filter((value,index,self)=>self.indexOf(value)===index);
   private izabraniLekar:Lekar;
   private selectedTermin:string;
   private selectedDate:String;
   private date=new FormControl(new Date);
   private dodatneInfo:String="";
   private tipovi:Cenovnik[];
-  private searchOcena: FormGroup;
+  private searchOcena;
   private izabraniTip:Cenovnik;
+  private cena:number;
 
-
-  constructor(private tp:DatePipe,private listaLekaraService: LekarService,private pacijentService: PacijentService,private predefTermService:PredefTerminiServiceService,private listaklSer:ListaKlinikaService) {
+  constructor(private _snackBar: MatSnackBar,private tp:DatePipe,private listaLekaraService: LekarService,
+    private pacijentService: PacijentService,private predefTermService:PredefTerminiServiceService,private listaklSer:ListaKlinikaService) {
 
   }
 
@@ -100,6 +86,14 @@ export class ListaLekaraComponent implements OnInit {
   zakaziNavigate(event){
     this.pacijentService.getUlogovanKorisnik().subscribe(
       podaci => {
+        if((<HTMLOptionElement>document.getElementById(String(this.izabraniLekar.id))).value==""){
+          this._snackBar.open("Izaberite vreme pocetka termina!", "",  {
+            duration: 3000,
+            verticalPosition: 'bottom'
+          });
+          return
+        }
+        
         var zahtev=new PredefZahtev;
         zahtev.datum=this.selectedDate;
         zahtev.pocetak=this.getSelectedTermin(this.izabraniLekar.id)
@@ -147,7 +141,12 @@ export class ListaLekaraComponent implements OnInit {
           zahtev.dodatneInformacije="Nema dodatnih informacija";
         zahtev.tipPosiljaoca='Pacijent';
         zahtev.jboLekara=this.izabraniLekar.jbo;
-        this.predefTermService.zakaziTermin(zahtev).subscribe( data=>{alert('Termin uspesno zakazan');})
+        this.predefTermService.zakaziTermin(zahtev).subscribe( data=>{
+          this._snackBar.open("|Termin uspesno zakazan", "",  {
+            duration: 3000,
+            verticalPosition: 'bottom'
+          });
+        })
 
       },
     );
@@ -166,21 +165,6 @@ export class ListaLekaraComponent implements OnInit {
     );
     
   }
- 
-
-//   ngOnInit() { I OVO
-//     //console.log(history.state)
-//     //console.log(history.state.datum);
-//     this.klinika=history.state.klinika;
-//     this.zahtev=history.state.zahtev;
-    
-//     if(this.zahtev.datum==null)
-//       this.terminiSakriveni=true;
-//     else
-//       this.terminiSakriveni=false;
-//     //console.log(this.klinika);
-//     this.getLekari();
-
   
   onSelect(lekar){
     this.izabraniLekar=lekar;
@@ -195,15 +179,15 @@ export class ListaLekaraComponent implements OnInit {
     this.klinika=history.state.klinika;
     this.zahtev=history.state.zahtev;
     this.izabraniTip=history.state.tip;
-    console.log(history.state.tip)
+    this.cena=history.state.cena;
     if(history.state.tip.idStavke==null)
       this.terminiSakriveni=true;
     else
       this.terminiSakriveni=false;
     this.getLekari();
     this.getTipovi();
+    this.searchOcena=0;
 
   }
-
 
 }
