@@ -11,6 +11,11 @@ import java.util.Optional;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO;
 import java.util.List;
 import java.util.Optional;
+
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.LekarPacijentPregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +23,6 @@ import org.springframework.stereotype.Service;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KorisnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PregledRepository;
 import javax.transaction.Transactional;
@@ -87,6 +91,18 @@ public class PregledService {
 
 	public List<PregledIzvestajDTO> getZakazaneSestra(String jboPacijenta){
 		return pregledRepo.getZakazaneByPacijent(jboPacijenta);
+	}
+
+	public List<PreglediStatusDTO> getPregledeByLekar(String jbo){
+		System.out.println(jbo);
+		List<PreglediStatusDTO> pregledi = pregledRepo.getPregledeByLekar(jbo);
+		List<PreglediStatusDTO> neaktivni = pregledRepo.getNeaktivneByLekar(jbo);
+
+		for(int i = 0;i < neaktivni.size();i++){
+			pregledi.add(neaktivni.get(i));
+		}
+
+		return pregledi;
 	}
 
 }
