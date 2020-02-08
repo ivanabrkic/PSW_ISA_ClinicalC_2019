@@ -81,11 +81,11 @@ export class PredefinisaniTerminiComponent implements OnInit {
         this.tipovi = data
         this.selectedTip = this.tipovi[0]
 
-        // this.pfService.findAll(this.klinikaId).subscribe(data => {
-        //   this.predef = data
-        //   this.dataSource2 = new MatTableDataSource(this.predef);
-        //   this.dataSource2.sort = this.sort;
-        // })
+        this.pfService.findAllPredef(this.klinikaId).subscribe(data => {
+          this.predef = data
+          this.dataSource2 = new MatTableDataSource(this.predef);
+          this.dataSource2.sort = this.sort;
+        })
 
 
       })
@@ -192,11 +192,11 @@ export class PredefinisaniTerminiComponent implements OnInit {
         duration: 2000,
         verticalPosition: 'top'
       });
-      // this.pfService.findAll(this.klinikaId).subscribe(data => {
-      //   this.predef = data
-      //   this.dataSource2 = new MatTableDataSource(this.predef);
-      //   this.dataSource2.sort = this.sort;
-      // })
+      this.pfService.findAllPredef(this.klinikaId).subscribe(data => {
+        this.predef = data
+        this.dataSource2 = new MatTableDataSource(this.predef);
+        this.dataSource2.sort = this.sort;
+      })
 
     })
 

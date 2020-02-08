@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule, MatStepperModule, MatButtonModule, MatSelectModule, MatOptionModule, MatFormFieldModule } from '@angular/material';
 
 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -83,6 +83,8 @@ import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izme
 
 import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
+import { ZakaziLekarComponent } from './modules/objects/lekar/zakazi-lekar/zakazi-lekar.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 
 
@@ -134,7 +136,8 @@ import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
     PregledIzvestajaComponent,
     PregledLekovaComponent,
     IzmenaIzvestajaComponent,
-    PredefinisaniTerminiComponent
+    PredefinisaniTerminiComponent,
+    ZakaziLekarComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
@@ -158,6 +161,14 @@ import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
     MatNativeDateModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,   
+    MatOptionModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    TextFieldModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},

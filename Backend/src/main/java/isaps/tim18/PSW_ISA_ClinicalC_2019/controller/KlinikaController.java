@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -111,17 +109,25 @@ public class KlinikaController {
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
     
+//    @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
+//
+//
+//
+//    		Calendar cal = Calendar.getInstance();
+//    		SimpleDateFormat sdf = new SimpleDateFormat("d.mMyyyy.");
+//    		String date=sdf.format(cal.getTime());
+//
+//
+//        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
+//
+//        return new ResponseEntity<>(pregledi, HttpStatus.OK);
+//    }
+
     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
-    	
+    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody Long id) throws Exception {
 
-    	
-    		Calendar cal = Calendar.getInstance();
-    		SimpleDateFormat sdf = new SimpleDateFormat("d.mMyyyy.");
-    		String date=sdf.format(cal.getTime());
-
-    	
-        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(id);
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
