@@ -272,7 +272,7 @@ public class LekarService {
 
         LocalDateTime end = start.plusMonths(1);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY.");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.YYYY.");
 
         List<TerminDTO> listaTermina = new ArrayList<>();
 

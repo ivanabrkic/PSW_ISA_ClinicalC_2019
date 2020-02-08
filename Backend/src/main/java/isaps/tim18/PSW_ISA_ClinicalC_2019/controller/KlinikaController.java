@@ -2,7 +2,6 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "klinika")
@@ -109,8 +106,8 @@ public class KlinikaController {
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody Long id) throws Exception {
+    @PostMapping(value = "/getPreglediPredefKlinikaId", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<predefInfoDTO>> getPreglediPredefKlinikaId(@RequestBody Long id) throws Exception {
 
         List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(id);
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
@@ -285,14 +282,14 @@ public class KlinikaController {
 
     }
 
-    @PostMapping(value = "/getCena", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public float NadjiCenu(@RequestBody lekariterminiDTO zahtev)throws Exception{
-
-        Cenovnik cen=cenovnikRepository.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
-
-        return cen.getCena();
-
-    }
+//    @PostMapping(value = "/getCena", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+//    public float NadjiCenu(@RequestBody lekariterminiDTO zahtev)throws Exception{
+//
+//        Cenovnik cen = cenovnikService.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
+//
+//        return cen.getCena();
+//
+//    }
 
 
     @PostMapping(value = "/findOperacijeByLekar", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)

@@ -3,7 +3,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ZahtevOdsustvo")
+@Table(name = "zahtev_odsustvo")
 public class ZahtevOdsustvo {
 
     @Id
@@ -37,16 +37,29 @@ public class ZahtevOdsustvo {
     @Column(name = "overen", nullable = false)
     private boolean overen;
 
-    public ZahtevOdsustvo(String korisnikJbo, String korisnikIme, String korisnikPrezime, String korisnikUloga, String datumOd, String datumDo, String opis, int brojDana, boolean overen) {
-        this.korisnikJbo = korisnikJbo;
-        this.korisnikIme = korisnikIme;
-        this.korisnikPrezime = korisnikPrezime;
-        this.korisnikUloga = korisnikUloga;
-        this.datumOd = datumOd;
-        this.datumDo = datumDo;
-        this.opis = opis;
-        this.brojDana = brojDana;
-        this.overen = overen;
+    @Column(name = "klinika_id", nullable = false)
+    private Long klinikaId;
+
+    @Column(name = "razlog")
+    private String razlog;
+
+    public ZahtevOdsustvo() {
+    }
+
+    public Long getKlinikaId() {
+        return klinikaId;
+    }
+
+    public void setKlinikaId(Long klinikaId) {
+        this.klinikaId = klinikaId;
+    }
+
+    public String getRazlog() {
+        return razlog;
+    }
+
+    public void setRazlog(String razlog) {
+        this.razlog = razlog;
     }
 
     public String getKorisnikJbo() {
