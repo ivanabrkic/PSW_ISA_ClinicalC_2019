@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="zkarton")
@@ -23,8 +24,9 @@ public class ZdravstveniKarton {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Pacijent pacijent;
 
-    @ElementCollection
-    private List<Dijagnoze> dijagnoze=new ArrayList<Dijagnoze>();
+    @JsonIgnore
+    @OneToMany(mappedBy="zkarton")
+    private Set<ZkartonDijagnoze> dijagnoze;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
@@ -40,7 +42,7 @@ public class ZdravstveniKarton {
 
     }
 
-    public ZdravstveniKarton(Pacijent pacijent, List<Dijagnoze> dijagnoze, OpstiIzvestaj opstiIzvestaj, int broj_zk) {
+    public ZdravstveniKarton(Pacijent pacijent, Set<ZkartonDijagnoze> dijagnoze, OpstiIzvestaj opstiIzvestaj, int broj_zk) {
         this.pacijent = pacijent;
         this.dijagnoze = dijagnoze;
         this.opstiIzvestaj = opstiIzvestaj;
@@ -55,11 +57,11 @@ public class ZdravstveniKarton {
         this.id = id;
     }
 
-    public List<Dijagnoze> getDijagnoze() {
+    public Set<ZkartonDijagnoze> getDijagnoze() {
         return dijagnoze;
     }
 
-    public void setDijagnoze(List<Dijagnoze> dijagnoze) {
+    public void setDijagnoze(Set<ZkartonDijagnoze> dijagnoze) {
         this.dijagnoze = dijagnoze;
     }
 
