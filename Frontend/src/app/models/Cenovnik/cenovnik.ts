@@ -7,4 +7,5 @@ export class Cenovnik{
     klinika_id:number;
 
     Cenovnik(){}
+
 }

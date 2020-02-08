@@ -83,7 +83,7 @@ import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izme
 
 import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
-
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -159,6 +159,7 @@ import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
     MatNativeDateModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatIconModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent},
       { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},

@@ -11,7 +11,7 @@ import { predefInfo } from 'src/app/models/predefInfoDTO/predefInfo';
 import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
-import { MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
 import { Cenovnik } from 'src/app/models/Cenovnik/cenovnik';
 import { DatePipe } from '@angular/common';
 import { ListaKlinikaService} from '../../../services/lista-klinika-service/lista-klinika.service';
@@ -33,6 +33,7 @@ export class ListaLekaraComponent implements OnInit {
   private datum :String;
   private zahtev: pretragaDTO;
 
+
 //   constructor(private listaLekaraService: LekarService) { VIDI OVO !!!!
 
 //   }
@@ -53,11 +54,12 @@ export class ListaLekaraComponent implements OnInit {
   private date=new FormControl(new Date);
   private dodatneInfo:String="";
   private tipovi:Cenovnik[];
-  private searchOcena: FormGroup;
+  private searchOcena;
   private izabraniTip:Cenovnik;
+  private cena:number;
 
-
-  constructor(private tp:DatePipe,private listaLekaraService: LekarService,private pacijentService: PacijentService,private predefTermService:PredefTerminiServiceService,private listaklSer:ListaKlinikaService) {
+  constructor(private _snackBar: MatSnackBar,private tp:DatePipe,private listaLekaraService: LekarService,
+    private pacijentService: PacijentService,private predefTermService:PredefTerminiServiceService,private listaklSer:ListaKlinikaService) {
 
   }
 
@@ -100,6 +102,14 @@ export class ListaLekaraComponent implements OnInit {
   zakaziNavigate(event){
     this.pacijentService.getUlogovanKorisnik().subscribe(
       podaci => {
+        if((<HTMLOptionElement>document.getElementById(String(this.izabraniLekar.id))).value==""){
+          this._snackBar.open("Izaberite vreme pocetka termina!", "",  {
+            duration: 3000,
+            verticalPosition: 'bottom'
+          });
+          return
+        }
+        
         var zahtev=new PredefZahtev;
         zahtev.datum=this.selectedDate;
         zahtev.pocetak=this.getSelectedTermin(this.izabraniLekar.id)
@@ -147,7 +157,12 @@ export class ListaLekaraComponent implements OnInit {
           zahtev.dodatneInformacije="Nema dodatnih informacija";
         zahtev.tipPosiljaoca='Pacijent';
         zahtev.jboLekara=this.izabraniLekar.jbo;
-        this.predefTermService.zakaziTermin(zahtev).subscribe( data=>{alert('Termin uspesno zakazan');})
+        this.predefTermService.zakaziTermin(zahtev).subscribe( data=>{
+          this._snackBar.open("|Termin uspesno zakazan", "",  {
+            duration: 3000,
+            verticalPosition: 'bottom'
+          });
+        })
 
       },
     );
@@ -166,6 +181,7 @@ export class ListaLekaraComponent implements OnInit {
     );
 
   }
+
 
 
 //   ngOnInit() { I OVO
@@ -195,15 +211,15 @@ export class ListaLekaraComponent implements OnInit {
     this.klinika=history.state.klinika;
     this.zahtev=history.state.zahtev;
     this.izabraniTip=history.state.tip;
-    console.log(history.state.tip)
+    this.cena=history.state.cena;
     if(history.state.tip.idStavke==null)
       this.terminiSakriveni=true;
     else
       this.terminiSakriveni=false;
     this.getLekari();
     this.getTipovi();
+    this.searchOcena=0;
 
   }
-
 
 }

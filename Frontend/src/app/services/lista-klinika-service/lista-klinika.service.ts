@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Klinika} from '../../models/klinika/klinika';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 import {Cenovnik} from "../../models/Cenovnik/cenovnik";
+import { klinikaCena } from 'src/app/models/klinikaCena/klinikaCena';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -21,15 +22,9 @@ export class ListaKlinikaService {
 
   public getSlobodneKlinike(zahtev:pretragaDTO){
     const  z= JSON.stringify(zahtev)
-    return this.http.post<Klinika[]>('/server/klinika/slobodneKlinike', z, httpOptions);
+    return this.http.post<Array<klinikaCena>>('/server/klinika/slobodneKlinike', z, httpOptions);
   }
 
-// <<<<<<< 2_2_Dodavanje_predefinisanih_termina
-//   public findTipovi():Observable<String[]>{
-//     return this.http.get<String[]>('/server/cenovnik/all', httpOptions);
-//   }
-
-// ======= VIDI OVO @TESLA
   public findTipovi():Observable<Cenovnik[]>{
     return this.http.get<Cenovnik[]>('/server/cenovnik/all', httpOptions);
   }
