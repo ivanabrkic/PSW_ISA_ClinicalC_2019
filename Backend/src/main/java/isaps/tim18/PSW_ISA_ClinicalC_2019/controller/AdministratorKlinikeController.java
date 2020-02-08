@@ -6,6 +6,7 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.AdministratorKlinikeService;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.ZahtevOdsustvoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +26,9 @@ public class AdministratorKlinikeController {
 
     @Autowired
     private KlinikaService klinikaService;
+
+    @Autowired
+    private ZahtevOdsustvoService zahtevOdsustvoService;
 
     @GetMapping(value = "/all", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AdministratorKlinike>> getAllAdmineKlinike() {

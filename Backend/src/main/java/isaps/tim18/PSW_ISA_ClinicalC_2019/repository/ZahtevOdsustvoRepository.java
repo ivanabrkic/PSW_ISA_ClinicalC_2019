@@ -10,4 +10,6 @@ import java.util.List;
 public interface ZahtevOdsustvoRepository extends JpaRepository<ZahtevOdsustvo, Long> {
 
     public List<ZahtevOdsustvo> findAllByOveren(boolean overen);
+
+    List<ZahtevOdsustvo> findAllByKlinikaId(Long klinikaId);
 }

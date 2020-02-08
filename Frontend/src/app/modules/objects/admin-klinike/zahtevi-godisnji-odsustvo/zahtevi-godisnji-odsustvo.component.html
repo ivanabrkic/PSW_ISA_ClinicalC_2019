@@ -1,0 +1,74 @@
+<sidebar-admin-klinike></sidebar-admin-klinike>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Zahtevi za godišnji odmor/odsustvo</h4>
+                    </div>
+                    <div class="card-body">
+                        <mat-horizontal-stepper [linear]=true #stepper>
+                            <mat-step>
+                                <ng-template matStepLabel>Izaberite zahtev</ng-template>
+                                <div class="card-body">
+                                    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                                        <ng-container matColumnDef="korisnikUloga">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip korisnika </th>
+                                            <td mat-cell *matCellDef="let zahtev"> {{zahtev.korisnikUloga}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="korisnikJbo">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> JBO </th>
+                                            <td mat-cell *matCellDef="let zahtev"> {{zahtev.korisnikJbo}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="korisnikIme">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ime i prezime </th>
+                                            <td mat-cell *matCellDef="let zahtev"> {{zahtev.korisnikIme}} {{zahtev.korisnikPrezime}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="opis">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Opis </th>
+                                            <td mat-cell *matCellDef="let zahtev"> {{zahtev.opis}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="datumOd">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum od - do </th>
+                                            <td mat-cell *matCellDef="let zahtev"> {{zahtev.datumOd}} - {{zahtev.datumDo}}</td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="proveriValidnost">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                                            <td mat-cell *matCellDef="let zahtev"> <button style="margin:5px;"
+                                                    mat-raised-button color="primary" mat-button
+                                                    (click)="proveriValidnost(zahtev)" matStepperNext>Proveri validnost</button>
+
+                                            </td>
+                                        </ng-container>
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>
+                                </div>
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Prihvati/odbij zahtev</ng-template>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <mat-form-field>
+                                            <mat-label *ngIf="this.validationMessage ? true : false">{{this.validationMessage.text}}</mat-label>
+                                            <textarea matInput ([value]) = "razlog"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button style="margin:5px;" mat-raised-button color="accent" mat-button
+                                        matStepperPrevious>Nazad</button>
+                                    <button *ngIf="validationFailed == false" style="margin:5px;" mat-raised-button color="primary" mat-button
+                                        (click)="prihvatiZahtev()">Prihvati</button>
+                                    <button style="margin:5px;" mat-raised-button color="warn" mat-button
+                                        (click)="odbijZahtev()">Odbij</button>
+                                </div>
+                            </mat-step>
+                        </mat-horizontal-stepper>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
