@@ -9,9 +9,7 @@ import { Klinika } from '../models/klinika/klinika';
     transform(klinike: Klinika[],  searchDrzava: string, searchGrad: string, searchOcena:string, searchText:string) {
         if( klinike && klinike.length){
             return klinike.filter(item=>{
-              var searchOcena2=searchOcena.replace('+','');
-              var searchOcenaNum=Number(searchOcena2);
-
+              var searchOcenaNum=Number(searchOcena);
 
               if (searchDrzava && item.drzava.toLowerCase().indexOf(searchDrzava.toLowerCase())===-1){
                 return false;
@@ -22,8 +20,7 @@ import { Klinika } from '../models/klinika/klinika';
               if (searchText && item.naziv.toLowerCase().indexOf(searchText.toLowerCase())===-1){
                 return false;
               }
-              if (searchOcena!="Ocena"&& searchOcena!="0" && (item.ocena<searchOcenaNum)){
-                console.log(searchOcenaNum);
+              if (searchOcena!="Ocena" && searchOcena!="0" && (item.ocena<searchOcenaNum)){
                 return false;
               }
 

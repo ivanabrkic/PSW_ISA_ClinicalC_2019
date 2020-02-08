@@ -34,14 +34,17 @@ export class PredefinisaniTerminiComponent implements OnInit {
      this.getTermini();
   }
 
-
   getTermini(){
     var info=new klinikaPacDTO;
     info.idKlin=history.state.klinika;
+    console.log(info.idKlin)
     this.pacService.getUlogovanKorisnik().subscribe(data=>{
       info.idPac=data.id
+      console.log(info)
       this.predefService.findAll(info).subscribe(
-        podaci => {this.termini = podaci; },
+        podaci => {this.termini = podaci;
+          console.log(podaci)
+        },
         err => console.log('Nisu ucitani'),
         () => console.log(this.termini)
       );})
