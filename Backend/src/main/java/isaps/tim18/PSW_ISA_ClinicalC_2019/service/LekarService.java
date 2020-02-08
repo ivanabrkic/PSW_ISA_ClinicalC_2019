@@ -1,8 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.TerminDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
@@ -261,7 +259,12 @@ public class LekarService {
     }
 
     ///////////////////////////////// ZAKAZIVANJE LEKARA /////////////////////////////////////////////////////
-    public List<TerminDTO> getSlobodniTerminiLekar(Long idLekara, Long idPacijenta, Integer trajanje){
+    public List<TerminDTO> getSlobodniTerminiLekar(LekarPacijentTrajanjeDTO lekarPacijentTrajanjeDTO){
+
+        Long idLekara = lekarPacijentTrajanjeDTO.getIdLekara();
+        Long idPacijenta = lekarPacijentTrajanjeDTO.getIdPacijenta();
+        int trajanje = lekarPacijentTrajanjeDTO.getTrajanje();
+
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime start = LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 0, 0, 0);
 
@@ -273,7 +276,7 @@ public class LekarService {
 
         List<TerminDTO> listaTermina = new ArrayList<>();
 
-        for (LocalDateTime date = start; date.isBefore(end); date = date.plusMinutes(trajanje)) {
+        for (LocalDateTime date = start; date.isBefore(end); date = date.plusMinutes(15)) {
             String datum = formatter.format(date.toLocalDate());
             String pocetak = date.toLocalTime().toString();
             String kraj = date.plusMinutes(trajanje).toLocalTime().toString();
@@ -358,5 +361,9 @@ public class LekarService {
 
     public Lekar findBySpecijalizacija(String spec) {
         return lekarRepository.findBySpecijalizacija(spec);
+    }
+
+    public List<Cenovnik> findBySpecAndKlinika(Lekar lekar) {
+        return cenovnikRepository.findBySpecAndKlinika(lekar.getKlinika().getId(), lekar.getSpecijalizacija());
     }
 }

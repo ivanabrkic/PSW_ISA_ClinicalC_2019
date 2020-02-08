@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Pregled} from '../../models/pregled/pregled';
 import {Lekar} from '../../models/lekar/lekar';
 import {PregledIzvestajDTO} from '../../models/pregledIzvestajDTO/pregled-izvestaj-dto';
+import {PregledDTO} from "../../models/PregledDTO/pregled-dto";
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -32,5 +33,9 @@ export class PregledService {
   getZakazaneSestra(jboPacijenta: string) {
     const body = JSON.stringify(jboPacijenta);
     return this.http.post('/server/pregled/getZakazaneSestra', body, httpOptions);
+  }
+
+  getPredefinisane(jboLekar){
+    return this.http.post<PregledDTO[]>('/server/pregled/getAllPregledeByLekar', jboLekar, httpOptions);
   }
 }

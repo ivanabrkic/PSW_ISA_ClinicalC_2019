@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule, MatTabsModule, MatStepperModule, MatSnackBarModule, MatButtonModule } from '@angular/material';
+import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule, MatTabsModule, MatStepperModule, MatSnackBarModule, MatButtonModule, MatOptionModule } from '@angular/material';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SidebarAdminKlinikeComponent } from './sidebar-admin-klinike/sidebar-admin-klinike.component';
 import { AdminKlinikeIzmenaComponent } from './admin-klinike-izmena/admin-klinike-izmena.component';
@@ -71,6 +71,7 @@ import { PredefTerminiServiceService } from 'src/app/services/predefTermini-serv
     MatCardModule,
     MatTabsModule,
     MatStepperModule,
+    MatOptionModule,
     MatSnackBarModule,
     MatButtonModule,
     MatPaginatorModule,

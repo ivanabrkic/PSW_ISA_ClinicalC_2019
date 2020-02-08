@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -110,7 +108,14 @@ public class KlinikaController {
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
-    
+
+    @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody Long id) throws Exception {
+
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(id);
+        return new ResponseEntity<>(pregledi, HttpStatus.OK);
+    }
+      
     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
     	
@@ -277,6 +282,25 @@ public class KlinikaController {
         Optional<Pregled> pronadjenpregled=pregledService.update(pregled);
 
         return new ResponseEntity<>(pronadjenpregled.get(), HttpStatus.OK);
+
+    }
+
+    @PostMapping(value = "/getCena", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public float NadjiCenu(@RequestBody lekariterminiDTO zahtev)throws Exception{
+
+        Cenovnik cen=cenovnikRepository.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
+
+        return cen.getCena();
+
+    }
+
+
+    @PostMapping(value = "/findOperacijeByLekar", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OperacijaKalendarDTO>> nadjiOperacijePoLekaru(@RequestBody Lekar lekar)throws Exception{
+        System.out.println(lekar.getJbo());
+        List<OperacijaKalendarDTO> operacije = klinikaService.findOperacijeByLekar(lekar);
+
+        return new ResponseEntity<>(operacije, HttpStatus.OK);
 
     }
 
