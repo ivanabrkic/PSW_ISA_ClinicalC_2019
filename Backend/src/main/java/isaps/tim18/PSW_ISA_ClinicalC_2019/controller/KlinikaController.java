@@ -280,4 +280,22 @@ public class KlinikaController {
 
     }
 
+    @PostMapping(value = "/getCena", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public float NadjiCenu(@RequestBody lekariterminiDTO zahtev)throws Exception{
+
+        Cenovnik cen=cenovnikRepository.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
+
+        return cen.getCena();
+
+    }
+
+    @PostMapping(value = "/findOperacijeByLekar", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OperacijaKalendarDTO>> nadjiOperacijePoLekaru(@RequestBody Lekar lekar)throws Exception{
+        System.out.println(lekar.getJbo());
+        List<OperacijaKalendarDTO> operacije = klinikaService.findOperacijeByLekar(lekar);
+
+        return new ResponseEntity<>(operacije, HttpStatus.OK);
+
+    }
+
 }

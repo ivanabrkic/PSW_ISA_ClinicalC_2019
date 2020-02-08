@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
@@ -9,9 +10,7 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
 
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,6 +40,15 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
     @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.lekar.jbo, p.lekar.ime, p.lekar.prezime) " +
             "FROM Pregled p WHERE p.status = 'Zakazan'")
     List<PregledIzvestajDTO> getZakazaneByPacijent(String jboPacijent);
+
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.status)" +
+            "FROM Pregled p WHERE p.lekar.jbo = ?1 AND p.status = 'Zakazan'")
+    List<PreglediStatusDTO> getPregledeByLekar(String jboLekar);
+
+
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO(p.id, p.datum, p.pocetak, p.kraj, p.status)" +
+            "FROM Pregled p WHERE p.lekar.jbo = ?1 AND p.status = 'Neaktivan'")
+    List<PreglediStatusDTO> getNeaktivneByLekar(String jboLekar);
 
     Optional<Pregled> findById(Long id);
 

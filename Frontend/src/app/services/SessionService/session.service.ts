@@ -6,6 +6,7 @@ import {IzvestajDto} from '../../models/izvestajDTO/izvestaj-dto';
 import {ZdravstveniKarton} from '../../models/zdravstvenik/zdravstveniKarton';
 import {OpstiIzvestaj} from '../../models/opsti-izvestaj/opsti-izvestaj';
 import {Recept} from '../../models/Recept/recept';
+import {Korisnik} from "../../models/korisnik/korisnik";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,12 @@ export class SessionService {
   zkPregled: ZdravstveniKarton;
   opstiIzvestaj: OpstiIzvestaj;
 
-
+  //
+  ulogovanLekar: Lekar;
+  //
   receptZaIzmenu: Recept;
+  fromKalendar = false;
+  preglediKalendar: any;
+  ulogovanKorinik: Korisnik;
   constructor() { }
 }

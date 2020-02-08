@@ -1,6 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.dto;
 
-public class PregledIzvestajDTO {
+public class PreglediStatusDTO {
     private Long id;
 
     private String jboPacijenta;
@@ -11,31 +11,23 @@ public class PregledIzvestajDTO {
 
     private String kraj;
 
-    private String jboLekara;
+    private String status;
 
-    private String imeLekara;
-
-    private String prezimeLekara;
-
-    public PregledIzvestajDTO(Long id, String jboPacijenta, String datum, String pocetak, String kraj, String jboLekara, String imeLekara, String prezimeLekara) {
+    public PreglediStatusDTO(Long id, String jboPacijenta, String datum, String pocetak, String kraj, String status) {
         this.id = id;
         this.jboPacijenta = jboPacijenta;
         this.datum = datum;
         this.pocetak = pocetak;
         this.kraj = kraj;
-        this.jboLekara = jboLekara;
-        this.imeLekara = imeLekara;
-        this.prezimeLekara = prezimeLekara;
+        this.status = status;
     }
 
-    public PregledIzvestajDTO(Long id, String datum, String pocetak, String kraj, String jboLekara, String imeLekara, String prezimeLekara) {
+    public PreglediStatusDTO(Long id, String datum, String pocetak, String kraj, String status) {
         this.id = id;
         this.datum = datum;
         this.pocetak = pocetak;
         this.kraj = kraj;
-        this.jboLekara = jboLekara;
-        this.imeLekara = imeLekara;
-        this.prezimeLekara = prezimeLekara;
+        this.status = status;
     }
 
     public Long getId() {
@@ -78,27 +70,11 @@ public class PregledIzvestajDTO {
         this.kraj = kraj;
     }
 
-    public String getJboLekara() {
-        return jboLekara;
+    public String getStatus() {
+        return status;
     }
 
-    public void setJboLekara(String jboLekara) {
-        this.jboLekara = jboLekara;
-    }
-
-    public String getImeLekara() {
-        return imeLekara;
-    }
-
-    public void setImeLekara(String imeLekara) {
-        this.imeLekara = imeLekara;
-    }
-
-    public String getPrezimeLekara() {
-        return prezimeLekara;
-    }
-
-    public void setPrezimeLekara(String prezimeLekara) {
-        this.prezimeLekara = prezimeLekara;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

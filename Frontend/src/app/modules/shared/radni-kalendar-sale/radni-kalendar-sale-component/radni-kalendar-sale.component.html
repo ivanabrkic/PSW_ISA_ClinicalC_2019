@@ -4,7 +4,7 @@
 <h1 mat-dialog-title style="font-size: 27px">Kalendar zauzeća sale</h1>
 <mat-dialog-content style="overflow: hidden" class="text">
     <ejs-schedule #scheduleObj [eventSettings]="eventSettings" (eventClick)="onEventClick($event)"
-        (popupOpen)='onPopupOpen($event)' height="700" [currentView]="setView" locale='sr-Latn'>
+        (popupOpen)='onPopupOpen($event, data)' height="700" [currentView]="setView" locale='sr-Latn'>
         <e-views>
             <e-view option="Day"></e-view>
             <e-view option="Week"></e-view>
@@ -36,6 +36,10 @@
                 <div style="font-size: 13px;" *ngIf="data.Location!= undefined && data.Location != ''"
                     class="location">Tip:
                     {{data.Location}}</div>
+            </div>
+            <div *ngIf="data.elementType !== 'event'" class="e-event-content">
+              <button class="e-close e-close-icon e-icons" title="Close"
+                  (click)="onCloseClick($event)"> Zatrazi odsustvo</button>
             </div>
         </ng-template>
     </ejs-schedule>

@@ -3,6 +3,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.LekarPacijentPregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledIzvestajDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.PregledService;
@@ -24,9 +25,7 @@ public class PregledController {
     @PostMapping(value = "/allPregledeByLekar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PregledIzvestajDTO>> getPreglede(@RequestBody Long idLekara) {
         List<PregledIzvestajDTO> pregledi = pregledService.findPregledeById(idLekara);
-        for(int i = 0; i < pregledi.size();i++){
-            System.out.println("Pregled id: " + pregledi.get(i).getId());
-        }
+
         return new ResponseEntity(pregledi, HttpStatus.OK);
     }
 
@@ -48,6 +47,13 @@ public class PregledController {
     @PostMapping(value = "/getZakazaneSestra", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PregledIzvestajDTO>> getZakazaneSestra(@RequestBody String jboPacijent){
         List<PregledIzvestajDTO> zakazani = pregledService.getZakazaneSestra(jboPacijent);
+
+        return new ResponseEntity<>(zakazani, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getAllPregledeByLekar", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PreglediStatusDTO>> getPredefinisaneByLekar(@RequestBody String jbo){
+        List<PreglediStatusDTO> zakazani = pregledService.getPregledeByLekar(jbo);
 
         return new ResponseEntity<>(zakazani, HttpStatus.OK);
     }

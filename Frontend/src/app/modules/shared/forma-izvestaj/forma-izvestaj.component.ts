@@ -9,7 +9,6 @@ import {Recept} from '../../../models/Recept/recept';
 import {Lekovi} from '../../../models/Lekovi/lekovi';
 import {DijalogKreiranjeReceptaComponent} from '../dijalog-kreiranje-recepta/dijalog-kreiranje-recepta.component';
 import {MatDialog} from '@angular/material/dialog';
-import {first} from 'rxjs/operators';
 import {PregledService} from '../../../services/pregled-service/pregled.service';
 import {DijalogUnosDijagnozaComponent} from '../dijalog-unos-dijagnoza/dijalog-unos-dijagnoza.component';
 import {OpstiIzvestajService} from '../../../services/opsti-izvestaj/opsti-izvestaj.service';
@@ -139,16 +138,12 @@ export class FormaIzvestajComponent implements OnInit {
     this.receptService.save(this.recept).subscribe( data => console.log('sacuvan recept'));
     this.zdravstveniKartonService.updateDijagnoze(this.zdravstveniKarton).subscribe( data =>
     console.log('sacuvane dijagnoze'));
-    this.pregledService.zavrsenPregled(this.sessionService.pregled).subscribe(data =>
-      this.router.navigate(['/zdravstveniKarton'])
-    );
-
-
-    // posalji opstiIzvestaj na opstiIzvestajService
-    // posalji zdravstveniKarton na zdravstveniKartonService
-    // posalji noviIzvestaj na izvestaj service
-    // posalji pregled na pregledService da se apdejtuje da je zavrsen
-
-
+    this.pregledService.zavrsenPregled(this.sessionService.pregled).subscribe(data =>{
+      if(!this.sessionService.fromKalendar) {
+        this.router.navigate(['/zdravstveniKarton']);
+      } else{
+        this.router.navigate(['/radniKalendarLekar']);
+      }
+    });
   }
 }
