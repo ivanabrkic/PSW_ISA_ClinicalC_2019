@@ -13,6 +13,7 @@ import { Termin } from 'src/app/models/termin/termin';
 import { LekarTrajanje } from 'src/app/models/termin/lekartrajanje';
 import { PregledId } from 'src/app/models/pregled/PregledId';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
+import {OperacijaKalendarDTO} from "../../models/OperacijaKalendarDTO/operacija-kalendar-dto";
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -127,8 +128,8 @@ export class KlinikaService {
   }
   //////////////////////////////////Nikolino/////////////////////////////////////////////////////////////
 
-  public findOperacijeByLekar(lekar: Lekar): Observable<Operacija[]>{
+  public findOperacijeByLekar(lekar: Lekar): Observable<OperacijaKalendarDTO[]>{
     const body = JSON.stringify(lekar);
-    return this.http.post<Operacija[]>('/server/klinika/findOperacijeByLekar', body, httpOptions);
+    return this.http.post<OperacijaKalendarDTO[]>('/server/klinika/findOperacijeByLekar', body, httpOptions);
   }
 }

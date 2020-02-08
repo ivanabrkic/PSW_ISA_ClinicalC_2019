@@ -1,6 +1,7 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.repository;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaKalendarDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekar;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Operacija;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +18,9 @@ public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
             " GROUP BY o.datum, o.pocetak, o.kraj, o.pacijent.jbo, c.naziv")
     List<OperacijaDTO> findBySalaId(Long id);
 
-    List<Operacija> findByLekari(Lekar lekar);
+    @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaKalendarDTO(o.pacijent.jbo, o.datum, o.pocetak, o.kraj, o.pacijent.ime, o.pacijent.prezime)" +
+            "FROM Operacija o WHERE o.lekari.id = ?1")
+    List<OperacijaKalendarDTO> findByLekari(Long lekarId);
 
     @Query("SELECT o.lekari FROM Operacija o WHERE o.datum = ?1 " +
             "AND o.pocetak = ?2 AND o.kraj = ?3 " +

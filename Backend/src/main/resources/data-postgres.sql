@@ -53,8 +53,8 @@ insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ultrazv
 
 
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('17:30', '23:45', '6.2.2020.', 6, 1, 1, 1, 'Zakazan');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '31.2.2020.', 7, 1, 2, 4, 'Zakazan');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '29.2.2020.', 7, 1, 2, 4, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '12.2.2020.', 7, 1, 2, 4, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '14.2.2020.', 7, 1, 2, 4, 'Zakazan');
 
 
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:00', '08:15', '7.2.2020.', 1, 2, 6, 60, 'Neaktivan');

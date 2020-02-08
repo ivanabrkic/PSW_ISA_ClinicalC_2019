@@ -26,6 +26,10 @@ export class PacijentService {
     return this.http.get('/server/pacijent/allZahtevi');
   }
 
+  getPacijent(jbo: string): Observable<Pacijent> {
+    return this.http.post<Pacijent>('/server/pacijent/getPacijent', jbo, httpOptions);
+  }
+
   getPacijentiAll() {
     return this.http.get('/server/pacijent/all');
   }

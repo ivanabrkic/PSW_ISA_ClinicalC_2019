@@ -12,6 +12,11 @@ import {PregledDTO} from '../../../models/PregledDTO/pregled-dto';
 import {OdsustvoDijalogComponent} from "../dijalog-odsustvo/odsustvo-dijalog.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Operacija} from "../../../models/operacija/operacija";
+import {OperacijaKalendarDTO} from "../../../models/OperacijaKalendarDTO/operacija-kalendar-dto";
+import {duration} from "moment";
+import {ZdravstveniKartonService} from "../../../services/zdravstveni-karton-service/zdravstveni-karton.service";
+import {PacijentService} from "../../../services/pacijent-service/pacijent.service";
+import {OpstiIzvestajService} from "../../../services/opsti-izvestaj/opsti-izvestaj.service";
 
 @Component({
   selector: 'app-radni-kalendar-lekar',
@@ -24,18 +29,18 @@ export class RadniKalendarLekarComponent implements OnInit {
   public eventSettings: EventSettingsModel = { dataSource: this.data }; // izvor podataka za kalendar
   public setView: View = 'Month';
   public selectedEvent: Event;
-  public objekat: any;
   public od: string;
   public do: string;
   public datum: string;
-  public temp: Operacija;
+  public operacije: OperacijaKalendarDTO[] = [];
 
   @ViewChild('scheduleObj', { static: true })
   public scheduleObj: ScheduleComponent;
-  private operacije: any;
 
   constructor(private klinikaService: KlinikaService, private router: Router, private pregledService: PregledService,
-              private sessionService: SessionService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+              private sessionService: SessionService, private dialog: MatDialog, private snackBar: MatSnackBar,
+              private zkService: ZdravstveniKartonService, private pacijentService: PacijentService,
+              private opstiIzvestajService: OpstiIzvestajService) {
     this.pregledService.getPredefinisane(this.sessionService.ulogovanLekar.jbo).subscribe(pregledi => {
       this.pregledi = pregledi;
 
@@ -73,8 +78,35 @@ export class RadniKalendarLekarComponent implements OnInit {
             });
           }
         }
-
       }
+    });
+    this.klinikaService.findOperacijeByLekar(this.sessionService.ulogovanLekar).subscribe(podaci => {
+      this.operacije = podaci;
+      console.log(this.operacije);
+
+      if(this.operacije){
+        let j;
+
+        for(j = 0; j < this.operacije.length; j++){
+          let godina = parseInt(this.operacije[j].datum.split('.')[2]);
+          let mesec = parseInt(this.operacije[j].datum.split('.')[1]) - 1;
+          let dan = parseInt(this.operacije[j].datum.split('.')[0]);
+          let sat1 = parseInt(this.operacije[j].pocetak.split(':')[0]);
+          let minut1 = parseInt(this.operacije[j].pocetak.split(':')[1]);
+          let sat2 = parseInt(this.operacije[j].kraj.split(':')[0]);
+          let minut2 = parseInt(this.operacije[j].kraj.split(':')[1]);
+
+          this.data.push({
+            Id: j,
+            Subject: 'Operacija',
+            EventType: this.operacije[j].jboPacijenta,
+            StartTime: new Date(godina, mesec, dan, sat1, minut1),
+            EndTime: new Date(godina, mesec, dan, sat2, minut2),
+            IsAllDay: false
+          });
+        }
+      }
+
     });
 
     loadCldr(
@@ -111,10 +143,10 @@ export class RadniKalendarLekarComponent implements OnInit {
   dijalogZahtev(){
     this.sessionService.preglediKalendar = this.pregledi;
     if (this.do === undefined || this.od === undefined) {
-      this.snackBar.open('Morate uneti oba datuma!');
+      this.snackBar.open('Morate uneti oba datuma!',  '', { duration: 3000});
       return;
-    } else if (this.od > this.do){
-      this.snackBar.open('Neispravno uneti datumi!');
+    } else if (this.od > this.do) {
+      this.snackBar.open('Neispravno uneti datumi!', '', { duration: 3000});
       return;
     }
     this.datum = this.od + '|' + this.do;
@@ -154,11 +186,30 @@ export class RadniKalendarLekarComponent implements OnInit {
     this.scheduleObj.quickPopup.quickPopupHide();
   }
 
-  zapocniPregled(pregled: any){
+  zapocniPregled(pregled: any, pacijentJbo: any, datum: any, ){
     this.sessionService.fromKalendar = true;
-    //lekara, pacijenta treba naci, datum pregleda, zk, opsti izvestaj, pregled
 
-    this.router.navigate(['/formaIzvestaj']);
-    console.log(this.sessionService.datumZaPregled);
+    let pacijent;
+    // tslint:disable-next-line:no-shadowed-variable
+    this.pacijentService.getPacijent(pacijentJbo).subscribe( pacijent => {
+      this.zkService.getPacijentovZk(pacijent).subscribe(data => {
+        this.opstiIzvestajService.getIzvestaj(data.id).subscribe( opstiIzvestaj =>{
+          this.sessionService.zkPregled = data;
+          this.sessionService.opstiIzvestaj = opstiIzvestaj;
+          this.sessionService.pacijentZaPregled = pacijent;
+          this.sessionService.pacijentProfil = pacijent;
+          this.router.navigate(['/formaIzvestaj']);
+        });
+      });
+    });
+
+
+    console.log(pregled + " " + pacijentJbo + " " + datum);
+    this.sessionService.pregled = pregled;
+    // this.pacijentZaPregled = this.sessionService.pacijentProfil;
+    // this.zdravstveniKarton = this.sessionService.zkPregled;
+    // this.opstiIzvestaj = this.sessionService.opstiIzvestaj;
+    //this.router.navigate(['/formaIzvestaj']);
+
   }
 }

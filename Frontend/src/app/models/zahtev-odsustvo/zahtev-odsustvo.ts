@@ -7,16 +7,22 @@ export class ZahtevOdsustvo {
   datumDo: string;
   brojDana: number;
   opis: string;
-  lekar: MedicinskoOsoblje;
+  korisnikIme: string;
+  korisnikPrezime: string;
+  korisnikJbo: string;
+  korisnikUloga: string
   overen: boolean;
 
 
-  constructor(datumOd: string, datumDo: string, brojDana: number, opis: string, lekar: MedicinskoOsoblje, overen: boolean) {
+  constructor(datumOd: string, datumDo: string, brojDana: number, opis: string, korisnikIme: string, korisnikPrezime: string, korisnikJbo: string, korisnikUloga: string, overen: boolean) {
     this.datumOd = datumOd;
     this.datumDo = datumDo;
     this.brojDana = brojDana;
     this.opis = opis;
-    this.lekar = lekar;
+    this.korisnikIme = korisnikIme;
+    this.korisnikPrezime = korisnikPrezime;
+    this.korisnikJbo = korisnikJbo;
+    this.korisnikUloga = korisnikUloga;
     this.overen = overen;
   }
 }

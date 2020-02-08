@@ -18,13 +18,11 @@
           <mat-datepicker-toggle matSuffix [for]="pickerDo"></mat-datepicker-toggle>
           <mat-datepicker #pickerDo ></mat-datepicker>
         </mat-form-field>
-
         <button style="width:80px; height:40px;margin-left: 2%;display: inline;background-color: #3F51B5;
         color: white;border: none;" (click)="dijalogZahtev()">Zatraži</button>
-
       </div>
     </div>
-    <div>
+    <div style="z-index: 1;position: absolute">
       <mat-dialog-content style="overflow: hidden" class="text">
         <ejs-schedule #scheduleObj [eventSettings]="eventSettings" (eventClick)="onEventClick($event)"
                       (popupOpen)='onPopupOpen($event)' height="700" [currentView]="setView" locale='sr-Latn'>
@@ -60,7 +58,7 @@
                    class="location">Tip:
                 {{data.Location}}</div>
 
-              <button style = "background-color: #3F51B5;color: white;border: none;margin-top: 10%" (click)="zapocniPregled(data)">Započni pregled</button>
+              <button style = "background-color: #3F51B5;color: white;border: none;margin-top: 10%" *ngIf="data.Subject != 'Operacija'" (click)="zapocniPregled(data.Subject, data.EventType, data.StartTime.toLocaleString())">Započni pregled</button>
 
             </div>
 

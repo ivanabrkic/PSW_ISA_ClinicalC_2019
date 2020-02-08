@@ -44,4 +44,17 @@ public class PacijentController {
         return new ResponseEntity<>(pacijenti, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/getPacijent", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pacijent> getPacijent(@RequestBody String jbo) throws Exception {
+
+        Pacijent p = pacijentService.findByJbo(jbo);
+
+        if(p != null){
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
+
 }
