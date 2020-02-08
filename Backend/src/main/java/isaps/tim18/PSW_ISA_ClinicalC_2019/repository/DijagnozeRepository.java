@@ -10,11 +10,12 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DijagnozeRepository extends JpaRepository<Dijagnoze,Long> {
 
-    Dijagnoze findBySifra(int sifra);
+    Optional<Dijagnoze> findById(Long sifra);
 
     Dijagnoze findBySifraDijagnoze(String sifra);
 

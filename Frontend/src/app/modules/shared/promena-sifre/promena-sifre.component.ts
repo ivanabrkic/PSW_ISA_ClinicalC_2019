@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {LoginService} from '../services/login-and-register-service/login.service';
-import {KorisnikService} from '../services/korisnik-service/korisnik.service';
+import {LoginService} from '../../../services/login-and-register-service/login.service';
+import {KorisnikService} from '../../../services/korisnik-service/korisnik.service';
 import {Korisnik} from '../../../models/korisnik/korisnik';
 import {first} from 'rxjs/operators';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-promena-sifre',
@@ -20,7 +21,7 @@ export class PromenaSifreComponent implements OnInit {
   korisnik: Korisnik;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService,
-              private korisnikService: KorisnikService) {
+              private korisnikService: KorisnikService, private snackBar: MatSnackBar) {
     this.korisnikService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
         this.korisnik = ulogovanKorisnik;
@@ -47,7 +48,10 @@ export class PromenaSifreComponent implements OnInit {
     this.loading = true;
 
     if (this.lozinka !== this.potvrda) {
-      alert('Lozinke nisu iste!');
+      this.snackBar.open('Lozinke nisu iste!', "",  {
+        duration: 3000,
+        verticalPosition: 'bottom'
+      });
       return;
     }
 

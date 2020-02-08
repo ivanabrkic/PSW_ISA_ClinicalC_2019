@@ -1,3 +1,6 @@
+
+<html ng-app="listalekara">
+<body ng-controler="listactrl">
 <div class="topnav">
   <div class="search-container">
     <form action="/action_page.php">
@@ -12,20 +15,19 @@
             <option value="3">3+</option>
             <option value="2">2+</option>
             <option value="1">1+</option>
-        </select>
-      </td>
-      <td><select *ngIf="terminiSakriveni" class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  >
-        <option value="">Tip pregleda</option>
-        <option value="one">Zubar</option>
-        <option value="two">Psiholog</option>
-      </select>
-  </td>
-  <td><mat-form-field *ngIf="terminiSakriveni">
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-    </td>
+          </select>
+          </td>
+          <td><select *ngIf="!terminiSakriveni" class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
+            <option value="">Izaberite tip</option>
+            <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
+          </select>
+          </td>
+          <td><mat-form-field *ngIf="!terminiSakriveni">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          </td>
         </tr>
         <!--button type="submit"><i class="fa fa-search"></i></!--button-->
       </table>
@@ -34,37 +36,109 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-danger">
-            <h4 class="card-title ">Lista lekara klinike {{klinika.naziv}}</h4>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title ">Lista lekara klinike {{klinika.naziv}}</h4>
+        </div>
+        <div class="card-body">
+
+          <div  class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+              <th>Ime</th>
+              <th>Prezime</th>
+              <th>Ocena</th>
+              <th *ngIf="terminiSakriveni">Slobodni termini za datum</th>
+              </thead>
+
+              <tbody>
+              <tr (click)="onSelect(lekar)" *ngFor="let lekar of lekari | pretragafilterLekari:searchIme:searchPrezime:searchOcena:searchPregled" >
+                <td>{{lekar.ime}}</td>
+                <td>{{lekar.prezime}} </td>
+                <td>{{lekar.ocena}} </td>
+                <!--                     <td *ngIf="!terminiSakriveni" ><select ng-model="selectedTermin" >
+                                      <option value="">Izaberite termin</option>
+                                      <option *ngFor="let termin of termini" [ngValue]="termin">{{termin}}</option> VIDI OVO -->
+                <td *ngIf="terminiSakriveni" >
+                  <select [(ngModel)]="selectedTermin"  id="{{lekar.id}}" >
+                    <option value="">Izaberite termin</option>
+                    <option *ngFor="let termin of termini" value="{{termin}}">{{termin}}</option>
+                  </select></td>
+              </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="card-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!-- VIDI I OVO DOLE  -->
 
-            <div  class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-                  <th>Ime</th>
-                  <th>Prezime</th>
-                  <th>Ocena</th>
-                  <th *ngIf="!terminiSakriveni">Slobodni termini za datum</th>
-                </thead>
-
-                <tbody>
-                  <tr *ngFor="let lekar of lekari | pretragafilterLekari:searchIme:searchPrezime:searchOcena:searchPregled" >
-                    <td>{{lekar.ime}}</td>
-                    <td>{{lekar.prezime}} </td>
-                    <td>{{lekar.ocena}} </td>
-                    <td *ngIf="!terminiSakriveni"><select>
-                      <option>TODO</option>
-                    </select></td>
-                  </tr>
-                </tbody>
-              </table>
+<div *ngIf="izabraniLekar">
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title">Zakazivanje termina</h4>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Datum : {{zahtev.datum}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Pocetak: {{zahtev.start}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Klinika: {{klinika.naziv}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Lekar : {{izabraniLekar.ime}} {{izabraniLekar.prezime}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Tip pregleda : {{zahtev.specijalizacija}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Cena i popust: {{zahtev.cena}}, {{zahtev.popust}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p><mat-form-field class="example-full-width">
+                          <input matInput placeholder="Unesite dodatne informacije" type="text"
+                                 id="info"
+                                 [(ngModel)]="dodatneInfo" name="info" class="mat-form-control">
+                        </mat-form-field></p>
+                        <p> <button class="form-control" (click)="zakaziNavigate($event)">Zakazi termin</button></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

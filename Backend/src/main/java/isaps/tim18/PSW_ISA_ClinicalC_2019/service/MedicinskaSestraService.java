@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.MedicinskaSestra;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.MedicinskaSestraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,17 +56,23 @@ public class MedicinskaSestraService {
     }
 
     @Transactional
-    public MedicinskaSestra add(MedicinskaSestra medicinskaSestra){
-        return medicinskaSestraRepository.save(medicinskaSestra);
+    public Message add(MedicinskaSestra medicinskaSestra){
+        if (medicinskaSestraRepository.findByJbo(medicinskaSestra.getJbo()) == null && medicinskaSestraRepository.findByEmail(medicinskaSestra.getEmail()) == null){
+            medicinskaSestraRepository.save(medicinskaSestra);
+            return new Message("Uspešno ste registrovali medicinsku sestru!");
+        }
+
+        return new Message("Ne možete registrovati medicinsku sestru! JBO ili email već postoje!");
     }
 
     @Transactional
-    public MedicinskaSestra remove(Long id){
-        medicinskaSestraRepository.deleteById(id);
+    public Message remove(Long id){
 
         if(!medicinskaSestraRepository.findById(id).isPresent()) {
-            return null;
+            return new Message("Medicinska sestra ne postoji!");
         }
-        return medicinskaSestraRepository.findById(id).get();
+        medicinskaSestraRepository.deleteById(id);
+
+        return new Message("Uspešno otpuštena medicinska sestra!");
     }
 }

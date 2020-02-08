@@ -14,16 +14,23 @@ public class Recept {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="broj", nullable = false)
-    private int broj;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="pacijent_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Pacijent pacijent;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="med_sestra", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private MedicinskaSestra medicinskaSestra;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Lekovi> lekovi = new ArrayList<Lekovi>();
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "izvestaj", referencedColumnName = "id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Izvestaj izvestaj;
 
     @Column(name = "overen", nullable = false)
     private boolean overen;
@@ -32,19 +39,12 @@ public class Recept {
 
     }
 
-    public Recept(boolean overen, Pacijent pacijent, ArrayList<Lekovi> lekovi, int broj) {
+    public Recept(boolean overen, Pacijent pacijent, ArrayList<Lekovi> lekovi, MedicinskaSestra medicinskaSestra, Izvestaj izvestaj) {
         this.overen = overen;
         this.pacijent = pacijent;
         this.lekovi = lekovi;
-        this.broj = broj;
-    }
-
-    public int getBroj() {
-        return broj;
-    }
-
-    public void setBroj(int broj) {
-        this.broj = broj;
+        this.medicinskaSestra = medicinskaSestra;
+        this.izvestaj = izvestaj;
     }
 
     public boolean isOveren() {
@@ -75,7 +75,23 @@ public class Recept {
         return lekovi;
     }
 
-    public void setLekovi(ArrayList<Lekovi> lekovi) {
+    public void setLekovi(List<Lekovi> lekovi) {
         this.lekovi = lekovi;
+    }
+
+    public MedicinskaSestra getMedicinskaSestra() {
+        return medicinskaSestra;
+    }
+
+    public void setMedicinskaSestra(MedicinskaSestra medicinskaSestra) {
+        this.medicinskaSestra = medicinskaSestra;
+    }
+
+    public Izvestaj getIzvestaj() {
+        return izvestaj;
+    }
+
+    public void setIzvestaj(Izvestaj izvestaj) {
+        this.izvestaj = izvestaj;
     }
 }

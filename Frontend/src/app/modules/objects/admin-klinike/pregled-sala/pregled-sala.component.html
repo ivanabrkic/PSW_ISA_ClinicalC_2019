@@ -5,31 +5,50 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Sale klinike "{{adminKlinike.klinika.naziv}}"</h4>
+                        <h4 *ngIf="adminKlinike.klinika ? true : false" class="card-title ">Sale klinike "{{adminKlinike.klinika.naziv}}"</h4>
                         <button mat-raised-button (click)="showDialogRegister()"
-                            class="btn btn-primary pull-right">Registruj novu salu</button>
+                        class="btn btn-primary pull-right">Registruj novu salu</button>
+                    </div>
+                    <div style="padding-left: 30px;" class="row">
+                        <div style="padding-top: 20px;" class="col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <input (keyup)="applyFilter($event.target.value)" placeholder="Naziv i broj sale" #naziv
+                                    matInput>
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>Naziv</th>
-                                    <th>Broj</th>
-                                    <th></th>
-                                    <th></th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let sala of sale">
-                                        <td><b>{{sala.naziv}}</b></td>
-                                        <td><b>{{sala.broj}}</b></td>
-                                        <td><button id={{sala.id}} mat-raised-button (click)="openCalendar(sala)"
-                                                class="btn btn-primary">Kalendar zauzeća</button></td>
-                                        <td><button id={{sala.id}} mat-raised-button (click)="removeSala($event)"
-                                                class="btn btn-danger">Ukloni</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="naziv">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv </th>
+                                <td mat-cell *matCellDef="let sala"> {{sala.naziv}}  </td>
+                            </ng-container>
+                            <ng-container matColumnDef="broj">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Broj </th>
+                                <td mat-cell *matCellDef="let sala"> {{sala.broj}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Kalendar">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let sala"> <button id={{sala.id}} mat-raised-button
+                                        (click)="openCalendar(sala)" class="btn btn-primary">Kalendar
+                                        zauzeća</button> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Izmeni">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let sala"> <button id={{sala.id}} mat-raised-button (click)="updateSala(sala)"
+                                    class="btn btn-warning">Izmeni</button>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="Ukloni">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let sala"> <button id={{sala.id}} mat-raised-button (click)="removeSala(sala)"
+                                    class="btn btn-danger">Ukloni</button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
                     </div>
                 </div>
             </div>

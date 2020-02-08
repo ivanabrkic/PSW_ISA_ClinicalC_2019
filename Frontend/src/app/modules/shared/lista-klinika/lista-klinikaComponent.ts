@@ -1,8 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Klinika} from '../../../models/klinika/klinika';
 import {Observable, Subscription} from 'rxjs';
-import { ListaKlinikaService } from 'src/app/modules/shared/services/lista-klinika-service/lista-klinika.service';
+import { ListaKlinikaService } from 'src/app/services/lista-klinika-service/lista-klinika.service';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
+import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
+import { MatDatepickerInputEvent } from '@angular/material';
+import { Cenovnik } from 'src/app/models/Cenovnik/cenovnik';
 
 @Component({
   selector: 'app-lista-klinika',
@@ -15,40 +20,52 @@ import { Router } from '@angular/router';
 export class ListaKlinikaComponent implements OnInit {
   private klinike: Klinika[];
   selectedKlinika: Klinika;
+  date = new FormControl(new Date);
+  zahtev = new pretragaDTO();
+  tipovi: Cenovnik[];
+  searchPregled: Cenovnik;
 
-  ocene = [{
-    name: '5',
-    value: '5'
- }, {
-  name: '4+',
-  value: '4'
-},
-{
-  name: '3+',
-  value: '3'
-},
-{
-  name: '2+',
-  value: '2'
-},
-{
-  name: '1+',
-  value: '1'
-},
-{
-  name: 'Ocena',
-  value: '0'
-}
-];
-
-  constructor(private listaKlinikaService: ListaKlinikaService,private router:Router) {
+  constructor(private listaKlinikaService: ListaKlinikaService, private router: Router) {
   }
-
-
 
   getKlinike() {
     this.listaKlinikaService.findAll().subscribe(
-      podaci => {this.klinike = podaci; },
+      podaci => {
+        this.klinike = podaci;
+      },
+      err => console.log('Nisu ucitane klinike'),
+      () => console.log('Uspesno ucitane klinike')
+    );
+  }
+
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.zahtev.idKlinike = null;
+    var selectedDate = this.date.value;
+    selectedDate = moment(selectedDate).format('D.M.YYYY.');
+    this.zahtev.datum = selectedDate
+    this.zahtev.start = '00:00';
+    this.zahtev.finis = '23:59';
+    //this.zahtev.specijalizacija='Kardiolog';
+    this.listaKlinikaService.getSlobodneKlinike(this.zahtev).subscribe(
+      podaci => {
+        this.klinike = podaci;
+      },
+      err => console.log('Nisu ucitane klinike'),
+      () => console.log('Uspesno ucitane klinike')
+    );
+
+  }
+
+  getCena(naziv: string, id: number) {
+    var pretraga = new pretragaDTO();
+    pretraga.start = '00:00';
+    pretraga.finis = '12:22';
+    pretraga.idKlinike = id;
+    pretraga.specijalizacija = naziv;
+    this.listaKlinikaService.getSlobodneKlinike(pretraga).subscribe(
+      podaci => {
+        return podaci;
+      },
       err => console.log('Nisu ucitane klinike'),
       () => console.log('Uspesno ucitane klinike')
     );
@@ -56,22 +73,60 @@ export class ListaKlinikaComponent implements OnInit {
 
   onSelect(klinika: Klinika): void {
     this.selectedKlinika = klinika;
+    this.zahtev.idKlinike = klinika.id;
   }
+
   ngOnInit() {
     this.getKlinike();
+    this.getTipovi();
   }
 
-  lekariNavigate(event){
-    var testdatum=5; //bice pokupljen iz dejtpikera
-    let klinika=this.selectedKlinika;{
-      this.router.navigate(['/listaLekara'],{state:{klinika:klinika,datum:testdatum}});
-    }
+  getTipovi() {
+    this.listaKlinikaService.findTipovi().subscribe(
+      podaci => {
+        this.tipovi = podaci;
+      },
+      err => console.log('Nisu ucitani tipovi'),
+      () => console.log('Uspesno ucitani tipovi')
+    );
   }
 
-  profilNavigate(event){
+  onChange(selected) {
+    this.zahtev.specijalizacija = selected;
+    this.zahtev.specijalizacija = selected.naziv;
+    this.zahtev.idKlinike = null;
+    this.zahtev.start = '00:00';
+    this.zahtev.finis = '23:59';
+    //this.zahtev.specijalizacija='Kardiolog';
+    this.listaKlinikaService.getSlobodneKlinike(this.zahtev).subscribe(
+      podaci => {
+        this.klinike = podaci;
+      },
+      err => console.log('Nisu ucitane klinike'),
+      () => console.log('Uspesno ucitane klinike')
+    );
 
-    let klinika=this.selectedKlinika;
-      this.router.navigate(['/profilKlinike'],{state:{data:klinika}});
   }
 
+
+  lekariNavigate(event) {
+    var selectedDate = this.date.value;
+    selectedDate = moment(selectedDate).format('D.M.YYYY.');
+    console.log(selectedDate);
+    let klinika = this.selectedKlinika;
+    this.router.navigate(['/listaLekara'],
+      {  state: {
+          klinika: klinika,
+          zahtev: this.zahtev,
+          tip: this.searchPregled
+        }
+      });
+  }
+
+
+  profilNavigate(event) {
+
+    let klinika = this.selectedKlinika;
+    this.router.navigate(['/profilKlinike'], {state: {data: klinika}});
+  }
 }

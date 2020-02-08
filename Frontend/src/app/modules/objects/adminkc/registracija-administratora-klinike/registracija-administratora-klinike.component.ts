@@ -3,8 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Form, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import { HelperUserClass } from 'src/app/helpers/helper-user-class';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-registracija-administratora-klinike',
@@ -17,7 +18,7 @@ export class RegistracijaAdministratoraKlinikeComponent implements OnInit {
   loading = false;
   adminForm: FormGroup;
   klinike = null;
-  constructor(private route: ActivatedRoute,
+  constructor(private _snackBar: MatSnackBar,private route: ActivatedRoute,
               private router: Router,
               private AdminService: AdminKlinikeService,
               private klinikaService: KlinikaService,

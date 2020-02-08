@@ -19,3 +19,56 @@
   tr a:active {
     color: black;
   }
+
+  .main-content {
+    padding-left: 220px;
+  }
+
+  .content-container {
+    padding-top: 20px;
+    padding-left: 220px;
+  }
+
+  tr a{
+    cursor: pointer;
+    color:#007bff;
+  }
+  
+  tr a:hover {
+    text-decoration: underline;
+  }
+  
+  tr a:active {
+    color: black;
+  }
+
+  .main-content {
+    padding-left: 220px;
+  }
+
+  .content-container {
+    padding-top: 20px;
+    padding-left: 220px;
+  }
+
+  tr a{
+    cursor: pointer;
+    color:#007bff;
+  }
+  
+  tr a:hover {
+    text-decoration: underline;
+  }
+  
+  tr a:active {
+    color: black;
+  }
+
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 16px;
+    width: 100%;
+  }

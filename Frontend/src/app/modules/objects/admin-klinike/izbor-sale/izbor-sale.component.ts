@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
 import { Sala } from 'src/app/models/sala/sala';
 import { MatTableDataSource } from '@angular/material';
 import { Lekar } from 'src/app/models/lekar/lekar';
@@ -12,7 +10,12 @@ import { RadniKalendarSaleComponent } from 'src/app/modules/shared/radni-kalenda
 import { Operacija } from 'src/app/models/operacija/operacija';
 import { Pregled } from 'src/app/models/pregled/pregled';
 import { ZakaziTerminComponent } from '../zakazi-termin/zakazi-termin.component';
-import { LekarService } from 'src/app/modules/shared/services/lekar-service/lekar.service';
+import {KlinikaService} from '../../../../services/klinika-service/klinika.service';
+import { LekarService } from 'src/app/services/lekar-service/lekar.service';
+import { Email } from 'src/app/models/email/email';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
+import { AdminKlinikeService} from "../../../../services/admin-klinike-service/admin-klinike.service";
+
 
 @Component({
   selector: 'app-izbor-sale',
@@ -36,10 +39,7 @@ export class IzborSaleComponent implements OnInit {
 
   checked: boolean
 
-  sveSale: Sala[] = []
-  noveSale: Map<number, Sala>
-
-  noveSaleNiz: Sala[] = []
+  noveSale: Sala[] = []
 
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
   sale: Sala[] = []
@@ -56,116 +56,28 @@ export class IzborSaleComponent implements OnInit {
 
   @Input() public passZahtev: Zahtev;
 
-  constructor(public dialog: MatDialog, private lekarService: LekarService, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
-    this.adminkService.getUlogovanKorisnik()
-      .subscribe(ulogovanKorisnik => {
-        this.adminKlinike = ulogovanKorisnik;
-
-        this.lekarService.lekarSlobodan(this.passZahtev).subscribe(data => {
-          if (data) {
-            this.klinikaService.getSaleSlobodneOd(this.passZahtev)
-              .subscribe(data => {
-                this.sale = data;
-
-                for (var i = 0; i < this.sale.length; i++) {
-                  this.sale[i].datumSlobodna = this.passZahtev.datum
-                  this.sale[i].pocetakSlobodna = this.passZahtev.pocetak
-                  this.sale[i].krajSlobodna = this.passZahtev.kraj
-                }
-
-                this.dataSource = new MatTableDataSource(this.sale);
-              });
-            this.klinikaService.getSale(this.adminKlinike.klinika.id)
-              .subscribe(data => {
-                this.sveSale = data;
-              });
-            this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
-              .subscribe(data => {
-                this.lekari = data;
-              });
-          }
-          else {
-            this.dataSource = new MatTableDataSource(this.sale);
-            this.klinikaService.getSale(this.adminKlinike.klinika.id)
-              .subscribe(data => {
-                this.sveSale = data;
-              });
-            this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
-              .subscribe(data => {
-                this.lekari = data;
-              });
-          }
-        });
-
-
-      });
-
-    this.zahtevObradjen.emit(true)
+  constructor(public dialog: MatDialog, private pacijentService: PacijentService, private lekarService: LekarService, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
+    this.dataSource = new MatTableDataSource(this.sale);
   }
 
   ngOnInit() {
     this.adminkService.getUlogovanKorisnik()
       .subscribe(ulogovanKorisnik => {
-
         this.adminKlinike = ulogovanKorisnik;
-
-        this.lekarService.lekarSlobodan(this.passZahtev).subscribe(data => {
-          if (data) {
-            this.klinikaService.getSaleSlobodneOd(this.passZahtev)
-              .subscribe(data => {
-                this.sale = data;
-
-                for (var i = 0; i < this.sale.length; i++) {
-                  this.sale[i].datumSlobodna = this.passZahtev.datum
-                  this.sale[i].pocetakSlobodna = this.passZahtev.pocetak
-                  this.sale[i].krajSlobodna = this.passZahtev.kraj
-                }
-
-                this.dataSource = new MatTableDataSource(this.sale);
-              });
-            this.klinikaService.getSale(this.adminKlinike.klinika.id)
-              .subscribe(data => {
-                this.sveSale = data;
-              });
-            this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
-              .subscribe(data => {
-                this.lekari = data;
-              });
-          }
-          else {
+        this.klinikaService.getSlobodneSale(this.passZahtev)
+          .subscribe(data => {
+            this.sale = data;
             this.dataSource = new MatTableDataSource(this.sale);
-            this.klinikaService.getSale(this.adminKlinike.klinika.id)
-              .subscribe(data => {
-                this.sveSale = data;
-              });
-            this.lekarService.getLekariKlinike(this.adminKlinike.klinika.id)
-              .subscribe(data => {
-                this.lekari = data;
-              });
-          }
-        });
-
+          });
 
       });
 
-    var godina = parseInt(this.passZahtev.datum.split('.')[2])
-    var mesec = parseInt(this.passZahtev.datum.split('.')[1])
-    var dan = parseInt(this.passZahtev.datum.split('.')[0])
-    var sat = parseInt(this.passZahtev.pocetak.split(':')[0])
-    var minut = parseInt(this.passZahtev.pocetak.split(':')[1])
-    this.searchTimeStart = { hour: sat, minute: minut, second: 0 };
-    var sat = parseInt(this.passZahtev.kraj.split(':')[0])
-    var minut = parseInt(this.passZahtev.kraj.split(':')[1])
-    this.searchTimeEnd = { hour: sat, minute: minut, second: 0 };
-    this.startingDate = new Date(godina, mesec - 1, dan)
-    this.date = this.startingDate;
-    this.checked = false
+    var godina = parseInt(this.passZahtev.datum.split(".")[2]);
+    var mesec = parseInt(this.passZahtev.datum.split(".")[1]);
+    var dan = parseInt(this.passZahtev.datum.split(".")[0]);
 
-    for (var i = 0; i < this.sale.length; i++) {
-      this.sale[i].datumSlobodna = this.passZahtev.datum
-      this.sale[i].pocetakSlobodna = this.passZahtev.pocetak
-      this.sale[i].krajSlobodna = this.passZahtev.kraj
-    }
+    this.startingDate = new Date(godina, mesec, dan)
+    this.date = this.startingDate
 
     this.zahtevObradjen.emit(true)
 
@@ -178,82 +90,16 @@ export class IzborSaleComponent implements OnInit {
   drugiTermin(event: Event) {
 
     if (this.checked) {
-      var i = 0
-
-      this.noveSale = new Map()
-
-      var godina = parseInt(this.passZahtev.datum.split('.')[2])
-      var mesec = parseInt(this.passZahtev.datum.split('.')[1])
-      var dan = parseInt(this.passZahtev.datum.split('.')[0])
-      var satPocetak = parseInt(this.passZahtev.pocetak.split(':')[0])
-      var minutPocetak = parseInt(this.passZahtev.pocetak.split(':')[1])
-      var satKraj = parseInt(this.passZahtev.kraj.split(':')[0])
-      var minutKraj = parseInt(this.passZahtev.kraj.split(':')[1])
-
-      var datumPocetak = new Date(godina, mesec - 1, dan, satPocetak, minutPocetak, 0, 0)
-      var datumKraj = new Date(godina, mesec - 1, dan, satKraj, minutKraj, 0, 0)
-
-      var trajanje = datumKraj.getTime() - datumPocetak.getTime();
-      var sledeciDan = new Date(godina, mesec - 1, dan, 0, 0, 0, 0)
-
-      this.noviTermin(i, sledeciDan, trajanje)
+      this.klinikaService.getDrugiTermin(this.passZahtev)
+        .subscribe(data => {
+          this.noveSale = data
+          this.dataSource = new MatTableDataSource(this.noveSale);
+          return
+        });
     }
     else {
       this.dataSource = new MatTableDataSource(this.sale);
     }
-
-
-  }
-
-  noviTermin(i: number, sledeciDan: Date, trajanje: number) {
-
-    var noviZahtev = new Zahtev()
-
-    noviZahtev.idKlinike = this.adminKlinike.klinika.id
-
-    sledeciDan.setMinutes(sledeciDan.getMinutes() + i * 15);
-
-    var krajnji = new Date(sledeciDan)
-    var probni = new Date(sledeciDan)
-
-    probni.setMilliseconds(probni.getMilliseconds() + trajanje)
-
-    if (probni.getDate() == sledeciDan.getDate()) {
-      krajnji.setMilliseconds(krajnji.getMilliseconds() + trajanje)
-    }
-    else {
-      sledeciDan.setDate(sledeciDan.getDate() + 1)
-    }
-
-    noviZahtev.datum = sledeciDan.getDate().toString() + "." + (sledeciDan.getMonth() + 1).toString() + "." + sledeciDan.getFullYear().toString() + "."
-    noviZahtev.pocetak = sledeciDan.getHours().toString() + ":" + sledeciDan.getMinutes().toString()
-    noviZahtev.kraj = krajnji.getHours().toString() + ":" + krajnji.getMinutes().toString()
-
-    noviZahtev.jboPacijenta = this.passZahtev.jboPacijenta
-
-    this.klinikaService.getSaleSlobodneOd(noviZahtev)
-      .subscribe(data => {
-        for (var i = 0; i < data.length; i++) {
-          this.noveSale.set(data[i].id, data[i])
-          this.noveSale.get(data[i].id).datumSlobodna = noviZahtev.datum
-          this.noveSale.get(data[i].id).pocetakSlobodna = noviZahtev.pocetak
-          this.noveSale.get(data[i].id).krajSlobodna = noviZahtev.kraj
-        }
-        if (this.sveSale.length != this.noveSale.size) {
-          return this.noviTermin(1, sledeciDan, trajanje)
-        }
-        else {
-          this.noveSaleNiz = new Array()
-
-          for (var [key, value] of this.noveSale) {
-            this.noveSaleNiz.push(value)
-          }
-
-          this.dataSource = new MatTableDataSource(this.noveSaleNiz);
-          return
-        }
-
-      });
   }
 
   openCalendar(id: Sala) {
@@ -281,16 +127,41 @@ export class IzborSaleComponent implements OnInit {
       });
   }
 
-  zakaziTermin(sala: Sala) {
-    var noviZahtev: Zahtev = new Zahtev()
-    noviZahtev.idStavke = this.passZahtev.idStavke
-    noviZahtev.datum = sala.datumSlobodna
-    noviZahtev.pocetak = sala.pocetakSlobodna
-    noviZahtev.kraj = sala.krajSlobodna
-    noviZahtev.idKlinike = this.passZahtev.idKlinike
-    noviZahtev.tipPosete = this.passZahtev.tipPosete
+  posaljiPacijentuMail(jboPacijenta: String, sala: Sala, operacija : any, tipPosete : String) {
+    this.pacijentService.findPacijentByJbo(jboPacijenta).subscribe(data => {
+      var email: Email = new Email()
+      email.email = data.email
+      email.subject = "Obaveštenje o zakazanoj/om  " + tipPosete + "!"
+      email.text =
+        "Poštovani/a " + data.ime + " " + data.prezime + " obaveštavamo vas o zakazanoj/om  " + tipPosete + " " + operacija.tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
+        + operacija.datum + " od " + operacija.pocetak + " do " + operacija.kraj + " "
+        + "kod lekara " + operacija.jboLekara + " za pacijenta " + operacija.jboPacijenta + "."
+      this.klinikaService.sendEmail(email).subscribe(data => alert(data.text))
 
-    this.lekarService.getSlobodni(noviZahtev)
+    })
+  }
+
+  posaljiLekaruMail(jboLekara: String, sala: Sala, pregled : any, tipPosete : String) {
+    this.lekarService.findLekarByJbo(jboLekara).subscribe(lekar => {
+      var email: Email = new Email()
+      email.email = lekar.email
+      email.subject = "Obaveštenje o zakazanoj/om " + tipPosete + "!"
+      email.text =
+        "Poštovani/a " + lekar.ime + " " + lekar.prezime + " obaveštavamo vas o zakazanoj/om  " + tipPosete + " " + pregled.tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
+        + pregled.datum + " od " + pregled.pocetak + " do " + pregled.kraj + " "
+        + "kod lekara (JBO lekara) " + pregled.jboLekara + " za pacijenta (JBO pacijenta) " + pregled.jboPacijenta + "."
+      this.klinikaService.sendEmail(email).subscribe(data =>
+        alert(data.text + " " + lekar.ime + " " + lekar.prezime))
+    })
+  }
+
+  zakaziTermin(sala: Sala) {
+
+    this.passZahtev.datum = sala.datumSlobodna
+    this.passZahtev.pocetak = sala.pocetakSlobodna
+    this.passZahtev.kraj = sala.krajSlobodna
+
+    this.klinikaService.getSlobodniLekari(this.passZahtev)
       .subscribe(data => {
         var lekari = data;
         const dialogConfig = new MatDialogConfig();
@@ -313,10 +184,37 @@ export class IzborSaleComponent implements OnInit {
         };
 
         this.zakaziTerminDialog = this.dialog.open(ZakaziTerminComponent, dialogConfig);
-        this.zakaziTerminDialog.afterClosed().subscribe(
-          data => this.zahtevObradjen.emit(data)
-        );
 
+        this.zakaziTerminDialog.afterClosed().subscribe(
+          dialogResult => {
+            if (this.passZahtev.tipPosete == 'Operacija') {
+              this.klinikaService.zakaziOperaciju(dialogResult[1])
+                .subscribe(data => {
+                  alert(data.text)
+                  this.klinikaService.removeZahtev(dialogResult[2])
+                    .subscribe(data => {
+                      dialogResult[1].jboLekara.forEach(element => {
+                        this.posaljiLekaruMail(element, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)
+                      })
+                      this.posaljiPacijentuMail(dialogResult[1].jboPacijenta, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)
+                      this.zahtevObradjen.emit(dialogResult[0])
+                    },
+                    error => alert(JSON.stringify(data)));
+                });
+            }
+            else {
+              this.klinikaService.zakaziPregled(dialogResult[1])
+                .subscribe(data => {
+                  alert(data.text)
+                  this.klinikaService.removeZahtev(dialogResult[2])
+                    .subscribe(data => {
+                      this.posaljiLekaruMail(dialogResult[1].jboLekara, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)
+                      this.posaljiPacijentuMail(dialogResult[1].jboPacijenta, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)
+                      this.zahtevObradjen.emit(dialogResult[0])
+                    });
+                });
+            }
+          });
       });
   }
 

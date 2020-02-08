@@ -1,10 +1,13 @@
 import {Pacijent} from '../pacijent/pacijent';
 import {Lekovi} from '../Lekovi/lekovi';
+import {MedicinskaSestra} from '../medicinskas/medicinskas';
+import {Izvestaj} from "../izvestaj/izvestaj";
 
 export class Recept {
   id: number;
-  broj: number;
   overen: boolean;
   pacijent: Pacijent;
-  lekovi: Array<Lekovi>;
+  izvestaj: Izvestaj;
+  lekovi: Lekovi[];
+  medicinskaSestra: MedicinskaSestra;
 }

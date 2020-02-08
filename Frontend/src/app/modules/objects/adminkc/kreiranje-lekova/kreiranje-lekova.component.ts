@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Lekovi} from '../../../../models/Lekovi/lekovi';
-import { LekoviService } from 'src/app/modules/shared/services/LekoviService/lekovi.service';
+import { LekoviService } from 'src/app/services/LekoviService/lekovi.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-kreiranje-lekova',
@@ -11,7 +12,7 @@ export class KreiranjeLekovaComponent implements OnInit {
   sifre = []
   lekovi: any;
   novLek: Lekovi;
-  constructor(private lekoviService: LekoviService) { }
+  constructor(private _snackBar: MatSnackBar,private lekoviService: LekoviService) { }
 
   ngOnInit() {
     this.getLekove();

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacijentService {
@@ -76,5 +77,13 @@ public class PacijentService {
     public Integer removeByJbo(String jbo){
         return pacijentRepository.removePacijentByJbo(jbo);
     }
+
+    public Pacijent findPacijentByJbo(String jbo) {
+        return pacijentRepository.findByJbo(jbo);
+    }
+  
+	public Optional<Pacijent> findById(Long id) {
+		return pacijentRepository.findById(id);
+	}
 
 }

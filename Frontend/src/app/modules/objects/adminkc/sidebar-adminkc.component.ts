@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/modules/shared/services/login-and-register-service/login.service';
+import { LoginService } from 'src/app/services/login-and-register-service/login.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-sidebar-adminkc',
@@ -8,7 +9,7 @@ import { LoginService } from 'src/app/modules/shared/services/login-and-register
 })
 export class SidebarAdminkcComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private _snackBar: MatSnackBar,private loginService: LoginService) { }
 
   ngOnInit() {
   }

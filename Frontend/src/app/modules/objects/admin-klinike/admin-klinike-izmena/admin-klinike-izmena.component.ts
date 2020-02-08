@@ -2,7 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AdministratorKlinike} from '../../../../models/admink/administrator-klinike';
 import {first} from 'rxjs/operators';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   templateUrl: './admin-klinike-izmena.component.html',
@@ -16,7 +17,7 @@ export class AdminKlinikeIzmenaComponent implements OnInit {
   submitted = false;
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
-  constructor(private formBuilder: FormBuilder, private adminkService: AdminKlinikeService) {
+  constructor(private _snackBar: MatSnackBar,private formBuilder: FormBuilder, private adminkService: AdminKlinikeService) {
     this.adminkService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.adminKlinike = ulogovanKorisnik;
@@ -59,11 +60,17 @@ export class AdminKlinikeIzmenaComponent implements OnInit {
     this.loading = true;
 
     this.adminkService.update(this.adminForm.value).pipe(first()).subscribe(result => {
-        alert('Uspešno ste izmenili svoj profil!\n\n');
+      this._snackBar.open("Uspešno ste izmenili svoj profil!", "",  {
+        duration: 2000,
+        verticalPosition : 'top'
+      });
         this.adminKlinike = result;
       },
       error => {
-        alert('Neuspešna izmena!\n\n');
+        this._snackBar.open("Neuspešna izmena!", "",  {
+          duration: 2000,
+          verticalPosition : 'top'
+        });
         this.loading = false;
       });
 

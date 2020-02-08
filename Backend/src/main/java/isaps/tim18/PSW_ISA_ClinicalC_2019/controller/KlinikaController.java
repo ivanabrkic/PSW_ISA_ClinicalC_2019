@@ -1,17 +1,22 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "klinika")
@@ -19,6 +24,27 @@ public class KlinikaController {
 
     @Autowired
     private KlinikaService klinikaService;
+
+    @Autowired
+    private LekarService lekarService;
+
+    @Autowired
+    private PredefTerminService predefTerminService;
+
+    @Autowired
+    private ZahtevService zahtevService;
+
+    @Autowired
+    private PregledService pregledService;
+
+    @Autowired
+    private AdministratorKlinikeService adminklService;
+
+    @Autowired
+    private CenovnikRepository cenovnikRepository;
+
+    @Autowired
+    private MailSenderService mailSenderService;
 
     @PostMapping(value = "/registracijaKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public String Register(@RequestBody Klinika klinika){
@@ -58,15 +84,6 @@ public class KlinikaController {
         return new ResponseEntity<>(listaLekara, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/getSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Sala>> getSale(@RequestBody Long id){
-
-        System.out.println(id);
-        List<Sala> listaSala =  klinikaService.findSale(id);
-
-        return new ResponseEntity<>(listaSala, HttpStatus.OK);
-    }
-
     @PostMapping(value = "/update", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Klinika> update(@RequestBody Klinika klinika) throws Exception {
 
@@ -76,22 +93,6 @@ public class KlinikaController {
             return new ResponseEntity<>(klinika, HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-    }
-
-    @PostMapping(value = "/removeSala", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Klinika> remove(@RequestBody Long id) throws Exception {
-
-        Klinika poruka = klinikaService.remove(id);
-
-        return new ResponseEntity<>(poruka, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/registerSala", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Sala> Register(@RequestBody Sala sala){
-
-        Sala poruka = klinikaService.addNovaSala(sala.getNaziv(), sala.getBroj(), sala.getId());
-
-        return new ResponseEntity<>(poruka, HttpStatus.OK);
     }
 
     @PostMapping(value = "/getOperacije", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -109,6 +110,21 @@ public class KlinikaController {
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
+    
+    @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
+    	
+
+    	
+    		Calendar cal = Calendar.getInstance();
+    		SimpleDateFormat sdf = new SimpleDateFormat("d.mMyyyy.");
+    		String date=sdf.format(cal.getTime());
+
+    	
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
+
+        return new ResponseEntity<>(pregledi, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/getZahtevi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Zahtev>> getZahtevi(@RequestBody Long idKlinike) {
@@ -118,10 +134,27 @@ public class KlinikaController {
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/getSaleSlobodneOd", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Sala>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
+    @PostMapping(value = "/getSlobodniLekari", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Lekar>> getSlobodniLekari(@RequestBody Zahtev zahtev) throws Exception {
 
-        List<Sala> listaSala =  klinikaService.findSaleSlobodneOd(zahtev);
+        List<Lekar> lekari = klinikaService.getSlobodniLekariCeoLekar(zahtev);
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    }
+
+
+    @PostMapping(value = "/getSlobodneSale", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SalaDTO>> getSaleSlobodneOd(@RequestBody Zahtev zahtev){
+
+        List<SalaDTO> listaSala =  klinikaService.findSlobodneSale(zahtev);
+
+        return new ResponseEntity<>(listaSala, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getDrugiTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SalaDTO>> getDrugiTermin(@RequestBody Zahtev zahtev){
+
+        List<SalaDTO> listaSala =  klinikaService.findDrugiTermin(zahtev);
 
         return new ResponseEntity<>(listaSala, HttpStatus.OK);
     }
@@ -150,5 +183,100 @@ public class KlinikaController {
         Boolean zahtevi =  klinikaService.removeZahtev(idZahteva);
 
         return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/obavestiMejlomZahtevPrihvacen", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> obavestiMejlomZahtevPrihvacen(@RequestBody EmailDTO emailDTO) throws Exception {
+
+        mailSenderService.sendSimpleMessage(emailDTO.getEmail(), emailDTO.getSubject(), emailDTO.getText());
+
+        return new ResponseEntity<>(new Message("Uspešno poslat mejl korisniku!"), HttpStatus.OK);
+    }
+    
+    //////////////////////////////////// TESLA ///////////////////////////////////////////////////
+
+    @PostMapping(value="/slobodneKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Klinika>> slobodneKlinike(@RequestBody lekariterminiDTO zahtev) throws ParseException {
+
+
+        List<Klinika> slobodneKlinike=new ArrayList<>();
+        HashMap<String,Lekar> lekari;
+
+        List<Klinika> listaKlinika =  klinikaService.findAll(); //sve klinike
+        for (Klinika k : listaKlinika){  //filtriranje zauzetih
+            zahtev.setIdKlinike(k.getId());
+            lekari=lekarService.getSlobodniLekariTermini(zahtev);
+            if(!lekari.isEmpty()){
+                slobodneKlinike.add(k);
+            }
+        }
+
+        return new ResponseEntity<>(slobodneKlinike, HttpStatus.OK); //vracanje slobodnih
+    }
+
+    ////////////////////// ZA DODAVANJE PREDEF TERMINA ////////////////////////////////////////////////////////////////////////
+    @PostMapping(value="/getTermini", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TerminDTO>> getTermini(@RequestBody LekarTrajanjeDTO lekarTrajanjeDTO) throws ParseException {
+
+        List<TerminDTO> termini = predefTerminService.getAllTerminiAndSale(lekarTrajanjeDTO.getIdLekara(), lekarTrajanjeDTO.getTrajanje());
+
+        return new ResponseEntity<>(termini, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/getLekariForTip", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Lekar>> getLekariForTip(@RequestBody Long idTipa) throws ParseException {
+
+        List<Lekar> lekari = predefTerminService.getAllLekariForTip(idTipa);
+
+        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/dodajTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> dodajTermin(@RequestBody Pregled pregled) throws ParseException {
+
+        Message message = predefTerminService.dodajTermin(pregled);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/zakaziTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public  ResponseEntity<Zahtev> zakaziTermin(@RequestBody Zahtev zahtev){
+    	
+    	System.out.print("Zahtev primljen");
+       
+            zahtevService.add(zahtev);
+            List<AdministratorKlinike> administratori=adminklService.findAllByKlinikaId(zahtev.getIdKlinike());
+            MailSenderService m=new MailSenderService();
+            for (AdministratorKlinike a : administratori) {
+            	m.sendSimpleMessage(a.getEmail(),"Novi zahtev",
+            			 "Pristigao je novi zahtev za zakazivanje termina"+
+            			" Za datum: "+zahtev.getDatum()+" i vreme: "+zahtev.getPocetak()+"-"+zahtev.getKraj()+
+            			" za posetu: "+ zahtev.getTipPosete()+" tipa: "
+            			+ ""+zahtev.getStavkaCenovnika()+" od strane: "+zahtev.getTipPosiljaoca()+
+            			". Ulogujte se na vas nalog kako biste prihvatili ili odbili zahtev."
+            			+ ""
+            			+ "Ovaj mejl je automatski generisan i na njega nemojte odgovarati.");
+            }
+            return new ResponseEntity<>(zahtev, HttpStatus.OK); //vracanje slobodnih  
+        
+    }
+
+    @PostMapping(value = "/zakaziPredefTerminn", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pregled> zakaziPredefTermin(@RequestBody predefDTO pregled)throws Exception{
+
+        System.out.print(pregled.getId());
+        Optional<Pregled> pronadjenpregled=pregledService.update(pregled);
+
+        return new ResponseEntity<>(pronadjenpregled.get(), HttpStatus.OK);
+
+    }
+
+    @PostMapping(value = "/getCena", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public float NadjiCenu(@RequestBody lekariterminiDTO zahtev)throws Exception{
+
+        Cenovnik cen=cenovnikRepository.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
+
+        return cen.getCena();
+
     }
 }

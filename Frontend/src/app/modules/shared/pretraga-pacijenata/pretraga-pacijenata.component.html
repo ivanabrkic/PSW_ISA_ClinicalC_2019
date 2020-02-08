@@ -1,0 +1,96 @@
+<p *ngIf="this.lekarJe == true"><app-sidebarlekar></app-sidebarlekar></p>
+<p *ngIf="this.sestraJe == true"><app-sidebar-med-sestra></app-sidebar-med-sestra></p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <table>
+              <h4 class="card-title ">Pacijenti</h4>
+              <td><input class="form-control" type="text" placeholder="Ime" name="searchIme"  [(ngModel)]="searchIme"></td>
+              <td><input class="form-control" type="text" placeholder="Prezime" name="searchText"  [(ngModel)]="searchPrezime"></td>
+              <td><input class="form-control" type="text" placeholder="Jbo" name="searchJbo" [(ngModel)]="searchJbo"></td>
+            </table>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Jbo</th>
+                </thead>
+                <tbody>
+                <tr (click)="onClick(pacijent)" *ngFor="let pacijent of this.pacijenti | pretragafilterPacijent:searchIme:searchPrezime:searchJbo; let idx = index;" >
+                  <td><b>{{pacijent.ime}}</b></td>
+                  <td><b>{{pacijent.prezime}}</b></td>
+                  <td><b>{{pacijent.jbo}}</b></td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedPacijent">
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title">Osnovne informacije</h4>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Ime : {{selectedPacijent.ime}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Prezime : {{selectedPacijent.prezime}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Adresa, grad i država : {{selectedPacijent.adresa}}, {{selectedPacijent.grad}},
+                          {{selectedPacijent.drzava}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Jbo : {{selectedPacijent.jbo}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Kontakt telefon : {{selectedPacijent.kontaktTelefon}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div *ngIf="lekarJe" class="col-md-12">
+                        <p *ngIf="odrzaoPregled"> <button class="form-control" (click)="OtvoriZdravstveniKarton(zdravstveniKarton)">Otvori zdravstveni karton</button></p>
+                        <p *ngIf="odrzaoPregled == false && sestraJe == false"> <button class="form-control" disabled (click)="OtvoriZdravstveniKarton(zdravstveniKarton)">Nemate pristup zdravstvenom kartonu</button></p>
+                      </div>
+                      <div *ngIf="sestraJe" class="col-md-12">
+                        <p><button class="form-control" (click)="OtvoriZdravstveniKarton(zdravstveniKarton)">Otvori zdravstveni karton</button></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

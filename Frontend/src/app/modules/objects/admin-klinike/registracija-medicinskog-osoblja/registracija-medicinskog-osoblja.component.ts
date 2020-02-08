@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { Vreme } from 'src/app/models/vreme/vreme';
 import { MedicinskaSestra } from 'src/app/models/medicinskas/medicinskas';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { LekarService } from 'src/app/modules/shared/services/lekar-service/lekar.service';
-import { MedicinskaSestraService } from 'src/app/modules/shared/services/medicinska-sestra-service/medicinska-sestra.service';
+import { LekarService } from 'src/app/services/lekar-service/lekar.service';
+import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
 import { first } from 'rxjs/operators';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
-import { AdminKlinikeService } from 'src/app/modules/shared/services/admin-klinike-service/admin-klinike.service';
+import { AdminKlinikeService } from 'src/app/services/admin-klinike-service/admin-klinike.service';
 import { TabelaMedicinskogOsobljaComponent } from '../tabela-medicinskog-osoblja/tabela-medicinskog-osoblja.component';
 
 
@@ -33,20 +33,20 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
   medSestra: MedicinskaSestra = new MedicinskaSestra();
   adminKlinike: AdministratorKlinike = new AdministratorKlinike();
 
-  constructor(private dialogRef: MatDialogRef<RegistracijaMedicinskogOsobljaComponent>,
-    private formBuilder: FormBuilder, private adminkService:AdminKlinikeService, private lekarService: LekarService, private medSestraService: MedicinskaSestraService
+  constructor(private _snackBar: MatSnackBar,private dialogRef: MatDialogRef<RegistracijaMedicinskogOsobljaComponent>,
+              private formBuilder: FormBuilder, private adminkService:AdminKlinikeService, private lekarService: LekarService, private medSestraService: MedicinskaSestraService
   ) {
     this.adminkService.getUlogovanKorisnik()
-    .subscribe(ulogovanKorisnik => {
-      this.adminKlinike = ulogovanKorisnik;
-    });
+      .subscribe(ulogovanKorisnik => {
+        this.adminKlinike = ulogovanKorisnik;
+      });
   }
 
   ngOnInit() {
     this.adminkService.getUlogovanKorisnik()
-    .subscribe(ulogovanKorisnik => {
-      this.adminKlinike = ulogovanKorisnik;
-    });
+      .subscribe(ulogovanKorisnik => {
+        this.adminKlinike = ulogovanKorisnik;
+      });
 
     this.radnoVreme = ['Prva smena od 8:00 - 16:00', 'Druga smena od 16:00 do 00:00', 'Treca smena od 00:00 do 8:00']
     this.specijalizacije = ['Zubar', 'Kardiolog', 'Anesteziolog', 'Psihijatar', 'Ginekolog', 'Opšta praksa', 'Nefrolog', 'Urolog', 'Dermatolog', 'Neurolog']
@@ -106,31 +106,9 @@ export class RegistracijaMedicinskogOsobljaComponent implements OnInit {
     this.registerForm.controls['tipKorisnika'].setValue(this.selectedTip)
     this.registerForm.controls['klinika'].setValue(this.adminKlinike.klinika)
 
-    this.loading = true;
+    this.loading = true
 
-    if (this.selectedTip == "Lekar") {
-
-      this.lekarService.register(this.registerForm.value).pipe(first()).subscribe(result => {
-        alert('Uspešno ste registrovali lekara!\n\n');
-        this.lekar = result;
-      },
-        error => {
-          alert('Neuspešna registracija!\n\n');
-          this.loading = false;
-        });
-    }
-    else {
-      this.medSestraService.register(this.registerForm.value).pipe(first()).subscribe(result => {
-        alert('Uspešno ste registrovali medicinsku sestru!\n\n');
-        this.medSestra = result;
-      },
-        error => {
-          alert('Neuspešna registracija!\n\n');
-          this.loading = false;
-        });
-    }
-
-    this.dialogRef.close()
+    this.dialogRef.close(this.registerForm.value)
 
   }
 

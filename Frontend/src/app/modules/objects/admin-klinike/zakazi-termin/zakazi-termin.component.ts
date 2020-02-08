@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Lekar } from 'src/app/models/lekar/lekar';
-import { MatDialogRef, MAT_DIALOG_DATA, MatListOption, MatTableDataSource } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatListOption, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Sala } from 'src/app/models/sala/sala';
-import { KlinikaService } from 'src/app/modules/shared/services/klinika-service/klinika.service';
+import { KlinikaService} from '../../../../services/klinika-service/klinika.service';
 import { LekarCheckBox } from 'src/app/models/lekar/lekarCheckBox';
 import { Operacija } from 'src/app/models/operacija/operacija';
 import { Pregled } from 'src/app/models/pregled/pregled';
+import { Email } from 'src/app/models/email/email';
 
 @Component({
   selector: 'app-zakazi-termin',
@@ -28,7 +29,7 @@ export class ZakaziTerminComponent implements OnInit {
   master_indeterminate: boolean = false;
   checkbox_list: LekarCheckBox[] = [];
 
-  constructor(private dialogRef: MatDialogRef<ZakaziTerminComponent>,
+  constructor(private _snackBar: MatSnackBar, private dialogRef: MatDialogRef<ZakaziTerminComponent>,
     @Inject(MAT_DIALOG_DATA) data, private klinikaService: KlinikaService) {
 
     this.slobodniLekari = data.lekari
@@ -135,30 +136,15 @@ export class ZakaziTerminComponent implements OnInit {
       pregled.salaId = this.sala.id
     }
 
-    if (this.tip == 'Operacija') {
-      this.klinikaService.zakaziOperaciju(operacija)
-        .subscribe(data => {
-          alert(data.text)
-          this.klinikaService.removeZahtev(this.idZahteva)
-            .subscribe(data => {
-
-            });
-        });
-    }
-    else {
-      this.klinikaService.zakaziPregled(pregled)
-        .subscribe(data => {
-          alert(data.text)
-          this.klinikaService.removeZahtev(this.idZahteva)
-            .subscribe(data => {
-
-            });
-        });
-    }
     this.obradjen = false
 
+    if (this.tip == 'Operacija') {
+      this.dialogRef.close([this.obradjen, operacija, this.idZahteva, this.sala]);
+    }
+    else {
+      this.dialogRef.close([this.obradjen, pregled, this.idZahteva, this.sala]);
+    }
 
-    this.dialogRef.close(this.obradjen);
   }
 
 }

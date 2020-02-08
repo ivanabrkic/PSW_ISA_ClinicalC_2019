@@ -2,7 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import { Pacijent } from 'src/app/models/pacijent/pacijent';
-import { PacijentService } from 'src/app/modules/shared/services/pacijent-service/pacijent.service';
+import { PacijentService } from 'src/app/services/pacijent-service/pacijent.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   templateUrl: './pacijent.component.html',
@@ -17,7 +18,7 @@ export class PacijentComponent implements OnInit {
 
   pacijent: Pacijent = new Pacijent();
 
-  constructor(private formBuilder: FormBuilder, private pacijentService: PacijentService) {
+  constructor(private _snackBar: MatSnackBar,private formBuilder: FormBuilder, private pacijentService: PacijentService) {
     this.pacijentService.getUlogovanKorisnik()
     .subscribe(ulogovanKorisnik => {
       this.pacijent = ulogovanKorisnik;

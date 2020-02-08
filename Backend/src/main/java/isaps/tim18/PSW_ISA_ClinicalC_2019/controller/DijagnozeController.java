@@ -31,7 +31,7 @@ public class DijagnozeController {
 
     @GetMapping(value = "/get", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<String>> getDijagnozePacijenta(@RequestParam String id){
-
+      System.out.println(id);
       List<String> dijagnoze = dijagnozeService.find(Long.parseLong(id));
 
       return new ResponseEntity<>(dijagnoze, HttpStatus.OK);

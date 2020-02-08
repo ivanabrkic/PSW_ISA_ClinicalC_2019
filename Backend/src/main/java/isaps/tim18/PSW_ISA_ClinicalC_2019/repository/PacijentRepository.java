@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
+	
 
     Page<Pacijent> findAll(Pageable pageable);
 
@@ -32,16 +33,18 @@ public interface PacijentRepository extends JpaRepository<Pacijent, Long> {
     Integer removePacijentByJbo(String jbo);
 
     @Query(value = "SELECT pacijent_id FROM Operacija AS o WHERE pacijent_id = ?1 " +
-            " AND (( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) ) OR " +
-            " ( CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time)  )" +
-            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
+            " AND (( CAST(o.pocetak AS Time) >= CAST(?3 AS Time) AND CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time))" +
+            " OR ( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) AND CAST(o.kraj AS Time) <= CAST(?4 AS Time))" +
+            " OR ( CAST(o.pocetak AS Time) < CAST(?3 AS Time) AND  CAST(o.kraj AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) > CAST(?4 AS Time))" +
+            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)))" +
             " AND o.datum = ?2 ", nativeQuery = true)
     List<Long> ifPacijentSlobodanOperacije(Long id, String datum, String pocetak, String kraj);
 
     @Query(value = "SELECT pacijent_id FROM Pregled AS o WHERE pacijent_id = ?1 " +
-            " AND (( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) ) OR " +
-            " ( CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time)  )" +
-            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)  ))" +
+            " AND (( CAST(o.pocetak AS Time) >= CAST(?3 AS Time) AND CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time))" +
+            " OR ( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) AND CAST(o.kraj AS Time) <= CAST(?4 AS Time))" +
+            " OR ( CAST(o.pocetak AS Time) < CAST(?3 AS Time) AND  CAST(o.kraj AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) > CAST(?4 AS Time))" +
+            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)))" +
             " AND o.datum = ?2 ", nativeQuery = true)
     List<Long> ifPacijentSlobodanPregledi(Long id, String datum, String pocetak, String kraj);
 }

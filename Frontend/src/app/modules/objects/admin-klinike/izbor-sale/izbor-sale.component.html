@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Sale klinike "{{adminKlinike.klinika.naziv}}"</h4>
+                        <h4 *ngIf="adminKlinike.klinika ? true : false" class="card-title ">Sale klinike "{{adminKlinike.klinika.naziv}}"</h4>
                     </div>
                     <div style="padding-left: 30px;" class="row">
                         <div style="padding-top: 20px;" class="col-md-3">
