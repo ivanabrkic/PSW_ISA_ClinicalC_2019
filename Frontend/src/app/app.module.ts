@@ -140,7 +140,7 @@ import {MatIconModule} from '@angular/material/icon';
     PregledLekovaComponent,
     IzmenaIzvestajaComponent,
     PredefinisaniTerminiComponent,
-    ZakaziLekarComponent
+    ZakaziLekarComponent,
     RadniKalendarLekarComponent,
     OdsustvoDijalogComponent
   ],
