@@ -116,6 +116,16 @@ export class ListaKlinikaComponent implements OnInit {
       
     var selectedDate = this.date.value;
     selectedDate = moment(selectedDate).format('D.M.YYYY.');
+// <<<<<<< 3_1_Implementiranje_izmene_lozinke_korisnika
+//     console.log(selectedDate);
+//     let klinika = this.selectedKlinika;
+//     this.router.navigate(['/listaLekara'], //bio je konflikt, ne znam sta je tacno od ova dva, osecaj ovo dole
+//       {  state: {
+//           klinika: klinika,
+//           zahtev: this.zahtev,
+//           tip: this.searchPregled
+//         }
+//       });
       let klinika = this.selectedKlinika.klinika;
         this.router.navigate(['/listaLekara'], 
         {  state: {

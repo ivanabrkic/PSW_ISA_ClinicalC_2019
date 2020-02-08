@@ -9,7 +9,6 @@ import {Recept} from '../../../models/Recept/recept';
 import {Lekovi} from '../../../models/Lekovi/lekovi';
 import {DijalogKreiranjeReceptaComponent} from '../dijalog-kreiranje-recepta/dijalog-kreiranje-recepta.component';
 import {MatDialog} from '@angular/material/dialog';
-import {first} from 'rxjs/operators';
 import {PregledService} from '../../../services/pregled-service/pregled.service';
 import {DijalogUnosDijagnozaComponent} from '../dijalog-unos-dijagnoza/dijalog-unos-dijagnoza.component';
 import {OpstiIzvestajService} from '../../../services/opsti-izvestaj/opsti-izvestaj.service';
@@ -57,6 +56,13 @@ export class FormaIzvestajComponent implements OnInit {
   get f() { return this.izvestajForm.controls; }
 
   ngOnInit() {
+
+    this.pacijentZaPregled = this.sessionService.pacijentProfil;
+    this.zdravstveniKarton = this.sessionService.zkPregled;
+    this.opstiIzvestaj = this.sessionService.opstiIzvestaj;
+    this.noviIzvestaj = new Izvestaj();
+    this.recept = new Recept();
+
     this.izvestajForm = this.formBuilder.group({
       dioptrija: ['', [Validators.required, Validators.minLength(1)]],
       visina: ['', [Validators.required, Validators.minLength(1)]],
@@ -139,16 +145,22 @@ export class FormaIzvestajComponent implements OnInit {
     this.receptService.save(this.recept).subscribe( data => console.log('sacuvan recept'));
     this.zdravstveniKartonService.updateDijagnoze(this.zdravstveniKarton).subscribe( data =>
     console.log('sacuvane dijagnoze'));
-    this.pregledService.zavrsenPregled(this.sessionService.pregled).subscribe(data =>
-      this.router.navigate(['/zdravstveniKarton'])
-    );
+    this.pregledService.zavrsenPregled(this.sessionService.pregled).subscribe(data =>{
+      if(!this.sessionService.fromKalendar) {
+        this.router.navigate(['/zdravstveniKarton']);
+      } else{
+        this.router.navigate(['/radniKalendarLekar']);
+      }
+    });
+  }
 
+  zakaziSledeci : boolean = false
 
-    // posalji opstiIzvestaj na opstiIzvestajService
-    // posalji zdravstveniKarton na zdravstveniKartonService
-    // posalji noviIzvestaj na izvestaj service
-    // posalji pregled na pregledService da se apdejtuje da je zavrsen
+  sledeciPregledOperacija(){
+    this.zakaziSledeci = true
+  }
 
-
+  nazad(){
+    this.zakaziSledeci = false
   }
 }

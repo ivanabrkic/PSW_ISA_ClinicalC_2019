@@ -13,6 +13,7 @@ import { Termin } from 'src/app/models/termin/termin';
 import { LekarTrajanje } from 'src/app/models/termin/lekartrajanje';
 import { PregledId } from 'src/app/models/pregled/PregledId';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
+import {OperacijaKalendarDTO} from '../../models/OperacijaKalendarDTO/operacija-kalendar-dto';
 import { Email } from 'src/app/models/email/email';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
@@ -134,5 +135,10 @@ export class KlinikaService {
   public zakaziTermin(termin : PregledId){
     return this.http.post<Message>('/server/klinika/dodajTermin', JSON.stringify(termin), httpOptions);
   }
+  //////////////////////////////////Nikolino/////////////////////////////////////////////////////////////
 
+  public findOperacijeByLekar(lekar: Lekar): Observable<OperacijaKalendarDTO[]>{
+    const body = JSON.stringify(lekar);
+    return this.http.post<OperacijaKalendarDTO[]>('/server/klinika/findOperacijeByLekar', body, httpOptions);
+  }
 }

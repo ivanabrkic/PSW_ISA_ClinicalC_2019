@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Klinika} from '../../../models/klinika/klinika';
 import {Observable, Subscription} from 'rxjs';
-import { ListaKlinikaService } from 'src/app/services/lista-klinika-service/lista-klinika.service';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { LekarService } from 'src/app/services/lekar-service/lekar.service';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
@@ -15,6 +14,7 @@ import * as moment from 'moment';
 import { MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
 import { Cenovnik } from 'src/app/models/Cenovnik/cenovnik';
 import { DatePipe } from '@angular/common';
+import { ListaKlinikaService} from '../../../services/lista-klinika-service/lista-klinika.service';
 
 @Component({
   selector: 'app-lista-lekara',
@@ -28,10 +28,26 @@ export class ListaLekaraComponent implements OnInit {
   private klinika: Klinika;
   private lekari: Lekar[];
   private terminiSakriveni:boolean=false;
-  private lekaritermini:Map<String,Lekar>=new Map();
+  private lekaritermini: Map<String,Lekar>=new Map();
   private termini: String[];
   private datum :String;
   private zahtev: pretragaDTO;
+
+
+//   constructor(private listaLekaraService: LekarService) { VIDI OVO !!!!
+
+//   }
+
+//   getLekari() {
+//     // var pretraga=new pretragaDTO();
+//     // pretraga.start='00:01';
+//     // pretraga.finis='23:59';
+//     // pretraga.datum='30/1/2020.';
+//     // pretraga.specijalizacija='Kardiolog';
+//     // pretraga.idKlinike=this.klinika.id;
+//     this.listaLekaraService.getSlobodniLekariTermini(this.zahtev).subscribe(
+//       podaci => {this.lekaritermini = podaci;
+//         //var distinctId=Object.values(this.lekaritermini).map(item=>item.id).filter((value,index,self)=>self.indexOf(value)===index);
   private izabraniLekar:Lekar;
   private selectedTermin:string;
   private selectedDate:String;
@@ -184,9 +200,25 @@ export class ListaLekaraComponent implements OnInit {
       err => console.log('Nisu ucitani tipovi'),
       () => console.log('Uspesno ucitani tipovi')
     );
-    
+
   }
-  
+
+
+
+//   ngOnInit() { I OVO
+//     //console.log(history.state)
+//     //console.log(history.state.datum);
+//     this.klinika=history.state.klinika;
+//     this.zahtev=history.state.zahtev;
+
+//     if(this.zahtev.datum==null)
+//       this.terminiSakriveni=true;
+//     else
+//       this.terminiSakriveni=false;
+//     //console.log(this.klinika);
+//     this.getLekari();
+
+
   onSelect(lekar){
     this.izabraniLekar=lekar;
     this.zahtev.start=this.getSelectedTermin(this.izabraniLekar.id)

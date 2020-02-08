@@ -5,6 +5,9 @@ import { Lekar } from 'src/app/models/lekar/lekar';
 import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 import { Message } from 'src/app/models/message/message';
+import { Pacijent } from 'src/app/models/pacijent/pacijent';
+import { Termin } from 'src/app/models/termin/termin';
+import { TipPregleda } from 'src/app/models/tippregleda/tippregleda';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -53,5 +56,20 @@ export class LekarService {
 
   public findLekarByJbo(jbo : String){
     return this.http.post<Lekar>('/server/lekar/findLekarByJbo', jbo, httpOptions);
+  }
+
+  public getBySpecAndKlinika(lekar : Lekar){
+    return this.http.post<TipPregleda[]>('/server/lekar/getBySpecAndKlinika', JSON.stringify(lekar), httpOptions);
+  }
+
+  public getTerminiLekar(lekar : Lekar, pacijent : Pacijent, trajanje : number){
+    const object = {"idLekara" : lekar.id,
+                    "idPacijenta" : pacijent.id,
+                    "trajanje" : trajanje}
+    return this.http.post<Termin[]>('/server/lekar/getTerminiLekar', object, httpOptions);
+  }
+
+  public posaljiZahtevAdminu(zahtev : Zahtev){
+    return this.http.post<Message>('/server/lekar/posaljiZahtevAdminu', JSON.stringify(zahtev), httpOptions);
   }
 }

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import { LoginService } from 'src/app/services/login-and-register-service/login.service';
 import { MatSnackBar } from '@angular/material';
+import {SessionService} from "../../services/SessionService/session.service";
 
 @Component({ templateUrl: 'login.component.html', styleUrls: ['login.component.css']})
 export class LoginComponent implements OnInit {
@@ -11,7 +12,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(private _snackBar: MatSnackBar, private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) { }
+  constructor(private _snackBar: MatSnackBar, private formBuilder: FormBuilder, private router: Router,
+              private loginService: LoginService, private sessionService: SessionService) { }
 
   ngOnInit() {
     // this.loginService.odjava();
@@ -37,15 +39,19 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           if (data.aktivnostNaloga === false) {
-            alert('Nalog jos nije aktiviran!');
-            return;
+            this._snackBar.open('Nalog još nije aktiviran!', "",  {
+              duration: 3000,
+              verticalPosition: 'bottom'
+            });
           }
-
-          console.log(data);
-          this._snackBar.open("Uspešno ste se ulogovali!", "",  {
+          this._snackBar.open('Uspešno ste se ulogovali!', "",  {
             duration: 3000,
             verticalPosition: 'bottom'
           });
+          if (data.prvoLogovanje === true && data.tipKorisnika !== 'Pacijent') {
+            this.router.navigate(['/promenaLozinke']);
+          } else
+          this.sessionService.ulogovanKorinik = data;
           if (data.tipKorisnika === 'Pacijent') {
             this.router.navigate(['/pacijentPregled']);
           } else if (data.tipKorisnika === 'Lekar') {

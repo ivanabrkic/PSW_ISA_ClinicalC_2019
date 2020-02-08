@@ -1,0 +1,18 @@
+<div style = "text-align: center;height: 400px;width: 400px">
+  <div style = "width: 100%">
+    <h4>Potvrdite podatke</h4>
+  </div>
+  <div  style = "width: 50%;float: left;">
+    Datum početka odsustva: {{this.od}}
+  </div>
+  <div  style = "width: 50%;float: right;">
+    Datum završetka odsustva: {{this.do}}
+  </div>
+  <div style="margin-top: 70px">
+    <textarea placeholder="Dodatni opis" rows = "10" cols = "40"></textarea>
+  </div>
+  <div style = "margin-top: 20px;">
+    <button class = "btn btn-primary" (click)="posaljiZahtev()">Predaj</button>
+    <button class = "btn btn-secondary" (click)="this.dialogRef.close(null)" style = "margin-left: 20px">Otkaži</button>
+  </div>
+</div>

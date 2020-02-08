@@ -1,7 +1,10 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.AdministratorKlinike;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.AdministratorKlinikeRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.ZahtevRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +18,12 @@ public class AdministratorKlinikeService {
 
     @Autowired
     private AdministratorKlinikeRepository administratorKlinikeRepository;
+
+    @Autowired
+    private ZahtevRepository zahtevRepository;
+
+    @Autowired
+    private MailSenderService mailSenderService;
 
     public List<AdministratorKlinike> findAll() { return administratorKlinikeRepository.findAll(); }
 
@@ -65,5 +74,22 @@ public class AdministratorKlinikeService {
         administratorKlinikeRepository.save(p);
 
         return p;
+    }
+
+    @Transactional
+    public Message sendZahtev(Zahtev zahtev) {
+        zahtevRepository.save(zahtev);
+
+        String email = "";
+        String subject = "Novi zahtev za operaciju ili pregled!";
+        String text = "Imate pristigli zahtev za operaciju ili pregled.";
+
+        List<AdministratorKlinike> administratori = administratorKlinikeRepository.findByKlinikaId(zahtev.getIdKlinike());
+        for(AdministratorKlinike admin : administratori){
+            email = admin.getEmail();
+            mailSenderService.sendSimpleMessage(email, subject, text);
+        }
+
+        return new Message("Uspesno poslat zahtev administratorima klinike!");
     }
 }

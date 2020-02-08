@@ -1,9 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.SalaDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class KlinikaService {
@@ -769,5 +761,12 @@ public class KlinikaService {
 		return klinikaRepository.findById(id);
 	}
 
+
+    public List<OperacijaKalendarDTO> findOperacijeByLekar(Lekar lekar) {
+        System.out.println(lekar.getJbo());
+        return operacijaRepository.findByLekari(lekar.getId());
+    }
+
 }
+
 
