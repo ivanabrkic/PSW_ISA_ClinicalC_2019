@@ -24,7 +24,10 @@ public class Recept {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private MedicinskaSestra medicinskaSestra;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, targetEntity = Lekovi.class)
+    @JoinTable(name = "recept_lekovi", joinColumns = @JoinColumn(name = "recept_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "lek_id", referencedColumnName = "id"))
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Lekovi> lekovi = new ArrayList<Lekovi>();
 //
 //    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

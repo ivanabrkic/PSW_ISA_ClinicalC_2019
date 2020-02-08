@@ -39,23 +39,7 @@ public class ReceptService {
 
     @Transactional
     public Recept add(Recept r) {
-        List<Lekovi> lekovi = new ArrayList<Lekovi>();
-        Lekovi lek = new Lekovi();
-        for(int i = 0;i < r.getLekovi().size(); i++){
-            lek = lekoviService.findBySifra(r.getLekovi().get(i).getSifra());
-
-            if(lek != null){
-                lekovi.add(lek);
-            }
-        }
-
-        Recept recept = new Recept();
-        recept.setLekovi(lekovi);
-        recept.setOveren(false);
-        recept.setMedicinskaSestra(r.getMedicinskaSestra());
-        recept.setPacijent(r.getPacijent());
-
-        return receptRepository.save(recept);
+        return receptRepository.save(r);
     }
 
     @Transactional
@@ -110,25 +94,13 @@ public class ReceptService {
     @Transactional
     public Recept update(Recept recept){
         Optional<Recept> opt = receptRepository.findById(recept.getId());
-        List<Lekovi> lekovi = new ArrayList<Lekovi>();
 
         if(opt.isPresent()){
             Recept r = opt.get();
-            Lekovi lek = new Lekovi();
-            for(int i = 0;i < recept.getLekovi().size(); i++){
-                lek = lekoviService.findBySifra(recept.getLekovi().get(i).getSifra());
-
-                if(lek != null){
-                    lekovi.add(lek);
-                }
-            }
-
-            r.setLekovi(lekovi);
-
-            r.setOveren(false);
-            receptRepository.save(r);
+            r.setOveren(true);
+            return r;
         }
 
-        return recept;
+        return null;
     }
 }

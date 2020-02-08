@@ -57,7 +57,7 @@ insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_st
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('16:00', '16:30', '29.1.2020.', 7, 2, 2, 4, 'Zakazan');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('12:00', '12:45', '7.2.2020.', 6, 1, 1, 1, 'Zakazan');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '1.2.2020.', 7, 1, 2, 4, 'Završen');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('09:30', '23:45', '8.2.2020.', 6, 1, 1, 1, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('00:00', '23:59', '9.2.2020.', 6, 1, 1, 1, 'Zakazan');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '12.2.2020.', 7, 1, 2, 4, 'Zakazan');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '14.2.2020.', 7, 1, 2, 4, 'Zakazan');
 
@@ -84,12 +84,12 @@ insert into recept(overen, pacijent_id, med_sestra) values (false, 3, null);
 insert into recept(overen, pacijent_id, med_sestra) values (false, 6, null);
 insert into recept(overen, pacijent_id,med_sestra) values (false, 6, null);
 
-insert into recept_lekovi(recept_id, lekovi_id) values (1, 1);
-insert into recept_lekovi(recept_id, lekovi_id) values (1, 2);
-insert into recept_lekovi(recept_id, lekovi_id) values (1, 3);
-insert into recept_lekovi(recept_id, lekovi_id) values (2, 2);
-insert into recept_lekovi(recept_id, lekovi_id) values (3, 3);
-insert into recept_lekovi(recept_id, lekovi_id) values (3, 1);
+insert into recept_lekovi(recept_id, lek_id) values (1, 1);
+insert into recept_lekovi(recept_id, lek_id) values (1, 2);
+insert into recept_lekovi(recept_id, lek_id) values (1, 3);
+insert into recept_lekovi(recept_id, lek_id) values (2, 2);
+insert into recept_lekovi(recept_id, lek_id) values (3, 3);
+insert into recept_lekovi(recept_id, lek_id) values (3, 1);
 
 insert into ocene_lekari values (1,6,3);
 insert into ocene_lekari values (2,3,5);
@@ -114,4 +114,5 @@ insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton, recept_id) val
 insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton, recept_id) values (
 '22.02.2020', 'Ne drogira se vise', 2, 1, 1
 );
+
 

@@ -288,6 +288,7 @@ public class KlinikaController {
 //        return cen.getCena();
 //
 //    }
+//
 
     @PostMapping(value = "/findOperacijeByLekar", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<OperacijaKalendarDTO>> nadjiOperacijePoLekaru(@RequestBody Lekar lekar)throws Exception{
@@ -304,5 +305,4 @@ public class KlinikaController {
 
         return new ResponseEntity<>(operacije, HttpStatus.OK);
     }
-
 }

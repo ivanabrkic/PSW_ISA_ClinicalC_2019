@@ -265,7 +265,7 @@ export class ZdravstveniKartonComponent implements OnInit {
 
   izmeniIzvestaj(izvestaj: IzvestajDto) {
     this.sessionService.izvestajZaIzmenu = izvestaj;
-    this.receptService.findByIzvestaj(izvestaj.id).subscribe( receptIzBaze => {
+    this.izvestajService.getReceptByIzvestajId(izvestaj.id).subscribe( receptIzBaze => {
       this.objekatRecept = receptIzBaze;
       this.sessionService.receptZaIzmenu = this.objekatRecept;
       this.router.navigate(['/izmenaIzvestaja']);
