@@ -1,9 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.SalaDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +10,8 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -127,36 +126,46 @@ public class KlinikaService {
         return predef;
     }
     
-// public List<predefInfoDTO> getPreglediPredefKlinPac(Long id,String s,Long pacId) throws ParseException {
-//
-//
-//        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef2(id,s);
-//        List<Pregled> pacZauzet=pregledRepository.findByPacijentId(pacId);
-//
-//        List<predefInfoDTO> odgovarajuci=new ArrayList<>();
-//
-//        SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
-//
-//        for (predefInfoDTO p:predef) {
-//        	boolean found=false;
-//        	for (Pregled z:pacZauzet) {
-//        		if(sdf.parse(p.getDatum()).compareTo(sdf.parse(z.getDatum()))==0) {//ako se datumi poklapaju
-//        			//(StartA <= EndB) and (EndA >= StartB) proveri poklapanje vremena
-//        			if( LocalTime.parse(p.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getKraj(), DateTimeFormatter.ofPattern("HH:mm")))<=0)	{
-//        				if(LocalTime.parse(p.getKraj(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")))>=0) {
-//        					found=true;
-//        				}
-//
-//        			}
-//        		}
-//        	}
-//        	if (!found){
-//        		odgovarajuci.add(p);
-//        	}
-//        }
-//
-//        return odgovarajuci; //termini koji se ne poklapaju s pacijentovim
-//    }
+ public List<predefInfoDTO> getPreglediPredefKlinPac(Long id,String s,Long pacId) throws ParseException {
+    	
+    	
+        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef2(id);
+        List<Pregled> pacZauzet=pregledRepository.findByPacijentId(pacId);
+        List<predefInfoDTO> predefUBuducnosti=new ArrayList();
+        
+        System.out.print(predef);
+        
+        List<predefInfoDTO> odgovarajuci=new ArrayList<>();
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("d.M.yyyy.");
+        for(predefInfoDTO pred:predef) {
+        	if(sdf.parse(pred.getDatum()).compareTo(new Date())>0) {
+        		predefUBuducnosti.add(pred);
+        	}
+        }
+        
+        //proveera poklapanja sa pacijentovim terminima
+        for (predefInfoDTO p:predefUBuducnosti) {
+        	boolean found=false;
+        	for (Pregled z:pacZauzet) {
+        		if(sdf.parse(p.getDatum()).compareTo(sdf.parse(z.getDatum()))==0) {//ako se datumi poklapaju
+        			//(StartA <= EndB) and (EndA >= StartB) proveri poklapanje vremena
+        			if( LocalTime.parse(p.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getKraj(), DateTimeFormatter.ofPattern("HH:mm")))<=0)	{
+        				if(LocalTime.parse(p.getKraj(), DateTimeFormatter.ofPattern("HH:mm")).compareTo(LocalTime.parse(z.getPocetak(), DateTimeFormatter.ofPattern("HH:mm")))>=0) {
+        					found=true;
+        				}
+        				
+        			}
+        		}
+        	}
+        	
+        	if (!found){
+        		odgovarajuci.add(p);
+        	}
+        }
+
+        return odgovarajuci; //termini koji se ne poklapaju s pacijentovim
+    }
     ////////////////////// ONA KOJA MENI TREBA  ////////////////////////////////////////////
     public List<predefInfoDTO> getPreglediPredef(Long id) {
         List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id);
@@ -754,5 +763,12 @@ public class KlinikaService {
 		return klinikaRepository.findById(id);
 	}
 
+
+    public List<OperacijaKalendarDTO> findOperacijeByLekar(Lekar lekar) {
+        System.out.println(lekar.getJbo());
+        return operacijaRepository.findByLekari(lekar.getId());
+    }
+
 }
+
 

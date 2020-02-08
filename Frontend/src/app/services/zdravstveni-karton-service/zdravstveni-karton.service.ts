@@ -21,9 +21,9 @@ export class ZdravstveniKartonService {
     return this.http.get<String[]>('/server/dijagnoze/get', httpOptions2);
   }
 
-  public getPacijentovZk(pacijent: Pacijent) {
+  public getPacijentovZk(pacijent: Pacijent): Observable<ZdravstveniKarton> {
     const body = JSON.stringify(pacijent);
-    return this.http.post('/server/zk/getPacijentovZk', body, httpOptions);
+    return this.http.post<ZdravstveniKarton>('/server/zk/getPacijentovZk', body, httpOptions);
   }
 
 

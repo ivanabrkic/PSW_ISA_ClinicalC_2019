@@ -39,7 +39,7 @@ public class KlinikaController {
     private AdministratorKlinikeService adminklService;
 
     @Autowired
-    private CenovnikRepository cenovnikRepository;
+    private CenovnikService cenovnikService;
 
     @Autowired
     private MailSenderService mailSenderService;
@@ -108,26 +108,27 @@ public class KlinikaController {
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
-    
-//    @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
-//
-//
-//
-//    		Calendar cal = Calendar.getInstance();
-//    		SimpleDateFormat sdf = new SimpleDateFormat("d.mMyyyy.");
-//    		String date=sdf.format(cal.getTime());
-//
-//
-//        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
-//
-//        return new ResponseEntity<>(pregledi, HttpStatus.OK);
-//    }
 
     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody Long id) throws Exception {
 
         List<predefInfoDTO> pregledi = klinikaService.getPreglediPredef(id);
+        return new ResponseEntity<>(pregledi, HttpStatus.OK);
+    }
+      
+    @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
+    	
+    		System.out.print(k.getIdKlin());
+    	
+    		Calendar cal = Calendar.getInstance();
+    		SimpleDateFormat sdf = new SimpleDateFormat("d.M.yyyy.");
+    		String date=sdf.format(cal.getTime());
+
+    	
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
+        
+        System.out.print(pregledi);
 
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
@@ -202,7 +203,7 @@ public class KlinikaController {
     //////////////////////////////////// TESLA ///////////////////////////////////////////////////
 
     @PostMapping(value="/slobodneKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Klinika>> slobodneKlinike(@RequestBody lekariterminiDTO zahtev) throws ParseException {
+    public ResponseEntity<List<klinikaCena>> slobodneKlinike(@RequestBody lekariterminiDTO zahtev) throws ParseException {
 
 
         List<Klinika> slobodneKlinike=new ArrayList<>();
@@ -216,8 +217,15 @@ public class KlinikaController {
                 slobodneKlinike.add(k);
             }
         }
+        
+        List<klinikaCena> klinikaICena=new ArrayList<klinikaCena>();
+        for(Klinika k:slobodneKlinike) {
+        	float cena=cenovnikService.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),k.getId());
+        	klinikaICena.add(new klinikaCena(k,cena));
+        	
+        }
 
-        return new ResponseEntity<>(slobodneKlinike, HttpStatus.OK); //vracanje slobodnih
+        return new ResponseEntity<>(klinikaICena, HttpStatus.OK); //vracanje slobodnih
     }
 
     ////////////////////// ZA DODAVANJE PREDEF TERMINA ////////////////////////////////////////////////////////////////////////
@@ -285,4 +293,15 @@ public class KlinikaController {
         return cen.getCena();
 
     }
+
+
+    @PostMapping(value = "/findOperacijeByLekar", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OperacijaKalendarDTO>> nadjiOperacijePoLekaru(@RequestBody Lekar lekar)throws Exception{
+        System.out.println(lekar.getJbo());
+        List<OperacijaKalendarDTO> operacije = klinikaService.findOperacijeByLekar(lekar);
+
+        return new ResponseEntity<>(operacije, HttpStatus.OK);
+
+    }
+
 }
