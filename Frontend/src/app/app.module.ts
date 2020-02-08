@@ -57,7 +57,7 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
-
+import { PromenaSifreComponent} from './modules/shared/promena-sifre/promena-sifre.component';
 import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
 import { SessionService } from './services/SessionService/session.service';
 // search module
@@ -119,6 +119,7 @@ import {MatIconModule} from '@angular/material/icon';
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     PoseteComponent,
+    PromenaSifreComponent,
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
@@ -166,6 +167,26 @@ import {MatIconModule} from '@angular/material/icon';
     MatSnackBarModule,
     MatIconModule,
     RouterModule.forRoot([
+      { path: 'administratorKc', component: AdminkcComponent},
+      { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
+      { path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent},
+      { path: 'formaIzvestaj', component: FormaIzvestajComponent},
+      { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
+      { path: 'promenaLozinke', component: PromenaSifreComponent},
+      { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
+      { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
+      { path: 'medicinskaSestra', component: ProfilMedSestraComponent},
+      { path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent},
+      { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
+      { path: 'lekar', component: LekarComponent},
+      { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
+      { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
+      { path: 'odmor', component: OdmorComponent},
+      { path: 'overaRecepta', component: OveraRecepataComponent},
+      { path: 'izmenaIzvestaja', component: IzmenaIzvestajaComponent},
+      { path: 'odsustvo', component: OdsustvoComponent},
+      { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
+      { path: 'lekarPregled', component: LekarPregledComponent},
       {path: 'administratorKc', component: AdminkcComponent},
       {path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
       {path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent},
