@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
             alert('Nalog jos nije aktiviran!');
             return;
           }
-          alert('Uspešno ste se ulogovali!! :-)\n\n');
+
           console.log(data);
           this._snackBar.open("Uspešno ste se ulogovali!", "",  {
             duration: 3000,

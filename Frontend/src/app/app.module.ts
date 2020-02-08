@@ -86,7 +86,7 @@ import { RadniKalendarLekarComponent } from './modules/shared/radni-kalendar-lek
 import {ScheduleModule} from '@syncfusion/ej2-angular-schedule';
 import { OdsustvoDijalogComponent } from './modules/shared/dijalog-odsustvo/odsustvo-dijalog.component';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
-
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -164,6 +164,7 @@ import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
     MatNativeDateModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatIconModule,
     RouterModule.forRoot([
       {path: 'administratorKc', component: AdminkcComponent},
       {path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},

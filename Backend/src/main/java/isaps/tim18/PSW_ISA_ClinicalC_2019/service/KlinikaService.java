@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -130,14 +132,23 @@ public class KlinikaService {
  public List<predefInfoDTO> getPreglediPredefKlinPac(Long id,String s,Long pacId) throws ParseException {
     	
     	
-        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef(id,s);
+        List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef2(id);
         List<Pregled> pacZauzet=pregledRepository.findByPacijentId(pacId);
+        List<predefInfoDTO> predefUBuducnosti=new ArrayList();
+        
+        System.out.print(predef);
         
         List<predefInfoDTO> odgovarajuci=new ArrayList<>();
         
-        SimpleDateFormat sdf = new SimpleDateFormat("d.m.yyyy.");
+        SimpleDateFormat sdf = new SimpleDateFormat("d.M.yyyy.");
+        for(predefInfoDTO pred:predef) {
+        	if(sdf.parse(pred.getDatum()).compareTo(new Date())>0) {
+        		predefUBuducnosti.add(pred);
+        	}
+        }
         
-        for (predefInfoDTO p:predef) {
+        //proveera poklapanja sa pacijentovim terminima
+        for (predefInfoDTO p:predefUBuducnosti) {
         	boolean found=false;
         	for (Pregled z:pacZauzet) {
         		if(sdf.parse(p.getDatum()).compareTo(sdf.parse(z.getDatum()))==0) {//ako se datumi poklapaju
@@ -150,6 +161,7 @@ public class KlinikaService {
         			}
         		}
         	}
+        	
         	if (!found){
         		odgovarajuci.add(p);
         	}

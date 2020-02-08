@@ -52,9 +52,9 @@ body {
 
 .topnav input[type=text] {
   padding: 6px;
-  margin-top: 8px;
+  margin-top: 0px;
   font-size: 17px;
-  border: none;
+  
 }
 
 .topnav .search-container button {
@@ -85,6 +85,9 @@ body {
     padding: 14px;
   }
   .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+  .topnav select{
     border: 1px solid #ccc;  
   }
 

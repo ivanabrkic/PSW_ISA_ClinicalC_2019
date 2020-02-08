@@ -5,4 +5,5 @@ start : String;
 finis : String;
 specijalizacija:String;
 idKlinike:number;
+cena:number;
 }
