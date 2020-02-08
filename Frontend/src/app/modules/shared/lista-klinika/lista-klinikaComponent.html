@@ -9,17 +9,25 @@
       <form action="/action_page.php">
         <table class="table">
           <tr>
+            <td><mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon></td>
             <td><mat-form-field>
-              <input matInput [matDatepicker]="picker" placeholder="Izaberite datum"[formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
+              <input [min]="minDate" matInput [matDatepicker]="picker" placeholder="Izaberite datum"[formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker ></mat-datepicker>
             </mat-form-field></td>
-            <td><input class="form-control" type="text" placeholder="Naziv" name="searchText"  [(ngModel)]="searchText"></td>
-            <td><input class="form-control" type="text" placeholder="Grad" name="searchGrad"  [(ngModel)]="searchGrad"></td>
+            <td><select  class="form-control" [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
+              <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
+              <option value="null">Izaberite tip</option>
+            </select>
+            </td>
+            
           </tr>
           <tr>
+            <td><mat-icon aria-hidden="false" aria-label="Example home icon">filter_list</mat-icon></td>
             <td><input class="form-control" type="text" placeholder="Drzava" name="searchDrzava"  [(ngModel)]="searchDrzava"></td>
-            <td><select class="form-control"  name="searchOcena" [(ngModel)]="searchOcena" ng-init="searchOcena = searchOcena || ocene[0].value" >
+            <td><input class="form-control" type="text" placeholder="Grad" name="searchGrad"  [(ngModel)]="searchGrad"></td>
+            <td><input class="form-control" type="text" placeholder="Naziv" name="searchText"  [(ngModel)]="searchText"></td>
+            <td><select class="form-control"  name="searchOcena" [(ngModel)]="searchOcena" >
               <option  value="0">Ocena </option>
               <option value="5">5</option>
               <option value="4">4+</option>
@@ -28,16 +36,11 @@
               <option value="1">1+</option>
             </select>
             </td>
-            <td><select class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
-              <option value="">Izaberite tip</option>
-<!--               <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip}}</option>  PRETPOSTAVLJAM DA SI HTELA OVO DRUGO-->
-              <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
-            </select>
-            </td>
+            
           </tr>
           <!--button type="submit"><i class="fa fa-search"></i></!--button-->
         </table>
-      </form>
+        </form>
     </div>
   </div>
 
@@ -63,13 +66,13 @@
                 </thead>
 
                 <tbody>
-                <tr *ngFor="let klinika of klinike | pretragafilterFilter:searchDrzava:searchGrad:searchOcena:searchText" [class.selected]="klinika === selectedKlinika"
-                    (click)="onSelect(klinika)">
-                  <td><b>{{klinika.naziv}}</b></td>
-                  <td>{{klinika.email}} </td>
-                  <td>{{klinika.ocena}} </td>
-                  <td>{{klinika.adresa}}</td>
-                  <td>TODO</td>
+                <tr *ngFor="let klinikaC of klinike | pretragafilterFilter:searchDrzava:searchGrad:searchOcena:searchText" [class.selected]="klinika === selectedKlinika"
+                    (click)="onSelect(klinikaC)">
+                  <td><b>{{klinikaC.klinika.naziv}}</b></td>
+                  <td>{{klinikaC.klinika.email}} </td>
+                  <td>{{klinikaC.klinika.ocena}} </td>
+                  <td>{{klinikaC.klinika.adresa}}</td>
+                  <td>{{klinikaC.cena}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -97,18 +100,18 @@
                   <form>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> Naziv : {{selectedKlinika.naziv}} </p>
+                        <p> Naziv : {{selectedKlinika.klinika.naziv}} </p>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> Kontakt telefon : {{selectedKlinika.kontaktTelefon}} </p>
+                        <p> Kontakt telefon : {{selectedKlinika.klinika.kontaktTelefon}} </p>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <p> Adresa, grad i država : {{selectedKlinika.adresa}}, {{selectedKlinika.grad}},
-                          {{selectedKlinika.drzava}} </p>
+                        <p> Adresa, grad i država : {{selectedKlinika.klinika.adresa}}, {{selectedKlinika.klinika.grad}},
+                          {{selectedKlinika.klinika.drzava}} </p>
                       </div>
                     </div>
                     <div class="row">
