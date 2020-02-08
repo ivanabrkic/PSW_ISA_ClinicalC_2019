@@ -19,15 +19,16 @@
             <option value="1">1+</option>
           </select>
           </td>
-          <td><select *ngIf="!terminiSakriveni" class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
+          <td><select *ngIf="terminiSakriveni" class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
             <option value="">Izaberite tip</option>
             <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
+            <option value="null">Izaberite tip</option>
           </select>
           </td>
-          <td><mat-form-field *ngIf="!terminiSakriveni">
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
+          <td><mat-form-field  *ngIf="terminiSakriveni">
+            <input [min]="minDate" matInput [matDatepicker]="picker" placeholder="Izaberite datum"[formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker #picker ></mat-datepicker>
           </mat-form-field>
           </td>
         </tr>
@@ -52,7 +53,7 @@
               <th>Ime</th>
               <th>Prezime</th>
               <th>Ocena</th>
-              <th *ngIf="terminiSakriveni">Slobodni termini za datum</th>
+              <th *ngIf="!sakrivenaVremena">Slobodni termini za datum</th>
               </thead>
 
               <tbody>
@@ -60,7 +61,7 @@
                 <td>{{lekar.ime}}</td>
                 <td>{{lekar.prezime}} </td>
                 <td>{{lekar.ocena}} </td>
-                <td *ngIf="terminiSakriveni" >
+                <td *ngIf="!sakrivenaVremena" >
                   <select [(ngModel)]="selectedTermin"  id="{{lekar.id}}" >
                     <option value="">Izaberite termin</option>
                     <option *ngFor="let termin of termini" value="{{termin}}">{{termin}}</option>

@@ -7,4 +7,5 @@ export class Klinika {
   adresa: string;
   kontaktTelefon: string;
   ocena: number;
+  opis: String;
 }

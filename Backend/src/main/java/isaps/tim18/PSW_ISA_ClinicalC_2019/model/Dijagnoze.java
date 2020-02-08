@@ -1,6 +1,10 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Embeddable
@@ -16,14 +20,27 @@ public class Dijagnoze {
 
     @Column(name="naziv", nullable = false)
     private String nazivDijagnoze;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "dijagnoze")
+    Set<ZkartonDijagnoze> zkarton;
 
     public Dijagnoze(){
 
     }
 
-    public Dijagnoze(String sifraDijagnoze, String nazivDijagnoze) {
+    public Set<ZkartonDijagnoze> getZkarton() {
+		return zkarton;
+	}
+
+	public void setZkarton(Set<ZkartonDijagnoze> zkarton) {
+		this.zkarton = zkarton;
+	}
+
+	public Dijagnoze(String sifraDijagnoze, String nazivDijagnoze, Set<ZkartonDijagnoze> zkartoni) {
         this.sifraDijagnoze = sifraDijagnoze;
         this.nazivDijagnoze = nazivDijagnoze;
+        this.zkarton=zkartoni;
     }
 
     public int getSifra() {

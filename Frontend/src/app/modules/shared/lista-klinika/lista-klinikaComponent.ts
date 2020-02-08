@@ -130,7 +130,7 @@ export class ListaKlinikaComponent implements OnInit {
 
   profilNavigate(event) {
 
-    let klinika = this.selectedKlinika;
+    let klinika = this.selectedKlinika.klinika;
     this.router.navigate(['/profilKlinike'], {state: {data: klinika}});
   }
 }

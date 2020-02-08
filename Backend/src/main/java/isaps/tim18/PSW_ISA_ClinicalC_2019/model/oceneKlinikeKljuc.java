@@ -16,18 +16,19 @@ public class oceneKlinikeKljuc  implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4258572701809223623L;
-
-	public oceneKlinikeKljuc(Long pacijentId, Long klinikaId) {
-        this.pacijentId = pacijentId;
-        this.klinikaId = klinikaId;
-    }
-
+	
     @Column(name = "pacijent_id")
     Long pacijentId;
 
     @Column(name="klinika_id")
     Long klinikaId;
     
+
+	public oceneKlinikeKljuc(Long pacijentId, Long klinikaId) {
+        this.pacijentId = pacijentId;
+        this.klinikaId = klinikaId;
+    }
+
     public oceneKlinikeKljuc() {}
 
     public Long getPacijentId() {
