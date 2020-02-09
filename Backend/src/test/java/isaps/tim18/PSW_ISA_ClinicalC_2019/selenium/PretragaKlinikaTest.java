@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 public class PretragaKlinikaTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -35,39 +37,52 @@ public class PretragaKlinikaTest {
       WebDriverWait wait = new WebDriverWait(driver, 30);
       wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".img-fluid")));
     }
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.linkText("Prijava")).click();
     {
       WebDriverWait wait = new WebDriverWait(driver, 30);
       wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
     }
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.id("email")).sendKeys("tamaralazarevic@mailsac.com");
     {
       WebDriverWait wait = new WebDriverWait(driver, 30);
       wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lozinka")));
     }
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.id("lozinka")).sendKeys("12345678b");
     driver.findElement(By.cssSelector(".third")).click();
     {
       WebDriverWait wait = new WebDriverWait(driver, 30);
       wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Lista klinika")));
     }
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.linkText("Lista klinika")).click();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.name("searchPregled")).click();
     {
       WebElement dropdown = driver.findElement(By.name("searchPregled"));
       dropdown.findElement(By.xpath("//option[. = 'Ultrazvuk srca']")).click();
     }
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.cssSelector(".mat-datepicker-toggle-default-icon")).click();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.cssSelector(".ng-star-inserted:nth-child(4) > .mat-calendar-body-cell:nth-child(5) > .mat-calendar-body-cell-content")).click();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.name("searchDrzava")).click();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.name("searchDrzava")).sendKeys("Rusija");
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.name("searchDrzava")).sendKeys("Srbija");
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.name("searchOcena")).click();
     {
       WebElement dropdown = driver.findElement(By.name("searchOcena"));
       dropdown.findElement(By.xpath("//option[. = '5']")).click();
     }
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.findElement(By.name("searchOcena")).click();
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     {
       WebElement dropdown = driver.findElement(By.name("searchOcena"));
       dropdown.findElement(By.xpath("//option[. = '4+']")).click();

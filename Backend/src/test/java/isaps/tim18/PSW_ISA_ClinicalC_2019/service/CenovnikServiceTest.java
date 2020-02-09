@@ -1,10 +1,10 @@
 package Service;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import isaps.tim18.PSW_ISA_ClinicalC_2019.PswIsaClinicalC2019Application;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.CenovnikService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.PswIsaClinicalC2019Application;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Cenovnik;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.CenovnikService;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.LekarService;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PswIsaClinicalC2019Application.class)
