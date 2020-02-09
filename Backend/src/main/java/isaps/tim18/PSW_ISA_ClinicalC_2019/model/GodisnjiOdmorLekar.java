@@ -30,7 +30,14 @@ public class GodisnjiOdmorLekar{
         return id;
     }
 
-    public void setId(Long id) {
+    public GodisnjiOdmorLekar(Long id, Lekar lekar, LocalDate datumOd, LocalDate datumDo) {
+		this.id = id;
+		this.lekar = lekar;
+		this.datumOd = datumOd;
+		this.datumDo = datumDo;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
