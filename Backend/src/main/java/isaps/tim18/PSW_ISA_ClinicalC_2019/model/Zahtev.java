@@ -163,4 +163,20 @@ public class Zahtev {
     public void setDodatneInformacije(String dodatneInformacije) {
         this.dodatneInformacije = dodatneInformacije;
     }
+    
+    public Zahtev(String tipPosete, Long idStavke, String stavkaCenovnika, String tipPosiljaoca, String posiljalacJbo, String posiljalacImePrezime, String jboPacijenta, String jboLekara, String datum, String pocetak, String kraj, String dodatneInformacije, Long idKlinike) {
+        this.tipPosete = tipPosete;
+        this.idStavke = idStavke;
+        this.stavkaCenovnika = stavkaCenovnika;
+        this.tipPosiljaoca = tipPosiljaoca;
+        this.posiljalacJbo = posiljalacJbo;
+        this.posiljalacImePrezime = posiljalacImePrezime;
+        this.jboPacijenta = jboPacijenta;
+        this.jboLekara = jboLekara;
+        this.datum = datum;
+        this.pocetak = pocetak;
+        this.kraj = kraj;
+        this.dodatneInformacije = dodatneInformacije;
+        this.idKlinike = idKlinike;
+    }
 }

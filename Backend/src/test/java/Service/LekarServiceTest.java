@@ -72,7 +72,7 @@ public class LekarServiceTest {
 	List<GodisnjiOdmorLekar> godisnjiOdmorLista=new ArrayList<GodisnjiOdmorLekar>();
 	GodisnjiOdmorLekar godisnjiOdmor=new GodisnjiOdmorLekar((long)1,lekar1,LocalDate.of(2020, Month.MARCH, 1),LocalDate.of(2020, Month.MARCH, 10));
 	
-	lekariterminiDTO upit1;
+	private lekariterminiDTO upit1;
 			
 	@Before 
 	public void priprema () {
