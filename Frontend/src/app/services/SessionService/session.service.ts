@@ -28,5 +28,8 @@ export class SessionService {
   fromKalendar = false;
   preglediKalendar: any;
   ulogovanKorinik: Korisnik;
+
+  ulogovanLekarBool = false;
+  ulogovanaSestraBool = false;
   constructor() { }
 }

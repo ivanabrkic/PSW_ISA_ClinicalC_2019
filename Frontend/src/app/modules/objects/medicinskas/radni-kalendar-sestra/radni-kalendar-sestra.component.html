@@ -1,4 +1,4 @@
-<app-sidebarlekar></app-sidebarlekar>
+<app-sidebar-med-sestra></app-sidebar-med-sestra>
 <div class="content-container">
   <div class="container-fluid">
     <div class="main-content" style="height: 100px">
@@ -51,14 +51,13 @@
               <div style="font-size: 13px;" *ngIf="data.EventType != undefined && data.EventType != ''"
                    class="location">JBO pacijenta:
                 {{data.EventType}}</div>
-              <div style="font-size: 13px;" *ngIf="data.Description!= undefined && data.Description != ''"
+              <div style="font-size: 13px;" *ngIf="data.lekarJbo!= undefined && data.lekarJbo != ''"
                    class="location">JBO lekara:
-                {{data.Description}}</div>
+                {{data.lekarJbo }}</div>
               <div style="font-size: 13px;" *ngIf="data.Location!= undefined && data.Location != ''"
                    class="location">Tip:
                 {{data.Location}}</div>
-
-              <button style = "background-color: #3F51B5;color: white;border: none;margin-top: 10%" *ngIf="data.Subject != 'Operacija'" (click)="zapocniPregled(data.Subject, data.EventType, data.StartTime.toLocaleString())">Započni pregled</button>
+              <button style = "background-color: #3F51B5;color: white;border: none;margin-top: 10%" *ngIf="data.Subject != 'Operacija' && data.EventType != null" (click)="zapocniPregled(data.lekarJbo, data.EventType, data.StartTime, data.EndTime, data.idPregleda)">Unesi izveštaj</button>
 
             </div>
 

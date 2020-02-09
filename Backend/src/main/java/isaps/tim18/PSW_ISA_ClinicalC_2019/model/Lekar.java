@@ -47,6 +47,7 @@ public class Lekar extends Korisnik{
         this.klinika = klinika;
     }
 
+
     public String getSpecijalizacija() {
         return specijalizacija;
     }

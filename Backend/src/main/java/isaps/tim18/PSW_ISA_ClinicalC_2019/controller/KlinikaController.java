@@ -171,11 +171,15 @@ public class KlinikaController {
 
     @PostMapping(value = "/zakaziPregled", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Message> zakaziPregled(@RequestBody PregledDTO pregled){
+        try {
 
-        String zakazi =  klinikaService.zakaziPregled(pregled);
-        Message m = new Message(zakazi);
+            String zakazi = klinikaService.zakaziPregled(pregled);
+            Message m = new Message(zakazi);
 
-        return new ResponseEntity<>(m, HttpStatus.OK);
+            return new ResponseEntity<>(m, HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(new Message("fail"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(value = "/zakaziOperaciju", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -304,11 +308,17 @@ public class KlinikaController {
 //    @PostMapping(value = "/getCena", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 //    public float NadjiCenu(@RequestBody lekariterminiDTO zahtev)throws Exception{
 //
+//        Cenovnik cen=cenovnikRepository.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
+
 //        Cenovnik cen = cenovnikService.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),zahtev.getIdKlinike() );
+
 //
 //        return cen.getCena();
 //
 //    }
+
+//
+
 
 
     @PostMapping(value = "/findOperacijeByLekar", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -320,4 +330,12 @@ public class KlinikaController {
 
     }
 
+
+    @GetMapping(value = "/getZakazaneOperacije", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OperacijaKalendarDTO>> getZakazaneOperacije() {
+        List<OperacijaKalendarDTO> operacije = klinikaService.getZakazaneOperacije();
+
+        return new ResponseEntity<>(operacije, HttpStatus.OK);
+    }
 }
+

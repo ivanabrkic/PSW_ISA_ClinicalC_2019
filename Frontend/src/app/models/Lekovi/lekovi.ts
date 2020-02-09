@@ -1,4 +1,5 @@
 export class Lekovi {
+  id: number;
   sifra: string;
   naziv: string;
 

@@ -24,6 +24,7 @@ export class DijalogKreiranjeReceptaComponent implements OnInit {
     if (this.recept.lekovi === undefined) {
 
       this.recept = new Recept();
+      this.recept.lekovi = [];
       // tslint:disable-next-line:no-shadowed-variable
       this.lekoviService.get().subscribe(data => {
           this.lekovi = data;
@@ -89,7 +90,6 @@ export class DijalogKreiranjeReceptaComponent implements OnInit {
     if (this.izmenaRecepta === false) {
       this.recept.overen = false;
       this.recept.pacijent = this.data.pacijent;
-      this.recept.lekovi = this.receptLekovi;
       this.noviPodaci.forEach(element => {
         if (element.cekiran === true) {
           this.recept.lekovi.push(element.lek);

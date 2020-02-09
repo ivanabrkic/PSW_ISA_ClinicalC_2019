@@ -8,4 +8,5 @@ export class Izvestaj {
   zdravstveniKarton: ZdravstveniKarton;
   lekar: Lekar;
   datum: String;
+  recept: Recept;
 }

@@ -144,6 +144,9 @@ export class KlinikaService {
     return this.http.post<OperacijaKalendarDTO[]>('/server/klinika/findOperacijeByLekar', body, httpOptions);
   }
 
+  public getZakazaneOperacije(): Observable<OperacijaKalendarDTO[]> {
+    return this.http.get<OperacijaKalendarDTO[]>('/server/klinika/getZakazaneOperacije', httpOptions);
+  }
   ///////////////////////////// PRIHODI ///////////////////////////////////////////////////////////////////
   public getPrihodi(prihod: Prihod){
     return this.http.post<Prihod>('/server/izvestajklinike/getPrihod', JSON.stringify(prihod), httpOptions);

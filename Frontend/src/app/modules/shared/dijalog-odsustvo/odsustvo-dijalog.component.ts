@@ -74,32 +74,32 @@ export class OdsustvoDijalogComponent implements OnInit {
       console.log(new Date(pregled.datum).getMonth() + " " + new Date(this.datumi.split('|')[0]).getDate())
       //dobijaju se NaN vrednosti za getDate kod nekih pregleda
       //provera tipa: od 31.01 do 03.02.
-      if (this.datumOd > this.datumDo) {
+      if (this.sessionService.ulogovanLekarBool) {
+        if (this.datumOd > this.datumDo) {
+          if (!(new Date(pregled.datum).getMonth() < new Date(this.datumi.split('|')[0]).getDate() &&
+            new Date(pregled.datum).getMonth() >= new Date(this.datumi.split('|')[1]).getDate())) {
 
-        if (!(new Date(pregled.datum).getMonth() < new Date(this.datumi.split('|')[0]).getDate() &&
-          new Date(pregled.datum).getMonth() >= new Date(this.datumi.split('|')[1]).getDate())) {
+            this.snackBar.open('Postoje zakazani termini pregleda ili operacija u odabranom periodu!', "", {
+              duration: 3000,
+              verticalPosition: 'bottom'
+            });
+            this.dialogRef.close(null);
+            this.uslov = false;
+            return;
+          }
 
-          this.snackBar.open('Postoje zakazani termini pregleda ili operacija u odabranom periodu!', "",  {
-            duration: 3000,
-            verticalPosition: 'bottom'
-          });
-          this.dialogRef.close(null);
-          this.uslov = false;
-          return;
+          if (new Date(pregled.datum).getMonth() >= new Date(this.datumi.split('|')[0]).getDate() &&
+            new Date(pregled.datum).getMonth() < new Date(this.datumi.split('|')[1]).getDate()
+          ) {
+            this.snackBar.open('Postoje zakazani termini pregleda ili operacija u odabranom periodu!', "",  {
+              duration: 3000,
+              verticalPosition: 'bottom'
+            });
+            this.dialogRef.close(null);
+            this.uslov = false;
+            return;
+          }
         }
-      }
-
-
-      if (new Date(pregled.datum).getMonth() >= new Date(this.datumi.split('|')[0]).getDate() &&
-        new Date(pregled.datum).getMonth() < new Date(this.datumi.split('|')[1]).getDate()
-      ) {
-        this.snackBar.open('Postoje zakazani termini pregleda ili operacija u odabranom periodu!', "",  {
-          duration: 3000,
-          verticalPosition: 'bottom'
-        });
-        this.dialogRef.close(null);
-        this.uslov = false;
-        return;
       }
     });
 

@@ -34,6 +34,19 @@ public class PregledDTO {
         this.jboLekara = jboLekara;
     }
 
+    public PregledDTO(String jboPacijenta, String datum, String pocetak, String kraj, String jboLekara, String tipPregleda, Long tipId, Long salaId, Integer popust, String status) {
+        this.jboPacijenta = jboPacijenta;
+        this.datum = datum;
+        this.pocetak = pocetak;
+        this.kraj = kraj;
+        this.jboLekara = jboLekara;
+        this.tipPregleda = tipPregleda;
+        this.tipId = tipId;
+        this.salaId = salaId;
+        this.popust = popust;
+        this.status = status;
+    }
+
     public PregledDTO(String tipPregleda, String jboLekara, String datum, String pocetak, String kraj) {
         this.tipPregleda = tipPregleda;
         this.datum = datum;

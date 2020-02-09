@@ -9,7 +9,7 @@
     Datum završetka odsustva: {{this.do}}
   </div>
   <div style="margin-top: 70px">
-    <textarea placeholder="Dodatni opis" rows = "10" cols = "40"></textarea>
+    <textarea placeholder="Dodatni opis" [(ngModel)] = "opis" rows = "10" cols = "40"></textarea>
   </div>
   <div style = "margin-top: 20px;">
     <button class = "btn btn-primary" (click)="posaljiZahtev()">Predaj</button>
