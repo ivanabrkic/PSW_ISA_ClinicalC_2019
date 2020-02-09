@@ -27,4 +27,8 @@ public class predefDTO {
 		this.pacijent_id=pacId;
 	}
 
+	public predefDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 }

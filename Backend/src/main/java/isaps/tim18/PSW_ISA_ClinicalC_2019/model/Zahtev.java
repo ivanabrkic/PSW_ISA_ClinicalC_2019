@@ -179,4 +179,5 @@ public class Zahtev {
     public void setDodatneInformacije(String dodatneInformacije) {
         this.dodatneInformacije = dodatneInformacije;
     }
+
 }
