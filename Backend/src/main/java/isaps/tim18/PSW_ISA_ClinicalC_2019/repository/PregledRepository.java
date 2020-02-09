@@ -53,7 +53,7 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
     /////////////// OVAJ MI TREBA TESLA ZA STRANICU /////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO(p.cenovnik.naziv,  p.datum, p.pocetak, p.kraj, p.sala.naziv, p.sala.broj, p.sala.klinika.naziv, p.lekar.ime, p.lekar.prezime, p.cenovnik.cena, p.popust) FROM Pregled p" +
-            "WHERE p.sala.klinika.id = ?1 AND p.status = 'Neaktivan'")
+            " WHERE p.sala.klinika.id = ?1 AND p.status = 'Neaktivan'")
     List<predefInfoDTO> findByKlinikaIdPredef(Long id);
     
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.predefInfoDTO(p.id,c.naziv,  p.datum, p.pocetak, p.kraj,s.naziv,s.broj,k.naziv,l.ime,l.prezime,c.cena,p.popust,k.id,c.id,l.jbo,s.id) FROM Pregled p INNER JOIN Cenovnik c ON p.cenovnik.id = c.id INNER JOIN p.sala as s INNER JOIN s.klinika as k INNER JOIN p.lekar as l " +
