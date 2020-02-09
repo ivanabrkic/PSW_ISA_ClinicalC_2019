@@ -1,11 +1,12 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +41,10 @@ public class Pacijent extends Korisnik{
     }
 
     public Pacijent() {
+    }
+
+    public Pacijent(String lozinka, String email, String kontaktTelefon, String ime, String prezime, String jbo, boolean aktivnostNaloga, String grad, String drzava, String adresa, String tipKorisnika) {
+        super(lozinka, email, kontaktTelefon, ime, prezime, jbo, aktivnostNaloga, grad, drzava, adresa, tipKorisnika);
     }
 
     public Pacijent(Korisnik korisnik) {

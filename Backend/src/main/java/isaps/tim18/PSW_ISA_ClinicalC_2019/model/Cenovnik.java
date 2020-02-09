@@ -25,6 +25,13 @@ public class Cenovnik {
     public Cenovnik() {
     }
 
+    public Cenovnik(String naziv, float cena, Klinika klinika, String specijalizacija) {
+        this.specijalizacija = specijalizacija;
+        this.naziv = naziv;
+        this.cena = cena;
+        this.klinika = klinika;
+    }
+
     public Cenovnik(String naziv, float cena, Klinika klinika) {
         this.naziv = naziv;
         this.cena = cena;

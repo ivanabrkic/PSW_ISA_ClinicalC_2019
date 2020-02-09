@@ -1,25 +1,23 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.dto;
 
-import java.time.LocalDateTime;
-
 public class DateValueDTO {
 
-    private LocalDateTime vreme;
+    private String vreme;
     private float vrednost;
 
     public DateValueDTO() {
     }
 
-    public DateValueDTO(LocalDateTime vreme, float vrednost) {
+    public DateValueDTO(String vreme, float vrednost) {
         this.vreme = vreme;
         this.vrednost = vrednost;
     }
 
-    public LocalDateTime getVreme() {
+    public String getVreme() {
         return vreme;
     }
 
-    public void setVreme(LocalDateTime vreme) {
+    public void setVreme(String vreme) {
         this.vreme = vreme;
     }
 

@@ -91,7 +91,7 @@ public class IzvestajKlinikeService {
                 dnevniBroj = pregledi.size();
             }
 
-            DateValueDTO dateValueDTO = new DateValueDTO(date, dnevniBroj);
+            DateValueDTO dateValueDTO = new DateValueDTO(formatter.format(date.toLocalDate()), dnevniBroj);
             dnevniBrojLista.add(dateValueDTO);
         }
         return  dnevniBrojLista;
@@ -117,7 +117,7 @@ public class IzvestajKlinikeService {
                 }
             }
 
-            DateValueDTO dateValueDTO = new DateValueDTO(date, nedeljniBroj);
+            DateValueDTO dateValueDTO = new DateValueDTO(formatter.format(date.toLocalDate()), nedeljniBroj);
             nedeljniBrojLista.add(dateValueDTO);
         }
         return  nedeljniBrojLista;
@@ -143,7 +143,7 @@ public class IzvestajKlinikeService {
                 }
             }
 
-            DateValueDTO dateValueDTO = new DateValueDTO(date, mesecniBroj);
+            DateValueDTO dateValueDTO = new DateValueDTO(formatter.format(date.toLocalDate()), mesecniBroj);
             mesecniBrojLista.add(dateValueDTO);
         }
         return  mesecniBrojLista;
