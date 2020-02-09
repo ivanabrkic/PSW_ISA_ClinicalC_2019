@@ -1,49 +1,47 @@
-<html>
-<head>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<!------ Include the above in your HEAD tag ---------->
-<body>
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-
-    <!-- Login Form -->
-    <form class="text-center border border-light p-5" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <p class="h4 mb-4">Prijava</p>
-      </div>
-
-      <div class="form-group">
-      <input class="fadeIn second" id="email" name="email" placeholder="E-mail" type="text"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  class="form-control"
-             formControlName="email" >
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-          <div *ngIf="f.email.errors.required">Unos e-mail-a je obavezan</div>
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]="['/welcome']">
+    <i class="fas fa-home mr-1"></i>
+  </a>
+  <a class="navbar-brand" routerLink="/">
+  </a>
+  <a class="navbar-brand" [routerLink]="['/login']">Prijava</a>
+  <a class="navbar-brand" [routerLink]="['/register']">Registracija</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+<div style="padding-top: 50px;" class="kontejner">
+  <img class="img-fluid" style="opacity: 70%;" src="./assets/img/m1.jpg" />
+  <div class="centered">
+    <div style="width: 500px;" class="wrapper fadeInDown">
+      <div id="formContent">
+        <form class="text-center border border-light p-5" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+          <div class="fadeIn first">
+            <p class="h4 mb-4">Prijava</p>
+          </div>
+        <div class="fadeIn second">
+          <div class="form-group">
+            <input id="email" name="email" placeholder="E-mail" type="text"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control" formControlName="email">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Unos e-mail-a je obavezan</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input id="lozinka" name="lozinka" placeholder="Lozinka" type="password"
+              [ngClass]="{ 'is-invalid': submitted && f.lozinka.errors }" class="form-control"
+              formControlName="lozinka">
+            <div *ngIf="submitted && f.lozinka.errors" class="invalid-feedback">
+              <div *ngIf="f.lozinka.errors.required">Unos lozinke je obavezan</div>
+            </div>
+          </div>
         </div>
+          <div class="form-group">
+            <input class="fadeIn third" type="submit" value="Prijava">
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-      <input class="fadeIn third" id="password" name="password" placeholder="Lozinka" type="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
-             class="form-control"
-             formControlName="password">
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.password.errors.required">Unos lozinke je obavezan</div>
-        </div>
-      </div>
-      <div class="form-group">
-      <input class="fadeIn fourth" type="submit" value="Prijava">
-      </div>
-    </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Zaboravili ste lozinku?</a>
     </div>
-
   </div>
 </div>
-</body>
-</html>

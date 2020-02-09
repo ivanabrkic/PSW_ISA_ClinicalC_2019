@@ -1,0 +1,144 @@
+<app-patient-sidebar></app-patient-sidebar>
+<html ng-app="listalekara">
+<body ng-controler="listactrl">
+  <div class="main-content">
+<div class="topnav">
+  <div class="search-container">
+    <form action="/action_page.php">
+      <table class="table">
+        <tr>
+          <td><mat-icon aria-hidden="false" aria-label="Example home icon">filter_list</mat-icon></td>
+          <td><input class="form-control" type="text" placeholder="Ime" name="searchIme"  [(ngModel)]="searchIme"></td>
+          <td><input class="form-control" type="text" placeholder="Prezime" name="searchText"  [(ngModel)]="searchPrezime"></td>
+          <td><select class="form-control"  name="searchOcena" [(ngModel)]="searchOcena" ng-init="searchOcena = searchOcena || ocene[0].value" >
+            <option  value="0">Ocena </option>
+            <option value="5">5</option>
+            <option value="4">4+</option>
+            <option value="3">3+</option>
+            <option value="2">2+</option>
+            <option value="1">1+</option>
+          </select>
+          </td>
+          <td><select *ngIf="terminiSakriveni" class="form-control"  [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
+            <option value="">Izaberite tip</option>
+            <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
+            <option value="null">Izaberite tip</option>
+          </select>
+          </td>
+          <td><mat-form-field  *ngIf="terminiSakriveni">
+            <input [min]="minDate" matInput [matDatepicker]="picker" placeholder="Izaberite datum"[formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker ></mat-datepicker>
+          </mat-form-field>
+          </td>
+        </tr>
+        <!--button type="submit"><i class="fa fa-search"></i></!--button-->
+      </table>
+    </form>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title ">Lista lekara klinike {{klinika.naziv}}</h4>
+        </div>
+        <div class="card-body">
+
+          <div  class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+              <th>Ime</th>
+              <th>Prezime</th>
+              <th>Ocena</th>
+              <th *ngIf="!sakrivenaVremena">Slobodni termini za datum</th>
+              </thead>
+
+              <tbody>
+              <tr (click)="onSelect(lekar)" *ngFor="let lekar of lekari | pretragafilterLekari:searchIme:searchPrezime:searchOcena:searchPregled" >
+                <td>{{lekar.ime}}</td>
+                <td>{{lekar.prezime}} </td>
+                <td>{{lekar.ocena}} </td>
+                <td *ngIf="!sakrivenaVremena" >
+                  <select [(ngModel)]="selectedTermin"  id="{{lekar.id}}" >
+                    <option value="">Izaberite termin</option>
+                    <option *ngFor="let termin of termini" value="{{termin}}">{{termin}}</option>
+                  </select></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="izabraniLekar">
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title">Zakazivanje termina</h4>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Datum : {{zahtev.datum}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Pocetak: {{zahtev.start}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Klinika: {{klinika.naziv}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Lekar : {{izabraniLekar.ime}} {{izabraniLekar.prezime}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Tip pregleda : {{zahtev.specijalizacija}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Cena {{cena}}: </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p><mat-form-field class="example-full-width">
+                          <input matInput placeholder="Dodatne informacije" type="text"
+                                 id="info"
+                                 [(ngModel)]="dodatneInfo" name="info" class="mat-form-control">
+                        </mat-form-field></p>
+                        <p> <button class="form-control" (click)="zakaziNavigate($event)">Zakazi termin</button></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

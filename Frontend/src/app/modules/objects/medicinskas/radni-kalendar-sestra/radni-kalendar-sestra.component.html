@@ -1,0 +1,70 @@
+<app-sidebar-med-sestra></app-sidebar-med-sestra>
+<div class="content-container">
+  <div class="container-fluid">
+    <div class="main-content" style="height: 100px">
+      <div style="float: left;width: 30%;height: 100px">
+        <h1 mat-dialog-title style="font-size: 27px">Vaš radni kalendar</h1>
+      </div>
+      <div style="float: right;width: 57%; margin-top: -10px;text-align: right">
+        <h4 style="display: inline; margin-right: 20px">Godišnji odmor</h4>
+
+        <mat-form-field style = "margin-right: 20px">
+          <input style="display: inline;" matInput [matDatepicker]="pickerOd" [(ngModel)]="od" placeholder="Početak godišnjeg odmora/odsustva" >
+          <mat-datepicker-toggle matSuffix [for]="pickerOd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerOd ></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input style="display: inline;border-radius: 8px" matInput [matDatepicker]="pickerDo" [(ngModel)]="do" placeholder="Kraj godišnjeg odmora/odsustva" >
+          <mat-datepicker-toggle matSuffix [for]="pickerDo"></mat-datepicker-toggle>
+          <mat-datepicker #pickerDo ></mat-datepicker>
+        </mat-form-field>
+        <button style="width:80px; height:40px;margin-left: 2%;display: inline;background-color: #3F51B5;
+        color: white;border: none;" (click)="dijalogZahtev()">Zatraži</button>
+      </div>
+    </div>
+    <div style="z-index: 1;position: absolute">
+      <mat-dialog-content style="overflow: hidden" class="text">
+        <ejs-schedule #scheduleObj [eventSettings]="eventSettings" (eventClick)="onEventClick($event)"
+                      (popupOpen)='onPopupOpen($event)' height="700" [currentView]="setView" locale='sr-Latn'>
+          <e-views>
+            <e-view option="Day"></e-view>
+            <e-view option="Week"></e-view>
+            <e-view option="Month"></e-view>
+          </e-views>
+          <!-- Header template -->
+          <ng-template #quickInfoTemplatesHeader let-data>
+            <div *ngIf="data.elementType == 'cell' || data.elementType == 'event'">
+              <div class="e-popup-header">
+                <div class="e-header-icon-wrapper">
+                  <button class="e-close e-close-icon e-icons" title="Close"
+                          (click)="onCloseClick($event)"></button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <!-- Content Template -->
+          <ng-template #quickInfoTemplatesContent let-data>
+            <div *ngIf="data.elementType == 'event'" class="e-event-content">
+              <div style="font-size: 25px;" class="subject">{{data.Subject}}</div>
+              <div style="font-size: 13px;" class="start-time">Od: {{data.StartTime.toLocaleString()}}</div>
+              <div style="font-size: 13px;" class="end-time">Do: {{data.EndTime.toLocaleString()}}</div>
+              <div style="font-size: 13px;" *ngIf="data.EventType != undefined && data.EventType != ''"
+                   class="location">JBO pacijenta:
+                {{data.EventType}}</div>
+              <div style="font-size: 13px;" *ngIf="data.lekarJbo!= undefined && data.lekarJbo != ''"
+                   class="location">JBO lekara:
+                {{data.lekarJbo }}</div>
+              <div style="font-size: 13px;" *ngIf="data.Location!= undefined && data.Location != ''"
+                   class="location">Tip:
+                {{data.Location}}</div>
+              <button style = "background-color: #3F51B5;color: white;border: none;margin-top: 10%" *ngIf="data.Subject != 'Operacija' && data.EventType != null" (click)="zapocniPregled(data.lekarJbo, data.EventType, data.StartTime, data.EndTime, data.idPregleda)">Unesi izveštaj</button>
+
+            </div>
+
+
+          </ng-template>
+        </ejs-schedule>
+      </mat-dialog-content>
+    </div>
+  </div>
+</div>

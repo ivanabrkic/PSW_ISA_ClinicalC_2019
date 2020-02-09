@@ -1,0 +1,104 @@
+<mat-horizontal-stepper [linear]=true #stepper>
+    <mat-step>
+        <ng-template matStepLabel>Tip pregleda</ng-template>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field>
+                    <mat-label>Tip pregleda</mat-label>
+                    <mat-select #t (selectionChange)="onChangeTipPregleda(t.value)" [(value)]="selectedTipPregleda">
+                        <mat-option *ngFor="let t of tipoviPregleda" [value]="t">{{t.naziv}} -
+                            {{t.cena}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field>
+                    <mat-label>Trajanje - sat</mat-label>
+                    <mat-select #sat (selectionChange)="onChangeSat(sat.value)" [(value)]="selectedSat">
+                        <mat-option *ngFor="let sat of sati" [value]="sat">{{sat}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field>
+                    <mat-label>Trajanje - minut</mat-label>
+                    <mat-select #m (selectionChange)="onChangeMinut(m.value)" [(value)]="selectedMinut">
+                        <mat-option *ngFor="let minut of minuti" [value]="minut">
+                            {{minut}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field>
+                    <mat-label>Operacija/pregled</mat-label>
+                    <mat-select #p (selectionChange)="onChangeTipPosete(p.value)" [(value)]="selectedTipPosete">
+                        <mat-option *ngFor="let p of tipoviPoseta" [value]="p">{{p}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <button style="margin:5px;" mat-raised-button color="primary" (click)="listaTermina()"
+                matStepperNext>Dalje</button>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Izaberite termin</ng-template>
+        <div class="card-body">
+            <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="datum">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
+                    <td mat-cell *matCellDef="let termin"> {{termin.datum}} </td>
+                </ng-container>
+                <ng-container matColumnDef="pocetak">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Početak i kraj </th>
+                    <td mat-cell *matCellDef="let termin"> {{termin.pocetak}} - {{termin.kraj}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="zakaziTermin">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                    <td mat-cell *matCellDef="let termin"> <button style="margin:5px;" mat-raised-button color="primary"
+                            mat-button (click)="zakaziTermin(termin)" matStepperNext>Izaberi termin</button>
+
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+        <div>
+            <button style="margin:5px;" mat-raised-button color="accent" matStepperPrevious>Nazad</button>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Unesite dodatne informacije</ng-template>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field>
+                    <mat-label>Dodatne informacije</mat-label>
+                    <textarea matInput [(ngModel)]="dodatneInformacije" cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <button style="margin:5px;" mat-raised-button color="accent" mat-button matStepperPrevious>Nazad</button>
+            <button style="margin:5px;" mat-raised-button color="warn" mat-button
+                (click)="stepper.reset()">Ispočetka</button>
+            <button style="margin:5px;" mat-raised-button color="primary" mat-button
+                (click)="potvrdi()">Potvrdi</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

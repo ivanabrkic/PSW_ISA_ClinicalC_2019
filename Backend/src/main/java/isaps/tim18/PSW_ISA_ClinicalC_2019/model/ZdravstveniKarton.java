@@ -1,43 +1,91 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
-//@Entity
+@Entity
+@Table(name="zkarton")
 public class ZdravstveniKarton {
 
-    @ElementCollection
-    @MapKeyColumn(name="sifra")
-    @Column(name="dijagnoza")
-    @CollectionTable(name="istorijaBolesti", joinColumns=@JoinColumn(name="example_id"))
-    private HashMap<Integer,String> istorijaBolesti=new HashMap<Integer, String>();
-    @Column(name="beleske")
-    private String beleske;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="pacijent_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Pacijent pacijent;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="zkarton")
+    private Set<ZkartonDijagnoze> dijagnoze;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(name = "zkartoni_opsti_izvestaji", joinColumns = @JoinColumn(name = "zkarton"),
+            inverseJoinColumns = @JoinColumn(name = "opsti_izvestaj_id"))
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private OpstiIzvestaj opstiIzvestaj;
+
+    @Column(name = "broj_zk")
+    private int broj_zk;
 
     public ZdravstveniKarton(){
 
     }
 
-    public HashMap<Integer, String> getIstorijaBolesti() {
-        return istorijaBolesti;
+    public ZdravstveniKarton(Pacijent pacijent, Set<ZkartonDijagnoze> dijagnoze, OpstiIzvestaj opstiIzvestaj, int broj_zk) {
+        this.pacijent = pacijent;
+        this.dijagnoze = dijagnoze;
+        this.opstiIzvestaj = opstiIzvestaj;
+        this.broj_zk = broj_zk;
     }
 
-    public void setIstorijaBolesti(HashMap<Integer, String> istorijaBolesti) {
-        this.istorijaBolesti = istorijaBolesti;
+    public Long getId() {
+        return id;
     }
 
-    public String getBeleske() {
-        return beleske;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setBeleske(String beleske) {
-        this.beleske = beleske;
+    public Set<ZkartonDijagnoze> getDijagnoze() {
+        return dijagnoze;
     }
 
-    ZdravstveniKarton(HashMap<Integer,String> istorijaBolesti, String beleske){
-        this.istorijaBolesti=istorijaBolesti;
-        this.beleske=beleske;
+    public void setDijagnoze(Set<ZkartonDijagnoze> dijagnoze) {
+        this.dijagnoze = dijagnoze;
+    }
+
+    public OpstiIzvestaj getOpstiIzvestaj() {
+        return opstiIzvestaj;
+    }
+
+    public void setOpstiIzvestaj(OpstiIzvestaj opstiIzvestaj) {
+        this.opstiIzvestaj = opstiIzvestaj;
+    }
+
+    public Pacijent getPacijent() {
+        return pacijent;
+    }
+
+    public void setPacijent(Pacijent pacijent) {
+        this.pacijent = pacijent;
+    }
+
+    public int getBroj_zk() {
+        return broj_zk;
+    }
+
+    public void setBroj_zk(int broj_zk) {
+        this.broj_zk = broj_zk;
     }
 }

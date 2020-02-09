@@ -1,0 +1,142 @@
+<app-patient-sidebar></app-patient-sidebar>
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">	
+					<div class="centreButtons">
+						<button type="button" class="btn btn-primary" (click)="sortByTip()">Sortiraj po tipu posete</button>
+						<button type="button" class="btn btn-primary" (click)="sortByDatum()">Sortiraj po datumu posete</button>
+			       </div>
+					<div class="card-header card-header-danger">
+						<h4 class="card-title ">Lista pregleda</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table">
+								<thead class=" text-primary">
+									<th>Datum
+									</th>
+									<th>Pocetak</th>
+									<th>Kraj</th>
+									<th>Tip pregleda</th>
+								</thead>
+								<tbody>
+									<tr *ngFor="let pregled of pregledi" [class.selected]="pregled === selectedPregled"
+                  (click)="onSelectPr(pregled)">
+										<td>
+											<span class="badge">{{pregled.datum}}</span>
+										</td>
+										<td>{{pregled.pocetak}}</td>
+										<td>{{pregled.kraj}}</td>
+										<td>{{pregled.tipPosete}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-danger">
+						<h4 class="card-title ">Lista operacija</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table">
+								<thead class=" text-primary">
+									<th>Datum</th>
+									<th>Pocetak</th>
+									<th>Kraj</th>
+									<th>Tip operacije</th>
+ 
+								</thead>
+								<tbody>
+									<tr *ngFor="let operacija of operacije" [class.selected]="operacija === selectedOperacija"
+                  					(click)="onSelectOp(operacija)">
+										<td>
+											<span class="badge">{{operacija.datum}}</span>
+										</td>
+										<td>{{operacija.pocetak}}</td>
+										<td>{{operacija.kraj}}</td>
+										<td> {{operacija.tipPosete}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div *ngIf="selected">
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title">Osnovne informacije</h4>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Datum : {{selected.datum}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Termin : {{selected.pocetak}} - {{selected.kraj}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+						<p> Lekar : {{selected.lekar.ime}} {{selected.lekar.prezime}}, ocena: {{selected.lekarOcena}} </p>
+						<p *ngIf="dozvoljenoOcenjivanjeLekara" >
+							Ocenite lekara: <ngb-rating  [(rate)]="currentRateLekar"></ngb-rating>
+							<hr>
+						
+						<p *ngIf="dozvoljenoOcenjivanjeLekara"> <button class="form-control" (click)="oceniLekara($event)">Ocenite</button></p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+						<p> Klinika: {{selected.klinikaNaziv}}, ocena: {{selected.klinikaOcena}}</p>
+						<p  *ngIf="dozvoljenoOcenjivanjeKlinike">
+							Ocenite kliniku: <ngb-rating  [(rate)]="currentRateKlinika"></ngb-rating>
+							<hr>
+						
+						<p *ngIf="dozvoljenoOcenjivanjeKlinike">  <button class="form-control" (click)="oceniKliniku($event)">Ocenite</button></p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+						<p> Tip pregleda: {{selected.tipPosete}}</p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

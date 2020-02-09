@@ -1,4 +1,4 @@
-<div class="sidebar-container">
+<div class="sidebar-container bg-dark">
   <div class="sidebar-logo">
     Meni
   </div>
@@ -10,19 +10,41 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/adminkcIzmena']">
         <i class="fa fa-user-edit" aria-hidden="true"></i> Izmena podataka
       </a>
     </li>
     <li class="header">Registracija</li>
+    <li>
+      <a [routerLink]="['/registracijaAdminKlinike']">
+        <i class="fa fa-user-tie" aria-hidden="true"></i> Administratora klinike
+      </a>
+    </li>
     <li>
       <a [routerLink]="['/registracijaKlinike']">
         <i class="fa fa-clinic-medical" aria-hidden="true"></i> Klinike
       </a>
     </li>
     <li>
-      <a [routerLink]="['/registracijaAdminKlinike']">
-        <i class="fa fa-clinic-medical" aria-hidden="true"></i> Administratora klinike
+      <a [routerLink]="['/zahteviRegistracija']">
+        <i class="fa fa-user-injured" aria-hidden="true"></i> Pacijenta
+      </a>
+    </li>
+    <li class="header">Šifarnici</li>
+    <li>
+      <a [routerLink]="['/kreiranjeDijagnoza']">
+        <i class="fa fa-diagnoses" aria-hidden="true"></i> Kreiraj šifarnik dijagnoza
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/kreiranjeLekova']">
+        <i class="fa fa-tablets" aria-hidden="true"></i> Kreiraj šifarnik lekova
+      </a>
+    </li>
+    <li class="header">Odjava</li>
+    <li>
+      <a [routerLink]="['/welcome']" (click)="odjava()">
+        <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Odjavi se
       </a>
     </li>
   </ul>

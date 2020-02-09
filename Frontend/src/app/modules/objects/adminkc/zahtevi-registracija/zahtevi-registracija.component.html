@@ -1,0 +1,51 @@
+<app-sidebar-adminkc></app-sidebar-adminkc>
+<div class="content-container">
+  <div class="container-fluid">
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">Zahtevi</h4>
+              </div>
+              <div *ngFor="let korisnik of korisnici">
+                <div class = "zahtev">
+                  <div class="card-body">
+                      <div class="row">
+                        <p>E-mail adresa: {{korisnik.email}}</p>
+                      </div>
+                      <div class="row">
+                        <p>JBO: {{korisnik.jbo}} </p>
+                      </div>
+                      <div class="clearfix"></div>
+                  </div>
+                  <div class="button-class">
+                    <button class = "btn btn-success buttons" (click)="onItemAccepted(korisnik)" >Prihvati</button>
+                    <button class = "btn btn-danger buttons" (click)="onItemRejected(korisnik)" >Odbij</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="javascript:void(0)">
+                  <img class="img-fluid" src="./assets/img/nikola.jpg" />
+                </a>
+              </div>
+              <div class="card-body informacije">
+                <h6 class="card-category text-gray">Administrator kliničkog centra</h6>
+                <h4 class="card-title">Nikola Milošević</h4>
+                <p class="card-description">
+                  O meni
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

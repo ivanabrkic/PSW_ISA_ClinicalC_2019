@@ -1,33 +1,74 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
-//@Entity
+
+@Entity
 public class Sala {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer brSale;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String naziv;
+
+    @Column
+    private String broj;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "klinika_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    Klinika klinika;
 
     public Sala() {
     }
 
-    public Sala(int brSale) {
-        this.brSale = brSale;
+    public Sala(String naziv, String broj, Klinika klinika) {
+        this.naziv = naziv;
+        this.broj = broj;
+        this.klinika = klinika;
     }
 
-    public int getBrSale() {
-        return brSale;
+    public String getBroj() {
+        return broj;
     }
 
-    public void setBrSale(int brSale) {
-        this.brSale = brSale;
+    public void setBroj(String broj) {
+        this.broj = broj;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
+
+    public Klinika getKlinika() {
+        return klinika;
+    }
+
+    public void setKlinika(Klinika klinika) {
+        this.klinika = klinika;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "Sala{" +
-                "brSale=" + brSale +
+                "salaId=" + id +
+                ", klinika=" + klinika +
                 '}';
     }
 }

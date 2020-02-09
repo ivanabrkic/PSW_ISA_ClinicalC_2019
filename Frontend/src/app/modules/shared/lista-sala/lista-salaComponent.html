@@ -1,0 +1,43 @@
+<app-patient-sidebar></app-patient-sidebar>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4  class="card-title ">Sale klinike {{klinika.naziv}}</h4>
+                    </div>
+                    <div style="padding-left: 30px;" class="row">
+                        <div style="padding-top: 20px;" class="col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <input (keyup)="applyFilter($event.target.value)" placeholder="Naziv i broj sale" #naziv
+                                    matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="naziv">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv </th>
+                                <td mat-cell *matCellDef="let sala"> {{sala.naziv}}  </td>
+                            </ng-container>
+                            <ng-container matColumnDef="broj">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Broj </th>
+                                <td mat-cell *matCellDef="let sala"> {{sala.broj}} </td>
+                            </ng-container>
+                            <!-- <ng-container matColumnDef="Kalendar">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let sala"> <button id={{sala.id}} mat-raised-button
+                                        (click)="openCalendar(sala)" class="btn btn-primary">Kalendar
+                                        zauzeća</button> </td>
+                            </ng-container> -->
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

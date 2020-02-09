@@ -1,0 +1,71 @@
+<sidebar-admin-klinike></sidebar-admin-klinike>
+<div class="main-content">
+    <div class="container-fluid">
+        <div *ngIf="izbor == false" class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 *ngIf="adminKlinike.klinika ? true : false" class="card-title">Zahtevi za operacije/preglede klinike "{{adminKlinike.klinika.naziv}}"
+                        </h4>
+                    </div>
+                    <div style="padding-left: 30px;" class="row">
+                        <div style="padding-top: 20px;" class="col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <input (keyup)="applyFilter($event.target.value)" placeholder="Pretraži zahteve" #naziv
+                                    matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="tipPosiljaoca">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Lekar/pacijent</th>
+                                <td mat-cell *matCellDef="let zahtev"> {{zahtev.tipPosiljaoca}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="posiljalacImePrezime">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ime i prezime </th>
+                                <td mat-cell *matCellDef="let zahtev"> {{zahtev.posiljalacImePrezime}} ({{zahtev.posiljalacJbo}}) </td>
+                            </ng-container>
+                            <ng-container matColumnDef="datum">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Za datum </th>
+                                <td mat-cell *matCellDef="let zahtev">{{zahtev.datum}} <br> {{zahtev.pocetak}} - {{zahtev.kraj}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="tipPosete">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip posete </th>
+                                <td mat-cell *matCellDef="let zahtev"> {{zahtev.tipPosete}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="stavkaCenovnika">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv pregleda </th>
+                                <td mat-cell *matCellDef="let zahtev"> {{zahtev.stavkaCenovnika}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jbo">
+                                <th mat-header-cell *matHeaderCellDef > 
+                                     Za pacijenta / kod lekara (JBO) 
+                                </th>
+                                <td mat-cell *matCellDef="let zahtev"> 
+                                    <span *ngIf="zahtev ? zahtev.tipPosiljaoca == 'Lekar' : false"> {{zahtev?.jboPacijenta}} </span>  
+                                    <span *ngIf="zahtev ? zahtev.tipPosiljaoca == 'Pacijent' : false"> {{zahtev?.jboLekara}} </span>  
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="dodatneInformacije">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Dodatne informacije </th>
+                                <td mat-cell *matCellDef="let zahtev"> {{zahtev.dodatneInformacije}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="izaberiSalu">
+                                <th mat-header-cell *matHeaderCellDef> </th>
+                                <td mat-cell *matCellDef="let zahtev"><button *ngIf="zahtev ? true : false"  id={{zahtev.id}} mat-raised-button
+                                        (click)="izborSale(zahtev)" class="btn btn-danger">Izaberi salu</button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-izbor-sale [passZahtev]="selectedZahtev" *ngIf="izbor == true"
+            (zahtevObradjen)="zahtevObradjenHandler($event)"></app-izbor-sale>
+    </div>
+</div>

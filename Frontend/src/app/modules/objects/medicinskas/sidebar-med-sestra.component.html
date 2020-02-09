@@ -1,32 +1,32 @@
-<div class="sidebar-container">
+<div class="sidebar-container bg-dark">
   <div class="sidebar-logo">
     Meni
   </div>
   <ul class="sidebar-navigation">
     <li class="header">Profil</li>
     <li>
-      <a href="#">
-        <i class="fa fa-user" aria-hidden="true"></i> Izmena podataka
+      <a [routerLink]="['/medicinskaSestra']">
+        <i class="fa fa-user-edit" aria-hidden="true"></i> Pregled profila
       </a>
     </li>
     <li>
-      <a href="#">
-        <i class="fa fa-user-edit" aria-hidden="true"></i> Pregled profila
+      <a [routerLink]="['/medicinskaSestraIzmena']">
+        <i class="fa fa-user" aria-hidden="true"></i> Izmena podataka
       </a>
     </li>
     <li class="header">Klinika</li>
     <li>
-      <a [routerLink]="['/prikazPacijenata']">
+      <a [routerLink]="['/pretragaPacijenata']">
         <i class="fa fa-user-injured" aria-hidden="true" ></i> Lista svih pacijenata
       </a>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/radniKalendarSestra']">
         <i class="fa fa-calendar" aria-hidden="true"></i> Radni kalendar
       </a>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/overaRecepta']">
         <i class="fa fa-stamp" aria-hidden="true"></i> Overa recepata
       </a>
     </li>
@@ -39,6 +39,12 @@
     <li>
       <a [routerLink]="['/odsustvo']">
         <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Zatraži odsustvo
+      </a>
+    </li>
+    <li class="header">Odjava</li>
+    <li>
+      <a [routerLink]="['/welcome']" (click)="odjava()">
+        <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Odjavi se
       </a>
     </li>
   </ul>

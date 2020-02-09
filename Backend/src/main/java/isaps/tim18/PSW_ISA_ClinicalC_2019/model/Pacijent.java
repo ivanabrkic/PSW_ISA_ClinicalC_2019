@@ -1,44 +1,54 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.model;
 
-import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-import static javax.persistence.CascadeType.ALL;
-
-//@Entity
-//@Table(name="pacijent")
+@Entity
+@Table(name="pacijent")
+@PrimaryKeyJoinColumn(name = "pacijent_id")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Pacijent extends Korisnik{
 
-    @Column(name="zdravstveniKarton",unique = true,nullable = false)
-    private ZdravstveniKarton zdravstveniKarton;
-    @OneToMany(mappedBy="pacijent", cascade=ALL) //sa izmenom i brisanjem korisnika menjaju se i pregledi
-    private List<Pregled> zakazaniPregledi;
+	@JsonIgnore
+    @OneToMany(mappedBy = "pacijent")
+    private List<PacijentiKlinike> pacijentiKlinike = new ArrayList<>();
 
-    public Pacijent(){
 
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "pacijent")
+    private Set<oceneLekari> ocenelekara;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy="klinika")
+    private Set<oceneKlinike> oceneklinika;
+
+    public List<PacijentiKlinike> getPacijentiKlinike() {
+        return pacijentiKlinike;
     }
 
-    public Pacijent(ZdravstveniKarton zdravstveniKarton, List<Pregled> zakazaniPregledi){
-        this.zdravstveniKarton=zdravstveniKarton;
-        this.zakazaniPregledi=zakazaniPregledi;
+    public void setPacijentiKlinike(List<PacijentiKlinike> pacijentiKlinike) {
+        this.pacijentiKlinike = pacijentiKlinike;
     }
 
-    public ZdravstveniKarton getZdravstveniKarton() {
-        return zdravstveniKarton;
+    public Pacijent() {
     }
 
-    public void setZdravstveniKarton(ZdravstveniKarton zdravstveniKarton) {
-        this.zdravstveniKarton = zdravstveniKarton;
+    public Pacijent(String lozinka, String email, String kontaktTelefon, String ime, String prezime, String jbo, boolean aktivnostNaloga, String grad, String drzava, String adresa, String tipKorisnika) {
+        super(lozinka, email, kontaktTelefon, ime, prezime, jbo, aktivnostNaloga, grad, drzava, adresa, tipKorisnika);
     }
 
-    public List<Pregled> getZakazaniPregledi() {
-        return zakazaniPregledi;
+    public Pacijent(Korisnik korisnik) {
+        super(korisnik);
     }
 
-    public void setZakazaniPregledi(List<Pregled> zakazaniPregledi) {
-        this.zakazaniPregledi = zakazaniPregledi;
-    }
 }

@@ -1,0 +1,46 @@
+<mat-dialog-actions>
+    <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger">X</button>
+</mat-dialog-actions>
+<h1 mat-dialog-title style="font-size: 27px">Kalendar zauzeća sale</h1>
+<mat-dialog-content class="text">
+    <ejs-schedule #scheduleObj [eventSettings]="eventSettings" (eventClick)="onEventClick($event)"
+        (popupOpen)='onPopupOpen($event, data)' height="700" [currentView]="setView" locale='sr-Latn'>
+        <e-views>
+            <e-view option="Day"></e-view>
+            <e-view option="Week"></e-view>
+            <e-view option="Month"></e-view>
+        </e-views>
+        <!-- Header template -->
+        <ng-template #quickInfoTemplatesHeader let-data>
+            <div *ngIf="data.elementType == 'cell' || data.elementType == 'event'">
+                <div class="e-popup-header">
+                    <div class="e-header-icon-wrapper">
+                        <button class="e-close e-close-icon e-icons" title="Close"
+                            (click)="onCloseClick($event)"></button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <!-- Content Template -->
+        <ng-template #quickInfoTemplatesContent let-data>
+            <div *ngIf="data.elementType == 'event'" class="e-event-content">
+                <div style="font-size: 25px;" class="subject">{{data.Subject}}</div>
+                <div style="font-size: 13px;" class="start-time">Od: {{data.StartTime.toLocaleString()}}</div>
+                <div style="font-size: 13px;" class="end-time">Do: {{data.EndTime.toLocaleString()}}</div>
+                <div style="font-size: 13px;" *ngIf="data.EventType != undefined && data.EventType != ''"
+                    class="location">JBO pacijenta:
+                    {{data.EventType}}</div>
+                <div style="font-size: 13px;" *ngIf="data.Description!= undefined && data.Description != ''"
+                    class="location">JBO lekara:
+                    {{data.Description}}</div>
+                <div style="font-size: 13px;" *ngIf="data.Location!= undefined && data.Location != ''"
+                    class="location">Tip:
+                    {{data.Location}}</div>
+            </div>
+            <div *ngIf="data.elementType !== 'event'" class="e-event-content">
+              <button class="e-close e-close-icon e-icons" title="Close"
+                  (click)="onCloseClick($event)"> Zatrazi odsustvo</button>
+            </div>
+        </ng-template>
+    </ejs-schedule>
+</mat-dialog-content>

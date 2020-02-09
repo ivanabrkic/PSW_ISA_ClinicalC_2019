@@ -1,0 +1,129 @@
+<app-patient-sidebar></app-patient-sidebar>
+
+<div class="main-content">
+  <div class="topnav">
+    <div class="search-container">
+      <form action="/action_page.php">
+        <table class="table">
+          <tr>
+            <td><mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon></td>
+            <td><mat-form-field>
+              <input [min]="minDate" matInput [matDatepicker]="picker" placeholder="Izaberite datum"[formControl]="date" (dateInput)="addEvent('input',$event)" (dateChange)="addEvent('change',$event)">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker>
+            </mat-form-field></td>
+            <td><select  class="form-control" [(ngModel)]="searchPregled" name="searchPregled"  (change)="onChange(searchPregled)" >
+              <option *ngFor="let tip of tipovi" [ngValue]="tip">{{tip.naziv}}</option>
+              <option value="null">Izaberite tip</option>
+            </select>
+            </td>
+            
+          </tr>
+          <tr>
+            <td><mat-icon aria-hidden="false" aria-label="Example home icon">filter_list</mat-icon></td>
+            <td><input class="form-control" type="text" placeholder="Drzava" name="searchDrzava"  [(ngModel)]="searchDrzava"></td>
+            <td><input class="form-control" type="text" placeholder="Grad" name="searchGrad"  [(ngModel)]="searchGrad"></td>
+            <td><input class="form-control" type="text" placeholder="Naziv" name="searchText"  [(ngModel)]="searchText"></td>
+            <td><select class="form-control"  name="searchOcena" [(ngModel)]="searchOcena" >
+              <option  value="0">Ocena </option>
+              <option value="5">5</option>
+              <option value="4">4+</option>
+              <option value="3">3+</option>
+              <option value="2">2+</option>
+              <option value="1">1+</option>
+            </select>
+            </td>
+            
+          </tr>
+          <!--button type="submit"><i class="fa fa-search"></i></!--button-->
+        </table>
+        </form>
+    </div>
+  </div>
+
+
+
+  <div></div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Lista klinika</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                <th>Naziv</th>
+                <th>E-mail</th>
+                <th>Ocena</th>
+                <th> Adresa</th>
+                <th>Cena pregleda</th>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let klinikaC of klinike | pretragafilterFilter:searchDrzava:searchGrad:searchOcena:searchText" [class.selected]="klinika === selectedKlinika"
+                    (click)="onSelect(klinikaC)">
+                  <td><b>{{klinikaC.klinika.naziv}}</b></td>
+                  <td>{{klinikaC.klinika.email}} </td>
+                  <td>{{klinikaC.klinika.ocena}} </td>
+                  <td>{{klinikaC.klinika.adresa}}</td>
+                  <td>{{klinikaC.cena}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="selectedKlinika">
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title">Osnovne informacije</h4>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Naziv : {{selectedKlinika.klinika.naziv}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Kontakt telefon : {{selectedKlinika.klinika.kontaktTelefon}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> Adresa, grad i država : {{selectedKlinika.klinika.adresa}}, {{selectedKlinika.klinika.grad}},
+                          {{selectedKlinika.klinika.drzava}} </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p> <button class="form-control" (click)="lekariNavigate($event)">Prikazi slobodne lekare</button></p>
+                        <p> <button class="form-control" (click)="profilNavigate($event)">Prikazi profil klinike</button></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

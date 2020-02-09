@@ -1,4 +1,4 @@
-<div class="sidebar-container">
+<div class="sidebar-container bg-dark">
   <div class="sidebar-logo">
     Meni
   </div>
@@ -16,24 +16,20 @@
     </li>
     <li class="header">Klinika</li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/pretragaPacijenata']">
         <i class="fa fa-user-injured" aria-hidden="true"></i> Lista svih pacijenata
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-first-aid" aria-hidden="true"></i> Pregled
       </a>
     </li>
     <li class="header">Drugo</li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/radniKalendarLekar']">
         <i class="fa fa-calendar" aria-hidden="true"></i> Radni kalendar
       </a>
     </li>
+    <li class="header">Odjava</li>
     <li>
-      <a href="#">
-        <i class="fa fa-plane" aria-hidden="true"></i> Godišnji odmor/odsustvo
+      <a [routerLink]="['/welcome']" (click)="odjava()">
+        <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Odjavi se
       </a>
     </li>
   </ul>
