@@ -2,6 +2,7 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.IzvestajDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Izvestaj;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Recept;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.ZdravstveniKarton;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.IzvestajService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,13 @@ public class IzvestajController {
     @PostMapping(value = "/save", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Izvestaj> save(@RequestBody Izvestaj izvestaj) throws Exception {
         Izvestaj smth = izvestajService.save(izvestaj);
+
+        return new ResponseEntity(smth, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getReceptByIzvestajId", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Izvestaj> getReceptByIzvestajId(@RequestBody Long izvestaj) throws Exception {
+        Recept smth = izvestajService.findReceptByIzvestaj(izvestaj);
 
         return new ResponseEntity(smth, HttpStatus.OK);
     }

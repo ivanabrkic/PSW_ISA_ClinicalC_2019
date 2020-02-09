@@ -24,6 +24,20 @@ public class Lekovi {
         this.naziv = naziv;
     }
 
+    public Lekovi(int id, String sifra, String naziv) {
+        this.id = id;
+        this.sifra = sifra;
+        this.naziv = naziv;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getSifra() {
         return sifra;
     }

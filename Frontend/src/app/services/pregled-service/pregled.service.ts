@@ -3,7 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Pregled} from '../../models/pregled/pregled';
 import {Lekar} from '../../models/lekar/lekar';
 import {PregledIzvestajDTO} from '../../models/pregledIzvestajDTO/pregled-izvestaj-dto';
-import {PregledDTO} from "../../models/PregledDTO/pregled-dto";
+import {PregledDTO} from '../../models/PregledDTO/pregled-dto';
+import {Observable} from "rxjs";
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -37,5 +38,9 @@ export class PregledService {
 
   getPredefinisane(jboLekar){
     return this.http.post<PregledDTO[]>('/server/pregled/getAllPregledeByLekar', jboLekar, httpOptions);
+  }
+
+  getAllPreglede(): Observable<PregledDTO[]>{
+    return this.http.get<PregledDTO[]>('/server/pregled/getAll', httpOptions);
   }
 }

@@ -767,6 +767,7 @@ public class KlinikaService {
         return operacijaRepository.findByLekari(lekar.getId());
     }
 
+    public List<OperacijaKalendarDTO> getZakazaneOperacije() { return operacijaRepository.getZakazaneOperacije(); }
 }
 
 

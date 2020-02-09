@@ -16,7 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule, MatStepperModule, MatButtonModule, MatSelectModule, MatOptionModule, MatFormFieldModule } from '@angular/material';
+import { MatInputModule, MatTableModule, MatPaginatorModule,
+  MatSortModule, MatSnackBarModule, MatStepperModule, MatButtonModule,
+  MatSelectModule, MatOptionModule, MatFormFieldModule } from '@angular/material';
 
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -82,12 +84,16 @@ import { PregledLekovaComponent } from './modules/shared/pregled-lekova/pregled-
 import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izmena-izvestaja.component';
 
 import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
-import { RadniKalendarLekarComponent } from './modules/shared/radni-kalendar-lekar/radni-kalendar-lekar.component';
-import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
+
+import { RadniKalendarLekarComponent } from './modules/objects/lekar/radni-kalendar-lekar/radni-kalendar-lekar.component';
+import {ScheduleModule} from '@syncfusion/ej2-angular-schedule';
+
 import { OdsustvoDijalogComponent } from './modules/shared/dijalog-odsustvo/odsustvo-dijalog.component';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
 import { ZakaziLekarComponent } from './modules/objects/lekar/zakazi-lekar/zakazi-lekar.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
+
+import { RadniKalendarSestraComponent } from './modules/objects/medicinskas/radni-kalendar-sestra/radni-kalendar-sestra.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PregledSalaComponent } from './modules/objects/admin-klinike/pregled-sala/pregled-sala.component';
 import { ListaSalaComponent } from './modules/shared/lista-sala/lista-salaComponent';
@@ -95,6 +101,7 @@ import { MapaComponent } from './modules/objects/admin-klinike/mapa/mapa.compone
 import { CenovnikProfilComponent } from './modules/shared/cenovnik-profil/cenovnik-profil.component';
 import { MapaProfilComponent } from './modules/shared/mapa-profil/mapa-profil.component';
 import { AgmCoreModule } from '@agm/core';
+
 
 @NgModule({
   declarations: [
@@ -150,8 +157,10 @@ import { AgmCoreModule } from '@agm/core';
     ZakaziLekarComponent,
     RadniKalendarLekarComponent,
     OdsustvoDijalogComponent,
+    RadniKalendarSestraComponent
     CenovnikProfilComponent,
     MapaProfilComponent
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -213,6 +222,7 @@ import { AgmCoreModule } from '@agm/core';
       { path: 'adminkcIzmena', component: AdminkcIzmenaComponent },
       { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent },
       { path: 'radniKalendarLekar', component: RadniKalendarLekarComponent },
+      {path: 'radniKalendarSestra', component: RadniKalendarSestraComponent},
       { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent },
       { path: 'medicinskaSestra', component: ProfilMedSestraComponent },
       { path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent },

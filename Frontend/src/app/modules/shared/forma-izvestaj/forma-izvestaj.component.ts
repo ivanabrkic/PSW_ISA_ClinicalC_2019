@@ -18,6 +18,8 @@ import {Router} from '@angular/router';
 import {IzvestajService} from '../../../services/izvestaj-service/izvestaj.service';
 import {ReceptServiceService} from '../../../services/recept-service/recept-service.service';
 import {IzvestajDto} from '../../../models/izvestajDTO/izvestaj-dto';
+import {KorisnikService} from '../../../services/korisnik-service/korisnik.service';
+import {Korisnik} from "../../../models/korisnik/korisnik";
 
 @Component({
   selector: 'app-forma-izvestaj',
@@ -40,17 +42,33 @@ export class FormaIzvestajComponent implements OnInit {
   submitted = false;
   lekovi: Lekovi[] = [];
   recept: Recept;
+  sestraJe = false;
+  lekarJe = false;
+  korisnik: Korisnik;
 
   constructor(private sessionService: SessionService, private formBuilder: FormBuilder, public dialog: MatDialog,
               private pregledService: PregledService, private opstiIzvestajService: OpstiIzvestajService,
               private zdravstveniKartonService: ZdravstveniKartonService, private pacijentService: PacijentService,
-              private router: Router, private izvestajService: IzvestajService, private receptService: ReceptServiceService) {
-    this.pacijentZaPregled = this.sessionService.pacijentProfil;
-    this.zdravstveniKarton = this.sessionService.zkPregled;
-    this.opstiIzvestaj = this.sessionService.opstiIzvestaj;
-    this.noviIzvestaj = new Izvestaj();
-    this.recept = new Recept();
-    console.log(this.sessionService.pregled);
+              private router: Router, private izvestajService: IzvestajService, private korisnikService: KorisnikService,
+              private receptService: ReceptServiceService) {
+    this.korisnikService.getUlogovanKorisnik().subscribe( korisnik =>{
+      this.korisnik = korisnik;
+      if (korisnik.tipKorisnika === 'Lekar') {
+        this.lekarJe = true;
+        this.sestraJe = false;
+      }else if(korisnik.tipKorisnika === 'Medicinska sestra'){
+        this.lekarJe = false;
+        this.sestraJe = true;
+      }
+
+      console.log(this.sessionService.ulogovanLekar);
+      this.pacijentZaPregled = this.sessionService.pacijentProfil;
+      this.zdravstveniKarton = this.sessionService.zkPregled;
+      this.opstiIzvestaj = this.sessionService.opstiIzvestaj;
+      this.noviIzvestaj = new Izvestaj();
+      this.recept = new Recept();
+      console.log(this.sessionService.pregled);
+    });
   }
 
   get f() { return this.izvestajForm.controls; }
@@ -135,6 +153,10 @@ export class FormaIzvestajComponent implements OnInit {
     console.log(this.recept);
     console.log(this.zdravstveniKarton);
 
+    this.noviIzvestaj.recept = this.recept;
+
+    this.izvestajService.save(this.noviIzvestaj).subscribe();
+
     this.opstiIzvestajService.update(this.opstiIzvestaj).subscribe( data =>
       console.log(data)
     );
@@ -142,14 +164,21 @@ export class FormaIzvestajComponent implements OnInit {
     this.recept.izvestaj = this.noviIzvestaj;
     console.log('Recept je: ' + this.recept);
 
-    this.receptService.save(this.recept).subscribe( data => console.log('sacuvan recept'));
+    //this.receptService.save(this.recept).subscribe( data => console.log('sacuvan recept'));
     this.zdravstveniKartonService.updateDijagnoze(this.zdravstveniKarton).subscribe( data =>
     console.log('sacuvane dijagnoze'));
+    console.log(this.sessionService.pregled);
     this.pregledService.zavrsenPregled(this.sessionService.pregled).subscribe(data =>{
       if(!this.sessionService.fromKalendar) {
         this.router.navigate(['/zdravstveniKarton']);
-      } else{
-        this.router.navigate(['/radniKalendarLekar']);
+      } else {
+        if (this.korisnik.tipKorisnika === 'Lekar') {
+          this.sessionService.fromKalendar = false;
+          this.router.navigate(['/radniKalendarLekar']);
+        } else if(this.korisnik.tipKorisnika === 'Medicinska sestra'){
+          this.sessionService.fromKalendar = false;
+          this.router.navigate(['/radniKalendarSestra']);
+        }
       }
     });
   }

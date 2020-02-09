@@ -13,21 +13,25 @@ public class PreglediStatusDTO {
 
     private String status;
 
-    public PreglediStatusDTO(Long id, String jboPacijenta, String datum, String pocetak, String kraj, String status) {
+    private String jboLekara;
+
+    public PreglediStatusDTO(Long id, String jboPacijenta, String datum, String pocetak, String kraj, String status, String lekarJbo) {
         this.id = id;
         this.jboPacijenta = jboPacijenta;
         this.datum = datum;
         this.pocetak = pocetak;
         this.kraj = kraj;
         this.status = status;
+        this.jboLekara = lekarJbo;
     }
 
-    public PreglediStatusDTO(Long id, String datum, String pocetak, String kraj, String status) {
+    public PreglediStatusDTO(Long id, String datum, String pocetak, String kraj, String status, String lekarJbo) {
         this.id = id;
         this.datum = datum;
         this.pocetak = pocetak;
         this.kraj = kraj;
         this.status = status;
+        this.jboLekara = lekarJbo;
     }
 
     public Long getId() {
@@ -76,5 +80,13 @@ public class PreglediStatusDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getJboLekara() {
+        return jboLekara;
+    }
+
+    public void setJboLekara(String jboLekara) {
+        this.jboLekara = jboLekara;
     }
 }

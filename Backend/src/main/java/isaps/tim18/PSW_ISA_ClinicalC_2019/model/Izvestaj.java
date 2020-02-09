@@ -27,15 +27,21 @@ public class Izvestaj {
     @Column(name = "datum_pregleda")
     private String datum;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "recept_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Recept recept;
+
     public Izvestaj(){
 
     }
 
-    public Izvestaj(String izvestaj, ZdravstveniKarton zdravstveniKarton, Lekar lekar, String datum) {
+    public Izvestaj(String izvestaj, ZdravstveniKarton zdravstveniKarton, Lekar lekar, String datum, Recept recept) {
         this.izvestaj = izvestaj;
         this.zdravstveniKarton = zdravstveniKarton;
         this.lekar = lekar;
         this.datum = datum;
+        this.recept = recept;
     }
 
     public String getIzvestaj() {
@@ -76,5 +82,13 @@ public class Izvestaj {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Recept getRecept() {
+        return recept;
+    }
+
+    public void setRecept(Recept recept) {
+        this.recept = recept;
     }
 }

@@ -24,13 +24,16 @@ public class Recept {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private MedicinskaSestra medicinskaSestra;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Lekovi> lekovi = new ArrayList<Lekovi>();
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "izvestaj", referencedColumnName = "id")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, targetEntity = Lekovi.class)
+    @JoinTable(name = "recept_lekovi", joinColumns = @JoinColumn(name = "recept_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "lek_id", referencedColumnName = "id"))
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Izvestaj izvestaj;
+    private List<Lekovi> lekovi = new ArrayList<Lekovi>();
+//
+//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "izvestaj", referencedColumnName = "id")
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    private Izvestaj izvestaj;
 
     @Column(name = "overen", nullable = false)
     private boolean overen;
@@ -39,12 +42,12 @@ public class Recept {
 
     }
 
-    public Recept(boolean overen, Pacijent pacijent, ArrayList<Lekovi> lekovi, MedicinskaSestra medicinskaSestra, Izvestaj izvestaj) {
+    public Recept(boolean overen, Pacijent pacijent, ArrayList<Lekovi> lekovi, MedicinskaSestra medicinskaSestra) {
         this.overen = overen;
         this.pacijent = pacijent;
         this.lekovi = lekovi;
         this.medicinskaSestra = medicinskaSestra;
-        this.izvestaj = izvestaj;
+        //this.izvestaj = izvestaj;
     }
 
     public boolean isOveren() {
@@ -87,11 +90,11 @@ public class Recept {
         this.medicinskaSestra = medicinskaSestra;
     }
 
-    public Izvestaj getIzvestaj() {
-        return izvestaj;
-    }
-
-    public void setIzvestaj(Izvestaj izvestaj) {
-        this.izvestaj = izvestaj;
-    }
+//    public Izvestaj getIzvestaj() {
+//        return izvestaj;
+//    }
+//
+//    public void setIzvestaj(Izvestaj izvestaj) {
+//        this.izvestaj = izvestaj;
+//    }
 }

@@ -16,6 +16,14 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
             "FROM Pregled p WHERE p.lekar.id = ?1")
     List<PregledIzvestajDTO> nadjiPoIdLekara(Long id);
 
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.status, p.lekar.jbo) " +
+            "FROM Pregled p WHERE p.status = 'Zakazan'")
+    List<PreglediStatusDTO> findAllPreglede();
+
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO(p.id, p.datum, p.pocetak, p.kraj, p.status, p.lekar.jbo) " +
+            "FROM Pregled p WHERE p.status = 'Neaktivan'")
+    List<PreglediStatusDTO> findAllPregledeNezakazane();
+
     void deleteBySalaId(Long id);
 
     List<Pregled> findByPacijentId(Long id);
@@ -28,12 +36,12 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
             "FROM Pregled p WHERE p.status = 'Zakazan'")
     List<PregledIzvestajDTO> getZakazaneByPacijent(String jboPacijent);
 
-    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.status)" +
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO(p.id, p.pacijent.jbo,  p.datum, p.pocetak, p.kraj, p.status, p.lekar.jbo)" +
             "FROM Pregled p WHERE p.lekar.jbo = ?1 AND p.status = 'Zakazan'")
     List<PreglediStatusDTO> getPregledeByLekar(String jboLekar);
 
 
-    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO(p.id, p.datum, p.pocetak, p.kraj, p.status)" +
+    @Query(value = "SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PreglediStatusDTO(p.id, p.datum, p.pocetak, p.kraj, p.status, p.lekar.jbo)" +
             "FROM Pregled p WHERE p.lekar.jbo = ?1 AND p.status = 'Neaktivan'")
     List<PreglediStatusDTO> getNeaktivneByLekar(String jboLekar);
 

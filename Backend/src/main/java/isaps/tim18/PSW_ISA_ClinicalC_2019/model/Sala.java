@@ -27,8 +27,8 @@ public class Sala {
     }
 
     public Sala(String naziv, String broj, Klinika klinika) {
-        this.broj = broj;
         this.naziv = naziv;
+        this.broj = broj;
         this.klinika = klinika;
     }
 

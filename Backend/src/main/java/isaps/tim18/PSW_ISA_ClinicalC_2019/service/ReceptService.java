@@ -39,40 +39,30 @@ public class ReceptService {
 
     @Transactional
     public Recept add(Recept r) {
-        List<Lekovi> lekovi = new ArrayList<Lekovi>();
-        Lekovi lek = new Lekovi();
-        for(int i = 0;i < r.getLekovi().size(); i++){
-            lek = lekoviService.findBySifra(r.getLekovi().get(i).getSifra());
-
-            if(lek != null){
-                lekovi.add(lek);
-            }
-        }
-
-        r.setLekovi(lekovi);
-
-
         return receptRepository.save(r);
     }
 
     @Transactional
-    public void remove(Recept r) { receptRepository.delete(r); }
+    public void remove(Recept r) {
+        receptRepository.obrisiLekove(r.getId());
+        receptRepository.delete(r);
+    }
 
     public List<Recept> findByPacijent(Pacijent p) { return receptRepository.findByPacijent(p); }
 
     public List<Recept> findByOveren(Boolean o) { return receptRepository.findByOveren(o); }
 
-    public Recept findByIzvestaj(Long izvestajID) {
-        Optional<Izvestaj> izv = izvestajRepository.findById(izvestajID);
-
-        if(izv.isPresent()){
-            System.out.println("Nasao je izvestaj");
-            return receptRepository.findByIzvestaj(izv.get());
-        }
-
-
-        return null;
-    }
+//    public Recept findByIzvestaj(Long izvestajID) {
+//        Optional<Izvestaj> izv = izvestajRepository.findById(izvestajID);
+//
+//        if(izv.isPresent()){
+//            System.out.println("Nasao je izvestaj");
+//            return receptRepository.findByIzvestaj(izv.get());
+//        }
+//
+//
+//        return null;
+//    }
 
     @Transactional
     public Recept updateOveren(Recept recept){
@@ -94,6 +84,7 @@ public class ReceptService {
         Optional<Recept> opt = receptRepository.findById(recept.getId());
 
         if(opt.isPresent()){
+            receptRepository.obrisiLekove(opt.get().getId());
             receptRepository.delete(opt.get());
         }
 
@@ -103,27 +94,13 @@ public class ReceptService {
     @Transactional
     public Recept update(Recept recept){
         Optional<Recept> opt = receptRepository.findById(recept.getId());
-        List<Lekovi> lekovi = new ArrayList<Lekovi>();
 
         if(opt.isPresent()){
             Recept r = opt.get();
-            Lekovi lek = new Lekovi();
-            for(int i = 0;i < recept.getLekovi().size(); i++){
-                lek = lekoviService.findBySifra(recept.getLekovi().get(i).getSifra());
-
-                if(lek != null){
-                    lekovi.add(lek);
-                }
-            }
-
-            r.setLekovi(lekovi);
-
-            r.setOveren(false);
-            receptRepository.save(r);
+            r.setOveren(true);
+            return r;
         }
 
-        return recept;
+        return null;
     }
-
-
 }

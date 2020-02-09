@@ -5,4 +5,5 @@ export class PregledDTO {
   pocetak: string;
   kraj: string;
   status: string;
+  jboLekara: string;
 }
