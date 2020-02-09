@@ -9,6 +9,7 @@ import { PacijentService } from 'src/app/services/pacijent-service/pacijent.serv
 import { TamarinPregled } from 'src/app/models/TamarinPregled';
 import { klinikaPacDTO } from 'src/app/models/klinikaPacDTO/klinikaPacDTO';
 import { InfoWindowManager } from '@agm/core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-predefinisani-termini',
@@ -21,7 +22,7 @@ export class PredefinisaniTerminiComponent implements OnInit {
   izabraniTermin:predefInfo;
   dodatneInfo:String;
   
-  constructor(private predefService: PredefTerminiServiceService , private pacService:PacijentService) {
+  constructor(private _snackBar: MatSnackBar, private predefService: PredefTerminiServiceService , private pacService:PacijentService) {
   }
 
   onSelect(selected:predefInfo): void {

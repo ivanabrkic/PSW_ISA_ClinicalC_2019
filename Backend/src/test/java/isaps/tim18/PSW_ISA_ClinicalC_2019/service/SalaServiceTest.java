@@ -1,11 +1,10 @@
-package Service;
+package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.PswIsaClinicalC2019Application;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Klinika;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KlinikaRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.SalaRepository;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.SalaService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

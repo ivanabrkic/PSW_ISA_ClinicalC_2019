@@ -161,21 +161,6 @@
                                 <td mat-cell *matCellDef="let pregled"> {{pregled.pocetak}} - {{pregled.kraj}}
                                 </td>
                             </ng-container>
-                            <ng-container matColumnDef="nazivSale">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sala </th>
-                                <td mat-cell *matCellDef="let pregled"> {{pregled.nazivSale}} {{pregled.brojSale}}
-                                </td>
-                            </ng-container>
-                            <ng-container matColumnDef="lekarIme">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Lekar </th>
-                                <td mat-cell *matCellDef="let pregled"> {{pregled.lekarIme}} {{pregled.lekarPrezime}}
-                                </td>
-                            </ng-container>
-                            <ng-container matColumnDef="tipPregleda">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip pregleda </th>
-                                <td mat-cell *matCellDef="let pregled"> {{pregled.tipPregleda}}
-                                </td>
-                            </ng-container>
                             <ng-container matColumnDef="cena">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
                                 <td mat-cell *matCellDef="let pregled"> {{pregled.cena}}
