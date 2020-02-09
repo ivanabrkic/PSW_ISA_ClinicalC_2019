@@ -132,6 +132,10 @@ export class ZakaziLekarComponent implements OnInit {
     this.selectedTermin = termin
   }
 
+  test(){
+    alert(this.dodatneInformacije)
+  }
+
   potvrdi(){
       var zahtev = new Zahtev()
       zahtev.idKlinike = this.prosledjenLekar.klinika.id

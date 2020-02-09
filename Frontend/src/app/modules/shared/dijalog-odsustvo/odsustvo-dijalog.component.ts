@@ -6,6 +6,8 @@ import {SessionService} from '../../../services/SessionService/session.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {first} from 'rxjs/operators';
 import {ZahtevOdsustvoService} from '../../../services/zahtev-odsustvo-service/zahtev-odsustvo.service';
+import { LekarService } from 'src/app/services/lekar-service/lekar.service';
+import { MedicinskaSestraService } from 'src/app/services/medicinska-sestra-service/medicinska-sestra.service';
 
 @Component({
   selector: 'app-odsustvo-dijalog',
@@ -26,7 +28,7 @@ export class OdsustvoDijalogComponent implements OnInit {
 
   constructor(private datePipe: DatePipe, private dialogRef: MatDialogRef<OdsustvoDijalogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: any, private sessionService: SessionService,
-              private snackBar: MatSnackBar, private zoService: ZahtevOdsustvoService) {
+              private snackBar: MatSnackBar, private zoService: ZahtevOdsustvoService, private lekarService : LekarService, private medsService : MedicinskaSestraService) {
     this.datumi = data;
 
     this.datumDo = new Date(this.datumi.split('|')[1]).getDate();
@@ -51,7 +53,19 @@ export class OdsustvoDijalogComponent implements OnInit {
     console.log(this.razlika);
   }
 
+  klinikaId : number
+
   ngOnInit() {
+    if(this.sessionService.ulogovanKorinik.tipKorisnika == 'Lekar'){
+      this.lekarService.getUlogovanKorisnik().subscribe(data=>{
+        this.klinikaId = data.klinika.id
+      })
+    }
+    else{
+      this.medsService.getUlogovanKorisnik().subscribe(data=>{
+        this.klinikaId = data.klinika.id
+      })
+    }
   }
 
   posaljiZahtev() {
@@ -89,15 +103,16 @@ export class OdsustvoDijalogComponent implements OnInit {
       }
     });
 
+
     if (this.uslov) {
       if (this.opis === 'Dodatni opis') {
         this.zo = new ZahtevOdsustvo(this.od, this.do, this.razlika, '', this.sessionService.ulogovanKorinik.ime,
           // tslint:disable-next-line:max-line-length
-          this.sessionService.ulogovanKorinik.prezime, this.sessionService.ulogovanKorinik.jbo, this.sessionService.ulogovanKorinik.tipKorisnika, false);
+          this.sessionService.ulogovanKorinik.prezime, this.sessionService.ulogovanKorinik.jbo, this.sessionService.ulogovanKorinik.tipKorisnika, false, this.klinikaId);
       } else {
         this.zo = new ZahtevOdsustvo(this.od, this.do, this.razlika, this.opis, this.sessionService.ulogovanKorinik.ime,
           // tslint:disable-next-line:max-line-length
-          this.sessionService.ulogovanKorinik.prezime, this.sessionService.ulogovanKorinik.jbo, this.sessionService.ulogovanKorinik.tipKorisnika, false);
+          this.sessionService.ulogovanKorinik.prezime, this.sessionService.ulogovanKorinik.jbo, this.sessionService.ulogovanKorinik.tipKorisnika, false, this.klinikaId);
       }
       console.log(this.zo);
       this.zoService.posaljiZahtev(this.zo).pipe(first()).subscribe(data => console.log('poslat zahtev!'));
