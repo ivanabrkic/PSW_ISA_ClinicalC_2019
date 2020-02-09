@@ -35,7 +35,6 @@
         <i class="fa fa-stethoscope" aria-hidden="true"></i> Zahtevi za preglede/operacije
       </a>
     </li>
-    <li class="header">Pregledi</li>
     <li>
       <a [routerLink]="['/tipovi']" >
         <i class="fa fa-x-ray" aria-hidden="true"></i> Tipovi pregleda
@@ -46,14 +45,13 @@
         <i class="fa fa-book-medical" aria-hidden="true"></i> Slobodni termini pregleda
       </a>
     </li>
-    <li class="header">Drugo</li>
     <li>
       <a [routerLink]="['/zahteviOdsustvoGodisnji']">
         <i class="fa fa-plane-departure" aria-hidden="true"></i> Zahtevi za godišnji odmor/odsustvo
       </a>
     </li>
     <li>
-      <a href="#">
+      <a [routerLink]="['/izvestaj']">
         <i class="fa fa-file-medical-alt" aria-hidden="true"></i> Izveštaj o poslovanju
       </a>
     </li>

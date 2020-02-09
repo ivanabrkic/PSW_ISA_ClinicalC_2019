@@ -17,7 +17,15 @@ public class GodisnjiOdmorLekar{
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Lekar lekar;
 
-    @Column
+    public GodisnjiOdmorLekar(Long id, Lekar lekar, LocalDate datumOd, LocalDate datumDo) {
+		super();
+		this.id = id;
+		this.lekar = lekar;
+		this.datumOd = datumOd;
+		this.datumDo = datumDo;
+	}
+
+	@Column
     private LocalDate datumOd;
 
     @Column
@@ -30,14 +38,7 @@ public class GodisnjiOdmorLekar{
         return id;
     }
 
-    public GodisnjiOdmorLekar(Long id, Lekar lekar, LocalDate datumOd, LocalDate datumDo) {
-		this.id = id;
-		this.lekar = lekar;
-		this.datumOd = datumOd;
-		this.datumDo = datumDo;
-	}
-
-	public void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -44,6 +44,31 @@ public class Pregled {
     @Column
     private String status;
 
+    public Pregled(Long id, Pacijent pacijent, Lekar lekar, Sala sala, String datum, String pocetak, String kraj, Cenovnik cenovnik, Integer popust, String status) {
+        this.id = id;
+        this.pacijent = pacijent;
+        this.lekar = lekar;
+        this.sala = sala;
+        this.datum = datum;
+        this.pocetak = pocetak;
+        this.kraj = kraj;
+        this.cenovnik = cenovnik;
+        this.popust = popust;
+        this.status = status;
+    }
+
+    public Pregled(Pacijent pacijent, Lekar lekar, Sala sala, String datum, String pocetak, String kraj, Cenovnik cenovnik, Integer popust, String status) {
+        this.pacijent = pacijent;
+        this.lekar = lekar;
+        this.sala = sala;
+        this.datum = datum;
+        this.pocetak = pocetak;
+        this.kraj = kraj;
+        this.cenovnik = cenovnik;
+        this.popust = popust;
+        this.status = status;
+    }
+
     public Pregled() {
     }
 

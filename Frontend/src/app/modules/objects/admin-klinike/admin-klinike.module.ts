@@ -29,6 +29,9 @@ import { RegistracijaTipovaComponent } from './registracija-tipova/registracija-
 import { PredefinisaniTerminiComponent } from './predefinisani-termini/predefinisani-termini.component';
 import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
 import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/zahtevi-godisnji-odsustvo.component';
+import { IzvestajKlinikaComponent } from './izvestaj-klinika/izvestaj-klinika.component';
+import { ChartModule } from '@syncfusion/ej2-angular-charts';
+import { DateTimeService, LineSeriesService, DateTimeCategoryService, StripLineService, ZoomService} from '@syncfusion/ej2-angular-charts';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent,
@@ -47,7 +50,8 @@ import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/za
     TipoviPregledaComponent,
     RegistracijaTipovaComponent,
     PredefinisaniTerminiComponent,
-    ZahteviGodisnjiOdsustvoComponent
+    ZahteviGodisnjiOdsustvoComponent,
+    IzvestajKlinikaComponent
   ],
   imports: [
     BrowserModule,
@@ -77,6 +81,7 @@ import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/za
     MatSnackBarModule,
     MatButtonModule,
     MatPaginatorModule,
+    ChartModule, 
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
       { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
       { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
@@ -85,7 +90,8 @@ import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/za
       {path: 'zahtevi', component: ZahteviOperacijePreglediComponent},
       {path: 'tipovi', component:TipoviPregledaComponent},
       {path: 'predefinisani', component:PredefinisaniTerminiComponent},
-      {path: 'zahteviOdsustvoGodisnji', component:ZahteviGodisnjiOdsustvoComponent}
+      {path: 'zahteviOdsustvoGodisnji', component:ZahteviGodisnjiOdsustvoComponent},
+      {path: 'izvestaj', component:IzvestajKlinikaComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
@@ -99,7 +105,7 @@ import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/za
     ZakaziTerminComponent,
     RegistracijaTipovaComponent
   ],
-  providers: [AdminKlinikeService, PredefTerminiServiceService],
+  providers: [AdminKlinikeService, PredefTerminiServiceService, DateTimeService, LineSeriesService, DateTimeCategoryService, StripLineService, ZoomService],
   exports:   [SidebarAdminKlinikeComponent,
     AdminKlinikeIzmenaComponent,
     AdminKlinikePregledComponent,

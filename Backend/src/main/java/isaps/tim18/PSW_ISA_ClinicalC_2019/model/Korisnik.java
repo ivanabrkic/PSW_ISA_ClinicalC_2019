@@ -44,7 +44,7 @@ public class Korisnik implements Serializable {
     @Column(name="tipKorisnika",nullable = false)
     private String tipKorisnika;
 
-    @Column(name = "prvoLogovanje", nullable = false)
+    @Column(name = "prvoLogovanje")
     private Boolean prvoLogovanje;
 
     public Korisnik() {

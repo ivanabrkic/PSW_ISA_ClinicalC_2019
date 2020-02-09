@@ -94,9 +94,11 @@ public class ZahtevOdsustvoService {
         String kraj = " ";
 
         if(lekar.getRadnoVreme().equals("Prva smena od 8:00 do 16:00")){
-            pocetak = "8:01";
+            pocetak = "08:01";
             kraj = "17:59";
         }
+
+        System.out.println(pocetak + kraj);
 
         if(lekar.getRadnoVreme().equals("Druga smena od 16:00 do 00:00")){
             pocetak = "16:01";
@@ -105,7 +107,7 @@ public class ZahtevOdsustvoService {
 
         if(lekar.getRadnoVreme().equals("Treca smena od 00:00 do 8:00")){
             pocetak = "00:01";
-            kraj = "7:59";
+            kraj = "07:59";
         }
 
         for(LocalDateTime date = start; date.isBefore(end);date = date.plusDays(1))

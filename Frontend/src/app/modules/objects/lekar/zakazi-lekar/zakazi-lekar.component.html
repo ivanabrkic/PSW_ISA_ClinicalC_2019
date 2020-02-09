@@ -88,13 +88,9 @@
             <div class="col-md-4">
                 <mat-form-field>
                     <mat-label>Dodatne informacije</mat-label>
-                    <textarea matInput
-                              ([value])="dodatneInformacije"
-                              cdkTextareaAutosize
-                              #autosize="cdkTextareaAutosize"
-                              cdkAutosizeMinRows="1"
-                              cdkAutosizeMaxRows="5"></textarea>
-                  </mat-form-field>
+                    <textarea matInput [(ngModel)]="dodatneInformacije" cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
             </div>
         </div>
         <div>
