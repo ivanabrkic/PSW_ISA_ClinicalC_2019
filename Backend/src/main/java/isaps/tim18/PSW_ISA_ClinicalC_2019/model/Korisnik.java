@@ -44,7 +44,7 @@ public class Korisnik implements Serializable {
     @Column(name="tipKorisnika",nullable = false)
     private String tipKorisnika;
 
-    @Column(name = "prvoLogovanje", nullable = false)
+    @Column(name = "prvoLogovanje")
     private Boolean prvoLogovanje;
 
     public Korisnik() {
@@ -85,7 +85,12 @@ public class Korisnik implements Serializable {
         this.prvoLogovanje = korisnik.prvoLogovanje;
     }
 
-    public String getTipKorisnika() {
+    public Korisnik(String string, String string2) {
+		this.setEmail(string);
+		this.setLozinka(string2);
+	}
+
+	public String getTipKorisnika() {
         return tipKorisnika;
     }
 

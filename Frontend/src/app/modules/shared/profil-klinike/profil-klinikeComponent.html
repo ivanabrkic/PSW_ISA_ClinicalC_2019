@@ -10,61 +10,63 @@
                 <h4 class="card-title">Klinika</h4>
               </div>
               <div class="card-body">
-                <form>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p> Naziv : {{klinika.naziv}} </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p> Opis : {{klinika.opis}} </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p> Email : {{klinika.email}} </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p> Telefon : {{klinika.kontaktTelefon}} </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p> Adresa : {{klinika.adresa}} </p>
-                      <p> Grad : {{klinika.grad}} </p>
-                      <p> Drzava : {{klinika.drzava}} </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p> Ocena : {{klinika.ocena}} </p>
-                    </div>
-                  </div>
-    
-                    <div class="row">
+                <div class="row">
+                  <div class="col-md-6">
+                    <form>
+                      <div class="row">
                         <div class="col-md-12">
-                            <p> <button class="form-control" (click)="terminiNavigate($event)">Prikazi slobodne termine (TODO)</button></p>
-                            <p> <button class="form-control" (click)="lekariNavigate($event)">Prikazi lekare</button></p>
-                            <p> <button class="form-control" (click)="listaSalaNavigate($event)">Prikazi sale</button></p>
-                            <p> <button class="form-control" (click)="predefinisaniNavigate($event)">Prikazi unapred definisane termine</button></p>
+                          <p> Naziv : {{klinika.naziv}} </p>
                         </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Opis : {{klinika.opis}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Email : {{klinika.email}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Telefon : {{klinika.kontaktTelefon}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Adresa : {{klinika.adresa}} </p>
+                          <p> Grad : {{klinika.grad}} </p>
+                          <p> Drzava : {{klinika.drzava}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> Ocena : {{klinika.ocena}} </p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p> <button class="form-control" (click)="lekariNavigate($event)">Prikazi lekare</button></p>
+                          <p> <button class="form-control" (click)="listaSalaNavigate($event)">Prikazi sale</button></p>
+                          <p> <button class="form-control" (click)="predefinisaniNavigate($event)">Prikazi unapred
+                              definisane termine</button></p>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                </form>
+                  <div class="col-md-4">
+                    <app-mapa-profil [address]="fullAdresa"></app-mapa-profil>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card card-profile">
-              <div class="card-avatar">
-                <a href="javascript:void(0)">
-                  <img class="img-fluid" src="./assets/img/ambulance.png"/>
-                </a>
+            <div class="card">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">Cenovnik</h4>
               </div>
               <div class="card-body">
-                <h6 class="card-category text-gray">Klinika {{klinika.naziv}}</h6>
+                <app-cenovnik-profil [klinika]="klinika"></app-cenovnik-profil>
               </div>
             </div>
           </div>
@@ -72,4 +74,3 @@
       </div>
     </div>
   </div>
-</div>

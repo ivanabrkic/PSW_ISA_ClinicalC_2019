@@ -66,18 +66,18 @@ public class PregledService {
 
 	public List<posetaLekarKlinikaDTO> findInfo(Long id){return pregledRepo.findInfo(id);}
 
-	public Optional<Pregled> update(predefDTO pregled) {
+	public Pregled update(predefDTO pregled) {
 		
 		System.out.println("Usao si ovde");
 
 		Optional<Pregled> pronadjen=pregledRepo.findById(pregled.getId());
-		if (pronadjen!=null) {
+		if (pronadjen!=null && pronadjen.get().getStatus().equals("Neaktivan")) {
 			Pregled p=pronadjen.get();
 			p.setStatus("Zakazan");
 			Optional<Pacijent> pac=pacRepo.findById(pregled.getPacijent_id());
 			p.setPacijent(pac.get());
 			pregledRepo.save(p);
-			return pronadjen;
+			return p;
 		}
 
 		return null;

@@ -1,0 +1,17 @@
+<table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="naziv">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Naziv</th>
+        <td mat-cell *matCellDef="let tip"> {{tip.naziv}}</td>
+    </ng-container>
+    <ng-container matColumnDef="specijalizacija">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Specijalizacija </th>
+        <td mat-cell *matCellDef="let tip"> {{tip.specijalizacija}} </td>
+    </ng-container>
+    <ng-container matColumnDef="cena">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+        <td mat-cell *matCellDef="let tip"> {{tip.cena}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -34,10 +34,10 @@ public class ZahtevOdsustvo {
     @Column(name = "broj_dana", nullable = false)
     private int brojDana;
 
-    @Column(name = "overen", nullable = false)
+    @Column(name = "overen")
     private boolean overen;
 
-    @Column(name = "klinika_id", nullable = false)
+    @Column(name = "klinika_id")
     private Long klinikaId;
 
     @Column(name = "razlog")

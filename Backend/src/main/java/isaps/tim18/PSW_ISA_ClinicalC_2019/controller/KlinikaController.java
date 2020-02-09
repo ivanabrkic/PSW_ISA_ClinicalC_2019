@@ -113,17 +113,11 @@ public class KlinikaController {
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
       
+    //Vodi racuna o tome kad je pacijent zauzet kad vraca termine
     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
     	
-    		System.out.print(k.getIdKlin());
-    	
-    		Calendar cal = Calendar.getInstance();
-    		SimpleDateFormat sdf = new SimpleDateFormat("d.M.yyyy.");
-    		String date=sdf.format(cal.getTime());
-
-    	
-        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),k.getIdPac()); //Prosli termini se ne izlistavaju.
         
         System.out.print(pregledi);
 
@@ -132,18 +126,30 @@ public class KlinikaController {
 
     @PostMapping(value = "/getZahtevi", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Zahtev>> getZahtevi(@RequestBody Long idKlinike) {
-
-        List<Zahtev> zahtevi = klinikaService.getZahtevi(idKlinike);
-
-        return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+    	
+    	try {
+	        List<Zahtev> zahtevi = klinikaService.getZahtevi(idKlinike);
+	
+	        return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+	        }
+    	catch(Exception E) {
+    		
+    		List<Zahtev> zahtevi =new ArrayList<Zahtev>();
+    		return new ResponseEntity<>(zahtevi, HttpStatus.BAD_REQUEST);
+    	}
     }
 
     @PostMapping(value = "/getSlobodniLekari", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Lekar>> getSlobodniLekari(@RequestBody Zahtev zahtev) throws Exception {
-
-        List<Lekar> lekari = klinikaService.getSlobodniLekariCeoLekar(zahtev);
-
-        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    	
+    	try {
+	        List<Lekar> lekari = klinikaService.getSlobodniLekariCeoLekar(zahtev);
+	
+	        return new ResponseEntity<>(lekari, HttpStatus.OK);
+    	}catch(Exception e) {
+    		 List<Lekar> lekari = new ArrayList<Lekar>();
+    		 return new ResponseEntity<>(lekari, HttpStatus.BAD_REQUEST);
+    	}
     }
 
 
@@ -206,27 +212,33 @@ public class KlinikaController {
     @PostMapping(value="/slobodneKlinike", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<klinikaCena>> slobodneKlinike(@RequestBody lekariterminiDTO zahtev) throws ParseException {
 
-
-        List<Klinika> slobodneKlinike=new ArrayList<>();
-        HashMap<String,Lekar> lekari;
-
-        List<Klinika> listaKlinika =  klinikaService.findAll(); //sve klinike
-        for (Klinika k : listaKlinika){  //filtriranje zauzetih
-            zahtev.setIdKlinike(k.getId());
-            lekari=lekarService.getSlobodniLekariTermini(zahtev);
-            if(!lekari.isEmpty()){
-                slobodneKlinike.add(k);
-            }
+    	try {
+	        List<Klinika> slobodneKlinike=new ArrayList<>();
+	        HashMap<String,Lekar> lekari;
+	
+	        List<Klinika> listaKlinika =  klinikaService.findAll(); //sve klinike
+	        for (Klinika k : listaKlinika){  //filtriranje zauzetih
+	            zahtev.setIdKlinike(k.getId());
+	            lekari=lekarService.getSlobodniLekariTermini(zahtev);
+	            if(!lekari.isEmpty()){
+	                slobodneKlinike.add(k);
+	            }
+	        }
+	        
+	        List<klinikaCena> klinikaICena=new ArrayList<klinikaCena>();
+	        for(Klinika k:slobodneKlinike) {
+	        	float cena=cenovnikService.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),k.getId());
+	        	klinikaICena.add(new klinikaCena(k,cena));
+	        	
+	        }
+	        
+	        return new ResponseEntity<>(klinikaICena, HttpStatus.OK); //vracanje slobodnih
         }
-        
-        List<klinikaCena> klinikaICena=new ArrayList<klinikaCena>();
-        for(Klinika k:slobodneKlinike) {
-        	float cena=cenovnikService.findByNazivAndKlinikaId(zahtev.getSpecijalizacija(),k.getId());
-        	klinikaICena.add(new klinikaCena(k,cena));
-        	
-        }
-
-        return new ResponseEntity<>(klinikaICena, HttpStatus.OK); //vracanje slobodnih
+    	catch(Exception e) {
+    		
+    		 List<klinikaCena> praznaLista=new ArrayList<klinikaCena>();
+    		return new ResponseEntity<>(praznaLista, HttpStatus.BAD_REQUEST);
+    	}
     }
 
     ////////////////////// ZA DODAVANJE PREDEF TERMINA ////////////////////////////////////////////////////////////////////////
@@ -278,11 +290,18 @@ public class KlinikaController {
 
     @PostMapping(value = "/zakaziPredefTerminn", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Pregled> zakaziPredefTermin(@RequestBody predefDTO pregled)throws Exception{
+    	
+    	try {
+	        System.out.print(pregled.getId());
+	        Pregled pronadjenpregled=pregledService.update(pregled);
+	        return new ResponseEntity<>(pronadjenpregled, HttpStatus.OK);
+    	}
+    	catch(Exception e) {
+    		Pregled pronadjenpregled=new Pregled();
+    		 return new ResponseEntity<>(pronadjenpregled, HttpStatus.BAD_REQUEST);
+    	}
 
-        System.out.print(pregled.getId());
-        Optional<Pregled> pronadjenpregled=pregledService.update(pregled);
-
-        return new ResponseEntity<>(pronadjenpregled.get(), HttpStatus.OK);
+       
 
     }
 

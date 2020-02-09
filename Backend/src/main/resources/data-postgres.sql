@@ -53,22 +53,23 @@ insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('EKG', 5
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Opšti pregled', 1000, 1, 'Opšta praksa');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ultrazvuk srca', 6000, 1, 'Kardiolog');
 
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '31.3.2020.', 3, 1, 2, 4, 'Zakazan');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '4.3.2020.', 3, 2, 1, 4, 'Zakazan');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('16:00', '16:30', '29.2.2020.', 7, 2, 2, 4, 'Zakazan');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('02:56', '12:00', '8.2.2020.', 6, 1, 1, 1, 'Zakazan');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '4.1.2020.', 3, 2, 1, 4, 'Završen');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('16:00', '16:30', '29.1.2020.', 7, 2, 2, 4, 'Završen');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '31.1.2020.', 3, 1, 2, 4, 'Završen');
 insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '1.2.2020.', 7, 1, 2, 4, 'Završen');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('00:00', '23:45', '9.2.2020.', 6, 1, 1, 1, 'Zakazan');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '12.3.2020.', 7, 1, 2, 4, 'Zakazan');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '14.3.2020.', 7, 1, 2, 4, 'Zakazan');
+
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('17:30', '23:45', '6.2.2020.', 6, 1, 3, 1, 'Završen');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('02:56', '12:00', '9.2.2020.', 6, 1, 1, 1, 'Završen');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '12.2.2020.', 7, 1, 2, 4, 'Završen');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '14.2.2020.', 7, 1, 2, 4, 'Završen');
 
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:00', '08:15', '20.3.2020.', 1, 2, 6, 60, 'Neaktivan');
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:30', '08:45', '20.3.2020.',2, 2, 1, 10, 'Neaktivan');
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('09:00', '09:15', '1.1.2020.',2, 1, 1, 20, 'Neaktivan');
 
-insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '1.2.2020.', 3, 1, 2, 2, 'Završen');
-insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '1.2.2020.', 7, 2, 2, 2, 'Završen');
-insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('12:00', '13:15', '1.2.2020.', 7, 2, 2, 2, 'Zakazan');
+insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '27.2.2020.', 3, 1, 2, 2, 'Zakazan');
+insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '28.2.2020.', 3, 1, 2, 2, 'Zakazan');
+insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '26.2.2020.', 3, 1, 2, 2, 'Zakazan');
 
 insert into zahtev (id_stavke, stavka, tip_posete, tip_posiljaoca,  posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, jbo_lekara, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
 (6, 'Ultrazvuk srca', 'Pregled', 'Lekar', '1234567891111', 'Ivana Brkic', '8766566541111', '1234567891111','7.3.2020.', '13:00', '13:15', 'Nema dodatnih informacija.', 1);
@@ -106,17 +107,18 @@ insert into zkarton_dijagnoze(zkarton_id,dijagnoze_id) values (3,100);
 insert into zkarton_dijagnoze(zkarton_id,dijagnoze_id) values (1,200);
 
 insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton, recept_id) values (
-'23.02.2020', 'Drogira se', 1, 1, 3
+'23.02.2020', 'Pacijent ima problema sa disanjem.', 1, 1, 3
 );
 insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton, recept_id) values (
-'24.02.2020', 'Ne drogira se vise', 2, 1, 2
+'24.02.2020', 'Pacijent ima ubrzan rad srca.', 2, 1, 2
 );
 
 insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton, recept_id) values (
-'22.02.2020', 'Ne drogira se vise', 2, 1, 1
+'22.02.2020', 'Pacijentov oporavak je zavrsen', 2, 1, 1
 );
 
-insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '1.1.2020.', '1.3.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 60, false, 1);
+insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '26.2.2020.', '1.3.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 5, false, 1);
+insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '1.3.2020.', '1.5.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 60, false, 1);
 
 insert into godisnji_odmor_lekar(lekar_id,datum_od,datum_do) values (11,'2020-2-28','2020-3-12');
 

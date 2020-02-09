@@ -36,18 +36,18 @@ public interface LekarRepository extends JpaRepository<Lekar, Long> {
     List<Long> radnoVremeSpecPregled(Long idKlinike, String vremeZakazivanja, String specijalizacija);
 
     @Query(value = "SELECT id FROM Operacija AS o WHERE o.lekar_id = ?1 " +
-            " AND (( CAST(o.pocetak AS Time) >= CAST(?3 AS Time) AND CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time))" +
-            " OR ( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) AND CAST(o.kraj AS Time) <= CAST(?4 AS Time))" +
+            " AND (( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.pocetak AS Time) < CAST(?4 AS Time) AND CAST(o.kraj AS Time) > CAST(?4 AS Time))" +
+            " OR ( CAST(o.pocetak AS Time) < CAST(?3 AS Time) AND CAST(o.kraj AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time))" +
             " OR ( CAST(o.pocetak AS Time) < CAST(?3 AS Time) AND  CAST(o.kraj AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) > CAST(?4 AS Time))" +
-            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)))" +
+            " OR ( CAST(o.pocetak AS Time) >= CAST(?3 AS Time) AND CAST(o.kraj AS Time) <= CAST(?4 AS Time)))" +
             " AND o.datum = ?2 ", nativeQuery = true)
     List<Long> imaOperacije(Long idLekara, String datum, String pocetak, String kraj);
 
     @Query(value = "SELECT id FROM Pregled AS o WHERE o.lekar_id = ?1 " +
-            " AND (( CAST(o.pocetak AS Time) >= CAST(?3 AS Time) AND CAST(o.pocetak AS Time) <= CAST(?4 AS Time) AND CAST(o.kraj AS Time) >= CAST(?4 AS Time))" +
-            " OR ( CAST(o.pocetak AS Time) <= CAST(?3 AS Time) AND CAST(o.kraj AS Time) >= CAST(?3 AS Time) AND CAST(o.kraj AS Time) <= CAST(?4 AS Time))" +
+            " AND (( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.pocetak AS Time) < CAST(?4 AS Time) AND CAST(o.kraj AS Time) > CAST(?4 AS Time))" +
+            " OR ( CAST(o.pocetak AS Time) < CAST(?3 AS Time) AND CAST(o.kraj AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time))" +
             " OR ( CAST(o.pocetak AS Time) < CAST(?3 AS Time) AND  CAST(o.kraj AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) > CAST(?4 AS Time))" +
-            " OR ( CAST(o.pocetak AS Time) > CAST(?3 AS Time) AND CAST(o.kraj AS Time) < CAST(?4 AS Time)))" +
+            " OR ( CAST(o.pocetak AS Time) >= CAST(?3 AS Time) AND CAST(o.kraj AS Time) <= CAST(?4 AS Time)))" +
             " AND o.datum = ?2 AND (o.status <> 'Završen')", nativeQuery = true)
     List<Long> imaPreglede(Long idLekara, String datum, String pocetak, String kraj);
 

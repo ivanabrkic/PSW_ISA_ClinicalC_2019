@@ -28,6 +28,7 @@
     "@iconify/react": "^1.1.1",
     "@ng-bootstrap/ng-bootstrap": "^5.2.1",
     "@syncfusion/ej2-angular-calendars": "^17.4.47",
+    "@syncfusion/ej2-angular-charts": "^17.4.47",
     "@syncfusion/ej2-angular-dropdowns": "^17.4.47",
     "@syncfusion/ej2-angular-schedule": "^17.4.47",
     "@syncfusion/ej2-material-theme": "~17.3.9",

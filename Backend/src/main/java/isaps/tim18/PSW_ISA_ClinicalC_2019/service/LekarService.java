@@ -181,8 +181,8 @@ public class LekarService {
 
         DateFormat dateFormat= new SimpleDateFormat("d.M.yyyy.");
 
-        Cenovnik cen = cenovnikRepository.findByNaziv(zahtev.getSpecijalizacija());
-        String specijalizacija=cen.getSpecijalizacija();
+       List< Cenovnik> cen = cenovnikRepository.findByNaziv(zahtev.getSpecijalizacija());
+        String specijalizacija=cen.get(0).getSpecijalizacija();
 
         List<Lekar> sviLekari = lekarRepository.findAll();
 

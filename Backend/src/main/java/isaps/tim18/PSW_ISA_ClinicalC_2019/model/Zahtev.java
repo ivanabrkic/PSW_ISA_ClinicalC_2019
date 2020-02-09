@@ -52,7 +52,9 @@ public class Zahtev {
     public Zahtev() {
     }
 
+
     //Konstruktor za test//
+
     public Zahtev(String tipPosete, Long idStavke, String stavkaCenovnika, String tipPosiljaoca, String posiljalacJbo, String posiljalacImePrezime, String jboPacijenta, String jboLekara, String datum, String pocetak, String kraj, String dodatneInformacije, Long idKlinike) {
         this.tipPosete = tipPosete;
         this.idStavke = idStavke;
@@ -69,6 +71,7 @@ public class Zahtev {
         this.idKlinike = idKlinike;
     }
     //
+
 
     public String getTipPosiljaoca() {
         return tipPosiljaoca;
@@ -181,4 +184,5 @@ public class Zahtev {
     public void setDodatneInformacije(String dodatneInformacije) {
         this.dodatneInformacije = dodatneInformacije;
     }
+
 }

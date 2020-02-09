@@ -38,6 +38,14 @@ public class Lekar extends Korisnik{
     public Lekar() {
     }
 
+    public Lekar(String lozinka, String email, String kontaktTelefon, String ime, String prezime, String jbo, boolean aktivnostNaloga, String grad, String drzava, String adresa, String tipKorisnika, int brSlobodnihDana, String radnoVreme, float ocena, String specijalizacija, Klinika klinika) {
+        super(lozinka, email, kontaktTelefon, ime, prezime, jbo, aktivnostNaloga, grad, drzava, adresa, tipKorisnika);
+        this.brSlobodnihDana = brSlobodnihDana;
+        this.radnoVreme = radnoVreme;
+        this.ocena = ocena;
+        this.specijalizacija = specijalizacija;
+        this.klinika = klinika;
+    }
 
 
     public String getSpecijalizacija() {

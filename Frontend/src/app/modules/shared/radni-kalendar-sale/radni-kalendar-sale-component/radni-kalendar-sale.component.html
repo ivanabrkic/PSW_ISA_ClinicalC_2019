@@ -2,7 +2,7 @@
     <button mat-raised-button [mat-dialog-close]="true" class="btn btn-danger">X</button>
 </mat-dialog-actions>
 <h1 mat-dialog-title style="font-size: 27px">Kalendar zauzeća sale</h1>
-<mat-dialog-content style="overflow: hidden" class="text">
+<mat-dialog-content class="text">
     <ejs-schedule #scheduleObj [eventSettings]="eventSettings" (eventClick)="onEventClick($event)"
         (popupOpen)='onPopupOpen($event, data)' height="700" [currentView]="setView" locale='sr-Latn'>
         <e-views>

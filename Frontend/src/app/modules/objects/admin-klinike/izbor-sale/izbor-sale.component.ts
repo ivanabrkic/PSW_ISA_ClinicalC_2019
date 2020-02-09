@@ -3,7 +3,7 @@ import { Zahtev } from 'src/app/models/zahtev/zahtev';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { AdministratorKlinike } from 'src/app/models/admink/administrator-klinike';
 import { Sala } from 'src/app/models/sala/sala';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { Lekar } from 'src/app/models/lekar/lekar';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { RadniKalendarSaleComponent } from 'src/app/modules/shared/radni-kalendar-sale/radni-kalendar-sale-component/radni-kalendar-sale.component';
@@ -56,7 +56,7 @@ export class IzborSaleComponent implements OnInit {
 
   @Input() public passZahtev: Zahtev;
 
-  constructor(public dialog: MatDialog, private pacijentService: PacijentService, private lekarService: LekarService, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
+  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog, private pacijentService: PacijentService, private lekarService: LekarService, private klinikaService: KlinikaService, private adminkService: AdminKlinikeService) {
     this.dataSource = new MatTableDataSource(this.sale);
   }
 
@@ -136,7 +136,12 @@ export class IzborSaleComponent implements OnInit {
         "Poštovani/a " + data.ime + " " + data.prezime + " obaveštavamo vas o zakazanoj/om  " + tipPosete + " " + operacija.tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
         + operacija.datum + " od " + operacija.pocetak + " do " + operacija.kraj + " "
         + "kod lekara " + operacija.jboLekara + " za pacijenta " + operacija.jboPacijenta + "."
-      this.klinikaService.sendEmail(email).subscribe(data => alert(data.text))
+      this.klinikaService.sendEmail(email).subscribe(data => {
+        this._snackBar.open(data.text.toString(), "",  {
+        duration: 2000,
+        verticalPosition : 'top'
+      });
+    })
 
     })
   }
@@ -150,8 +155,12 @@ export class IzborSaleComponent implements OnInit {
         "Poštovani/a " + lekar.ime + " " + lekar.prezime + " obaveštavamo vas o zakazanoj/om  " + tipPosete + " " + pregled.tipPregleda + " u sali " + sala.naziv + " " + sala.broj + ". Operacija je zakazan za "
         + pregled.datum + " od " + pregled.pocetak + " do " + pregled.kraj + " "
         + "kod lekara (JBO lekara) " + pregled.jboLekara + " za pacijenta (JBO pacijenta) " + pregled.jboPacijenta + "."
-      this.klinikaService.sendEmail(email).subscribe(data =>
-        alert(data.text + " " + lekar.ime + " " + lekar.prezime))
+      this.klinikaService.sendEmail(email).subscribe(data => {
+        this._snackBar.open(data.text.toString() + " " + lekar.ime + " " + lekar.prezime, "",  {
+          duration: 2000,
+          verticalPosition : 'top'
+        });
+      })
     })
   }
 
@@ -190,7 +199,10 @@ export class IzborSaleComponent implements OnInit {
             if (this.passZahtev.tipPosete == 'Operacija') {
               this.klinikaService.zakaziOperaciju(dialogResult[1])
                 .subscribe(data => {
-                  alert(data.text)
+                  this._snackBar.open(data.text.toString(), "",  {
+                    duration: 2000,
+                    verticalPosition : 'top'
+                  });
                   this.klinikaService.removeZahtev(dialogResult[2])
                     .subscribe(data => {
                       dialogResult[1].jboLekara.forEach(element => {
@@ -205,7 +217,10 @@ export class IzborSaleComponent implements OnInit {
             else {
               this.klinikaService.zakaziPregled(dialogResult[1])
                 .subscribe(data => {
-                  alert(data.text)
+                  this._snackBar.open(data.text.toString(), "",  {
+                    duration: 2000,
+                    verticalPosition : 'top'
+                  });
                   this.klinikaService.removeZahtev(dialogResult[2])
                     .subscribe(data => {
                       this.posaljiLekaruMail(dialogResult[1].jboLekara, dialogResult[3], dialogResult[1], this.passZahtev.tipPosete)

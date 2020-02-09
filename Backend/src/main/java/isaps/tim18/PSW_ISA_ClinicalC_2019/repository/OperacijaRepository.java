@@ -46,7 +46,10 @@ public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
     @Query("SELECT new isaps.tim18.PSW_ISA_ClinicalC_2019.dto.posetaLekarKlinikaDTO(p.id,l,k.id,k.naziv,k.ocena,l.ocena, c.naziv,p.datum,p.pocetak,p.kraj) from Operacija p inner join p.lekari as l inner join p.sala as s  inner join s.klinika as k inner join p.cenovnik as c " +
             "WHERE p.pacijent.id=?1 ")
     List<posetaLekarKlinikaDTO> findInfo(Long id);
-    
+
+    @Query("SELECT p FROM Operacija p WHERE p.datum = ?1 AND p.status = ?2 AND p.sala.klinika.id = ?3")
+    List<Operacija> findByDatumAndStatusAndKlinikaId(String format, String završen, Long idKlinike);
+
 //  //Vraca samo prosle operacije
 //    @Query("Select p from Operacija as p where pacijent.id=?1 and CURRENT_DATE > to_date(p.datum,'d.m.yyyy.')")
 //	List<Operacija> findHistoryByPacijentId(Long id);

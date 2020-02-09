@@ -5,7 +5,7 @@ public class klinikaPacDTO {
 	Long idPac;
 	Long idKlin;
 	
-	klinikaPacDTO(Long k,Long p){
+	public klinikaPacDTO(Long k,Long p){
 		this.idPac=p;
 		this.idKlin=k;
 		
