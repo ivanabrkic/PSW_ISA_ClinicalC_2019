@@ -22,7 +22,7 @@ public class predefDTO {
 		this.pacijent_id = pacijent_id;
 	}
 	
-	predefDTO(Long id,Long pacId){
+	public predefDTO(Long id,Long pacId){
 		this.id=id;
 		this.pacijent_id=pacId;
 	}

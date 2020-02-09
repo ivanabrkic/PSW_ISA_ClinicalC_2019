@@ -124,7 +124,7 @@ public class KlinikaService {
         return predef;
     }
     
- public List<predefInfoDTO> getPreglediPredefKlinPac(Long id,String s,Long pacId) throws ParseException {
+ public List<predefInfoDTO> getPreglediPredefKlinPac(Long id,Long pacId) throws ParseException {
     	
     	
         List<predefInfoDTO> predef = pregledRepository.findByKlinikaIdPredef2(id);
