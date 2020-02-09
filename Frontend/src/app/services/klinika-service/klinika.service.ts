@@ -15,6 +15,8 @@ import { PregledId } from 'src/app/models/pregled/PregledId';
 import { pretragaDTO } from 'src/app/models/pretragaDTO/pretragaDTO';
 import {OperacijaKalendarDTO} from '../../models/OperacijaKalendarDTO/operacija-kalendar-dto';
 import { Email } from 'src/app/models/email/email';
+import { Prihod } from 'src/app/models/prihodi/prihodi';
+import { DateValue } from 'src/app/models/prihodi/datevalue';
 
 const httpOptions = {headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -140,5 +142,22 @@ export class KlinikaService {
   public findOperacijeByLekar(lekar: Lekar): Observable<OperacijaKalendarDTO[]>{
     const body = JSON.stringify(lekar);
     return this.http.post<OperacijaKalendarDTO[]>('/server/klinika/findOperacijeByLekar', body, httpOptions);
+  }
+
+  ///////////////////////////// PRIHODI ///////////////////////////////////////////////////////////////////
+  public getPrihodi(prihod: Prihod){
+    return this.http.post<Prihod>('/server/izvestajklinike/getPrihod', JSON.stringify(prihod), httpOptions);
+  }
+
+  public getMesecniBroj(idKlinike: number){
+    return this.http.post<DateValue[]>('/server/izvestajklinike/getMesecniBroj', idKlinike, httpOptions);
+  }
+
+  public getNedeljniBroj(idKlinike: number){
+    return this.http.post<DateValue[]>('/server/izvestajklinike/getNedeljniBroj', idKlinike, httpOptions);
+  }
+
+  public getDnevniBroj(idKlinike: number){
+    return this.http.post<DateValue[]>('/server/izvestajklinike/getDnevniBroj', idKlinike, httpOptions);
   }
 }

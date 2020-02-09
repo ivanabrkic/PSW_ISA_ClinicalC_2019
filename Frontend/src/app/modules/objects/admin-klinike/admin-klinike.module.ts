@@ -30,6 +30,8 @@ import { PredefinisaniTerminiComponent } from './predefinisani-termini/predefini
 import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
 import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/zahtevi-godisnji-odsustvo.component';
 import { IzvestajKlinikaComponent } from './izvestaj-klinika/izvestaj-klinika.component';
+import { ChartModule } from '@syncfusion/ej2-angular-charts';
+import { DateTimeService, LineSeriesService, DateTimeCategoryService, StripLineService, ZoomService} from '@syncfusion/ej2-angular-charts';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent,
@@ -79,6 +81,7 @@ import { IzvestajKlinikaComponent } from './izvestaj-klinika/izvestaj-klinika.co
     MatSnackBarModule,
     MatButtonModule,
     MatPaginatorModule,
+    ChartModule, 
     RouterModule.forRoot([{ path: 'administratorklinikepregled', component: AdminKlinikePregledComponent},
       { path: 'administratorklinikeizmena', component: AdminKlinikeIzmenaComponent},
       { path: 'izmenaprofilklinike', component: IzmenaProfilKlinikeComponent},
@@ -102,7 +105,7 @@ import { IzvestajKlinikaComponent } from './izvestaj-klinika/izvestaj-klinika.co
     ZakaziTerminComponent,
     RegistracijaTipovaComponent
   ],
-  providers: [AdminKlinikeService, PredefTerminiServiceService],
+  providers: [AdminKlinikeService, PredefTerminiServiceService, DateTimeService, LineSeriesService, DateTimeCategoryService, StripLineService, ZoomService],
   exports:   [SidebarAdminKlinikeComponent,
     AdminKlinikeIzmenaComponent,
     AdminKlinikePregledComponent,
