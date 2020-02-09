@@ -84,8 +84,8 @@ public class CenovnikService {
     }
 
     public String findByNaziv(String ime){
-        List<Cenovnik> found=cenovnikRepository.findByNaziv(ime);
-        return found.get(0).getSpecijalizacija();
+        Cenovnik found=cenovnikRepository.findByNaziv(ime);
+        return found.getSpecijalizacija();
     }
 
     public float findByNazivAndKlinikaId(String n,Long id) {

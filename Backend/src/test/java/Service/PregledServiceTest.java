@@ -88,6 +88,7 @@ public class PregledServiceTest {
 		Pregled p3=this.pregledService.update(pregledDTO1);
 		assertEquals(null,p3);
 		
+	
 	}
 
 }
