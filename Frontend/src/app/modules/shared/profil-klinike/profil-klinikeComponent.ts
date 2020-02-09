@@ -13,11 +13,14 @@ export class ProfilKlinikeComponent implements OnInit {
  klinika:Klinika= new Klinika();
  sale: Sala[];
 
+ fullAdresa : String
+
   constructor(private klinikaService : KlinikaService,private router:Router) {
    }
 
   ngOnInit() {
     this.klinika=history.state.data;
+    this.fullAdresa = this.klinika.adresa + "," + this.klinika.grad + "," + this.klinika.drzava
   }
 
   lekariNavigate(event){

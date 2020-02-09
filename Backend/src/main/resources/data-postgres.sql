@@ -66,8 +66,9 @@ insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust,
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:30', '08:45', '20.3.2020.',2, 2, 1, 10, 'Neaktivan');
 insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('09:00', '09:15', '1.1.2020.',2, 1, 1, 20, 'Neaktivan');
 
-insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '1.2.2020.', 3, 1, 2, 2, 'Zakazan');
-insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '1.2.2020.', 7, 2, 2, 2, 'Zakazan');
+insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '27.2.2020.', 3, 1, 2, 2, 'Zakazan');
+insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '28.2.2020.', 3, 1, 2, 2, 'Zakazan');
+insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '26.2.2020.', 3, 1, 2, 2, 'Zakazan');
 
 insert into zahtev (id_stavke, stavka, tip_posete, tip_posiljaoca,  posiljalac_jbo, posiljalac_ime_prezime, jbo_pacijenta, jbo_lekara, datum, pocetak, kraj, dodatne_informacije, id_klinike) values
 (6, 'Ultrazvuk srca', 'Pregled', 'Lekar', '1234567891111', 'Ivana Brkic', '8766566541111', '1234567891111','7.3.2020.', '13:00', '13:15', 'Nema dodatnih informacija.', 1);
@@ -114,7 +115,8 @@ insert into zkartoni_opsti_izvestaji(opsti_izvestaj_id, zkarton) values (2,1);
 insert into zkarton_dijagnoze(zkarton_id,dijagnoze_id) values (3,100);
 insert into zkarton_dijagnoze(zkarton_id,dijagnoze_id) values (1,200);
 
-insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '1.1.2020.', '1.3.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 60, false, 1);
+insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '26.2.2020.', '1.3.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 5, false, 1);
+insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '1.3.2020.', '1.5.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 60, false, 1);
 
 insert into godisnji_odmor_lekar(lekar_id,datum_od,datum_do) values (11,'2020-2-28','2020-3-12');
 

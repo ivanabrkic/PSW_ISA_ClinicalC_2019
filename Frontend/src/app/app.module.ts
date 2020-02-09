@@ -6,30 +6,30 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home';
 import { LoginComponent } from './home/login';
 import { RegisterComponent } from './home/register';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MustMatch} from './helpers/MustMatch';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MustMatch } from './helpers/MustMatch';
 
-import {RouterModule} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule, MatStepperModule, MatButtonModule, MatSelectModule, MatOptionModule, MatFormFieldModule } from '@angular/material';
 
 
-import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { RegistracijaKlinikeComponent } from './modules/objects/klinika/registracija-klinike/registracija-klinike.component';
 import { SidebarAdminkcComponent } from './modules/objects/adminkc/sidebar-adminkc.component';
 import { AdminkcComponent } from './modules/objects/adminkc/adminkc.component';
-import {SidebarLekarComponent} from './modules/objects/lekar/sidebarLekar.component';
-import {LekarComponent} from './modules/objects/lekar/lekar.component';
-import {LekarPregledComponent} from './modules/objects/lekar/lekarPregled.component';
+import { SidebarLekarComponent } from './modules/objects/lekar/sidebarLekar.component';
+import { LekarComponent } from './modules/objects/lekar/lekar.component';
+import { LekarPregledComponent } from './modules/objects/lekar/lekarPregled.component';
 
-import {PacijentComponent} from './modules/objects/pacijent/pacijent.component';
-import {SidebarPacijentComponent} from './modules/objects/pacijent/sidebar.component';
-import {PacijentPregledComponent} from './modules/objects/pacijent/PacijentPregled.component';
+import { PacijentComponent } from './modules/objects/pacijent/pacijent.component';
+import { SidebarPacijentComponent } from './modules/objects/pacijent/sidebar.component';
+import { PacijentPregledComponent } from './modules/objects/pacijent/PacijentPregled.component';
 
 import { ProfilMedSestraComponent } from './modules/objects/medicinskas/profil-med-sestra.component';
 import { PrikazPacijenataTabelaComponent } from './modules/shared/prikaz-pacijenata-tabela/prikaz-pacijenata-tabela.component';
@@ -39,13 +39,13 @@ import { OdsustvoComponent } from './modules/objects/medicinskas/odsustvo/odsust
 import { AdminkcIzmenaComponent } from './modules/objects/adminkc/adminkc-izmena/adminkc-izmena.component';
 import { MedSestraIzmenaComponent } from './modules/objects/medicinskas/medsestra-izmena/medsestra-izmena.component';
 import { ZahteviRegistracijaComponent } from './modules/objects/adminkc/zahtevi-registracija/zahtevi-registracija.component';
-import {ListaKlinikaComponent} from './modules/shared/lista-klinika/lista-klinikaComponent';
-import {ZdravstveniKartonComponent} from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
+import { ListaKlinikaComponent } from './modules/shared/lista-klinika/lista-klinikaComponent';
+import { ZdravstveniKartonComponent } from './modules/shared/zdravstveni-karton/zdravstveni-kartonComponent';
 import { KreiranjeDijagnozaComponent } from './modules/objects/adminkc/kreiranje-dijagnoza/kreiranje-dijagnoza.component';
 import { PoseteComponent } from './modules/shared/pregledi-operacije-lista/pregledi-operacije-lista';
 import { AdminKlinikeModule } from './modules/objects/admin-klinike/admin-klinike.module';
 import { DijalogOdbijanjeZahtevaComponent } from './modules/objects/adminkc/dijalog-odbijanje-zahteva/dijalog-odbijanje-zahteva.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { KreiranjeLekovaComponent } from './modules/objects/adminkc/kreiranje-lekova/kreiranje-lekova.component';
 import { NotFoundComponent } from './home/not-found/not-found.component';
 import { KlinikaService } from './services/klinika-service/klinika.service';
@@ -57,7 +57,7 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
-import { PromenaSifreComponent} from './modules/shared/promena-sifre/promena-sifre.component';
+import { PromenaSifreComponent } from './modules/shared/promena-sifre/promena-sifre.component';
 import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
 import { SessionService } from './services/SessionService/session.service';
 // search module
@@ -76,21 +76,25 @@ import { DijalogUnosDijagnozaComponent } from './modules/shared/dijalog-unos-dij
 
 import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { PredefinisaniTerminiComponent } from './modules/shared/predefinisani-termini/predefinisani-termini.component';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { PregledIzvestajaComponent } from './modules/shared/pregled-izvestaja/pregled-izvestaja.component';
 import { PregledLekovaComponent } from './modules/shared/pregled-lekova/pregled-lekova.component';
 import { IzmenaIzvestajaComponent } from './modules/shared/izmena-izvestaja/izmena-izvestaja.component';
 
 import { PredefTerminiServiceService } from './services/predefTermini-service/predef-termini-service.service';
 import { RadniKalendarLekarComponent } from './modules/shared/radni-kalendar-lekar/radni-kalendar-lekar.component';
-import {ScheduleModule} from '@syncfusion/ej2-angular-schedule';
+import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { OdsustvoDijalogComponent } from './modules/shared/dijalog-odsustvo/odsustvo-dijalog.component';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
 import { ZakaziLekarComponent } from './modules/objects/lekar/zakazi-lekar/zakazi-lekar.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { PregledSalaComponent } from './modules/objects/admin-klinike/pregled-sala/pregled-sala.component';
 import { ListaSalaComponent } from './modules/shared/lista-sala/lista-salaComponent';
+import { MapaComponent } from './modules/objects/admin-klinike/mapa/mapa.component';
+import { CenovnikProfilComponent } from './modules/shared/cenovnik-profil/cenovnik-profil.component';
+import { MapaProfilComponent } from './modules/shared/mapa-profil/mapa-profil.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -145,10 +149,11 @@ import { ListaSalaComponent } from './modules/shared/lista-sala/lista-salaCompon
     ListaSalaComponent,
     ZakaziLekarComponent,
     RadniKalendarLekarComponent,
-    OdsustvoDijalogComponent
-
+    OdsustvoDijalogComponent,
+    CenovnikProfilComponent,
+    MapaProfilComponent
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     NgbModule,
     Ng2SearchPipeModule,
@@ -173,75 +178,78 @@ import { ListaSalaComponent } from './modules/shared/lista-sala/lista-salaCompon
     MatStepperModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSelectModule,   
+    MatSelectModule,
     MatOptionModule,
     MatButtonModule,
     MatFormFieldModule,
     TextFieldModule,
     MatIconModule,
     RouterModule.forRoot([
-      { path: 'administratorKc', component: AdminkcComponent},
-      { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
-      { path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent},
-      { path: 'formaIzvestaj', component: FormaIzvestajComponent},
-      { path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
-      { path: 'promenaLozinke', component: PromenaSifreComponent},
-      { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
-      { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
-      { path: 'medicinskaSestra', component: ProfilMedSestraComponent},
-      { path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent},
-      { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
-      { path: 'lekar', component: LekarComponent},
-      { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
-      { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
-      { path: 'odmor', component: OdmorComponent},
-      { path: 'overaRecepta', component: OveraRecepataComponent},
-      { path: 'izmenaIzvestaja', component: IzmenaIzvestajaComponent},
-      { path: 'odsustvo', component: OdsustvoComponent},
-      { path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
-      { path: 'lekarPregled', component: LekarPregledComponent},
-      {path: 'administratorKc', component: AdminkcComponent},
-      {path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
-      {path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent},
-      {path: 'dijalogOdsustvo', component: OdsustvoDijalogComponent},
-      {path: 'formaIzvestaj', component: FormaIzvestajComponent},
-      {path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
-      {path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
-      {path: 'radniKalendarLekar', component: RadniKalendarLekarComponent},
-      {path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
-      {path: 'medicinskaSestra', component: ProfilMedSestraComponent},
-      {path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent},
-      {path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
-      {path: 'lekar', component: LekarComponent},
-      {path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
-      {path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
-      {path: 'odmor', component: OdmorComponent},
-      {path: 'overaRecepta', component: OveraRecepataComponent},
-      {path: 'izmenaIzvestaja', component: IzmenaIzvestajaComponent},
-      {path: 'odsustvo', component: OdsustvoComponent},
-      {path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
-      {path: 'lekarPregled', component: LekarPregledComponent},
-      {path: 'pacijentPregled', component: PacijentPregledComponent},
-      {path: 'pacijent', component: PacijentComponent},
-      {path: 'pregledIzvestaja', component: PregledIzvestajaComponent},
-      {path: 'pregledLekova', component: PregledLekovaComponent},
-      {path: 'login', component: LoginComponent},
-      {path: 'kreiranjeDijagnoza', component: KreiranjeDijagnozaComponent},
-      {path: 'kreiranjeLekova', component: KreiranjeLekovaComponent},
-      {path: 'register', component: RegisterComponent},
-      {path: 'welcome', component: HomeComponent},
-      {path: 'pretragaPacijenata', component: PretragaPacijenataComponent},
-      {path: '', redirectTo: 'welcome', pathMatch: 'full'},
-      {path: 'listaKlinika', component: ListaKlinikaComponent},
-      {path: 'zdravstveniKarton', component: ZdravstveniKartonComponent},
-      {path: 'listaPoseta', component: PoseteComponent},
-      {path: 'listaLekara',component:ListaLekaraComponent},
-      {path: 'profilKlinike',component:ProfilKlinikeComponent},
-      {path: 'listaPredefinisanih',component:PredefinisaniTerminiComponent},
-       {path: 'listaSala', component: ListaSalaComponent},
-      { path: '**', component: NotFoundComponent},
-    ])
-
+      { path: 'administratorKc', component: AdminkcComponent },
+      { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent },
+      { path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent },
+      { path: 'formaIzvestaj', component: FormaIzvestajComponent },
+      { path: 'adminkcIzmena', component: AdminkcIzmenaComponent },
+      { path: 'promenaLozinke', component: PromenaSifreComponent },
+      { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent },
+      { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent },
+      { path: 'medicinskaSestra', component: ProfilMedSestraComponent },
+      { path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent },
+      { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent },
+      { path: 'lekar', component: LekarComponent },
+      { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent },
+      { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent },
+      { path: 'odmor', component: OdmorComponent },
+      { path: 'overaRecepta', component: OveraRecepataComponent },
+      { path: 'izmenaIzvestaja', component: IzmenaIzvestajaComponent },
+      { path: 'odsustvo', component: OdsustvoComponent },
+      { path: 'sidebarMedSestra', component: SidebarMedSestraComponent },
+      { path: 'lekarPregled', component: LekarPregledComponent },
+      { path: 'administratorKc', component: AdminkcComponent },
+      { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent },
+      { path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent },
+      { path: 'dijalogOdsustvo', component: OdsustvoDijalogComponent },
+      { path: 'formaIzvestaj', component: FormaIzvestajComponent },
+      { path: 'adminkcIzmena', component: AdminkcIzmenaComponent },
+      { path: 'registracijaKlinike', component: RegistracijaKlinikeComponent },
+      { path: 'radniKalendarLekar', component: RadniKalendarLekarComponent },
+      { path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent },
+      { path: 'medicinskaSestra', component: ProfilMedSestraComponent },
+      { path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent },
+      { path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent },
+      { path: 'lekar', component: LekarComponent },
+      { path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent },
+      { path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent },
+      { path: 'odmor', component: OdmorComponent },
+      { path: 'overaRecepta', component: OveraRecepataComponent },
+      { path: 'izmenaIzvestaja', component: IzmenaIzvestajaComponent },
+      { path: 'odsustvo', component: OdsustvoComponent },
+      { path: 'sidebarMedSestra', component: SidebarMedSestraComponent },
+      { path: 'lekarPregled', component: LekarPregledComponent },
+      { path: 'pacijentPregled', component: PacijentPregledComponent },
+      { path: 'pacijent', component: PacijentComponent },
+      { path: 'pregledIzvestaja', component: PregledIzvestajaComponent },
+      { path: 'pregledLekova', component: PregledLekovaComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'kreiranjeDijagnoza', component: KreiranjeDijagnozaComponent },
+      { path: 'kreiranjeLekova', component: KreiranjeLekovaComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'welcome', component: HomeComponent },
+      { path: 'pretragaPacijenata', component: PretragaPacijenataComponent },
+      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+      { path: 'listaKlinika', component: ListaKlinikaComponent },
+      { path: 'zdravstveniKarton', component: ZdravstveniKartonComponent },
+      { path: 'listaPoseta', component: PoseteComponent },
+      { path: 'listaLekara', component: ListaLekaraComponent },
+      { path: 'profilKlinike', component: ProfilKlinikeComponent },
+      { path: 'listaPredefinisanih', component: PredefinisaniTerminiComponent },
+      { path: 'listaSala', component: ListaSalaComponent },
+      { path: '**', component: NotFoundComponent },
+    ]),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
+      libraries: ['places']
+    })
   ],
   providers: [
     DatePipe,
