@@ -31,6 +31,13 @@ public class Cenovnik {
         this.klinika = klinika;
     }
 
+    public Cenovnik(String naziv, String specijalizacija, float cena, Klinika klinika) {
+        this.naziv = naziv;
+        this.specijalizacija = specijalizacija;
+        this.cena = cena;
+        this.klinika = klinika;
+    }
+
     public String getSpecijalizacija() {
         return specijalizacija;
     }

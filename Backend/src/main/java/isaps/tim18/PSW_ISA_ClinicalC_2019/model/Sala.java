@@ -26,6 +26,12 @@ public class Sala {
     public Sala() {
     }
 
+    public Sala(String naziv, String broj, Klinika klinika) {
+        this.naziv = naziv;
+        this.broj = broj;
+        this.klinika = klinika;
+    }
+
     public String getBroj() {
         return broj;
     }

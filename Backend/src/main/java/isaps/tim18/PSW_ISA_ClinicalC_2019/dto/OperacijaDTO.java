@@ -33,6 +33,17 @@ public class OperacijaDTO {
         this.jboLekara = new ArrayList<String>();
     }
 
+    public OperacijaDTO(String jboPacijenta, String datum, String pocetak, String kraj, List<String> jboLekara, String tipPregleda, Long tipId, Long salaId) {
+        this.jboPacijenta = jboPacijenta;
+        this.datum = datum;
+        this.pocetak = pocetak;
+        this.kraj = kraj;
+        this.jboLekara = jboLekara;
+        this.tipPregleda = tipPregleda;
+        this.tipId = tipId;
+        this.salaId = salaId;
+    }
+
     public Long getSalaId() {
         return salaId;
     }

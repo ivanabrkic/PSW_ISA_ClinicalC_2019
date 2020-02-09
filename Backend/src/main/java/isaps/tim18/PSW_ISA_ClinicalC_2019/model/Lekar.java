@@ -38,6 +38,8 @@ public class Lekar extends Korisnik{
     public Lekar() {
     }
 
+
+
     public String getSpecijalizacija() {
         return specijalizacija;
     }

@@ -165,11 +165,15 @@ public class KlinikaController {
 
     @PostMapping(value = "/zakaziPregled", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Message> zakaziPregled(@RequestBody PregledDTO pregled){
+        try {
 
-        String zakazi =  klinikaService.zakaziPregled(pregled);
-        Message m = new Message(zakazi);
+            String zakazi = klinikaService.zakaziPregled(pregled);
+            Message m = new Message(zakazi);
 
-        return new ResponseEntity<>(m, HttpStatus.OK);
+            return new ResponseEntity<>(m, HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(new Message("fail"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(value = "/zakaziOperaciju", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
