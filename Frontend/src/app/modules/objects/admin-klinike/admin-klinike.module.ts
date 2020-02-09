@@ -29,6 +29,7 @@ import { RegistracijaTipovaComponent } from './registracija-tipova/registracija-
 import { PredefinisaniTerminiComponent } from './predefinisani-termini/predefinisani-termini.component';
 import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
 import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/zahtevi-godisnji-odsustvo.component';
+import { IzvestajKlinikaComponent } from './izvestaj-klinika/izvestaj-klinika.component';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent,
@@ -47,7 +48,8 @@ import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/za
     TipoviPregledaComponent,
     RegistracijaTipovaComponent,
     PredefinisaniTerminiComponent,
-    ZahteviGodisnjiOdsustvoComponent
+    ZahteviGodisnjiOdsustvoComponent,
+    IzvestajKlinikaComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,8 @@ import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/za
       {path: 'zahtevi', component: ZahteviOperacijePreglediComponent},
       {path: 'tipovi', component:TipoviPregledaComponent},
       {path: 'predefinisani', component:PredefinisaniTerminiComponent},
-      {path: 'zahteviOdsustvoGodisnji', component:ZahteviGodisnjiOdsustvoComponent}
+      {path: 'zahteviOdsustvoGodisnji', component:ZahteviGodisnjiOdsustvoComponent},
+      {path: 'izvestaj', component:IzvestajKlinikaComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',

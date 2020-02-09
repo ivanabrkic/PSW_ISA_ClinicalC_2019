@@ -16,7 +16,7 @@ export class ZahtevOdsustvo {
   razlog : String
   klinikaId : number
 
-  constructor(datumOd: string, datumDo: string, brojDana: number, opis: string, korisnikIme: string, korisnikPrezime: string, korisnikJbo: string, korisnikUloga: string, overen: boolean) {
+  constructor(datumOd: string, datumDo: string, brojDana: number, opis: string, korisnikIme: string, korisnikPrezime: string, korisnikJbo: string, korisnikUloga: string, overen: boolean, klinikaId:number) {
     this.datumOd = datumOd;
     this.datumDo = datumDo;
     this.brojDana = brojDana;
@@ -26,5 +26,6 @@ export class ZahtevOdsustvo {
     this.korisnikJbo = korisnikJbo;
     this.korisnikUloga = korisnikUloga;
     this.overen = overen;
+    this.klinikaId = klinikaId
   }
 }
