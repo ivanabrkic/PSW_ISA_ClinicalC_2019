@@ -113,6 +113,7 @@ public class KlinikaController {
         return new ResponseEntity<>(pregledi, HttpStatus.OK);
     }
       
+    //Vodi racuna o tome kad je pacijent zauzet kad vraca termine
     @PostMapping(value = "/getPreglediPredef", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<predefInfoDTO>> pregledpredef(@RequestBody klinikaPacDTO k) throws Exception {
     	
@@ -123,7 +124,7 @@ public class KlinikaController {
     		String date=sdf.format(cal.getTime());
 
     	
-        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),date,k.getIdPac()); //Prosli termini se ne izlistavaju.
+        List<predefInfoDTO> pregledi = klinikaService.getPreglediPredefKlinPac(k.getIdKlin(),k.getIdPac()); //Prosli termini se ne izlistavaju.
         
         System.out.print(pregledi);
 
@@ -276,9 +277,9 @@ public class KlinikaController {
     public ResponseEntity<Pregled> zakaziPredefTermin(@RequestBody predefDTO pregled)throws Exception{
 
         System.out.print(pregled.getId());
-        Optional<Pregled> pronadjenpregled=pregledService.update(pregled);
+        Pregled pronadjenpregled=pregledService.update(pregled);
 
-        return new ResponseEntity<>(pronadjenpregled.get(), HttpStatus.OK);
+        return new ResponseEntity<>(pronadjenpregled, HttpStatus.OK);
 
     }
 

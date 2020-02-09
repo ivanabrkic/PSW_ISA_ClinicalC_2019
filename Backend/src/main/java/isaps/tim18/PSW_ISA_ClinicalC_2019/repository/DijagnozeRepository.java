@@ -21,10 +21,10 @@ public interface DijagnozeRepository extends JpaRepository<Dijagnoze,Long> {
 
     @Query(nativeQuery=true,value= "SELECT naziv\n" +
             "FROM zkarton_dijagnoze JOIN zkarton  ON\n" +
-            "zkarton_dijagnoze.zdravstveni_karton_id= zkarton.id \n" +
+            "zkarton_dijagnoze.zkarton_id= zkarton.id \n" +
             "JOIN dijagnoze ON\n" +
-            "zkarton_dijagnoze.dijagnoze_sifra=dijagnoze.sifra\n" +
-            "WHERE pacijent_id=(:id) and zdravstveni_karton_id = id\n")
+            "zkarton_dijagnoze.dijagnoze_id=dijagnoze.sifra\n" +
+            "WHERE pacijent_id=(:id) \n")
     List<String> find(@Param("id") Long id);
 
     Dijagnoze findByNazivDijagnoze(String nazivDijagnoze);
