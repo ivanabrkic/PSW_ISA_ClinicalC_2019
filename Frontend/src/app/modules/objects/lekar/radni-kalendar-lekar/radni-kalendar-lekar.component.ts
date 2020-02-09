@@ -47,7 +47,7 @@ export class RadniKalendarLekarComponent implements OnInit {
               private opstiIzvestajService: OpstiIzvestajService, private datePipe: DatePipe) {
     this.pregledService.getPredefinisane(this.sessionService.ulogovanLekar.jbo).subscribe(pregledi => {
       this.pregledi = pregledi;
-
+      console.log(this.pregledi)
       if (this.pregledi) {
 
         let i;
@@ -85,35 +85,37 @@ export class RadniKalendarLekarComponent implements OnInit {
           }
         }
       }
-    });
-    this.klinikaService.findOperacijeByLekar(this.sessionService.ulogovanLekar).subscribe(podaci => {
-      this.operacije = podaci;
-      console.log(this.operacije);
 
-      if (this.operacije) {
-        let j;
+      this.klinikaService.findOperacijeByLekar(this.sessionService.ulogovanLekar).subscribe(podaci => {
+        this.operacije = podaci;
+        console.log(this.operacije);
 
-        for (j = 0; j < this.operacije.length; j++) {
-          const godina = parseInt(this.operacije[j].datum.split('.')[2]);
-          const mesec = parseInt(this.operacije[j].datum.split('.')[1]) - 1;
-          const dan = parseInt(this.operacije[j].datum.split('.')[0]);
-          const sat1 = parseInt(this.operacije[j].pocetak.split(':')[0]);
-          const minut1 = parseInt(this.operacije[j].pocetak.split(':')[1]);
-          const sat2 = parseInt(this.operacije[j].kraj.split(':')[0]);
-          const minut2 = parseInt(this.operacije[j].kraj.split(':')[1]);
+        if (this.operacije) {
+          let j;
 
-          this.data.push({
-            Id: j,
-            Subject: 'Operacija',
-            EventType: this.operacije[j].jboPacijenta,
-            StartTime: new Date(godina, mesec, dan, sat1, minut1),
-            EndTime: new Date(godina, mesec, dan, sat2, minut2),
-            IsAllDay: false
-          });
+          for (j = 0; j < this.operacije.length; j++) {
+            const godina = parseInt(this.operacije[j].datum.split('.')[2]);
+            const mesec = parseInt(this.operacije[j].datum.split('.')[1]) - 1;
+            const dan = parseInt(this.operacije[j].datum.split('.')[0]);
+            const sat1 = parseInt(this.operacije[j].pocetak.split(':')[0]);
+            const minut1 = parseInt(this.operacije[j].pocetak.split(':')[1]);
+            const sat2 = parseInt(this.operacije[j].kraj.split(':')[0]);
+            const minut2 = parseInt(this.operacije[j].kraj.split(':')[1]);
+
+            this.data.push({
+              Id: j,
+              Subject: 'Operacija',
+              EventType: this.operacije[j].jboPacijenta,
+              StartTime: new Date(godina, mesec, dan, sat1, minut1),
+              EndTime: new Date(godina, mesec, dan, sat2, minut2),
+              IsAllDay: false
+            });
+          }
         }
-      }
 
+      });
     });
+
 
     loadCldr(
       require('cldr-data/supplemental/numberingSystems.json'),

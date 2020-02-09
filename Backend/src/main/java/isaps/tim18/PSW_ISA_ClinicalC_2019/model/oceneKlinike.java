@@ -9,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class oceneKlinike {
 
-   
-
 	@EmbeddedId
     oceneKlinikeKljuc id;
 	

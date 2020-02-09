@@ -1,10 +1,9 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.TerminDTO;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.lekariterminiDTO;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.GodisnjiOdmorLekarRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekarRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,9 @@ public class LekarService {
 
     @Autowired
     private PacijentRepository pacijentRepository;
+    
+    @Autowired
+    private GodisnjiOdmorLekarRepository godOdmorRepo;
 
     public List<Lekar> findAll() {
     return lekarRepository.findAll();
@@ -177,26 +179,33 @@ public class LekarService {
     //////////////////////////////// TESLA LEKARI TERMINI METODA ////////////////////////////////////////////
     public HashMap<String,Lekar> getSlobodniLekariTermini(lekariterminiDTO zahtev) throws ParseException {
 
-        DateFormat dateFormat= new SimpleDateFormat("hh:mm");
-
-        //String datum=zahtev.getDatum().replace('/','.');
-        //System.out.println(datum);
+        DateFormat dateFormat= new SimpleDateFormat("d.M.yyyy.");
 
         Cenovnik cen = cenovnikRepository.findByNaziv(zahtev.getSpecijalizacija());
         String specijalizacija=cen.getSpecijalizacija();
 
-        //System.out.print(specijalizacija);
-        //System.out.println();
-
         List<Lekar> sviLekari = lekarRepository.findAll();
-        //System.out.print(sviLekari);
-       // System.out.println();
 
         List<Lekar> lekariKlinike=new ArrayList<>();
         for (Lekar lekar: sviLekari){
          //   System.out.println(lekar.getSpecijalizacija());
             if (lekar.getKlinika().getId().equals(zahtev.getIdKlinike()) && lekar.getSpecijalizacija().equals(specijalizacija)){
-                lekariKlinike.add(lekar);
+            	
+            	boolean naOdmoru=false;
+            	List<GodisnjiOdmorLekar> godisnjiOdmor=godOdmorRepo.findByLekarId(lekar.getId());
+            	System.out.println(godisnjiOdmor);
+            	if(!godisnjiOdmor.isEmpty()) {
+	            	for (GodisnjiOdmorLekar g:godisnjiOdmor) {
+	            		System.out.println(java.sql.Date.valueOf(g.getDatumOd()));
+	            		System.out.println(dateFormat.parse(zahtev.getDatum()));
+	            		System.out.println(java.sql.Date.valueOf(g.getDatumOd()).compareTo(dateFormat.parse(zahtev.getDatum())));
+	            		if(java.sql.Date.valueOf(g.getDatumOd()).compareTo(dateFormat.parse(zahtev.getDatum()))<=0 &&  java.sql.Date.valueOf(g.getDatumDo()).compareTo(dateFormat.parse(zahtev.getDatum()))>=0)
+	            			naOdmoru=true;
+	            	}
+            	}
+            	
+            	if(!naOdmoru)
+            		lekariKlinike.add(lekar);
             }
         }
 
@@ -261,7 +270,12 @@ public class LekarService {
     }
 
     ///////////////////////////////// ZAKAZIVANJE LEKARA /////////////////////////////////////////////////////
-    public List<TerminDTO> getSlobodniTerminiLekar(Long idLekara, Long idPacijenta, Integer trajanje){
+    public List<TerminDTO> getSlobodniTerminiLekar(LekarPacijentTrajanjeDTO lekarPacijentTrajanjeDTO){
+
+        Long idLekara = lekarPacijentTrajanjeDTO.getIdLekara();
+        Long idPacijenta = lekarPacijentTrajanjeDTO.getIdPacijenta();
+        int trajanje = lekarPacijentTrajanjeDTO.getTrajanje();
+
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime start = LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 0, 0, 0);
 
@@ -269,11 +283,11 @@ public class LekarService {
 
         LocalDateTime end = start.plusMonths(1);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.YYYY.");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.YYYY.");
 
         List<TerminDTO> listaTermina = new ArrayList<>();
 
-        for (LocalDateTime date = start; date.isBefore(end); date = date.plusMinutes(trajanje)) {
+        for (LocalDateTime date = start; date.isBefore(end); date = date.plusMinutes(15)) {
             String datum = formatter.format(date.toLocalDate());
             String pocetak = date.toLocalTime().toString();
             String kraj = date.plusMinutes(trajanje).toLocalTime().toString();
@@ -358,5 +372,9 @@ public class LekarService {
 
     public Lekar findBySpecijalizacija(String spec) {
         return lekarRepository.findBySpecijalizacija(spec);
+    }
+
+    public List<Cenovnik> findBySpecAndKlinika(Lekar lekar) {
+        return cenovnikRepository.findBySpecAndKlinika(lekar.getKlinika().getId(), lekar.getSpecijalizacija());
     }
 }

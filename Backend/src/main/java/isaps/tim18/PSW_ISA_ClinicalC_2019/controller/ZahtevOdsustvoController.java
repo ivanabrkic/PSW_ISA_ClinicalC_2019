@@ -1,5 +1,6 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
+import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.Message;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.ZahtevOdsustvo;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.service.ZahtevOdsustvoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,43 @@ public class ZahtevOdsustvoController {
         zahtevOdsustvoService.delete(zo);
 
         return new ResponseEntity<>(zo, HttpStatus.OK);
+    }
+
+    ///////////////////////////// ADMIN KLINIKE - ZAHTEVI ZA GODISNJI ODMOR ///////////////////////////////////////////////
+
+    @PostMapping(value = "/checkValidnostZahteva", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> checkValidnostZahteva(@RequestBody ZahtevOdsustvo zahtevOdsustvo) throws Exception {
+
+        Message message = zahtevOdsustvoService.checkIfImaDanaAndOP(zahtevOdsustvo);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+
+    }
+
+    @PostMapping(value = "/prihvatiZahtevZaOdsustvo", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> prihvatiZahtevZaOdsustvo(@RequestBody ZahtevOdsustvo zahtevOdsustvo) throws Exception {
+
+        Message message = zahtevOdsustvoService.prihvatiZahtev(zahtevOdsustvo);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+
+    }
+
+    @PostMapping(value = "/odbijZahtevZaOdsustvo", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Message> odbijZahtevZaOdsustvo(@RequestBody ZahtevOdsustvo zahtevOdsustvo) throws Exception {
+
+        Message message = zahtevOdsustvoService.odbijZahtev(zahtevOdsustvo);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+
+    }
+
+    @PostMapping(value = "/getAllByKlinikaId", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ZahtevOdsustvo>> getAllByKlinikaId(@RequestBody Long klinikaId) throws Exception {
+
+        List<ZahtevOdsustvo> zahtevi = zahtevOdsustvoService.getAllByKlinikaId(klinikaId);
+
+        return new ResponseEntity<>(zahtevi, HttpStatus.OK);
+
     }
 }

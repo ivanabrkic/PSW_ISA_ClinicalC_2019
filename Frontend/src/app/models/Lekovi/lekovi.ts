@@ -3,8 +3,7 @@ export class Lekovi {
   sifra: string;
   naziv: string;
 
-  constructor(id, novaSifra, novNaziv) {
-    this.id = id;
+  constructor(novaSifra, novNaziv) {
     this.sifra = novaSifra;
     this.naziv = novNaziv;
   }

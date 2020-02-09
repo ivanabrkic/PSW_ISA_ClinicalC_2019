@@ -16,7 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+import { MatInputModule, MatTableModule, MatPaginatorModule,
+  MatSortModule, MatSnackBarModule, MatStepperModule, MatButtonModule,
+  MatSelectModule, MatOptionModule, MatFormFieldModule } from '@angular/material';
 
 
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
@@ -57,7 +59,7 @@ import { ZdravstveniKartonService } from './services/zdravstveni-karton-service/
 import { PacijentService } from './services/pacijent-service/pacijent.service';
 import { PoseteService } from './services/posete-service/posete.service';
 import { RadniKalendarSaleModule } from './modules/shared/radni-kalendar-sale/radni-kalendar-sale.module';
-
+import { PromenaSifreComponent} from './modules/shared/promena-sifre/promena-sifre.component';
 import { OveraRecepataComponent } from './modules/objects/medicinskas/overa-recepata/overa-recepata.component';
 import { SessionService } from './services/SessionService/session.service';
 // search module
@@ -86,9 +88,12 @@ import { RadniKalendarLekarComponent } from './modules/objects/lekar/radni-kalen
 import {ScheduleModule} from '@syncfusion/ej2-angular-schedule';
 import { OdsustvoDijalogComponent } from './modules/shared/dijalog-odsustvo/odsustvo-dijalog.component';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
+import { ZakaziLekarComponent } from './modules/objects/lekar/zakazi-lekar/zakazi-lekar.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import {MatIconModule} from '@angular/material/icon';
 import { RadniKalendarSestraComponent } from './modules/objects/medicinskas/radni-kalendar-sestra/radni-kalendar-sestra.component';
-
+import { PregledSalaComponent } from './modules/objects/admin-klinike/pregled-sala/pregled-sala.component';
+import { ListaSalaComponent } from './modules/shared/lista-sala/lista-salaComponent';
 
 
 @NgModule({
@@ -120,6 +125,7 @@ import { RadniKalendarSestraComponent } from './modules/objects/medicinskas/radn
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     PoseteComponent,
+    PromenaSifreComponent,
     ZdravstveniKartonComponent,
     KreiranjeDijagnozaComponent,
     DijalogOdbijanjeZahtevaComponent,
@@ -140,6 +146,8 @@ import { RadniKalendarSestraComponent } from './modules/objects/medicinskas/radn
     PregledLekovaComponent,
     IzmenaIzvestajaComponent,
     PredefinisaniTerminiComponent,
+    ListaSalaComponent,
+    ZakaziLekarComponent,
     RadniKalendarLekarComponent,
     OdsustvoDijalogComponent,
     RadniKalendarSestraComponent
@@ -166,8 +174,36 @@ import { RadniKalendarSestraComponent } from './modules/objects/medicinskas/radn
     MatNativeDateModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    TextFieldModule,
     MatIconModule,
     RouterModule.forRoot([
+      {path: 'administratorKc', component: AdminkcComponent},
+      {path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
+      {path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent},
+      {path: 'formaIzvestaj', component: FormaIzvestajComponent},
+      {path: 'adminkcIzmena', component: AdminkcIzmenaComponent},
+      {path: 'promenaLozinke', component: PromenaSifreComponent},
+      {path: 'registracijaKlinike', component: RegistracijaKlinikeComponent},
+      {path: 'registracijaAdminKlinike', component: RegistracijaAdministratoraKlinikeComponent},
+      {path: 'medicinskaSestra', component: ProfilMedSestraComponent},
+      {path: 'medicinskaSestraIzmena', component: MedSestraIzmenaComponent},
+      {path: 'prikazPacijenata', component: PrikazPacijenataTabelaComponent},
+      {path: 'lekar', component: LekarComponent},
+      {path: 'odbijanjeObrazlozenje', component: DijalogOdbijanjeZahtevaComponent},
+      {path: 'zahteviRegistracija', component: ZahteviRegistracijaComponent},
+      {path: 'odmor', component: OdmorComponent},
+      {path: 'overaRecepta', component: OveraRecepataComponent},
+      {path: 'izmenaIzvestaja', component: IzmenaIzvestajaComponent},
+      {path: 'odsustvo', component: OdsustvoComponent},
+      {path: 'sidebarMedSestra', component: SidebarMedSestraComponent},
+      {path: 'lekarPregled', component: LekarPregledComponent},
       {path: 'administratorKc', component: AdminkcComponent},
       {path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent},
       {path: 'dijalogDijagnoze', component: DijalogUnosDijagnozaComponent},
@@ -207,9 +243,11 @@ import { RadniKalendarSestraComponent } from './modules/objects/medicinskas/radn
       {path: 'listaLekara', component: ListaLekaraComponent},
       {path: 'profilKlinike', component: ProfilKlinikeComponent},
       {path: 'listaPredefinisanih', component: PredefinisaniTerminiComponent},
+      {path: 'listaSala', component: ListaSalaComponent},
       {path: '**', component: NotFoundComponent},
     ]),
     ScheduleModule
+
   ],
   providers: [
     DatePipe,

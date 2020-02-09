@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Klinika } from 'src/app/models/klinika/klinika';
-import { KlinikaService } from 'src/app/services/klinika-service/klinika.service';
+import { KlinikaService} from '../../../services/klinika-service/klinika.service';
 import { Sala } from 'src/app/models/sala/sala';
 import { Router } from '@angular/router';
 
@@ -27,7 +27,9 @@ export class ProfilKlinikeComponent implements OnInit {
   }
   predefinisaniNavigate(event){
   this.router.navigate(['/listaPredefinisanih'],{state:{klinika:this.klinika.id}});
-
 }
+ listaSalaNavigate(event){
+  this.router.navigate(['/listaSala'],{state:{klinika:this.klinika}});
+ }
 
 }

@@ -39,15 +39,18 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           if (data.aktivnostNaloga === false) {
-            alert('Nalog jos nije aktiviran!');
-            return;
+            this._snackBar.open('Nalog još nije aktiviran!', "",  {
+              duration: 3000,
+              verticalPosition: 'bottom'
+            });
           }
-
-          console.log(data);
-          this._snackBar.open("Uspešno ste se ulogovali!", "",  {
+          this._snackBar.open('Uspešno ste se ulogovali!', "",  {
             duration: 3000,
             verticalPosition: 'bottom'
           });
+          if (data.prvoLogovanje === true && data.tipKorisnika !== 'Pacijent') {
+            this.router.navigate(['/promenaLozinke']);
+          } else
           this.sessionService.ulogovanKorinik = data;
           if (data.tipKorisnika === 'Pacijent') {
             this.router.navigate(['/pacijentPregled']);

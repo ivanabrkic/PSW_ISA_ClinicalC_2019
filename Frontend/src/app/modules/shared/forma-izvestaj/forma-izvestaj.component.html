@@ -1,10 +1,30 @@
-<p *ngIf="this.lekarJe == true"><app-sidebarlekar></app-sidebarlekar></p>
-<p *ngIf="this.sestraJe == true"><app-sidebar-med-sestra></app-sidebar-med-sestra></p>
-<div class="content-container" >
-  <div class="container-fluid" style = "width: 100%;">
-    <div class="main-content" style  = "width: 100%;">
-      <div class="container-fluid" >
-        <div class="row" >
+<app-sidebarlekar></app-sidebarlekar>
+<div class="content-container">
+  <div class="container-fluid" style="width: 100%;">
+    <div class="main-content" style="width: 100%;">
+      <div class="container-fluid">
+        <div *ngIf="this.pacijentZaPregled && (this.zakaziSledeci == true) ? true : false" class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-danger">
+                <h4 class="card-title">Zakazivanje pregleda/operacije za pacijenta {{this.pacijentZaPregled.ime}} {{this.pacijentZaPregled.prezime}}</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <app-zakazi-lekar [prosledjenPacijent] = "this.pacijentZaPregled"></app-zakazi-lekar>
+                  </div>
+                </div>
+                <div class= "row">
+                  <div style="display : flex; align-items: center; justify-content: center;" class="col-md-12">
+                    <button mat-raised-button color="accent" (click)="nazad()">Nazad na izveštaj</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="this.pacijentZaPregled && (this.zakaziSledeci == false) ? true : false" class="row">
           <div class="col-md-8">
             <form (ngSubmit)="onSubmit()" [formGroup]="izvestajForm">
               <div class="card">
@@ -16,7 +36,7 @@
                   <div class="row">
                     <div class="col-md-4">
                       <mat-form-field class="example-full-width">
-                        <input [(ngModel)]="opstiIzvestaj.dioptrija" placeholder="Dioptrija"  #dioptrija matInput
+                        <input [(ngModel)]="opstiIzvestaj.dioptrija" placeholder="Dioptrija" #dioptrija matInput
                                [ngClass]="{ 'is-invalid': submitted && f.dioptrija.errors }" formControlName="dioptrija"
                                class="mat-form-control">
                         <mat-error *ngIf="submitted && f.dioptrija.errors">
@@ -26,7 +46,7 @@
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="example-full-width">
-                        <input [(ngModel)]="opstiIzvestaj.visina" placeholder = "Visina"  #visina matInput
+                        <input [(ngModel)]="opstiIzvestaj.visina" placeholder="Visina" #visina matInput
                                [ngClass]="{ 'is-invalid': submitted && f.visina.errors }" formControlName="visina"
                                class="mat-form-control">
                         <mat-error *ngIf="submitted && f.visina.errors">
@@ -48,7 +68,7 @@
                   <div class="row">
                     <div class="col-md-4">
                       <mat-form-field class="example-full-width">
-                        <input [(ngModel)]="opstiIzvestaj.krvnaGrupa" placeholder="Krvna grupa"  #krvnaGrupa matInput
+                        <input [(ngModel)]="opstiIzvestaj.krvnaGrupa" placeholder="Krvna grupa" #krvnaGrupa matInput
                                [ngClass]="{ 'is-invalid': submitted && f.krvnaGrupa.errors }" formControlName="krvnaGrupa"
                                class="mat-form-control">
                         <mat-error *ngIf="submitted && f.krvnaGrupa.errors">
@@ -58,9 +78,9 @@
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="example-full-width">
-                        <input [(ngModel)]="opstiIzvestaj.alergijeNaLek" placeholder = "Alergije na lekove"  #alergijeNaLek matInput
-                               [ngClass]="{ 'is-invalid': submitted && f.alergijeNaLek.errors }" formControlName="alergijeNaLek"
-                               class="mat-form-control">
+                        <input [(ngModel)]="opstiIzvestaj.alergijeNaLek" placeholder="Alergije na lekove" #alergijeNaLek
+                               matInput [ngClass]="{ 'is-invalid': submitted && f.alergijeNaLek.errors }"
+                               formControlName="alergijeNaLek" class="mat-form-control">
                       </mat-form-field>
                     </div>
                   </div>
@@ -69,32 +89,35 @@
                   <h5 class="card-title">Izveštaj pregleda</h5>
                 </div>
                 <div class="card-body">
-                  <div class = "row">
-                    <div class = "col-md-7">
-                      <textarea style = "height: 350px;width: 450px; outline: none" placeholder="Unesite informacije o pregledu"
-                        [(ngModel)] = "noviIzvestaj.izvestaj" #izvestaj [ngClass]="{ 'is-invalid': submitted && f.izvestaj.errors }" formControlName="izvestaj"
+                  <div class="row">
+                    <div class="col-md-7">
+                      <textarea style="height: 350px;width: 450px; outline: none"
+                                placeholder="Unesite informacije o pregledu" [(ngModel)]="noviIzvestaj.izvestaj" #izvestaj
+                                [ngClass]="{ 'is-invalid': submitted && f.izvestaj.errors }" formControlName="izvestaj"
                                 class="mat-form-control">
-                        <mat-error *ngIf="submitted && f.izvestaj.errors">
-                          <div *ngIf="f.izvestaj.errors.required">Unos izvestaja je obavezan</div>
-                        </mat-error>
-                      ></textarea>
+                      </textarea>
+                      <mat-error *ngIf="submitted && f.izvestaj.errors">
+                        <div *ngIf="f.izvestaj.errors.required">Unos izvestaja je obavezan</div>
+                      </mat-error>
                     </div>
-                    <div class = "col-md-3">
-                      <div style = "width: 350px;">
-                        <button type = "button" style = "height: 35px; margin-left: 3px" class = "btn btn-info"
+                    <div class="col-md-3">
+                      <div style="width: 350px;">
+                        <button type="button" style="height: 35px; margin-left: 60px" class="btn btn-info"
                                 (click)="unesiDijagnoze()">Evidentiraj dijagnoze</button>
-                        <label *ngIf="uneteDijagnoze === true" style = "color: red">*Dijagnoze unete!</label>
+                        <label *ngIf="uneteDijagnoze === true" style="color: red">*Dijagnoze unete!</label>
                       </div>
-                      <div style = "width: 350px">
-                        <button type = "button" style = "height: 35px;margin-left: 3px; margin-top: 5px" class = "btn btn-info"
-                                (click)="kreirajRecept()">Kreiraj recept</button>
-                        <label *ngIf="kreiranRecept === true" style = "color: red">*Recept kreiran!</label>
+                      <div style="width: 350px">
+                        <button type="button" style="height: 35px;margin-left: 60px; margin-top: 5px"
+                                class="btn btn-info" (click)="kreirajRecept()">Kreiraj recept</button>
+                        <label *ngIf="kreiranRecept === true" style="color: red">*Recept kreiran!</label>
                       </div>
                     </div>
                   </div>
-                  <div class="row" style = "float:right; margin-top: 10px">
-                    <button type = "button" mat-raised-button class = "btn btn-warning">Nov pregled/operacija</button>
-                    <button type = "submit" mat-raised-button style = "margin-left: 5px" class = "btn btn-success">Zavrsi pregled</button>
+                  <div class="row" style="float:right; margin-top: 10px">
+                    <button (click)=sledeciPregledOperacija() type="button" mat-raised-button
+                            class="btn btn-warning">Zakazi sledeci pregled/operaciju</button>
+                    <button type="submit" mat-raised-button style="margin-left: 5px" class="btn btn-success">Zavrsi
+                      pregled</button>
                   </div>
                 </div>
               </div>

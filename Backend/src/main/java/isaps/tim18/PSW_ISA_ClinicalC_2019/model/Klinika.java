@@ -37,18 +37,37 @@ public class Klinika implements Serializable {
 
     @Column(name="ocena",unique=false)
     private float ocena;
-
     
-    @JsonIgnore
+    @Column(name="opis",unique=false)
+    private String opis;
+
+	@JsonIgnore
     @OneToMany(mappedBy = "klinika")
     Set<oceneKlinike> ocene;
+    
+    public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
+	public Set<oceneKlinike> getOcene() {
+		return ocene;
+	}
+
+	public void setOcene(Set<oceneKlinike> ocene) {
+		this.ocene = ocene;
+	}
+
 
 
     public Klinika(){
 
     }
 
-    public Klinika(String naziv, String adresa, String grad, String drzava, String email, String kontaktTelefon, float ocena) {
+    public Klinika(String naziv, String adresa, String grad, String drzava, String email, String kontaktTelefon, float ocena, String opis) {
         this.naziv = naziv;
         this.adresa = adresa;
         this.grad = grad;
@@ -56,6 +75,7 @@ public class Klinika implements Serializable {
         this.email = email;
         this.kontaktTelefon = kontaktTelefon;
         this.ocena = ocena;
+        this.opis=opis;
     }
 
     public Long getId() {

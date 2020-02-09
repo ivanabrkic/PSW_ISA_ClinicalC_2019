@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule, MatTabsModule, MatStepperModule, MatSnackBarModule, MatButtonModule } from '@angular/material';
+import { MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatCardModule, MatTabsModule, MatStepperModule, MatSnackBarModule, MatButtonModule, MatOptionModule } from '@angular/material';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SidebarAdminKlinikeComponent } from './sidebar-admin-klinike/sidebar-admin-klinike.component';
 import { AdminKlinikeIzmenaComponent } from './admin-klinike-izmena/admin-klinike-izmena.component';
@@ -28,6 +28,7 @@ import { TipoviPregledaComponent } from './tipovi-pregleda/tipovi-pregleda.compo
 import { RegistracijaTipovaComponent } from './registracija-tipova/registracija-tipova.component';
 import { PredefinisaniTerminiComponent } from './predefinisani-termini/predefinisani-termini.component';
 import { PredefTerminiServiceService } from 'src/app/services/predefTermini-service/predef-termini-service.service';
+import { ZahteviGodisnjiOdsustvoComponent } from './zahtevi-godisnji-odsustvo/zahtevi-godisnji-odsustvo.component';
 
 @NgModule({
   declarations: [SidebarAdminKlinikeComponent,
@@ -45,7 +46,8 @@ import { PredefTerminiServiceService } from 'src/app/services/predefTermini-serv
     MapaComponent,
     TipoviPregledaComponent,
     RegistracijaTipovaComponent,
-    PredefinisaniTerminiComponent
+    PredefinisaniTerminiComponent,
+    ZahteviGodisnjiOdsustvoComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +73,7 @@ import { PredefTerminiServiceService } from 'src/app/services/predefTermini-serv
     MatCardModule,
     MatTabsModule,
     MatStepperModule,
+    MatOptionModule,
     MatSnackBarModule,
     MatButtonModule,
     MatPaginatorModule,
@@ -81,7 +84,8 @@ import { PredefTerminiServiceService } from 'src/app/services/predefTermini-serv
       { path: 'sale', component: PregledSalaComponent},
       {path: 'zahtevi', component: ZahteviOperacijePreglediComponent},
       {path: 'tipovi', component:TipoviPregledaComponent},
-      {path: 'predefinisani', component:PredefinisaniTerminiComponent}
+      {path: 'predefinisani', component:PredefinisaniTerminiComponent},
+      {path: 'zahteviOdsustvoGodisnji', component:ZahteviGodisnjiOdsustvoComponent}
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBcBUQxfS6JldNG0Ltoju5YxE_0-CKJsu4',
