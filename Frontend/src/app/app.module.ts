@@ -157,10 +157,9 @@ import { AgmCoreModule } from '@agm/core';
     ZakaziLekarComponent,
     RadniKalendarLekarComponent,
     OdsustvoDijalogComponent,
-    RadniKalendarSestraComponent
+    RadniKalendarSestraComponent,
     CenovnikProfilComponent,
     MapaProfilComponent
-
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -193,6 +192,7 @@ import { AgmCoreModule } from '@agm/core';
     MatFormFieldModule,
     TextFieldModule,
     MatIconModule,
+    ScheduleModule,
     RouterModule.forRoot([
       { path: 'administratorKc', component: AdminkcComponent },
       { path: 'dijalogRecepti', component: DijalogKreiranjeReceptaComponent },

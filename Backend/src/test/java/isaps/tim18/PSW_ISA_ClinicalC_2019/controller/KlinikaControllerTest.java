@@ -1,28 +1,22 @@
-package Controller;
+package isaps.tim18.PSW_ISA_ClinicalC_2019.controller;
 
-import com.jayway.jsonpath.ReadContext;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.PswIsaClinicalC2019Application;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.TestUtils;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.TestUtil;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.OperacijaDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.PregledDTO;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
+import isaps.tim18.PSW_ISA_ClinicalC_2019.service.KlinikaService;
 import org.junit.Before;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import org.junit.Test;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.service.*;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -32,6 +26,9 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT, classes = PswIsaClinicalC2019Application.class)
@@ -172,7 +169,7 @@ public class KlinikaControllerTest {
         Mockito.when(this.lekarRepository.findByJbo("1234567890765")).thenReturn(l1);
         Mockito.when(this.salaRepository.findById((long) 1)).thenReturn(s11);
 
-        String json = TestUtils.json(pregledDTO);
+        String json = TestUtil.json(pregledDTO);
 
         mockMvc.perform(post("/klinika/zakaziPregled").contentType(contentType).content(json)).andExpect(status().isOk());
     }
@@ -191,7 +188,7 @@ public class KlinikaControllerTest {
         Mockito.when(this.lekarRepository.findByJbo("1268775378375")).thenReturn(lekarOperacija);
         Mockito.when(this.salaRepository.findById((long) 1)).thenReturn(s11);
 
-        String json = TestUtils.json(operacijaDto);
+        String json = TestUtil.json(operacijaDto);
 //String jboPacijenta, String datum, String pocetak, String kraj, List<String> jboLekara, String tipPregleda, Long tipId, Long salaId
         mockMvc.perform(post("/klinika/zakaziOperaciju").contentType(contentType).content(json)).andExpect(status().isOk());
     }
@@ -210,7 +207,7 @@ public class KlinikaControllerTest {
         Mockito.when(this.lekarRepository.imaOperacije((long) 3, "9.2.2020", "14:30", "15:00")).thenReturn(prazniLekari);
         Mockito.when(this.lekarRepository.imaPreglede((long) 3, "9.2.2020", "14:30", "15:00" )).thenReturn(prazniLekari);
 
-        String json = TestUtils.json(zahtev1);
+        String json = TestUtil.json(zahtev1);
 
         mockMvc.perform(post("/klinika/getSlobodniLekari").contentType(contentType).content(json)).andExpect(status().isOk());
     }

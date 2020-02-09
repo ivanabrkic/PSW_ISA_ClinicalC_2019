@@ -1,4 +1,4 @@
-package isaps.tim18.PSW_ISA_ClinicalC_2019.Integration;
+package isaps.tim18.PSW_ISA_ClinicalC_2019.integration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 

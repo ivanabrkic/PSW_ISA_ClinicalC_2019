@@ -22,7 +22,7 @@ import { PredefTerminiServiceService } from 'src/app/services/predefTermini-serv
 export class PredefinisaniTerminiComponent implements OnInit {
 
   displayedColumns: string[] = ['datum', 'pocetak', 'izaberiSalu'];
-  displayedColumns2: string[] = ['datum', 'pocetak', 'nazivSale', 'lekarIme', 'tipPregleda', 'cena', 'popust'];
+  displayedColumns2: string[] = ['datum', 'pocetak', 'cena', 'popust'];
 
   dataSource: any
   dataSource2: any
