@@ -85,7 +85,12 @@ public class Korisnik implements Serializable {
         this.prvoLogovanje = korisnik.prvoLogovanje;
     }
 
-    public String getTipKorisnika() {
+    public Korisnik(String string, String string2) {
+		this.setEmail(string);
+		this.setLozinka(string2);
+	}
+
+	public String getTipKorisnika() {
         return tipKorisnika;
     }
 
