@@ -1,4 +1,4 @@
-# PSW_ISA_ClinicalC_2019
+# PSW_ISA_ClinicalC_2019 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4d41894bcf1740a29bcb2e837c49889c)](https://www.codacy.com/manual/ivanabrkic/PSW_ISA_ClinicalC_2019?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ivanabrkic/PSW_ISA_ClinicalC_2019&amp;utm_campaign=Badge_Grade)
 
 ### Klinički Centar Web Aplikacija implementirana korišćenjem Spring Boot, Angular, REST, Maven i Postgre
 
