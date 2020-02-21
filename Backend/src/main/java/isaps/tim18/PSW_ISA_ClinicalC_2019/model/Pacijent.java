@@ -21,8 +21,6 @@ public class Pacijent extends Korisnik{
     @OneToMany(mappedBy = "pacijent")
     private List<PacijentiKlinike> pacijentiKlinike = new ArrayList<>();
 
-
-
     @JsonIgnore
     @OneToMany(mappedBy = "pacijent")
     private Set<oceneLekari> ocenelekara;
