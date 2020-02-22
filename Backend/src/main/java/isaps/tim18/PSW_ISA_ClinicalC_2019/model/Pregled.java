@@ -44,6 +44,10 @@ public class Pregled {
     @Column
     private String status;
 
+    @Version
+    @Column(nullable = false)
+    private long version;
+
     public Pregled(Long id, Pacijent pacijent, Lekar lekar, Sala sala, String datum, String pocetak, String kraj, Cenovnik cenovnik, Integer popust, String status) {
         this.id = id;
         this.pacijent = pacijent;
@@ -55,6 +59,7 @@ public class Pregled {
         this.cenovnik = cenovnik;
         this.popust = popust;
         this.status = status;
+        this.version = 0;
     }
 
     public Pregled(Pacijent pacijent, Lekar lekar, Sala sala, String datum, String pocetak, String kraj, Cenovnik cenovnik, Integer popust, String status) {
@@ -67,6 +72,7 @@ public class Pregled {
         this.cenovnik = cenovnik;
         this.popust = popust;
         this.status = status;
+        this.version = 0;
     }
 
     public Pregled() {
@@ -151,6 +157,15 @@ public class Pregled {
     public void setSala(Sala sala) {
         this.sala = sala;
     }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
 
     @Override
     public String toString() {

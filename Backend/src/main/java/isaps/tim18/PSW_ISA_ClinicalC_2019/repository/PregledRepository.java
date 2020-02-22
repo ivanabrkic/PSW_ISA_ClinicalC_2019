@@ -104,6 +104,8 @@ public interface PregledRepository  extends JpaRepository<Pregled, Long> {
     @Query("SELECT p FROM Pregled p WHERE p.datum = ?1 AND p.status = ?2 AND p.sala.klinika.id = ?3")
     List<Pregled> findByDatumAndStatusAndKlinikaId(String datum, String status, Long klinikaId);
 
+    List<Pregled> findByDatum(String datum);
+
 //    //Vraca samo prosle preglede
 //    @Query("Select p from Pregled as p where pacijent.id=?1 and CURRENT_DATE > date(to_date(p.datum,'d.M.yyyy.'))")
 //	List<Pregled> findHistoryByPacijentId(Long id);

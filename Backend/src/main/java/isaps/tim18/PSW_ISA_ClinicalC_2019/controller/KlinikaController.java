@@ -267,7 +267,7 @@ public class KlinikaController {
     }
 
     @PostMapping(value = "/zakaziTermin", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public  ResponseEntity<Zahtev> zakaziTermin(@RequestBody Zahtev zahtev){
+    public  ResponseEntity<Zahtev> zakaziTermin(@RequestBody Zahtev zahtev) throws ParseException {
     	
     	System.out.print("Zahtev primljen");
        

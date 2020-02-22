@@ -13,6 +13,10 @@ import java.util.Set;
 @Table(name="klinika")
 public class Klinika implements Serializable {
 
+    @Version
+    @Column(nullable = false)
+    private long version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -140,6 +144,14 @@ public class Klinika implements Serializable {
 
     public void setOcena(float ocena) {
         this.ocena = ocena;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override

@@ -4,9 +4,13 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
+import javax.validation.ValidationException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -185,7 +189,32 @@ public class KlinikaService {
         return true;
     }
 
-    public String zakaziPregled(PregledDTO pregled) {
+    public static boolean isOverlapping(String pocetak1, String kraj1,String pocetak2, String kraj2) throws ParseException {
+        DateFormat dateFormat= new SimpleDateFormat("d.M.yyyy.");
+        if (dateFormat.parse(pocetak1).compareTo(dateFormat.parse(kraj2))>0 || dateFormat.parse(pocetak2).compareTo(dateFormat.parse(kraj1))<0){
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    public String zakaziPregled(PregledDTO pregled) throws ParseException {
+
+        List<Pregled> pregledi=pregledRepository.findByDatum(pregled.getDatum());
+
+//        for(Pregled p:pregledi){
+//            if(p.getLekar().getJbo().equals(pregled.getJboLekara())){
+//                if(isOverlapping(pregled.getPocetak(),pregled.getKraj(),p.getPocetak(),p.getKraj())){
+//                    throw new ValidationException("Lekar je zauzet u izabranom terminu!");
+//                }
+//            }
+            if(p.getSala().getId().equals(pregled.getSalaId())){
+                if(isOverlapping(pregled.getPocetak(),pregled.getKraj(),p.getPocetak(),p.getKraj())){
+                    throw new ValidationException("Sala je zauzeta u izabranom terminu!");
+                }
+            }
+        }
 
         Pregled p = new Pregled();
 
@@ -204,9 +233,25 @@ public class KlinikaService {
         return "Uspesno zakazan pregled!";
     }
 
-    public String zakaziOperaciju(OperacijaDTO operacija) {
+    @Transactional
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    public String zakaziOperaciju(OperacijaDTO operacija) throws ParseException {
 
         for (String lekarJbo:operacija.getJboLekara()) {
+            List<Operacija> operacije=operacijaRepository.findByDatum(operacija.getDatum());
+
+            for(Operacija p:operacije){
+                if(p.getLekari().equals(operacija.getJboLekara())){
+                    if(isOverlapping(operacija.getPocetak(),operacija.getKraj(),p.getPocetak(),p.getKraj())){
+                        throw new ValidationException("Lekar je zauzet u izabranom terminu!");
+                    }
+                }
+                if(p.getSala().getId().equals(operacija.getSalaId())){
+                    if(isOverlapping(operacija.getPocetak(),operacija.getKraj(),p.getPocetak(),p.getKraj())){
+                        throw new ValidationException("Sala je zauzeta u izabranom terminu!");
+                    }
+                }
+            }
             Operacija o = new Operacija();
             o.setCenovnik(cenovnikRepository.findById(operacija.getTipId()).get());
 

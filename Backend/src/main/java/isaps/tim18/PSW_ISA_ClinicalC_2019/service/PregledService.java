@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.LekarPacijentPregledDTO;
@@ -25,6 +26,8 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pregled;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PregledRepository;
+
+import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 
 @Service
@@ -66,9 +69,8 @@ public class PregledService {
 
 	public List<posetaLekarKlinikaDTO> findInfo(Long id){return pregledRepo.findInfo(id);}
 
+
 	public Pregled update(predefDTO pregled) {
-		
-		System.out.println("Usao si ovde");
 
 		Optional<Pregled> pronadjen=pregledRepo.findById(pregled.getId());
 		if (pronadjen!=null && pronadjen.get().getStatus().equals("Neaktivan")) {

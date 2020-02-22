@@ -43,6 +43,18 @@ public class ZahtevOdsustvo {
     @Column(name = "razlog")
     private String razlog;
 
+    @Version
+    @Column(nullable = false)
+    private long version;
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
     public ZahtevOdsustvo() {
     }
 

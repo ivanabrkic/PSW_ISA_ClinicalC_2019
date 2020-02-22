@@ -50,6 +50,8 @@ public interface OperacijaRepository  extends JpaRepository<Operacija, Long> {
     @Query("SELECT p FROM Operacija p WHERE p.datum = ?1 AND p.status = ?2 AND p.sala.klinika.id = ?3")
     List<Operacija> findByDatumAndStatusAndKlinikaId(String format, String završen, Long idKlinike);
 
+    List<Operacija> findByDatum(String datum);
+
 //  //Vraca samo prosle operacije
 //    @Query("Select p from Operacija as p where pacijent.id=?1 and CURRENT_DATE > to_date(p.datum,'d.m.yyyy.')")
 //	List<Operacija> findHistoryByPacijentId(Long id);

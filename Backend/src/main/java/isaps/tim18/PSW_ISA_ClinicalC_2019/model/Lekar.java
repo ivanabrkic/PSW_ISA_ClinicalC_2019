@@ -12,6 +12,10 @@ import java.util.Set;
 @PrimaryKeyJoinColumn(name = "lekar_id")
 public class Lekar extends Korisnik{
 
+    @Version
+    @Column(nullable = false)
+    private long version;
+
     @Column
     private int brSlobodnihDana;
 
@@ -90,6 +94,14 @@ public class Lekar extends Korisnik{
 
     public void setBrSlobodnihDana(int brSlobodnihDana) {
         this.brSlobodnihDana = brSlobodnihDana;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override
