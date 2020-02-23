@@ -1,16 +1,18 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Izvestaj;
-import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Lekovi;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Pacijent;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Recept;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.IzvestajRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.ReceptRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
+import javax.persistence.LockModeType;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import javax.xml.bind.ValidationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +41,7 @@ public class ReceptService {
 
     @Transactional
     public Recept add(Recept r) {
+        r.setVersion((long) 0);
         return receptRepository.save(r);
     }
 
@@ -91,14 +94,18 @@ public class ReceptService {
         return recept;
     }
 
-    @Transactional
-    public Recept update(Recept recept){
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public Recept update(Recept recept) throws ValidationException {
         Optional<Recept> opt = receptRepository.findById(recept.getId());
 
-        if(opt.isPresent()){
+        if(opt.isPresent()) {
             Recept r = opt.get();
-            r.setOveren(true);
-            return r;
+            if (r.isOveren()) {
+                throw new ValidationException("Recept je vec overen!");
+            } else {
+                r.setOveren(true);
+                return r;
+            }
         }
 
         return null;

@@ -38,6 +38,9 @@ public class Recept {
     @Column(name = "overen", nullable = false)
     private boolean overen;
 
+    @Version
+    private Long version;
+
     public Recept(){
 
     }
@@ -90,11 +93,11 @@ public class Recept {
         this.medicinskaSestra = medicinskaSestra;
     }
 
-//    public Izvestaj getIzvestaj() {
-//        return izvestaj;
-//    }
-//
-//    public void setIzvestaj(Izvestaj izvestaj) {
-//        this.izvestaj = izvestaj;
-//    }
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 }

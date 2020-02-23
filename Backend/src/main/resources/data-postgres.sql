@@ -82,9 +82,9 @@ insert into lekovi(sifra, naziv) values ('r211h', 'gentamicin');
 
 
 
-insert into recept(overen, pacijent_id, med_sestra) values (false, 3, null);
-insert into recept(overen, pacijent_id, med_sestra) values (false, 6, null);
-insert into recept(overen, pacijent_id,med_sestra) values (false, 6, null);
+insert into recept(overen, pacijent_id, med_sestra, version) values (false, 3, null, 0);
+insert into recept(overen, pacijent_id, med_sestra, version) values (false, 6, null, 0);
+insert into recept(overen, pacijent_id,med_sestra, version) values (false, 6, null, 0);
 
 insert into recept_lekovi(recept_id, lek_id) values (1, 1);
 insert into recept_lekovi(recept_id, lek_id) values (1, 2);
