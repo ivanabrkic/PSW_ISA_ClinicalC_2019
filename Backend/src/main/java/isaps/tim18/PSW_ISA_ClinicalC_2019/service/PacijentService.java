@@ -41,7 +41,7 @@ public class PacijentService {
         return pacijentRepository.findByImeAndPrezimeAllIgnoringCase(ime, prezime);
     }
 
-    @Transactional
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public Pacijent update(Pacijent pacijent) {
         Pacijent p = pacijentRepository.findByJbo(pacijent.getJbo());
         if (p == null) {

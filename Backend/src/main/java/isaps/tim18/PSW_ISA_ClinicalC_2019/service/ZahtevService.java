@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import javax.persistence.LockModeType;
 import javax.persistence.LockTimeoutException;
-import javax.transaction.Transactional;
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,8 @@ import org.springframework.stereotype.Service;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Korisnik;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Zahtev;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.ZahtevRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ZahtevService {
@@ -33,8 +34,7 @@ public class ZahtevService {
 		return false;
 	}
 
-	@Transactional
-	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	    public Zahtev add(Zahtev zahtev) throws ParseException {
 
 			try{

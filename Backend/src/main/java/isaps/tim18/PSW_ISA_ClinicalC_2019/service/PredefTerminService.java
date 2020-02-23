@@ -9,6 +9,8 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.model.Sala;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -149,7 +151,7 @@ public class PredefTerminService {
         return lekar.getRadnoVreme().equals(vremeZakazivanja);
     }
 
-
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public Message dodajTermin(Pregled pregled) {
 
         if (salaRepository.findById(pregled.getSala().getId()).isPresent() && lekarRepository.findById(pregled.getLekar().getId()).isPresent() && cenovnikRepository.findById(pregled.getCenovnik().getId()).isPresent()){

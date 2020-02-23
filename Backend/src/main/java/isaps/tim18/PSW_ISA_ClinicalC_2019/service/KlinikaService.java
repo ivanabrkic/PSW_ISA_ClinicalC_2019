@@ -6,6 +6,7 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
@@ -197,11 +198,12 @@ public class KlinikaService {
         return false;
     }
 
-    @Transactional
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @org.springframework.transaction.annotation.Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public String zakaziPregled(PregledDTO pregled) throws ParseException {
 
         List<Pregled> pregledi=pregledRepository.findByDatum(pregled.getDatum());
+        Optional<Sala> sala=salaRepository.findById(pregled.getSalaId());
+        Sala foundSala=sala.get();
 
         for(Pregled p:pregledi) {
 //            if(p.getLekar().getJbo().equals(pregled.getJboLekara())){
@@ -209,7 +211,7 @@ public class KlinikaService {
 //                    throw new ValidationException("Lekar je zauzet u izabranom terminu!");
 //                }
 //            }
-            if (p.getSala().getId().equals(pregled.getSalaId())) {
+            if (p.getSala().getId().equals(foundSala.getId())) {
                 if (isOverlapping(pregled.getPocetak(), pregled.getKraj(), p.getPocetak(), p.getKraj())) {
                     throw new ValidationException("Sala je zauzeta u izabranom terminu!");
                 }
@@ -233,20 +235,25 @@ public class KlinikaService {
         return "Uspesno zakazan pregled!";
     }
 
-    @Transactional
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @org.springframework.transaction.annotation.Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public String zakaziOperaciju(OperacijaDTO operacija) throws ParseException {
 
+        Optional<Sala> sala=salaRepository.findById(operacija.getSalaId());
+        Sala foundSala=sala.get();
+
+
         for (String lekarJbo:operacija.getJboLekara()) {
+
+            Lekar lekar=lekarRepository.findByJbo(lekarJbo);
             List<Operacija> operacije=operacijaRepository.findByDatum(operacija.getDatum());
 
             for(Operacija p:operacije){
-                if(p.getLekari().equals(operacija.getJboLekara())){
+                if(p.getLekari().getJbo().equals(lekar.getJbo())){
                     if(isOverlapping(operacija.getPocetak(),operacija.getKraj(),p.getPocetak(),p.getKraj())){
                         throw new ValidationException("Lekar je zauzet u izabranom terminu!");
                     }
                 }
-                if(p.getSala().getId().equals(operacija.getSalaId())){
+                if(p.getSala().getId().equals(foundSala)){
                     if(isOverlapping(operacija.getPocetak(),operacija.getKraj(),p.getPocetak(),p.getKraj())){
                         throw new ValidationException("Sala je zauzeta u izabranom terminu!");
                     }
