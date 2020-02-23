@@ -54,8 +54,12 @@ public class ReceptController {
 
     @PostMapping(value = "/updateOveren", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Recept> updateAktivnost(@RequestBody Recept recept) throws Exception {
-        receptService.updateOveren(recept);
-
+        try {
+            receptService.updateOveren(recept);
+        }catch(Exception e){
+            recept.setOveren(true);
+            return new ResponseEntity<>(recept, HttpStatus.OK)
+        }
         return new ResponseEntity<>(recept, HttpStatus.OK);
     }
 

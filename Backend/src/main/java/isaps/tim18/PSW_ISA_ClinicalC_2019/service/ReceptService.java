@@ -41,6 +41,7 @@ public class ReceptService {
 
     @Transactional
     public Recept add(Recept r) {
+        r.setVersion((long) 0);
         return receptRepository.save(r);
     }
 
