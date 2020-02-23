@@ -26,8 +26,8 @@ public class ZahtevService {
 	private  ZahtevRepository zahtevRepo;
 
 	public static boolean isOverlapping(String pocetak1, String kraj1,String pocetak2, String kraj2) throws ParseException {
-		DateFormat dateFormat= new SimpleDateFormat("d.M.yyyy.");
-		if (dateFormat.parse(pocetak1).compareTo(dateFormat.parse(kraj2))>0 || dateFormat.parse(pocetak2).compareTo(dateFormat.parse(kraj1))<0){
+		DateFormat dateFormat= new SimpleDateFormat("hh:mm");
+		if (dateFormat.parse(pocetak1).compareTo(dateFormat.parse(kraj2))<0 && dateFormat.parse(pocetak2).compareTo(dateFormat.parse(kraj1))<0){
 			return true;
 		}
 		return false;

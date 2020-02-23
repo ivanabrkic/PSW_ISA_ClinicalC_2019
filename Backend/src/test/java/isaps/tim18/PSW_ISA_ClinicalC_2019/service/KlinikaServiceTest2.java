@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -199,7 +200,7 @@ public class KlinikaServiceTest2 {
     }
 
     @Test
-    public void zakaziOperaciju_Pass(){
+    public void zakaziOperaciju_Pass() throws ParseException {
         Mockito.when(this.cenovnikRepository.findById((long) 1)).thenReturn(c11);
         Mockito.when(this.pacijentRepository.findById((long) 1)).thenReturn(pacijent11);
         Mockito.when(this.pacijentRepository.findByJbo("123531231")).thenReturn(p1);
@@ -212,7 +213,7 @@ public class KlinikaServiceTest2 {
     }
 
     @Test
-    public void zakaziPregled_Pass(){
+    public void zakaziPregled_Pass() throws ParseException {
         Mockito.when(this.cenovnikRepository.findById((long) 1)).thenReturn(c21);
         Mockito.when(this.pacijentRepository.findByJbo("2222222222222")).thenReturn(p2);
         Mockito.when(this.lekarRepository.findByJbo("123532231")).thenReturn(l1);

@@ -13,8 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.LekarPacijentPregledDTO;
@@ -28,7 +30,9 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PregledRepository;
 
 import javax.persistence.LockModeType;
+import javax.persistence.OptimisticLockException;
 import javax.transaction.Transactional;
+import javax.validation.ValidationException;
 
 @Service
 public class PregledService {
@@ -49,7 +53,7 @@ public class PregledService {
 
 	@Transactional
 	public void updateZavrsen(PregledIzvestajDTO p) {
-
+		try{
 		Optional<Pregled> pregled = pregledRepo.findById(p.getId());
 
 		if(pregled.isPresent()){
@@ -58,6 +62,10 @@ public class PregledService {
 			pregledRepo.save(noviPregled);
 
 			return;
+		}
+		}
+		catch (StaleObjectStateException | OptimisticLockException | ObjectOptimisticLockingFailureException e){
+			throw new ValidationException("Osvežite podatke, došlo je do greške");
 		}
 
 		return;

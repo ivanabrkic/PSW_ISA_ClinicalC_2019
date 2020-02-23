@@ -1,18 +1,18 @@
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Backa Palanka', 'Srbija', 'Save Kovacevica 47', 1234567891111, True, 'ivanabrkic@mailsac.com', 'Ivana', '0652754579', '12345678b', 'Brkic', 'Lekar',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Indjija', 'Srbija', 'Glavna 38', 9876543211111, True,'vladimirpopovic@mailsac.com', 'Vladimir', '0652754579', '12345678b', 'Popovic', 'Lekar',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Sabac', 'Srbija', 'Mladena Djuricica 11', 1231231231111, true, 'tamaralazarevic@mailsac.com', 'Tamara', '0652754579', '12345678b', 'Lazarevic', 'Pacijent',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Novi Sad', 'Srbija', 'Mise Dimitrijevica 51', 1233211231111, True, 'anamarija@mailsac.com', 'Ana-Marija', '0652754579', '12345678b', 'Buhmiler', 'Administrator klinike',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Nova Pazova', 'Srbija', 'Vojvode Misica 30', 6541236541111, True,'nikolinMejl@gmail.com', 'Nikola', '0652754579', '12345678b', 'Milosevic', 'Administrator klinike',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Beocin', 'Srbija', 'Zlatiborska 40', 8766566541111, True ,'milanlux@mailsac.com', 'Milan', '0652754579', '12345678b', 'Lukovic', 'Pacijent',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Brazilija', 'Srbija', 'Tarska 40', 3423784911111, FALSE, 'n.milosevic@gmail.com', 'Nikola', '0652754579', '12345678b', 'Milo', 'Pacijent',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Backa Palanka', 'Srbija', 'Save Kovacevica 50', 6452389671111, True, 'ivan@gmail.com', 'Ivan', '0652754579', '12345678b', 'Maksimovic', 'Medicinska sestra',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Indjija', 'Srbija', 'Glavna 38', 6459872341111, True,'vladimirpopovic2306@gmail.com', 'Vladimir', '0652754579', '12345678b', 'Popov', 'Medicinska sestra',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Nova Pazova', 'Srbija', 'Glavna 38', 9879879871111, True,'adminkc@gmail.com', 'Nikola', '0652754579', '12345678b', 'Milosev', 'Administrator klinickog centra',false);
-insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje) values ('Beograd', 'Srbija', 'Masarikova 11', 5476543211111, True,'svetaprotic@mailsac.com', 'Sveta', '0622755579', '12345678b', 'Protic', 'Lekar',false);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Backa Palanka', 'Srbija', 'Save Kovacevica 47', 1234567891111, True, 'ivanabrkic@mailsac.com', 'Ivana', '0652754579', '12345678b', 'Brkic', 'Lekar',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Indjija', 'Srbija', 'Glavna 38', 9876543211111, True,'vladimirpopovic@mailsac.com', 'Vladimir', '0652754579', '12345678b', 'Popovic', 'Lekar',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Sabac', 'Srbija', 'Mladena Djuricica 11', 1231231231111, true, 'tamaralazarevic@mailsac.com', 'Tamara', '0652754579', '12345678b', 'Lazarevic', 'Pacijent',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Novi Sad', 'Srbija', 'Mise Dimitrijevica 51', 1233211231111, True, 'anamarija@mailsac.com', 'Ana-Marija', '0652754579', '12345678b', 'Buhmiler', 'Administrator klinike',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Nova Pazova', 'Srbija', 'Vojvode Misica 30', 6541236541111, True,'nikolinMejl@gmail.com', 'Nikola', '0652754579', '12345678b', 'Milosevic', 'Administrator klinike',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Beocin', 'Srbija', 'Zlatiborska 40', 8766566541111, True ,'milanlux@mailsac.com', 'Milan', '0652754579', '12345678b', 'Lukovic', 'Pacijent',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Brazilija', 'Srbija', 'Tarska 40', 3423784911111, FALSE, 'n.milosevic@gmail.com', 'Nikola', '0652754579', '12345678b', 'Milo', 'Pacijent',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Backa Palanka', 'Srbija', 'Save Kovacevica 50', 6452389671111, True, 'ivan@gmail.com', 'Ivan', '0652754579', '12345678b', 'Maksimovic', 'Medicinska sestra',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Indjija', 'Srbija', 'Glavna 38', 6459872341111, True,'vladimirpopovic2306@gmail.com', 'Vladimir', '0652754579', '12345678b', 'Popov', 'Medicinska sestra',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Nova Pazova', 'Srbija', 'Glavna 38', 9879879871111, True,'adminkc@gmail.com', 'Nikola', '0652754579', '12345678b', 'Milosev', 'Administrator klinickog centra',false,0);
+insert into korisnik (grad, drzava, adresa, jbo, aktivnost_naloga, email, ime, kontakt_telefon, lozinka, prezime, tip_korisnika,prvo_logovanje,version) values ('Beograd', 'Srbija', 'Masarikova 11', 5476543211111, True,'svetaprotic@mailsac.com', 'Sveta', '0622755579', '12345678b', 'Protic', 'Lekar',false,0);
 
-insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena,opis) values (1,'Laza Lazarevic', 'Mise Dimitrijevica 21', 'Novi Sad', 'Srbija', 'laza@gmail.com', '021/456-435', 4.3,'Mnogo dobra klinika');
-insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena,opis) values (2,'Ivo Andric', 'St John 43a', 'London', 'United Kingdom', 'ivoandric@gmail.com', '021/111-435', 3.2,'Jos bolja klinika');
-insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena,opis) values (3,'Pera Peric', 'Sukablablu 76', 'Lenjingrad', 'Rusija', 'perapera@gmail.com', '021/456-999', 2.2,'Najbolja klinika');
+insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena,opis,version) values (1,'Laza Lazarevic', 'Mise Dimitrijevica 21', 'Novi Sad', 'Srbija', 'laza@gmail.com', '021/456-435', 4.3,'Mnogo dobra klinika',0);
+insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena,opis,version) values (2,'Ivo Andric', 'St John 43a', 'London', 'United Kingdom', 'ivoandric@gmail.com', '021/111-435', 3.2,'Jos bolja klinika',0);
+insert into klinika (id, naziv, adresa, grad, drzava, email, kontakt_telefon, ocena,opis,version) values (3,'Pera Peric', 'Sukablablu 76', 'Lenjingrad', 'Rusija', 'perapera@gmail.com', '021/456-999', 2.2,'Najbolja klinika',0);
 
 insert into sala (naziv, broj, klinika_id) values ('Velika sala', '1A', 1);
 insert into sala (naziv, broj, klinika_id) values ('Mala sala', '2A', 1);
@@ -53,19 +53,19 @@ insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('EKG', 5
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Opšti pregled', 1000, 1, 'Opšta praksa');
 insert into cenovnik (naziv, cena, klinika_id, specijalizacija) values ('Ultrazvuk srca', 6000, 1, 'Kardiolog');
 
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '4.1.2020.', 3, 2, 1, 4, 'Završen');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('16:00', '16:30', '29.1.2020.', 7, 2, 2, 4, 'Završen');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '31.1.2020.', 3, 1, 2, 4, 'Završen');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '1.2.2020.', 7, 1, 2, 4, 'Završen');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status,version) values ('14:00', '14:30', '4.1.2020.', 3, 2, 1, 4, 'Završen',0);
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status,version) values ('16:00', '16:30', '29.1.2020.', 7, 2, 2, 4, 'Završen',0);
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status,version) values ('13:00', '13:30', '31.1.2020.', 3, 1, 2, 4, 'Završen',0);
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status,version) values ('13:00', '13:30', '1.2.2020.', 7, 1, 2, 4, 'Završen',0);
 
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('17:30', '23:45', '6.2.2020.', 6, 1, 3, 1, 'Završen');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('02:56', '12:00', '9.2.2020.', 6, 1, 1, 1, 'Završen');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:30', '12.2.2020.', 7, 1, 2, 4, 'Završen');
-insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('14:00', '14:30', '14.2.2020.', 7, 1, 2, 4, 'Završen');
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status,version) values ('17:30', '23:45', '6.2.2020.', 6, 1, 3, 1, 'Završen',0);
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status,version) values ('02:56', '12:00', '9.2.2020.', 6, 1, 1, 1, 'Završen',0);
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status,version) values ('13:00', '13:30', '12.2.2020.', 7, 1, 2, 4, 'Završen',0);
+insert into pregled (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status,version) values ('14:00', '14:30', '14.2.2020.', 7, 1, 2, 4, 'Završen',0);
 
-insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:00', '08:15', '20.3.2020.', 1, 2, 6, 60, 'Neaktivan');
-insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('08:30', '08:45', '20.3.2020.',2, 2, 1, 10, 'Neaktivan');
-insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status) values ('09:00', '09:15', '1.1.2020.',2, 1, 1, 20, 'Neaktivan');
+insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status,version) values ('08:00', '08:15', '20.3.2020.', 1, 2, 6, 60, 'Neaktivan',0);
+insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status,version) values ('08:30', '08:45', '20.3.2020.',2, 2, 1, 10, 'Neaktivan',0);
+insert into pregled (pocetak, kraj, datum, lekar_id, sala_id, id_stavke, popust, status,version) values ('09:00', '09:15', '1.1.2020.',2, 1, 1, 20, 'Neaktivan',0);
 
 insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '27.2.2020.', 3, 1, 2, 2, 'Zakazan');
 insert into operacija (pocetak, kraj, datum, pacijent_id, lekar_id, sala_id, id_stavke, status) values ('13:00', '13:15', '28.2.2020.', 3, 1, 2, 2, 'Zakazan');
@@ -117,8 +117,8 @@ insert into izvestaj(datum_pregleda, izvestaj, lekar_id, zkarton, recept_id) val
 '22.02.2020', 'Pacijentov oporavak je zavrsen', 2, 1, 1
 );
 
-insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '26.2.2020.', '1.3.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 5, false, 1);
-insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '1.3.2020.', '1.5.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 60, false, 1);
+insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id,version) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '26.2.2020.', '1.3.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 5, false, 1,0);
+insert into zahtev_odsustvo(jbo, ime, prezime, uloga, od_datum, do_datum, opis, broj_dana, overen, klinika_id,version) values (1234567891111, 'Ivana', 'Brkic', 'Lekar', '1.3.2020.', '1.5.2020.', 'Dete mi je bolesno. Molim za odsustvo 10 dana.', 60, false, 1,0);
 
 insert into godisnji_odmor_lekar(lekar_id,datum_od,datum_do) values (11,'2020-2-28','2020-3-12');
 

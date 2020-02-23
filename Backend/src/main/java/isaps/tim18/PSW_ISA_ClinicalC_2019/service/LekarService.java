@@ -1,5 +1,4 @@
 package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
-
 import isaps.tim18.PSW_ISA_ClinicalC_2019.dto.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.model.*;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.CenovnikRepository;
@@ -16,10 +15,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class LekarService {
@@ -60,6 +58,14 @@ public class LekarService {
     
     public Lekar findByJbo(String jbo) {
     	return lekarRepository.findByJbo(jbo);
+    }
+
+    public static boolean isOverlapping(String pocetak1, String kraj1,String pocetak2, String kraj2) throws ParseException {
+        DateFormat dateFormat= new SimpleDateFormat("hh:mm");
+        if (dateFormat.parse(pocetak1).compareTo(dateFormat.parse(kraj2))<0 && dateFormat.parse(pocetak2).compareTo(dateFormat.parse(kraj1))<0){
+            return true;
+        }
+        return false;
     }
 
     @Transactional
@@ -240,18 +246,29 @@ public class LekarService {
                         if(j2.length()==1)
                             j2='0'+j2;
 
-                        String termin=i2+":"+j2;
+                        DateFormat dateFormat2= new SimpleDateFormat("hh:mm");
 
+                        String termin=i2+":"+j2;
+                        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+                        Date d = df.parse(termin);
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(d);
+                        cal.add(Calendar.MINUTE, 30);
+                        String terminkraj = df.format(cal.getTime());
 
                         boolean exists=false;
                         for (int m =0;m<zauzetiterminipocetak.size();m++){
-                            if (dateFormat.parse(zauzetiterminipocetak.get(m)).compareTo(dateFormat.parse(termin))>0 || dateFormat.parse(termin).compareTo(dateFormat.parse(zauzetiterminikraj.get(m)))<0){
-                                exists=true;
-                                break;
+                            if(!isOverlapping(zauzetiterminipocetak.get(m),zauzetiterminikraj.get(m),termin,terminkraj)){
+                           // if (dateFormat2.parse(zauzetiterminipocetak.get(m)).compareTo(dateFormat2.parse(termin))>0 || dateFormat2.parse(termin).compareTo(dateFormat2.parse(zauzetiterminikraj.get(m)))<0){
+                                lekartermin.put(termin,l);
+
+                            }
+                            else{System.out.print(dateFormat2.parse(zauzetiterminipocetak.get(m)));
+                                System.out.print(dateFormat2.parse(termin));
+                                System.out.print(dateFormat2.parse(terminkraj));
                             }
                         }
-                        if (!exists)
-                            lekartermin.put(termin,l);
+
                     }
                 }
                 found.clear();

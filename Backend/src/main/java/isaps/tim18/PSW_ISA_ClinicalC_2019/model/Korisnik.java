@@ -11,6 +11,10 @@ public class Korisnik implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Version
+    @Column(nullable = false)
+    private long version;
+
     @Column(name="grad",unique=false)
     private String grad;
 
@@ -66,6 +70,7 @@ public class Korisnik implements Serializable {
         this.grad=grad;
         this.tipKorisnika = tipKorisnika;
         this.prvoLogovanje = true;
+        this.version=0;
     }
 
     public Korisnik(Korisnik korisnik){
@@ -83,6 +88,7 @@ public class Korisnik implements Serializable {
         this.grad=korisnik.grad;
         this.tipKorisnika = korisnik.tipKorisnika;
         this.prvoLogovanje = korisnik.prvoLogovanje;
+        this.version=0;
     }
 
     public Korisnik(String string, String string2) {
@@ -212,7 +218,17 @@ public class Korisnik implements Serializable {
                 '}';
     }
 
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
     public static KorisnikBuilder builder() {
         return new KorisnikBuilder();
     }
+
+
 }

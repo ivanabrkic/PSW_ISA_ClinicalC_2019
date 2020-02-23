@@ -3,7 +3,9 @@ package isaps.tim18.PSW_ISA_ClinicalC_2019.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,9 @@ import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KlinikaRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.KlinikeOceneRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.LekariOceneRepository;
 import isaps.tim18.PSW_ISA_ClinicalC_2019.repository.PacijentRepository;
+
+import javax.persistence.OptimisticLockException;
+import javax.validation.ValidationException;
 
 @Service 
 public class oceneKlinikeService {
@@ -44,53 +49,62 @@ public class oceneKlinikeService {
 	//Metoda za dodavanje nove ocene Lekara
 		@Transactional
 		public void add(oceneKlinike ocenaklinike) {
-			
-			Optional<Pacijent> pacijent = pacijentRepo.findById(ocenaklinike.getPacijent().getId());
-			Optional<Klinika> klinika = klinikaRepo.findById(ocenaklinike.getKlinika().getId());
-			
-			//Unos nove ocene u tabelu ocena klinike
-			if(pacijent.isPresent() && klinika.isPresent()) {
-				oceneKlinikeRepo.save(ocenaklinike);
-			
-			
-			//Nakon unete ocene, osvezi ocenu u tabeli klinika
-			List<oceneKlinike> sveOceneKlinike=oceneKlinikeRepo.findByKlinikaId(ocenaklinike.getKlinika().getId());
-			float sum=0;
-			float count=sveOceneKlinike.size();
-			for (oceneKlinike touple: sveOceneKlinike) {
-				
-				sum+=touple.getOcena();
+			try {
+				Optional<Pacijent> pacijent = pacijentRepo.findById(ocenaklinike.getPacijent().getId());
+				Optional<Klinika> klinika = klinikaRepo.findById(ocenaklinike.getKlinika().getId());
+
+				//Unos nove ocene u tabelu ocena klinike
+				if (pacijent.isPresent() && klinika.isPresent()) {
+					oceneKlinikeRepo.save(ocenaklinike);
+
+
+					//Nakon unete ocene, osvezi ocenu u tabeli klinika
+					List<oceneKlinike> sveOceneKlinike = oceneKlinikeRepo.findByKlinikaId(ocenaklinike.getKlinika().getId());
+					float sum = 0;
+					float count = sveOceneKlinike.size();
+					for (oceneKlinike touple : sveOceneKlinike) {
+
+						sum += touple.getOcena();
+					}
+					float novaOcena = sum / count;
+					klinika.get().setOcena(novaOcena);
+					klinikaRepo.save(klinika.get());
+				}
 			}
-			float novaOcena=sum/count;
-			klinika.get().setOcena(novaOcena);
-			klinikaRepo.save(klinika.get());
+			catch (StaleObjectStateException | OptimisticLockException | ObjectOptimisticLockingFailureException e){
+				throw new ValidationException("Došlo je do greške, osvežite podatke");
 			}
 			
 		}
 		
 		@Transactional
 		public void update(oceneKlinike ocenaKlinike, float ocena) {
-			
+
+		try {
 			//Osvezavanje ocene u tabeli ocena klinika
-			oceneKlinike postojecaOcena=oceneKlinikeRepo.findByPacijentIdAndKlinikaId(ocenaKlinike.getPacijent().getId(), ocenaKlinike.getKlinika().getId());
+			oceneKlinike postojecaOcena = oceneKlinikeRepo.findByPacijentIdAndKlinikaId(ocenaKlinike.getPacijent().getId(), ocenaKlinike.getKlinika().getId());
 			postojecaOcena.setOcena(ocena);
 			oceneKlinikeRepo.save(postojecaOcena);
-			
+
 			//Osvezavanje ocene u tabeli Klinika
-			Optional<Klinika> klinika=klinikaRepo.findById(ocenaKlinike.getKlinika().getId());
-			if(klinika.isPresent()) {
-				
-				List<oceneKlinike> sveOceneKlinike=oceneKlinikeRepo.findByKlinikaId(klinika.get().getId());
-				float sum=0;
-				float count=sveOceneKlinike.size();
-				for (oceneKlinike touple: sveOceneKlinike) {
-					
-					sum+=touple.getOcena();
+			Optional<Klinika> klinika = klinikaRepo.findById(ocenaKlinike.getKlinika().getId());
+			if (klinika.isPresent()) {
+
+				List<oceneKlinike> sveOceneKlinike = oceneKlinikeRepo.findByKlinikaId(klinika.get().getId());
+				float sum = 0;
+				float count = sveOceneKlinike.size();
+				for (oceneKlinike touple : sveOceneKlinike) {
+
+					sum += touple.getOcena();
 				}
-				float novaOcena=sum/count;
+				float novaOcena = sum / count;
 				klinika.get().setOcena(novaOcena);
 				klinikaRepo.save(klinika.get());
 			}
+		}
+		catch (StaleObjectStateException | OptimisticLockException | ObjectOptimisticLockingFailureException e){
+			throw new ValidationException("Došlo je do greške, osvežite podatke");
+		}
 			
 		}
 

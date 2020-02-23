@@ -183,7 +183,7 @@ public class KlinikaController {
     }
 
     @PostMapping(value = "/zakaziOperaciju", produces= MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Message> zakaziOperaciju(@RequestBody OperacijaDTO operacija){
+    public ResponseEntity<Message> zakaziOperaciju(@RequestBody OperacijaDTO operacija) throws ParseException {
 
         String zakazi =  klinikaService.zakaziOperaciju(operacija);
         Message m = new Message(zakazi);

@@ -190,8 +190,8 @@ public class KlinikaService {
     }
 
     public static boolean isOverlapping(String pocetak1, String kraj1,String pocetak2, String kraj2) throws ParseException {
-        DateFormat dateFormat= new SimpleDateFormat("d.M.yyyy.");
-        if (dateFormat.parse(pocetak1).compareTo(dateFormat.parse(kraj2))>0 || dateFormat.parse(pocetak2).compareTo(dateFormat.parse(kraj1))<0){
+        DateFormat dateFormat= new SimpleDateFormat("hh:mm");
+        if (dateFormat.parse(pocetak1).compareTo(dateFormat.parse(kraj2))<0 && dateFormat.parse(pocetak2).compareTo(dateFormat.parse(kraj1))<0){
             return true;
         }
         return false;
@@ -203,19 +203,19 @@ public class KlinikaService {
 
         List<Pregled> pregledi=pregledRepository.findByDatum(pregled.getDatum());
 
-//        for(Pregled p:pregledi){
+        for(Pregled p:pregledi) {
 //            if(p.getLekar().getJbo().equals(pregled.getJboLekara())){
 //                if(isOverlapping(pregled.getPocetak(),pregled.getKraj(),p.getPocetak(),p.getKraj())){
 //                    throw new ValidationException("Lekar je zauzet u izabranom terminu!");
 //                }
 //            }
-            if(p.getSala().getId().equals(pregled.getSalaId())){
-                if(isOverlapping(pregled.getPocetak(),pregled.getKraj(),p.getPocetak(),p.getKraj())){
+            if (p.getSala().getId().equals(pregled.getSalaId())) {
+                if (isOverlapping(pregled.getPocetak(), pregled.getKraj(), p.getPocetak(), p.getKraj())) {
                     throw new ValidationException("Sala je zauzeta u izabranom terminu!");
                 }
             }
-        }
 
+        }
         Pregled p = new Pregled();
 
         p.setCenovnik(cenovnikRepository.findById(pregled.getTipId()).get());
